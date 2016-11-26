@@ -262,93 +262,586 @@
                 <div class="archives">
                     
                     
-                        <article class="archive-article archive-type-post">
-    <div class="archive-article-inner">
-        <div class="archive-article-thumbnail">
-            
-            <a href="https://sigterm.sh/2014/10/26/ssl-configuration" class="thumbnail">
-                <span style="background-image:url(https://media.sigterm.sh/2015/Screen-Shot-2014-10-26-at-5-34-16-AM.png)" alt="SSL Configuration" class="thumbnail-image"></span>
-            </a>
-            
+                        <article class="article article-type-post" itemscope="" itemprop="blogPost">
+    <div class="article-inner">
+        
+        <a href="https://sigterm.sh/2014/10/26/ssl-configuration" itemprop="url">
+            <img src="https://media.sigterm.sh/2015/Screen-Shot-2014-10-26-at-5-34-16-AM.png" class="article-banner">
+        
+        </a>
+
+        <header class="article-header">
+    <a href="https://sigterm.sh/2014/10/26/ssl-configuration">
+    <h1 class="article-title" itemprop="name">
+        SSL Configuration
+    </h1>
+    </a>
+    <div class="article-meta">
+        <div class="article-date">
+            <i class="fa fa-calendar"></i>
+            <time datetime="2014-10-26 05:53:00 -0400 EDT" itemprop="datePublished">Oct 10, 2014</time>
+            &middot;
+            140
+            words
+            &middot;
+            1
+            minute read
         </div>
-        <header class="archive-article-header">
-            <h1 itemprop="name">
-            <a class="archive-article-title" href="https://sigterm.sh/2014/10/26/ssl-configuration">SSL Configuration</a>
-            </h1>
-            <div class="archive-article-date">
-                <i class="fa fa-calendar"></i>
-                <time datetime="2014-10-26 05:53:00 -0400 EDT" itemprop="datePublished">Oct 10, 2014</time>
+
+
+        
+
+        
+            
+            
+            <div class="article-category">
+                <i class="fa fa-tags"></i>
+                
+                
+                <a class="article-category-link" href="/tags/linux">linux</a>
+                &middot;
+                
+                
+                <a class="article-category-link" href="/tags/security">security</a>
+                
+                
             </div>
-        </header>
+            
+        
+    </div>
+</header>
+
+        <div class="article-entry" itemprop="articleBody">
+            <p>
+                As you may have noticed, this site is now served over HTTPS!</p>
+
+<p>IE6 users, you&rsquo;re pretty much SOL since I turned off all your cipher suites. It&rsquo;s 2014 and it&rsquo;s probably a pretty good time to get yourself a slightly newer browser anyway.</p>
+
+<p>
+                <br>
+            </p>
+            <p class="article-more-link">
+                <a href="https://sigterm.sh/2014/10/26/ssl-configuration">
+                    Read more
+                </a>
+            </p>
+        </div>
+        <footer class="article-footer">
+    <a data-url="https://sigterm.sh/2014/10/26/ssl-configuration" data-id="426553c4ffd70cec843bb1a011a36413" class="article-share-link">
+        <i class="fa fa-share"></i>
+        Share
+    </a>
+    
+    <a href="https://sigterm.sh/2014/10/26/ssl-configuration/#disqus_thread" class="article-comment-link">
+        Comments
+    </a>
+    
+
+    <script>
+    (function ($) {
+        
+        if (typeof(__SHARE_BUTTON_BINDED__) === 'undefined' || !__SHARE_BUTTON_BINDED__) {
+            __SHARE_BUTTON_BINDED__ = true;
+        } else {
+            return;
+        }
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="fa fa-twitter article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="fa fa-facebook article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="fa fa-pinterest article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="fa fa-google article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+    </script>
+</footer>
+
     </div>
 </article>
- 
                     
-                        <article class="archive-article archive-type-post">
-    <div class="archive-article-inner">
-        <div class="archive-article-thumbnail">
-            
-            <a href="https://sigterm.sh/2014/02/01/highly-available-nfs-cluster-on-debian-wheezy" class="thumbnail">
-                <span class="thumbnail-image thumbnail-none"></span>
-            </a>
-            
+                        <article class="article article-type-post" itemscope="" itemprop="blogPost">
+    <div class="article-inner">
+        
+        </a>
+
+        <header class="article-header">
+    <a href="https://sigterm.sh/2014/02/01/highly-available-nfs-cluster-on-debian-wheezy">
+    <h1 class="article-title" itemprop="name">
+        Highly Available NFS Cluster on Debian Wheezy
+    </h1>
+    </a>
+    <div class="article-meta">
+        <div class="article-date">
+            <i class="fa fa-calendar"></i>
+            <time datetime="2014-02-01 12:00:00 -0400 -0400" itemprop="datePublished">Feb 02, 2014</time>
+            &middot;
+            998
+            words
+            &middot;
+            5
+            minute read
         </div>
-        <header class="archive-article-header">
-            <h1 itemprop="name">
-            <a class="archive-article-title" href="https://sigterm.sh/2014/02/01/highly-available-nfs-cluster-on-debian-wheezy">Highly Available NFS Cluster on Debian Wheezy</a>
-            </h1>
-            <div class="archive-article-date">
-                <i class="fa fa-calendar"></i>
-                <time datetime="2014-02-01 12:00:00 -0400 -0400" itemprop="datePublished">Feb 02, 2014</time>
+
+
+        
+
+        
+            
+            
+            <div class="article-category">
+                <i class="fa fa-tags"></i>
+                
+                
+                <a class="article-category-link" href="/tags/debian">debian</a>
+                &middot;
+                
+                
+                <a class="article-category-link" href="/tags/linux">linux</a>
+                
+                
             </div>
-        </header>
+            
+        
+    </div>
+</header>
+
+        <div class="article-entry" itemprop="articleBody">
+            <p>
+                <h4 id="overview">Overview</h4>
+
+<p>This guide will help you setup a highly available NFS server on Debian Wheezy. This is a relatively battle-tested configuration, and there is plenty information out there on how it works - I&rsquo;ll include some links at the end of this post.</p>
+
+<p>I was using GlusterFS up until recently, but I&rsquo;m not happy with file corruption issues I&rsquo;m seeing, and the insane load it puts on 2 rather beefy servers trying to resync data after one fails for just a short time.</p>
+
+<p>
+                <br>
+            </p>
+            <p class="article-more-link">
+                <a href="https://sigterm.sh/2014/02/01/highly-available-nfs-cluster-on-debian-wheezy">
+                    Read more
+                </a>
+            </p>
+        </div>
+        <footer class="article-footer">
+    <a data-url="https://sigterm.sh/2014/02/01/highly-available-nfs-cluster-on-debian-wheezy" data-id="cbb792a3f3d1c37c7546393b037b9b48" class="article-share-link">
+        <i class="fa fa-share"></i>
+        Share
+    </a>
+    
+    <a href="https://sigterm.sh/2014/02/01/highly-available-nfs-cluster-on-debian-wheezy/#disqus_thread" class="article-comment-link">
+        Comments
+    </a>
+    
+
+    <script>
+    (function ($) {
+        
+        if (typeof(__SHARE_BUTTON_BINDED__) === 'undefined' || !__SHARE_BUTTON_BINDED__) {
+            __SHARE_BUTTON_BINDED__ = true;
+        } else {
+            return;
+        }
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="fa fa-twitter article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="fa fa-facebook article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="fa fa-pinterest article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="fa fa-google article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+    </script>
+</footer>
+
     </div>
 </article>
- 
                     
-                        <article class="archive-article archive-type-post">
-    <div class="archive-article-inner">
-        <div class="archive-article-thumbnail">
-            
-            <a href="https://sigterm.sh/2012/09/28/blocking-web-traffic-behind-an-elastic-load-balancer-elb" class="thumbnail">
-                <span class="thumbnail-image thumbnail-none"></span>
-            </a>
-            
+                        <article class="article article-type-post" itemscope="" itemprop="blogPost">
+    <div class="article-inner">
+        
+        </a>
+
+        <header class="article-header">
+    <a href="https://sigterm.sh/2012/09/28/blocking-web-traffic-behind-an-elastic-load-balancer-elb">
+    <h1 class="article-title" itemprop="name">
+        Blocking web traffic behind an Elastic Load Balancer (ELB)
+    </h1>
+    </a>
+    <div class="article-meta">
+        <div class="article-date">
+            <i class="fa fa-calendar"></i>
+            <time datetime="2012-09-28 12:00:00 -0400 EDT" itemprop="datePublished">Sep 09, 2012</time>
+            &middot;
+            508
+            words
+            &middot;
+            3
+            minute read
         </div>
-        <header class="archive-article-header">
-            <h1 itemprop="name">
-            <a class="archive-article-title" href="https://sigterm.sh/2012/09/28/blocking-web-traffic-behind-an-elastic-load-balancer-elb">Blocking web traffic behind an Elastic Load Balancer (ELB)</a>
-            </h1>
-            <div class="archive-article-date">
-                <i class="fa fa-calendar"></i>
-                <time datetime="2012-09-28 12:00:00 -0400 EDT" itemprop="datePublished">Sep 09, 2012</time>
+
+
+        
+
+        
+            
+            
+            <div class="article-category">
+                <i class="fa fa-tags"></i>
+                
+                
+                <a class="article-category-link" href="/tags/linux">linux</a>
+                &middot;
+                
+                
+                <a class="article-category-link" href="/tags/amazonaws">amazonaws</a>
+                &middot;
+                
+                
+                <a class="article-category-link" href="/tags/unix">unix</a>
+                &middot;
+                
+                
+                <a class="article-category-link" href="/tags/security">security</a>
+                
+                
             </div>
-        </header>
+            
+        
+    </div>
+</header>
+
+        <div class="article-entry" itemprop="articleBody">
+            <p>
+                Over the past few hours we&rsquo;ve been on the receiving end of a fairly large scale set of web requests (read: attack) to a website we host over on Amazon EC2. Our setup is not really that complicated, however we encountered a problem that wasn&rsquo;t that easy to solve.</p>
+
+<p>
+                <br>
+            </p>
+            <p class="article-more-link">
+                <a href="https://sigterm.sh/2012/09/28/blocking-web-traffic-behind-an-elastic-load-balancer-elb">
+                    Read more
+                </a>
+            </p>
+        </div>
+        <footer class="article-footer">
+    <a data-url="https://sigterm.sh/2012/09/28/blocking-web-traffic-behind-an-elastic-load-balancer-elb" data-id="6f455bc67f7f841bbbee17c1298e2c21" class="article-share-link">
+        <i class="fa fa-share"></i>
+        Share
+    </a>
+    
+    <a href="https://sigterm.sh/2012/09/28/blocking-web-traffic-behind-an-elastic-load-balancer-elb/#disqus_thread" class="article-comment-link">
+        Comments
+    </a>
+    
+
+    <script>
+    (function ($) {
+        
+        if (typeof(__SHARE_BUTTON_BINDED__) === 'undefined' || !__SHARE_BUTTON_BINDED__) {
+            __SHARE_BUTTON_BINDED__ = true;
+        } else {
+            return;
+        }
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="fa fa-twitter article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="fa fa-facebook article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="fa fa-pinterest article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="fa fa-google article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+    </script>
+</footer>
+
     </div>
 </article>
- 
                     
-                        <article class="archive-article archive-type-post">
-    <div class="archive-article-inner">
-        <div class="archive-article-thumbnail">
-            
-            <a href="https://sigterm.sh/2011/01/02/puppet-modules-debsecan" class="thumbnail">
-                <span class="thumbnail-image thumbnail-none"></span>
-            </a>
-            
+                        <article class="article article-type-post" itemscope="" itemprop="blogPost">
+    <div class="article-inner">
+        
+        </a>
+
+        <header class="article-header">
+    <a href="https://sigterm.sh/2011/01/02/puppet-modules-debsecan">
+    <h1 class="article-title" itemprop="name">
+        Puppet Modules - Debsecan
+    </h1>
+    </a>
+    <div class="article-meta">
+        <div class="article-date">
+            <i class="fa fa-calendar"></i>
+            <time datetime="2011-01-02 12:00:00 -0400 -0400" itemprop="datePublished">Jan 01, 2011</time>
+            &middot;
+            339
+            words
+            &middot;
+            2
+            minute read
         </div>
-        <header class="archive-article-header">
-            <h1 itemprop="name">
-            <a class="archive-article-title" href="https://sigterm.sh/2011/01/02/puppet-modules-debsecan">Puppet Modules - Debsecan</a>
-            </h1>
-            <div class="archive-article-date">
-                <i class="fa fa-calendar"></i>
-                <time datetime="2011-01-02 12:00:00 -0400 -0400" itemprop="datePublished">Jan 01, 2011</time>
+
+
+        
+
+        
+            
+            
+            <div class="article-category">
+                <i class="fa fa-tags"></i>
+                
+                
+                <a class="article-category-link" href="/tags/debian">debian</a>
+                &middot;
+                
+                
+                <a class="article-category-link" href="/tags/puppet">puppet</a>
+                &middot;
+                
+                
+                <a class="article-category-link" href="/tags/linux">linux</a>
+                &middot;
+                
+                
+                <a class="article-category-link" href="/tags/security">security</a>
+                
+                
             </div>
-        </header>
+            
+        
+    </div>
+</header>
+
+        <div class="article-entry" itemprop="articleBody">
+            <p>
+                This is the first post of (hopefully) many, detailing some of my <a href="http://www.puppetlabs.com/">Puppet</a> module implementations. Being the first, I thought I would start off with something simple.</p>
+
+<p>
+                <br>
+            </p>
+            <p class="article-more-link">
+                <a href="https://sigterm.sh/2011/01/02/puppet-modules-debsecan">
+                    Read more
+                </a>
+            </p>
+        </div>
+        <footer class="article-footer">
+    <a data-url="https://sigterm.sh/2011/01/02/puppet-modules-debsecan" data-id="5d97b8658bfd06afb117e4c0b277115c" class="article-share-link">
+        <i class="fa fa-share"></i>
+        Share
+    </a>
+    
+    <a href="https://sigterm.sh/2011/01/02/puppet-modules-debsecan/#disqus_thread" class="article-comment-link">
+        Comments
+    </a>
+    
+
+    <script>
+    (function ($) {
+        
+        if (typeof(__SHARE_BUTTON_BINDED__) === 'undefined' || !__SHARE_BUTTON_BINDED__) {
+            __SHARE_BUTTON_BINDED__ = true;
+        } else {
+            return;
+        }
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="fa fa-twitter article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="fa fa-facebook article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="fa fa-pinterest article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="fa fa-google article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+    </script>
+</footer>
+
     </div>
 </article>
- 
                     
                 </div>
             </section>
