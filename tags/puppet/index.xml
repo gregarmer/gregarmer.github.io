@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>./sigterm.sh</title>
-    <link>https://gregarmer.github.io/tags/puppet/index.xml</link>
+    <link>https://sigterm.sh/tags/puppet/index.xml</link>
     <description>Recent content on ./sigterm.sh</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>Gregory Armer. All rights reserved.</copyright>
-    <atom:link href="https://gregarmer.github.io/tags/puppet/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://sigterm.sh/tags/puppet/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Puppet Modules - Debsecan</title>
-      <link>https://gregarmer.github.io/2011/01/02/puppet-modules-debsecan</link>
+      <link>https://sigterm.sh/2011/01/02/puppet-modules-debsecan</link>
       <pubDate>Sun, 02 Jan 2011 12:00:00 -0400</pubDate>
       
-      <guid>https://gregarmer.github.io/2011/01/02/puppet-modules-debsecan</guid>
+      <guid>https://sigterm.sh/2011/01/02/puppet-modules-debsecan</guid>
       <description>&lt;p&gt;This is the first post of (hopefully) many, detailing some of my &lt;a href=&#34;http://www.puppetlabs.com/&#34;&gt;Puppet&lt;/a&gt; module implementations. Being the first, I thought I would start off with something simple.&lt;/p&gt;
 
 &lt;p&gt;&lt;/p&gt;

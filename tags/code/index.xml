@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>./sigterm.sh</title>
-    <link>https://gregarmer.github.io/tags/code/index.xml</link>
+    <link>https://sigterm.sh/tags/code/index.xml</link>
     <description>Recent content on ./sigterm.sh</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>Gregory Armer. All rights reserved.</copyright>
-    <atom:link href="https://gregarmer.github.io/tags/code/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://sigterm.sh/tags/code/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Recording backend processing time in Golang</title>
-      <link>https://gregarmer.github.io/2015/03/08/recording-backend-processing-time-in-go</link>
+      <link>https://sigterm.sh/2015/03/08/recording-backend-processing-time-in-go</link>
       <pubDate>Sun, 08 Mar 2015 18:58:00 -0400</pubDate>
       
-      <guid>https://gregarmer.github.io/2015/03/08/recording-backend-processing-time-in-go</guid>
+      <guid>https://sigterm.sh/2015/03/08/recording-backend-processing-time-in-go</guid>
       <description>&lt;p&gt;I recently wrote a RESTful web service in Golang, and wanted to pull out some stats on how my handlers were doing in terms of performance.&lt;/p&gt;
 
 &lt;p&gt;&lt;/p&gt;
@@ -109,10 +109,10 @@ func main() {
     
     <item>
       <title>Announcing flake8-diff</title>
-      <link>https://gregarmer.github.io/2015/01/06/announcing-flake8-diff</link>
+      <link>https://sigterm.sh/2015/01/06/announcing-flake8-diff</link>
       <pubDate>Tue, 06 Jan 2015 18:50:00 -0400</pubDate>
       
-      <guid>https://gregarmer.github.io/2015/01/06/announcing-flake8-diff</guid>
+      <guid>https://sigterm.sh/2015/01/06/announcing-flake8-diff</guid>
       <description>&lt;h3 id=&#34;purpose&#34;&gt;Purpose&lt;/h3&gt;
 
 &lt;p&gt;This utility allows you to run flake8 over a set of changed files and filter out violations that would be introduced by merging those changes.&lt;/p&gt;
@@ -266,10 +266,10 @@ $ tox
     
     <item>
       <title>nginx, Apache 2 and subversion - 502 Bad Gateway error</title>
-      <link>https://gregarmer.github.io/2012/10/09/nginx-apache-2-and-subversion-502-bad-gateway-error</link>
+      <link>https://sigterm.sh/2012/10/09/nginx-apache-2-and-subversion-502-bad-gateway-error</link>
       <pubDate>Tue, 09 Oct 2012 12:00:00 -0400</pubDate>
       
-      <guid>https://gregarmer.github.io/2012/10/09/nginx-apache-2-and-subversion-502-bad-gateway-error</guid>
+      <guid>https://sigterm.sh/2012/10/09/nginx-apache-2-and-subversion-502-bad-gateway-error</guid>
       <description>&lt;h4 id=&#34;the-problem&#34;&gt;The Problem&lt;/h4&gt;
 
 &lt;p&gt;I recently ran into this problem and couldn&amp;rsquo;t find any useful information on the net around fixing it. All subversion checkouts, commits and other basic operations work just fine, but when attempting to copy, move or tag (copy) I would get the below (502 Bad Gateway) error.&lt;/p&gt;
@@ -390,10 +390,10 @@ server {
     
     <item>
       <title>Replacing Django&#39;s Nasty &#39;runserver&#39;</title>
-      <link>https://gregarmer.github.io/2011/12/06/replacing-djangos-nasty-runserver</link>
+      <link>https://sigterm.sh/2011/12/06/replacing-djangos-nasty-runserver</link>
       <pubDate>Tue, 06 Dec 2011 12:00:00 -0400</pubDate>
       
-      <guid>https://gregarmer.github.io/2011/12/06/replacing-djangos-nasty-runserver</guid>
+      <guid>https://sigterm.sh/2011/12/06/replacing-djangos-nasty-runserver</guid>
       <description>&lt;p&gt;Have you ever tried to have more than one person view a development site using &lt;a title=&#34;Django&#34; href=&#34;http://www.djangoproject.com/&#34; target=&#34;_blank&#34;&gt;Django&amp;rsquo;s&lt;/a&gt; &lt;a title=&#34;Django runserver&#34; href=&#34;https://docs.djangoproject.com/en/1.3/ref/django-admin/#runserver-port-or-address-port&#34; target=&#34;_blank&#34;&gt;built-in development server&lt;/a&gt; ? Yeah, it really sucks. Apparently concurrency wasn&amp;rsquo;t high on the features list and they have stated that it never will be.&lt;/p&gt;
 
 &lt;p&gt;&lt;/p&gt;
@@ -422,10 +422,10 @@ server {
     
     <item>
       <title>Natural order sorting strings with numbers</title>
-      <link>https://gregarmer.github.io/2010/09/23/natural-order-sorting-strings-with-numbers</link>
+      <link>https://sigterm.sh/2010/09/23/natural-order-sorting-strings-with-numbers</link>
       <pubDate>Thu, 23 Sep 2010 12:00:00 -0400</pubDate>
       
-      <guid>https://gregarmer.github.io/2010/09/23/natural-order-sorting-strings-with-numbers</guid>
+      <guid>https://sigterm.sh/2010/09/23/natural-order-sorting-strings-with-numbers</guid>
       <description>&lt;p&gt;The following python code makes natural sorting sequences of lexical and numerical values a little easier. It supports any iterable containing strings which have embedded numbers. In short it would give you this:&lt;/p&gt;
 
 &lt;p&gt;foo1 &amp;lt; foo2 &amp;lt; foo10&lt;/p&gt;
@@ -477,10 +477,10 @@ def natural_sort(seq):
     
     <item>
       <title>Generating a dependency graph for Postgres DB</title>
-      <link>https://gregarmer.github.io/2010/07/09/generating-a-dependency-graph-for-a-postgresql-database</link>
+      <link>https://sigterm.sh/2010/07/09/generating-a-dependency-graph-for-a-postgresql-database</link>
       <pubDate>Fri, 09 Jul 2010 12:00:00 -0400</pubDate>
       
-      <guid>https://gregarmer.github.io/2010/07/09/generating-a-dependency-graph-for-a-postgresql-database</guid>
+      <guid>https://sigterm.sh/2010/07/09/generating-a-dependency-graph-for-a-postgresql-database</guid>
       <description>&lt;p&gt;This post was mostly inspired by &lt;a href=&#34;http://code.activestate.com/recipes/577298-plot-database-table-dependecies-for-a-mysql-databa/&#34;&gt;this one&lt;/a&gt;, which shows how to generate a dependency graph for a MySQL database. Here we do something similar for PostgreSQL.&lt;/p&gt;
 
 &lt;p&gt;This script will generate the required digraph data to pipe into &lt;a href=&#34;http://www.graphviz.org/&#34; target=&#34;_blank&#34;&gt;graphviz dot&lt;/a&gt; which will generate a visual representation of dependencies in a database schema, based on foreign key constraints.&lt;/p&gt;
@@ -580,10 +580,10 @@ if __name__ == &amp;quot;__main__&amp;quot;:
     
     <item>
       <title>Extending Python with modules written in C</title>
-      <link>https://gregarmer.github.io/2009/12/26/extending-python-with-modules-written-in-c</link>
+      <link>https://sigterm.sh/2009/12/26/extending-python-with-modules-written-in-c</link>
       <pubDate>Sat, 26 Dec 2009 12:00:00 -0400</pubDate>
       
-      <guid>https://gregarmer.github.io/2009/12/26/extending-python-with-modules-written-in-c</guid>
+      <guid>https://sigterm.sh/2009/12/26/extending-python-with-modules-written-in-c</guid>
       <description>&lt;p&gt;Using C (or C++) to create Python modules is really quite simple, providing you know a little C of course. I recently had to do some work around getting a bunch of legacy C code talking to a newer system and thought I&amp;rsquo;d post a nice simple example of how the Python extensions work.&lt;/p&gt;
 
 &lt;p&gt;This code gives you a single method &amp;ldquo;do()&amp;rdquo; that will print the output of a command, passed to it as a string, to stdout and return the exit code as a python int.&lt;/p&gt;
@@ -654,10 +654,10 @@ Darwin codemine.codelounge.int 10.2.0 Darwin Kernel Version 10.2.0: Tue Nov  3 1
     
     <item>
       <title>Simple HTTP POST in Java</title>
-      <link>https://gregarmer.github.io/2009/10/07/simple-http-post-in-java</link>
+      <link>https://sigterm.sh/2009/10/07/simple-http-post-in-java</link>
       <pubDate>Wed, 07 Oct 2009 12:00:00 -0400</pubDate>
       
-      <guid>https://gregarmer.github.io/2009/10/07/simple-http-post-in-java</guid>
+      <guid>https://sigterm.sh/2009/10/07/simple-http-post-in-java</guid>
       <description>&lt;p&gt;Today I was helping a friend debug a web service they had implemented. Their side was working correctly but the developer who was trying to interface with it seemed to be running into many problems. Since they were integrating an application written in Java, I whipped up a simple test for them. All we really needed to do was to send a few variables using HTTP POST to this resource and make sure it returned exactly what we were expecting.&lt;/p&gt;
 
 &lt;p&gt;This uses standard libraries only, and doesn&amp;rsquo;t require anything third party. It does nothing fancy at all, just simply posts data to a URL. Hopefully you find this useful at some point.&lt;/p&gt;
@@ -774,10 +774,10 @@ public class Main {
     
     <item>
       <title>Simple OpenVPN Server Statistics</title>
-      <link>https://gregarmer.github.io/2009/07/16/simple-openvpn-server-statistics</link>
+      <link>https://sigterm.sh/2009/07/16/simple-openvpn-server-statistics</link>
       <pubDate>Thu, 16 Jul 2009 12:00:00 -0400</pubDate>
       
-      <guid>https://gregarmer.github.io/2009/07/16/simple-openvpn-server-statistics</guid>
+      <guid>https://sigterm.sh/2009/07/16/simple-openvpn-server-statistics</guid>
       <description>&lt;p&gt;Ever wondered what the status of your OpenVPN server is, or wanted some simple stats ?&lt;/p&gt;
 
 &lt;p&gt;&lt;/p&gt;
@@ -802,10 +802,10 @@ status openvpn.status
     
     <item>
       <title>Run something as another user</title>
-      <link>https://gregarmer.github.io/2009/07/08/run-something-as-another-user</link>
+      <link>https://sigterm.sh/2009/07/08/run-something-as-another-user</link>
       <pubDate>Wed, 08 Jul 2009 13:00:00 -0400</pubDate>
       
-      <guid>https://gregarmer.github.io/2009/07/08/run-something-as-another-user</guid>
+      <guid>https://sigterm.sh/2009/07/08/run-something-as-another-user</guid>
       <description>&lt;p&gt;Here is a simple way to run something on UNIX / Linux as another user, without having to resort to weird sudo incantations. The Makefile is left as an exercise for the reader.&lt;/p&gt;
 
 &lt;p&gt;This has only been tested on FreeBSD, Debian Linux and OpenSolaris so far.&lt;/p&gt;

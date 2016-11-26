@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>./sigterm.sh</title>
-    <link>https://gregarmer.github.io/tags/debian/index.xml</link>
+    <link>https://sigterm.sh/tags/debian/index.xml</link>
     <description>Recent content on ./sigterm.sh</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>Gregory Armer. All rights reserved.</copyright>
-    <atom:link href="https://gregarmer.github.io/tags/debian/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://sigterm.sh/tags/debian/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Highly Available NFS Cluster on Debian Wheezy</title>
-      <link>https://gregarmer.github.io/2014/02/01/highly-available-nfs-cluster-on-debian-wheezy</link>
+      <link>https://sigterm.sh/2014/02/01/highly-available-nfs-cluster-on-debian-wheezy</link>
       <pubDate>Sat, 01 Feb 2014 12:00:00 -0400</pubDate>
       
-      <guid>https://gregarmer.github.io/2014/02/01/highly-available-nfs-cluster-on-debian-wheezy</guid>
+      <guid>https://sigterm.sh/2014/02/01/highly-available-nfs-cluster-on-debian-wheezy</guid>
       <description>&lt;h4 id=&#34;overview&#34;&gt;Overview&lt;/h4&gt;
 
 &lt;p&gt;This guide will help you setup a highly available NFS server on Debian Wheezy. This is a relatively battle-tested configuration, and there is plenty information out there on how it works - I&amp;rsquo;ll include some links at the end of this post.&lt;/p&gt;
@@ -287,10 +287,10 @@ node alice bob
     
     <item>
       <title>Puppet Modules - Debsecan</title>
-      <link>https://gregarmer.github.io/2011/01/02/puppet-modules-debsecan</link>
+      <link>https://sigterm.sh/2011/01/02/puppet-modules-debsecan</link>
       <pubDate>Sun, 02 Jan 2011 12:00:00 -0400</pubDate>
       
-      <guid>https://gregarmer.github.io/2011/01/02/puppet-modules-debsecan</guid>
+      <guid>https://sigterm.sh/2011/01/02/puppet-modules-debsecan</guid>
       <description>&lt;p&gt;This is the first post of (hopefully) many, detailing some of my &lt;a href=&#34;http://www.puppetlabs.com/&#34;&gt;Puppet&lt;/a&gt; module implementations. Being the first, I thought I would start off with something simple.&lt;/p&gt;
 
 &lt;p&gt;&lt;/p&gt;

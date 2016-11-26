@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>./sigterm.sh</title>
-    <link>https://gregarmer.github.io/tags/freebsd/index.xml</link>
+    <link>https://sigterm.sh/tags/freebsd/index.xml</link>
     <description>Recent content on ./sigterm.sh</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>Gregory Armer. All rights reserved.</copyright>
-    <atom:link href="https://gregarmer.github.io/tags/freebsd/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://sigterm.sh/tags/freebsd/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Using an alternative mirror for FreeBSD port retrieval</title>
-      <link>https://gregarmer.github.io/2009/10/12/using-an-alternative-mirror-for-freebsd-port-retrieval</link>
+      <link>https://sigterm.sh/2009/10/12/using-an-alternative-mirror-for-freebsd-port-retrieval</link>
       <pubDate>Mon, 12 Oct 2009 16:00:00 -0400</pubDate>
       
-      <guid>https://gregarmer.github.io/2009/10/12/using-an-alternative-mirror-for-freebsd-port-retrieval</guid>
+      <guid>https://sigterm.sh/2009/10/12/using-an-alternative-mirror-for-freebsd-port-retrieval</guid>
       <description>&lt;p&gt;This is something I always search for which doesn&amp;rsquo;t seem to be very clear from the initial results. The mirrors included below are South Africa specific, so if you are not in South Africa then replace the hostname with something more appropriate for your location.&lt;/p&gt;
 
 &lt;p&gt;&lt;/p&gt;

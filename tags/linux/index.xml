@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>./sigterm.sh</title>
-    <link>https://gregarmer.github.io/tags/linux/index.xml</link>
+    <link>https://sigterm.sh/tags/linux/index.xml</link>
     <description>Recent content on ./sigterm.sh</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>Gregory Armer. All rights reserved.</copyright>
-    <atom:link href="https://gregarmer.github.io/tags/linux/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://sigterm.sh/tags/linux/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>SSL Configuration</title>
-      <link>https://gregarmer.github.io/2014/10/26/ssl-configuration</link>
+      <link>https://sigterm.sh/2014/10/26/ssl-configuration</link>
       <pubDate>Sun, 26 Oct 2014 05:53:00 -0400</pubDate>
       
-      <guid>https://gregarmer.github.io/2014/10/26/ssl-configuration</guid>
+      <guid>https://sigterm.sh/2014/10/26/ssl-configuration</guid>
       <description>&lt;p&gt;As you may have noticed, this site is now served over HTTPS!&lt;/p&gt;
 
 &lt;p&gt;IE6 users, you&amp;rsquo;re pretty much SOL since I turned off all your cipher suites. It&amp;rsquo;s 2014 and it&amp;rsquo;s probably a pretty good time to get yourself a slightly newer browser anyway.&lt;/p&gt;
@@ -60,10 +60,10 @@ server {
     
     <item>
       <title>Highly Available NFS Cluster on Debian Wheezy</title>
-      <link>https://gregarmer.github.io/2014/02/01/highly-available-nfs-cluster-on-debian-wheezy</link>
+      <link>https://sigterm.sh/2014/02/01/highly-available-nfs-cluster-on-debian-wheezy</link>
       <pubDate>Sat, 01 Feb 2014 12:00:00 -0400</pubDate>
       
-      <guid>https://gregarmer.github.io/2014/02/01/highly-available-nfs-cluster-on-debian-wheezy</guid>
+      <guid>https://sigterm.sh/2014/02/01/highly-available-nfs-cluster-on-debian-wheezy</guid>
       <description>&lt;h4 id=&#34;overview&#34;&gt;Overview&lt;/h4&gt;
 
 &lt;p&gt;This guide will help you setup a highly available NFS server on Debian Wheezy. This is a relatively battle-tested configuration, and there is plenty information out there on how it works - I&amp;rsquo;ll include some links at the end of this post.&lt;/p&gt;
@@ -336,10 +336,10 @@ node alice bob
     
     <item>
       <title>Blocking web traffic behind an Elastic Load Balancer (ELB)</title>
-      <link>https://gregarmer.github.io/2012/09/28/blocking-web-traffic-behind-an-elastic-load-balancer-elb</link>
+      <link>https://sigterm.sh/2012/09/28/blocking-web-traffic-behind-an-elastic-load-balancer-elb</link>
       <pubDate>Fri, 28 Sep 2012 12:00:00 -0400</pubDate>
       
-      <guid>https://gregarmer.github.io/2012/09/28/blocking-web-traffic-behind-an-elastic-load-balancer-elb</guid>
+      <guid>https://sigterm.sh/2012/09/28/blocking-web-traffic-behind-an-elastic-load-balancer-elb</guid>
       <description>&lt;p&gt;Over the past few hours we&amp;rsquo;ve been on the receiving end of a fairly large scale set of web requests (read: attack) to a website we host over on Amazon EC2. Our setup is not really that complicated, however we encountered a problem that wasn&amp;rsquo;t that easy to solve.&lt;/p&gt;
 
 &lt;p&gt;&lt;/p&gt;
@@ -394,10 +394,10 @@ deny 208.96.18.11;                    // Have some HTTP 403
     
     <item>
       <title>Puppet Modules - Debsecan</title>
-      <link>https://gregarmer.github.io/2011/01/02/puppet-modules-debsecan</link>
+      <link>https://sigterm.sh/2011/01/02/puppet-modules-debsecan</link>
       <pubDate>Sun, 02 Jan 2011 12:00:00 -0400</pubDate>
       
-      <guid>https://gregarmer.github.io/2011/01/02/puppet-modules-debsecan</guid>
+      <guid>https://sigterm.sh/2011/01/02/puppet-modules-debsecan</guid>
       <description>&lt;p&gt;This is the first post of (hopefully) many, detailing some of my &lt;a href=&#34;http://www.puppetlabs.com/&#34;&gt;Puppet&lt;/a&gt; module implementations. Being the first, I thought I would start off with something simple.&lt;/p&gt;
 
 &lt;p&gt;&lt;/p&gt;

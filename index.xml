@@ -2,20 +2,20 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>./sigterm.sh</title>
-    <link>https://gregarmer.github.io/index.xml</link>
+    <link>https://sigterm.sh/index.xml</link>
     <description>Recent content on ./sigterm.sh</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>Gregory Armer. All rights reserved.</copyright>
     <lastBuildDate>Sat, 05 Nov 2016 14:26:00 -0400</lastBuildDate>
-    <atom:link href="https://gregarmer.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://sigterm.sh/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Passing VLANs over an LACP trunk in OpenBSD</title>
-      <link>https://gregarmer.github.io/2016/11/05/passing-vlans-over-an-lacp-trunk-in-openbsd</link>
+      <link>https://sigterm.sh/2016/11/05/passing-vlans-over-an-lacp-trunk-in-openbsd</link>
       <pubDate>Sat, 05 Nov 2016 14:26:00 -0400</pubDate>
       
-      <guid>https://gregarmer.github.io/2016/11/05/passing-vlans-over-an-lacp-trunk-in-openbsd</guid>
+      <guid>https://sigterm.sh/2016/11/05/passing-vlans-over-an-lacp-trunk-in-openbsd</guid>
       <description>&lt;p&gt;It took me a little while to figure this out, so for anyone stuck on this, here&amp;rsquo;s what I did.&lt;/p&gt;
 
 &lt;p&gt;&lt;/p&gt;
@@ -156,10 +156,10 @@ Group  Port-channel  Protocol    Ports
     
     <item>
       <title>Recording backend processing time in Golang</title>
-      <link>https://gregarmer.github.io/2015/03/08/recording-backend-processing-time-in-go</link>
+      <link>https://sigterm.sh/2015/03/08/recording-backend-processing-time-in-go</link>
       <pubDate>Sun, 08 Mar 2015 18:58:00 -0400</pubDate>
       
-      <guid>https://gregarmer.github.io/2015/03/08/recording-backend-processing-time-in-go</guid>
+      <guid>https://sigterm.sh/2015/03/08/recording-backend-processing-time-in-go</guid>
       <description>&lt;p&gt;I recently wrote a RESTful web service in Golang, and wanted to pull out some stats on how my handlers were doing in terms of performance.&lt;/p&gt;
 
 &lt;p&gt;&lt;/p&gt;
@@ -254,10 +254,10 @@ func main() {
     
     <item>
       <title>Announcing flake8-diff</title>
-      <link>https://gregarmer.github.io/2015/01/06/announcing-flake8-diff</link>
+      <link>https://sigterm.sh/2015/01/06/announcing-flake8-diff</link>
       <pubDate>Tue, 06 Jan 2015 18:50:00 -0400</pubDate>
       
-      <guid>https://gregarmer.github.io/2015/01/06/announcing-flake8-diff</guid>
+      <guid>https://sigterm.sh/2015/01/06/announcing-flake8-diff</guid>
       <description>&lt;h3 id=&#34;purpose&#34;&gt;Purpose&lt;/h3&gt;
 
 &lt;p&gt;This utility allows you to run flake8 over a set of changed files and filter out violations that would be introduced by merging those changes.&lt;/p&gt;
@@ -411,10 +411,10 @@ $ tox
     
     <item>
       <title>SSL Configuration</title>
-      <link>https://gregarmer.github.io/2014/10/26/ssl-configuration</link>
+      <link>https://sigterm.sh/2014/10/26/ssl-configuration</link>
       <pubDate>Sun, 26 Oct 2014 05:53:00 -0400</pubDate>
       
-      <guid>https://gregarmer.github.io/2014/10/26/ssl-configuration</guid>
+      <guid>https://sigterm.sh/2014/10/26/ssl-configuration</guid>
       <description>&lt;p&gt;As you may have noticed, this site is now served over HTTPS!&lt;/p&gt;
 
 &lt;p&gt;IE6 users, you&amp;rsquo;re pretty much SOL since I turned off all your cipher suites. It&amp;rsquo;s 2014 and it&amp;rsquo;s probably a pretty good time to get yourself a slightly newer browser anyway.&lt;/p&gt;
@@ -460,10 +460,10 @@ server {
     
     <item>
       <title>Thoughts on Google Inbox</title>
-      <link>https://gregarmer.github.io/2014/10/26/google-inbox</link>
+      <link>https://sigterm.sh/2014/10/26/google-inbox</link>
       <pubDate>Sun, 26 Oct 2014 04:35:00 -0400</pubDate>
       
-      <guid>https://gregarmer.github.io/2014/10/26/google-inbox</guid>
+      <guid>https://sigterm.sh/2014/10/26/google-inbox</guid>
       <description>&lt;p&gt;This is an insanely awesome way to work with your e-mail!  Google have essentially turned your e-mail inbox into a massive todo list, which as it turns out, is actually a nice way to treat it.&lt;/p&gt;
 
 &lt;p&gt;&lt;/p&gt;
@@ -477,10 +477,10 @@ server {
     
     <item>
       <title>Highly Available NFS Cluster on Debian Wheezy</title>
-      <link>https://gregarmer.github.io/2014/02/01/highly-available-nfs-cluster-on-debian-wheezy</link>
+      <link>https://sigterm.sh/2014/02/01/highly-available-nfs-cluster-on-debian-wheezy</link>
       <pubDate>Sat, 01 Feb 2014 12:00:00 -0400</pubDate>
       
-      <guid>https://gregarmer.github.io/2014/02/01/highly-available-nfs-cluster-on-debian-wheezy</guid>
+      <guid>https://sigterm.sh/2014/02/01/highly-available-nfs-cluster-on-debian-wheezy</guid>
       <description>&lt;h4 id=&#34;overview&#34;&gt;Overview&lt;/h4&gt;
 
 &lt;p&gt;This guide will help you setup a highly available NFS server on Debian Wheezy. This is a relatively battle-tested configuration, and there is plenty information out there on how it works - I&amp;rsquo;ll include some links at the end of this post.&lt;/p&gt;
@@ -753,10 +753,10 @@ node alice bob
     
     <item>
       <title>About This Blog</title>
-      <link>https://gregarmer.github.io/about/</link>
+      <link>https://sigterm.sh/about/</link>
       <pubDate>Fri, 21 Jun 2013 11:27:27 -0400</pubDate>
       
-      <guid>https://gregarmer.github.io/about/</guid>
+      <guid>https://sigterm.sh/about/</guid>
       <description>
 
 &lt;p&gt;Hi, I&amp;rsquo;m Greg and this is my personal blog.  You&amp;rsquo;ll find a lot of tech / programming related posts here, along with posts around some of my hobbies like photography.&lt;/p&gt;
@@ -814,10 +814,10 @@ node alice bob
     
     <item>
       <title>Code</title>
-      <link>https://gregarmer.github.io/code/</link>
+      <link>https://sigterm.sh/code/</link>
       <pubDate>Fri, 21 Jun 2013 11:27:27 -0400</pubDate>
       
-      <guid>https://gregarmer.github.io/code/</guid>
+      <guid>https://sigterm.sh/code/</guid>
       <description>
 
 &lt;p&gt;&lt;img src=&#34;https://media.sigterm.sh/2015/source-code.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
@@ -872,10 +872,10 @@ And some &lt;a href=&#34;https://sigterm.sh/2015/01/06/announcing-flake8-diff/&#
     
     <item>
       <title>dn42 Peering Information</title>
-      <link>https://gregarmer.github.io/dn42-peering/</link>
+      <link>https://sigterm.sh/dn42-peering/</link>
       <pubDate>Fri, 21 Jun 2013 11:27:27 -0400</pubDate>
       
-      <guid>https://gregarmer.github.io/dn42-peering/</guid>
+      <guid>https://sigterm.sh/dn42-peering/</guid>
       <description>
 
 &lt;p&gt;If you are interested in peering with me on &lt;a href=&#34;https://dn42.net/Home&#34;&gt;dn42&lt;/a&gt;, find the closest node(s) below and send the following to me in an e-mail to greg[at]sigterm.sh:&lt;/p&gt;
@@ -966,10 +966,10 @@ lG/3jHWGHgwBf6Wm7h1mHEMCAwEAAQ==
     
     <item>
       <title>nginx, Apache 2 and subversion - 502 Bad Gateway error</title>
-      <link>https://gregarmer.github.io/2012/10/09/nginx-apache-2-and-subversion-502-bad-gateway-error</link>
+      <link>https://sigterm.sh/2012/10/09/nginx-apache-2-and-subversion-502-bad-gateway-error</link>
       <pubDate>Tue, 09 Oct 2012 12:00:00 -0400</pubDate>
       
-      <guid>https://gregarmer.github.io/2012/10/09/nginx-apache-2-and-subversion-502-bad-gateway-error</guid>
+      <guid>https://sigterm.sh/2012/10/09/nginx-apache-2-and-subversion-502-bad-gateway-error</guid>
       <description>&lt;h4 id=&#34;the-problem&#34;&gt;The Problem&lt;/h4&gt;
 
 &lt;p&gt;I recently ran into this problem and couldn&amp;rsquo;t find any useful information on the net around fixing it. All subversion checkouts, commits and other basic operations work just fine, but when attempting to copy, move or tag (copy) I would get the below (502 Bad Gateway) error.&lt;/p&gt;
@@ -1090,10 +1090,10 @@ server {
     
     <item>
       <title>Blocking web traffic behind an Elastic Load Balancer (ELB)</title>
-      <link>https://gregarmer.github.io/2012/09/28/blocking-web-traffic-behind-an-elastic-load-balancer-elb</link>
+      <link>https://sigterm.sh/2012/09/28/blocking-web-traffic-behind-an-elastic-load-balancer-elb</link>
       <pubDate>Fri, 28 Sep 2012 12:00:00 -0400</pubDate>
       
-      <guid>https://gregarmer.github.io/2012/09/28/blocking-web-traffic-behind-an-elastic-load-balancer-elb</guid>
+      <guid>https://sigterm.sh/2012/09/28/blocking-web-traffic-behind-an-elastic-load-balancer-elb</guid>
       <description>&lt;p&gt;Over the past few hours we&amp;rsquo;ve been on the receiving end of a fairly large scale set of web requests (read: attack) to a website we host over on Amazon EC2. Our setup is not really that complicated, however we encountered a problem that wasn&amp;rsquo;t that easy to solve.&lt;/p&gt;
 
 &lt;p&gt;&lt;/p&gt;
@@ -1148,10 +1148,10 @@ deny 208.96.18.11;                    // Have some HTTP 403
     
     <item>
       <title>Forking background processes in Python</title>
-      <link>https://gregarmer.github.io/2012/08/22/forking-background-processes-in-python</link>
+      <link>https://sigterm.sh/2012/08/22/forking-background-processes-in-python</link>
       <pubDate>Wed, 22 Aug 2012 12:00:00 -0400</pubDate>
       
-      <guid>https://gregarmer.github.io/2012/08/22/forking-background-processes-in-python</guid>
+      <guid>https://sigterm.sh/2012/08/22/forking-background-processes-in-python</guid>
       <description>&lt;p&gt;This post attempts to explain how to fork child processes in Python, or at least how to use forking on an existing Python script. For some strange reason I&amp;rsquo;ve had to explain this a few times recently, so I decided an easy to reference blog post would probably make life a little easier.&lt;/p&gt;
 
 &lt;p&gt;&lt;/p&gt;
@@ -1232,10 +1232,10 @@ os.spawnl(os.P_DETACH, &#39;some_log_running_command&#39;)
     
     <item>
       <title>Replacing Django&#39;s Nasty &#39;runserver&#39;</title>
-      <link>https://gregarmer.github.io/2011/12/06/replacing-djangos-nasty-runserver</link>
+      <link>https://sigterm.sh/2011/12/06/replacing-djangos-nasty-runserver</link>
       <pubDate>Tue, 06 Dec 2011 12:00:00 -0400</pubDate>
       
-      <guid>https://gregarmer.github.io/2011/12/06/replacing-djangos-nasty-runserver</guid>
+      <guid>https://sigterm.sh/2011/12/06/replacing-djangos-nasty-runserver</guid>
       <description>&lt;p&gt;Have you ever tried to have more than one person view a development site using &lt;a title=&#34;Django&#34; href=&#34;http://www.djangoproject.com/&#34; target=&#34;_blank&#34;&gt;Django&amp;rsquo;s&lt;/a&gt; &lt;a title=&#34;Django runserver&#34; href=&#34;https://docs.djangoproject.com/en/1.3/ref/django-admin/#runserver-port-or-address-port&#34; target=&#34;_blank&#34;&gt;built-in development server&lt;/a&gt; ? Yeah, it really sucks. Apparently concurrency wasn&amp;rsquo;t high on the features list and they have stated that it never will be.&lt;/p&gt;
 
 &lt;p&gt;&lt;/p&gt;
@@ -1264,10 +1264,10 @@ os.spawnl(os.P_DETACH, &#39;some_log_running_command&#39;)
     
     <item>
       <title>The impact of being behind schedule</title>
-      <link>https://gregarmer.github.io/2011/02/11/the-impact-of-being-behind-schedule</link>
+      <link>https://sigterm.sh/2011/02/11/the-impact-of-being-behind-schedule</link>
       <pubDate>Fri, 11 Feb 2011 12:00:00 -0400</pubDate>
       
-      <guid>https://gregarmer.github.io/2011/02/11/the-impact-of-being-behind-schedule</guid>
+      <guid>https://sigterm.sh/2011/02/11/the-impact-of-being-behind-schedule</guid>
       <description>&lt;p&gt;In managing a group of software engineers, this is something that has happened frequently in my team and has been bothering me for a while. It&amp;rsquo;s a lot easier for me to notice, as in my case, I actively write software with my team.&lt;/p&gt;
 
 &lt;p&gt;&lt;/p&gt;
@@ -1301,10 +1301,10 @@ os.spawnl(os.P_DETACH, &#39;some_log_running_command&#39;)
     
     <item>
       <title>The day the routers died...</title>
-      <link>https://gregarmer.github.io/2011/02/03/the-day-the-routers-died</link>
+      <link>https://sigterm.sh/2011/02/03/the-day-the-routers-died</link>
       <pubDate>Thu, 03 Feb 2011 12:00:00 -0400</pubDate>
       
-      <guid>https://gregarmer.github.io/2011/02/03/the-day-the-routers-died</guid>
+      <guid>https://sigterm.sh/2011/02/03/the-day-the-routers-died</guid>
       <description>&lt;p&gt;On February 3, 1959, Buddy Holly, Richie Valens and JP Richardson (aka The Big Bopper) died in a plane crash. Don McLean immortalized that day as &amp;ldquo;The Day The Music Died&amp;rdquo; in his 1971 hit, &amp;ldquo;American Pie&amp;rdquo;.&lt;/p&gt;
 
 &lt;p&gt;It&amp;rsquo;s somewhat ironic that on February 3, 2010 the last five /8s from the IANA IPv4 pool have been distributed to the RIRs.&lt;/p&gt;
