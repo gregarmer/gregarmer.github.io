@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>./sigterm.sh</title>
-    <link>https://sigterm.sh/tags/golang/index.xml</link>
+    <link>https://gregarmer.github.io/tags/golang/index.xml</link>
     <description>Recent content on ./sigterm.sh</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>Gregory Armer. All rights reserved.</copyright>
-    <atom:link href="https://sigterm.sh/tags/golang/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://gregarmer.github.io/tags/golang/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Recording backend processing time in Golang</title>
-      <link>https://sigterm.sh/2015/03/08/recording-backend-processing-time-in-go</link>
+      <link>https://gregarmer.github.io/2015/03/08/recording-backend-processing-time-in-go</link>
       <pubDate>Sun, 08 Mar 2015 18:58:00 -0400</pubDate>
       
-      <guid>https://sigterm.sh/2015/03/08/recording-backend-processing-time-in-go</guid>
+      <guid>https://gregarmer.github.io/2015/03/08/recording-backend-processing-time-in-go</guid>
       <description>&lt;p&gt;I recently wrote a RESTful web service in Golang, and wanted to pull out some stats on how my handlers were doing in terms of performance.&lt;/p&gt;
 
 &lt;p&gt;&lt;/p&gt;

@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>./sigterm.sh</title>
-    <link>https://sigterm.sh/tags/security/index.xml</link>
+    <link>https://gregarmer.github.io/tags/security/index.xml</link>
     <description>Recent content on ./sigterm.sh</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>Gregory Armer. All rights reserved.</copyright>
-    <atom:link href="https://sigterm.sh/tags/security/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://gregarmer.github.io/tags/security/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>SSL Configuration</title>
-      <link>https://sigterm.sh/2014/10/26/ssl-configuration</link>
+      <link>https://gregarmer.github.io/2014/10/26/ssl-configuration</link>
       <pubDate>Sun, 26 Oct 2014 05:53:00 -0400</pubDate>
       
-      <guid>https://sigterm.sh/2014/10/26/ssl-configuration</guid>
+      <guid>https://gregarmer.github.io/2014/10/26/ssl-configuration</guid>
       <description>&lt;p&gt;As you may have noticed, this site is now served over HTTPS!&lt;/p&gt;
 
 &lt;p&gt;IE6 users, you&amp;rsquo;re pretty much SOL since I turned off all your cipher suites. It&amp;rsquo;s 2014 and it&amp;rsquo;s probably a pretty good time to get yourself a slightly newer browser anyway.&lt;/p&gt;
@@ -60,10 +60,10 @@ server {
     
     <item>
       <title>Blocking web traffic behind an Elastic Load Balancer (ELB)</title>
-      <link>https://sigterm.sh/2012/09/28/blocking-web-traffic-behind-an-elastic-load-balancer-elb</link>
+      <link>https://gregarmer.github.io/2012/09/28/blocking-web-traffic-behind-an-elastic-load-balancer-elb</link>
       <pubDate>Fri, 28 Sep 2012 12:00:00 -0400</pubDate>
       
-      <guid>https://sigterm.sh/2012/09/28/blocking-web-traffic-behind-an-elastic-load-balancer-elb</guid>
+      <guid>https://gregarmer.github.io/2012/09/28/blocking-web-traffic-behind-an-elastic-load-balancer-elb</guid>
       <description>&lt;p&gt;Over the past few hours we&amp;rsquo;ve been on the receiving end of a fairly large scale set of web requests (read: attack) to a website we host over on Amazon EC2. Our setup is not really that complicated, however we encountered a problem that wasn&amp;rsquo;t that easy to solve.&lt;/p&gt;
 
 &lt;p&gt;&lt;/p&gt;
@@ -118,10 +118,10 @@ deny 208.96.18.11;                    // Have some HTTP 403
     
     <item>
       <title>Puppet Modules - Debsecan</title>
-      <link>https://sigterm.sh/2011/01/02/puppet-modules-debsecan</link>
+      <link>https://gregarmer.github.io/2011/01/02/puppet-modules-debsecan</link>
       <pubDate>Sun, 02 Jan 2011 12:00:00 -0400</pubDate>
       
-      <guid>https://sigterm.sh/2011/01/02/puppet-modules-debsecan</guid>
+      <guid>https://gregarmer.github.io/2011/01/02/puppet-modules-debsecan</guid>
       <description>&lt;p&gt;This is the first post of (hopefully) many, detailing some of my &lt;a href=&#34;http://www.puppetlabs.com/&#34;&gt;Puppet&lt;/a&gt; module implementations. Being the first, I thought I would start off with something simple.&lt;/p&gt;
 
 &lt;p&gt;&lt;/p&gt;
@@ -208,10 +208,10 @@ MAILTO=root
     
     <item>
       <title>Using ferm to build firewall rulesets</title>
-      <link>https://sigterm.sh/2010/12/31/using-ferm-to-build-firewall-rulesets</link>
+      <link>https://gregarmer.github.io/2010/12/31/using-ferm-to-build-firewall-rulesets</link>
       <pubDate>Fri, 31 Dec 2010 12:00:00 -0400</pubDate>
       
-      <guid>https://sigterm.sh/2010/12/31/using-ferm-to-build-firewall-rulesets</guid>
+      <guid>https://gregarmer.github.io/2010/12/31/using-ferm-to-build-firewall-rulesets</guid>
       <description>&lt;p&gt;This post is thanks to a suggestion from &lt;a href=&#34;http://twitter.com/froztbyte&#34;&gt;JP Viljoen&lt;/a&gt; to check out &lt;a href=&#34;http://ferm.foo-projects.org/&#34;&gt;ferm&lt;/a&gt;. Well, I did, and it&amp;rsquo;s fairly neat. You get to express your firewall configuration in structures resembling simple C code along with using things like arrays, functions and if / else constructs which makes building complex rulesets quite a simple task.&lt;/p&gt;
 
 &lt;p&gt;I&amp;rsquo;ve included an example configuration below of one of my machines. The network configuration is not extremely complex, but there is a mix of IPv4, IPv6 and - as this is an IRC server - some DNAT to make the IRC service available on a number of other privileged ports without having the service actually listen on those ports. This particular server is running Debian however ferm is basically just a front to ip(6)tables so it&amp;rsquo;ll run pretty much anywhere that runs.&lt;/p&gt;

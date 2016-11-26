@@ -2,162 +2,162 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://sigterm.sh/</loc>
+    <loc>https://gregarmer.github.io/</loc>
     <lastmod>2016-11-05T14:26:00-04:00</lastmod>
   </url>
   
   <url>
-    <loc>https://sigterm.sh/2016/11/05/passing-vlans-over-an-lacp-trunk-in-openbsd</loc>
+    <loc>https://gregarmer.github.io/2016/11/05/passing-vlans-over-an-lacp-trunk-in-openbsd</loc>
     <lastmod>2016-11-05T14:26:00-04:00</lastmod>
   </url>
   
   <url>
-    <loc>https://sigterm.sh/2015/03/08/recording-backend-processing-time-in-go</loc>
+    <loc>https://gregarmer.github.io/2015/03/08/recording-backend-processing-time-in-go</loc>
     <lastmod>2015-03-08T18:58:00-04:00</lastmod>
   </url>
   
   <url>
-    <loc>https://sigterm.sh/2015/01/06/announcing-flake8-diff</loc>
+    <loc>https://gregarmer.github.io/2015/01/06/announcing-flake8-diff</loc>
     <lastmod>2015-01-06T18:50:00-04:00</lastmod>
   </url>
   
   <url>
-    <loc>https://sigterm.sh/2014/10/26/ssl-configuration</loc>
+    <loc>https://gregarmer.github.io/2014/10/26/ssl-configuration</loc>
     <lastmod>2014-10-26T05:53:00-04:00</lastmod>
   </url>
   
   <url>
-    <loc>https://sigterm.sh/2014/10/26/google-inbox</loc>
+    <loc>https://gregarmer.github.io/2014/10/26/google-inbox</loc>
     <lastmod>2014-10-26T04:35:00-04:00</lastmod>
   </url>
   
   <url>
-    <loc>https://sigterm.sh/2014/02/01/highly-available-nfs-cluster-on-debian-wheezy</loc>
+    <loc>https://gregarmer.github.io/2014/02/01/highly-available-nfs-cluster-on-debian-wheezy</loc>
     <lastmod>2014-02-01T12:00:00-04:00</lastmod>
   </url>
   
   <url>
-    <loc>https://sigterm.sh/about/</loc>
+    <loc>https://gregarmer.github.io/about/</loc>
     <lastmod>2013-06-21T11:27:27-04:00</lastmod>
   </url>
   
   <url>
-    <loc>https://sigterm.sh/code/</loc>
+    <loc>https://gregarmer.github.io/code/</loc>
     <lastmod>2013-06-21T11:27:27-04:00</lastmod>
   </url>
   
   <url>
-    <loc>https://sigterm.sh/dn42-peering/</loc>
+    <loc>https://gregarmer.github.io/dn42-peering/</loc>
     <lastmod>2013-06-21T11:27:27-04:00</lastmod>
   </url>
   
   <url>
-    <loc>https://sigterm.sh/2012/10/09/nginx-apache-2-and-subversion-502-bad-gateway-error</loc>
+    <loc>https://gregarmer.github.io/2012/10/09/nginx-apache-2-and-subversion-502-bad-gateway-error</loc>
     <lastmod>2012-10-09T12:00:00-04:00</lastmod>
   </url>
   
   <url>
-    <loc>https://sigterm.sh/2012/09/28/blocking-web-traffic-behind-an-elastic-load-balancer-elb</loc>
+    <loc>https://gregarmer.github.io/2012/09/28/blocking-web-traffic-behind-an-elastic-load-balancer-elb</loc>
     <lastmod>2012-09-28T12:00:00-04:00</lastmod>
   </url>
   
   <url>
-    <loc>https://sigterm.sh/2012/08/22/forking-background-processes-in-python</loc>
+    <loc>https://gregarmer.github.io/2012/08/22/forking-background-processes-in-python</loc>
     <lastmod>2012-08-22T12:00:00-04:00</lastmod>
   </url>
   
   <url>
-    <loc>https://sigterm.sh/2011/12/06/replacing-djangos-nasty-runserver</loc>
+    <loc>https://gregarmer.github.io/2011/12/06/replacing-djangos-nasty-runserver</loc>
     <lastmod>2011-12-06T12:00:00-04:00</lastmod>
   </url>
   
   <url>
-    <loc>https://sigterm.sh/2011/02/11/the-impact-of-being-behind-schedule</loc>
+    <loc>https://gregarmer.github.io/2011/02/11/the-impact-of-being-behind-schedule</loc>
     <lastmod>2011-02-11T12:00:00-04:00</lastmod>
   </url>
   
   <url>
-    <loc>https://sigterm.sh/2011/02/03/the-day-the-routers-died</loc>
+    <loc>https://gregarmer.github.io/2011/02/03/the-day-the-routers-died</loc>
     <lastmod>2011-02-03T12:00:00-04:00</lastmod>
   </url>
   
   <url>
-    <loc>https://sigterm.sh/2011/01/02/puppet-modules-debsecan</loc>
+    <loc>https://gregarmer.github.io/2011/01/02/puppet-modules-debsecan</loc>
     <lastmod>2011-01-02T12:00:00-04:00</lastmod>
   </url>
   
   <url>
-    <loc>https://sigterm.sh/2010/12/31/using-ferm-to-build-firewall-rulesets</loc>
+    <loc>https://gregarmer.github.io/2010/12/31/using-ferm-to-build-firewall-rulesets</loc>
     <lastmod>2010-12-31T12:00:00-04:00</lastmod>
   </url>
   
   <url>
-    <loc>https://sigterm.sh/2010/09/23/natural-order-sorting-strings-with-numbers</loc>
+    <loc>https://gregarmer.github.io/2010/09/23/natural-order-sorting-strings-with-numbers</loc>
     <lastmod>2010-09-23T12:00:00-04:00</lastmod>
   </url>
   
   <url>
-    <loc>https://sigterm.sh/2010/07/09/generating-a-dependency-graph-for-a-postgresql-database</loc>
+    <loc>https://gregarmer.github.io/2010/07/09/generating-a-dependency-graph-for-a-postgresql-database</loc>
     <lastmod>2010-07-09T12:00:00-04:00</lastmod>
   </url>
   
   <url>
-    <loc>https://sigterm.sh/2010/04/15/getting-git-manpages-on-os-x</loc>
+    <loc>https://gregarmer.github.io/2010/04/15/getting-git-manpages-on-os-x</loc>
     <lastmod>2010-04-15T12:00:00-04:00</lastmod>
   </url>
   
   <url>
-    <loc>https://sigterm.sh/2009/12/26/extending-python-with-modules-written-in-c</loc>
+    <loc>https://gregarmer.github.io/2009/12/26/extending-python-with-modules-written-in-c</loc>
     <lastmod>2009-12-26T12:00:00-04:00</lastmod>
   </url>
   
   <url>
-    <loc>https://sigterm.sh/2009/10/12/using-an-alternative-mirror-for-freebsd-port-retrieval</loc>
+    <loc>https://gregarmer.github.io/2009/10/12/using-an-alternative-mirror-for-freebsd-port-retrieval</loc>
     <lastmod>2009-10-12T16:00:00-04:00</lastmod>
   </url>
   
   <url>
-    <loc>https://sigterm.sh/2009/10/12/keyboard-shortcuts-in-google-wave</loc>
+    <loc>https://gregarmer.github.io/2009/10/12/keyboard-shortcuts-in-google-wave</loc>
     <lastmod>2009-10-12T12:00:00-04:00</lastmod>
   </url>
   
   <url>
-    <loc>https://sigterm.sh/2009/10/07/simple-http-post-in-java</loc>
+    <loc>https://gregarmer.github.io/2009/10/07/simple-http-post-in-java</loc>
     <lastmod>2009-10-07T12:00:00-04:00</lastmod>
   </url>
   
   <url>
-    <loc>https://sigterm.sh/2009/10/04/using-a-zfs-filesystem-with-time-machine</loc>
+    <loc>https://gregarmer.github.io/2009/10/04/using-a-zfs-filesystem-with-time-machine</loc>
     <lastmod>2009-10-04T12:00:00-04:00</lastmod>
   </url>
   
   <url>
-    <loc>https://sigterm.sh/2009/09/05/new-addition-to-the-family</loc>
+    <loc>https://gregarmer.github.io/2009/09/05/new-addition-to-the-family</loc>
     <lastmod>2009-09-05T12:00:00-04:00</lastmod>
   </url>
   
   <url>
-    <loc>https://sigterm.sh/2009/08/13/quick-solaris-zone-stats</loc>
+    <loc>https://gregarmer.github.io/2009/08/13/quick-solaris-zone-stats</loc>
     <lastmod>2009-08-13T12:00:00-04:00</lastmod>
   </url>
   
   <url>
-    <loc>https://sigterm.sh/2009/07/31/the-basics-of-zfs-acls</loc>
+    <loc>https://gregarmer.github.io/2009/07/31/the-basics-of-zfs-acls</loc>
     <lastmod>2009-07-31T12:00:00-04:00</lastmod>
   </url>
   
   <url>
-    <loc>https://sigterm.sh/2009/07/16/simple-openvpn-server-statistics</loc>
+    <loc>https://gregarmer.github.io/2009/07/16/simple-openvpn-server-statistics</loc>
     <lastmod>2009-07-16T12:00:00-04:00</lastmod>
   </url>
   
   <url>
-    <loc>https://sigterm.sh/2009/07/08/run-something-as-another-user</loc>
+    <loc>https://gregarmer.github.io/2009/07/08/run-something-as-another-user</loc>
     <lastmod>2009-07-08T13:00:00-04:00</lastmod>
   </url>
   
   <url>
-    <loc>https://sigterm.sh/2009/07/08/hello-world</loc>
+    <loc>https://gregarmer.github.io/2009/07/08/hello-world</loc>
     <lastmod>2009-07-08T12:00:00-04:00</lastmod>
   </url>
   
