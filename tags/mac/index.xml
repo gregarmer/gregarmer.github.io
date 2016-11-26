@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>./sigterm.sh</title>
+    <link>https://sigterm.sh/tags/mac/index.xml</link>
+    <description>Recent content on ./sigterm.sh</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>Gregory Armer. All rights reserved.</copyright>
+    <atom:link href="https://sigterm.sh/tags/mac/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Getting Git man pages on OS X</title>
+      <link>https://sigterm.sh/2010/04/15/getting-git-manpages-on-os-x</link>
+      <pubDate>Thu, 15 Apr 2010 12:00:00 -0400</pubDate>
+      
+      <guid>https://sigterm.sh/2010/04/15/getting-git-manpages-on-os-x</guid>
+      <description>&lt;p&gt;For some reason the OS X install of Git doesn&amp;rsquo;t include the manpages. Here is how I installed them.&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+
+&lt;p&gt;First off, find the appropriate manpath.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;greg@codemine:~ %&amp;gt; cat /etc/manpaths
+/usr/share/man
+/usr/local/share/man
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;/usr/local/share/man looks good&amp;hellip;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;greg@codemine:~ %&amp;gt; VER=`git --version | awk &#39;{print $3}&#39;`
+greg@codemine:~ %&amp;gt; curl -O http://www.kernel.org/pub/software/scm/git/git-manpages-$VER.tar.bz2                              
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100  242k  100  242k    0     0  92051      0  0:00:02  0:00:02 --:--:--   99k
+greg@codemine:~ %&amp;gt; sudo tar xjv -C /usr/local/share/man -f git-manpages-$VER.tar.bz2   
+Password:
+x ./
+x ./man1/
+x ./man1/git-add.1
+[snip]
+x ./man7/gitworkflows.7
+greg@codemine:~ %&amp;gt; rm git-manpages-$VER.tar.bz2    
+greg@codemine:~ %&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&amp;ldquo;man git-add&amp;rdquo; should now work fine.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Using a ZFS filesystem with Time Machine</title>
+      <link>https://sigterm.sh/2009/10/04/using-a-zfs-filesystem-with-time-machine</link>
+      <pubDate>Sun, 04 Oct 2009 12:00:00 -0400</pubDate>
+      
+      <guid>https://sigterm.sh/2009/10/04/using-a-zfs-filesystem-with-time-machine</guid>
+      <description>&lt;p&gt;This simple how-to explains how to get your Time Machine backups working with a ZFS filesystem. This allows you to use the features of ZFS filesystems for your Time Machine backups.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Please note this is for Mac OS X - Snow Leopard.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+
+&lt;p&gt;1)    Enable unsupported network volumes on your Mac by opening a Terminal and pasting this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;greg@macbook:~ %&amp;gt; defaults write com.apple.systempreferences TMShowUnsupportedNetworkVolumes 1
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;2)    Create a new ZFS filesystem and enable CIFS access to it:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;greg@opensolaris:~ %&amp;gt; zfs create tank/userbackups
+greg@opensolaris:~ %&amp;gt; zfs set sharesmb=on tank/userbackups
+greg@opensolaris:~ %&amp;gt; zfs set sharesmb=name=userbackups tank/userbackups
+greg@opensolaris:~ %&amp;gt; zfs set aclmode=passthrough tank/userbackups
+greg@opensolaris:~ %&amp;gt; zfs set aclinherit=passthrough tank/userbackups
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You will probably want to setup the correct permissions on your new share, more details in &lt;a href=&#34;http://code.geek.sh/2009/07/the-basics-of-zfs-acls/&#34;&gt;[this post]&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;3)    Make sure you can mount this share and write to it from your Mac.&lt;/p&gt;
+
+&lt;p&gt;4)    Create the correct disk image:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;greg@macbook:~ %&amp;gt; /bin/bash
+greg@macbook:~ %&amp;gt; cd /Volumes/userbackups
+greg@macbook:~ %&amp;gt; SYSNAME=`scutil --get ComputerName`
+greg@macbook:~ %&amp;gt; hdiutil create -size 600G -fs HFS+J \
+&amp;gt; -volname &#39;Time Machine Backups&#39; -type SPARSEBUNDLE &amp;quot;${SYSNAME}.sparsebundle&amp;quot;
+greg@macbook:~ %&amp;gt; UUID=`system_profiler | grep &#39;Hardware UUID&#39; | awk &#39;{print $3}&#39;`
+greg@macbook:~ %&amp;gt; cat &amp;lt;&amp;lt; EOF &amp;gt; &amp;quot;${SYSNAME}.sparsebundle&amp;quot;/com.apple.TimeMachine.MachineID.plist
+&amp;gt; &amp;lt;?xml version=&amp;quot;1.0&amp;quot; encoding=&amp;quot;UTF-8&amp;quot;?&amp;gt;
+&amp;gt; &amp;lt;!DOCTYPE plist PUBLIC &amp;quot;-//Apple//DTD PLIST 1.0//EN&amp;quot; &amp;quot;http://www.apple.com/DTDs/PropertyList-1.0.dtd&amp;quot;&amp;gt;
+&amp;gt; &amp;lt;plist version=&amp;quot;1.0&amp;quot;&amp;gt;
+&amp;gt; &amp;lt;dict&amp;gt;
+&amp;gt;         &amp;lt;key&amp;gt;com.apple.backupd.HostUUID&amp;lt;/key&amp;gt;
+&amp;gt;         &amp;lt;string&amp;gt;$UUID&amp;lt;/string&amp;gt;
+&amp;gt; &amp;lt;/dict&amp;gt;
+&amp;gt; &amp;lt;/plist&amp;gt;
+&amp;gt; EOF
+greg@macbook:~ %&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;5)    and finally, open up Time Machine. You should now see your network share as an option. Choose it, configure any excludes you want and kick off your first backup!&lt;/p&gt;
+
+&lt;p&gt;I&amp;rsquo;ll post a little later on restoring these backups using one of these methods:&lt;/p&gt;
+
+&lt;ul style=&#34;padding-left: 30px;&#34;&gt;
+    &lt;li&gt;Restore from Time Machine by using the boot disk&lt;/li&gt;
+    &lt;li&gt;or by doing a standard install then using the Migration Assistant.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Good luck!&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>New addition to the family</title>
+      <link>https://sigterm.sh/2009/09/05/new-addition-to-the-family</link>
+      <pubDate>Sat, 05 Sep 2009 12:00:00 -0400</pubDate>
+      
+      <guid>https://sigterm.sh/2009/09/05/new-addition-to-the-family</guid>
+      <description>&lt;p&gt;So after much anticipation, many tireless weeks of spec checking and a whole bunch of money I was really glad to be on the receiving end of a brand spanking new 17&amp;rdquo; MacBook Pro!&lt;/p&gt;
+
+&lt;p&gt;Although it has been less than 72 hours this is (so far) truly the most amazing piece of computer equipment I have ever owned, honestly worth every single cent! The initial setup was completely flawless and only took a few minutes. The graphics, resolution and performance are exceptional, in fact I haven&amp;rsquo;t even had to switch over from the standard &amp;ldquo;on-board&amp;rdquo; video card to the higher end controller yet, despite putting the GPU through a thorough beating, testing out the Quake 4 demo :P&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+
+&lt;p&gt;The specs in this machine are as follows:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Intel&amp;reg; Core&amp;trade;2 Duo CPU     T9600  @ 2.80GHz&lt;/li&gt;
+&lt;li&gt;4GB RAM&lt;/li&gt;
+&lt;li&gt;500GB 5400rpm hard disk&lt;/li&gt;
+&lt;li&gt;17&amp;rdquo; - 1920 x 1200 native resolution&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;I plan to upgrade the memory to 8GB and the drive to the 7200rpm model sometime in the future.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://sigterm.sh/wp-content/uploads/2009/09/HPIM1310.JPG&#34; rel=&#34;lightbox[mbp]&#34; title=&#34;The packaging ... please excuse the terrible quality of my 300 year old
+camera.&#34;&gt;&lt;img src=&#34;https://sigterm.sh/wp-content/uploads/2009/09/HPIM1310-300x225.jpg&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Here are a few more (slightly better quality) pics:&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://sigterm.sh/wp-content/uploads/2009/09/HPIM1324.JPG&#34; rel=&#34;lightbox[mbp]&#34; title=&#34;The desk.&#34;&gt;&lt;img src=&#34;https://sigterm.sh/wp-content/uploads/2009/09/HPIM1324-300x225.jpg&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://sigterm.sh/wp-content/uploads/2009/09/HPIM1318.JPG&#34; rel=&#34;lightbox[mbp]&#34; title=&#34;A little closer.&#34;&gt;&lt;img src=&#34;https://sigterm.sh/wp-content/uploads/2009/09/HPIM1318-300x225.jpg&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://sigterm.sh/wp-content/uploads/2009/09/HPIM1314.JPG&#34; rel=&#34;lightbox[mbp]&#34; title=&#34;Yo dawg, we herd yo like laptop pics...&#34;&gt;&lt;img src=&#34;https://sigterm.sh/wp-content/uploads/2009/09/HPIM1314-300x225.jpg&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://sigterm.sh/wp-content/uploads/2009/09/HPIM1309.JPG&#34; rel=&#34;lightbox[mbp]&#34; title=&#34;A little closer, this should look familiar...&#34;&gt;&lt;img src=&#34;https://sigterm.sh/wp-content/uploads/2009/09/HPIM1309-300x225.jpg&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://sigterm.sh/wp-content/uploads/2009/09/HPIM1308.JPG&#34; rel=&#34;lightbox[mbp]&#34; title=&#34;Another one.&#34;&gt;&lt;img src=&#34;https://sigterm.sh/wp-content/uploads/2009/09/HPIM1308-300x225.jpg&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h4 id=&#34;the-rest-of-the-network&#34;&gt;The rest of the network.&lt;/h4&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://sigterm.sh/wp-content/uploads/2009/09/HPIM1343.jpg&#34; rel=&#34;lightbox[mbp]&#34; title=&#34;The rest of the network.&#34;&gt;&lt;img src=&#34;https://sigterm.sh/wp-content/uploads/2009/09/HPIM1343-300x225.jpg&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;From the left, OpenBSD 4.5 gateway, proxy and firewall, ADSL router and OpenWRT wireless router on top of the 3com gigabit switch. The main workhorse (storage, virtual machines and build zones) is underneath that with a quad core processor, 4GB of RAM and just over 2TB of disk space in 2 ZFS pools (3 x 500GB and 3 x 640GB) running OpenSolaris and finally 2 x 2kVA UPSs.&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

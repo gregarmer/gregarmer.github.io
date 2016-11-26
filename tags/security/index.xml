@@ -1,0 +1,375 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>./sigterm.sh</title>
+    <link>https://sigterm.sh/tags/security/index.xml</link>
+    <description>Recent content on ./sigterm.sh</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>Gregory Armer. All rights reserved.</copyright>
+    <atom:link href="https://sigterm.sh/tags/security/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>SSL Configuration</title>
+      <link>https://sigterm.sh/2014/10/26/ssl-configuration</link>
+      <pubDate>Sun, 26 Oct 2014 05:53:00 -0400</pubDate>
+      
+      <guid>https://sigterm.sh/2014/10/26/ssl-configuration</guid>
+      <description>&lt;p&gt;As you may have noticed, this site is now served over HTTPS!&lt;/p&gt;
+
+&lt;p&gt;IE6 users, you&amp;rsquo;re pretty much SOL since I turned off all your cipher suites. It&amp;rsquo;s 2014 and it&amp;rsquo;s probably a pretty good time to get yourself a slightly newer browser anyway.&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+
+&lt;p&gt;For anyone interested, here&amp;rsquo;s the NGINX config I&amp;rsquo;m using:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;server {
+    listen 80;
+    server_name sigterm.sh;
+    rewrite ^(.*) https://sigterm.sh$1 permanent;
+}
+
+server {
+    listen 443 ssl;
+    server_name sigterm.sh;
+    ssl_certificate certs/sigterm.sh.crt;
+    ssl_certificate_key certs/sigterm.sh.key;
+    ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
+    ssl_prefer_server_ciphers on;
+    ssl_session_timeout 5m;
+    ssl_ciphers &amp;quot;EECDH+ECDSA+AESGCM EECDH+aRSA+AESGCM EECDH+ECDSA+SHA384 \
+        EECDH+ECDSA+SHA256 EECDH+aRSA+SHA384 EECDH+aRSA+SHA256 EECDH+aRSA+RC4 \
+        EECDH EDH+aRSA RC4 !aNULL !eNULL !LOW !3DES !MD5 !EXP !PSK !SRP !DSS&amp;quot;;
+
+    gzip on;
+    gzip_min_length 2000;
+    gzip_proxied any;
+    gzip_types application/json;
+
+    location / {
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header Host $http_host;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_pass http://127.0.0.1:1234;
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You can check out the full test report over at &lt;a href=&#34;https://www.ssllabs.com/ssltest/analyze.html?d=sigterm.sh&#34;&gt;SSL Labs&lt;/a&gt;.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Blocking web traffic behind an Elastic Load Balancer (ELB)</title>
+      <link>https://sigterm.sh/2012/09/28/blocking-web-traffic-behind-an-elastic-load-balancer-elb</link>
+      <pubDate>Fri, 28 Sep 2012 12:00:00 -0400</pubDate>
+      
+      <guid>https://sigterm.sh/2012/09/28/blocking-web-traffic-behind-an-elastic-load-balancer-elb</guid>
+      <description>&lt;p&gt;Over the past few hours we&amp;rsquo;ve been on the receiving end of a fairly large scale set of web requests (read: attack) to a website we host over on Amazon EC2. Our setup is not really that complicated, however we encountered a problem that wasn&amp;rsquo;t that easy to solve.&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+
+&lt;h4 id=&#34;our-setup&#34;&gt;Our Setup&lt;/h4&gt;
+
+&lt;p&gt;So we have an &lt;a href=&#34;http://aws.amazon.com/elasticloadbalancing/&#34; title=&#34;Elastic Load Balancer&#34;&gt;Elastic Load Balancer&lt;/a&gt; out in front, that sends on web requests to a set of web servers. These web servers are in an auto-scaling group and simply run &lt;a href=&#34;http://nginx.org/en/&#34; title=&#34;nginx&#34;&gt;nginx&lt;/a&gt;. They then pass traffic onto a set of load balanced application servers. Nothing really out of the ordinary here.&lt;/p&gt;
+
+&lt;p&gt;The entire setup lives inside a &lt;a href=&#34;http://aws.amazon.com/vpc/&#34; title=&#34;VPC&#34;&gt;VPC&lt;/a&gt; so these server have no direct access to the internet, and specific traffic is NAT&amp;rsquo;d out another gateway.&lt;/p&gt;
+
+&lt;h4 id=&#34;the-problem&#34;&gt;The Problem&lt;/h4&gt;
+
+&lt;p&gt;We narrowed down the attack to a set of IPs all originating from the same netblock. These requests were largely made up of SQL injection attacks, along with some other crazy requests.&lt;/p&gt;
+
+&lt;p&gt;The requests looked like this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;208.96.18.11 &amp;quot;GET /results/2011%27%20OR%20%271%27%3D%271/11/ HTTP/1.1&amp;quot; &amp;quot;Mozilla/5.0&amp;quot;
+208.96.18.11 &amp;quot;GET /results/2011)%20OR%201%3D(1/11/ HTTP/1.1&amp;quot; &amp;quot;Mozilla/5.0&amp;quot;
+208.96.18.11 &amp;quot;GET /results/2011%27)%20OR%20%271%27%3D(%271/11/ HTTP/1.1&amp;quot; &amp;quot;Mozilla/5.0&amp;quot;
+208.96.18.11 &amp;quot;GET /results/2011%27%20OR%201%3D1%20%23/11/ HTTP/1.1&amp;quot; &amp;quot;Mozilla/5.0&amp;quot;
+208.96.18.11 &amp;quot;GET /results/2011%27)%20AND%20%271%27%20in%20(%270/11/ HTTP/1.1&amp;quot; &amp;quot;Mozilla/5.0&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;and without the URL encoding:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;208.96.18.11 &amp;quot;GET /results/2011&#39; OR &#39;1&#39;=&#39;1/11/ HTTP/1.1&amp;quot; &amp;quot;Mozilla/5.0&amp;quot;
+208.96.18.11 &amp;quot;GET /results/2011) OR 1=(1/11/ HTTP/1.1&amp;quot; &amp;quot;Mozilla/5.0&amp;quot;
+208.96.18.11 &amp;quot;GET /results/2011&#39;) OR &#39;1&#39;=(&#39;1/11/ HTTP/1.1&amp;quot; &amp;quot;Mozilla/5.0&amp;quot;
+208.96.18.11 &amp;quot;GET /results/2011&#39; OR 1=1 #/11/ HTTP/1.1&amp;quot; &amp;quot;Mozilla/5.0&amp;quot;
+208.96.18.11 &amp;quot;GET /results/2011&#39;) AND &#39;1&#39; in (&#39;0/11/ HTTP/1.1&amp;quot; &amp;quot;Mozilla/5.0&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;em&gt;(Yes, that&amp;rsquo;s one of the actual IPs attacking us.)&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;So the obvious move here is to block traffic from the offending IPs, right ?&lt;/p&gt;
+
+&lt;p&gt;Unfortunately that&amp;rsquo;s simply not possible with an ELB, as the only control you have over the traffic is through a &lt;a href=&#34;http://docs.amazonwebservices.com/AWSEC2/latest/UserGuide/using-network-security.html&#34; title=&#34;Security Groups&#34;&gt;security group&lt;/a&gt;. However, the security group only lets you control &lt;em&gt;allow&lt;/em&gt; rules, so to block a specific IP you&amp;rsquo;d need to explicitly allow traffic from all other IPs on the internet. This is simply not feasible.&lt;/p&gt;
+
+&lt;p&gt;You can&amp;rsquo;t block the traffic with a firewall on the web servers either, as the traffic hitting the web servers has the source IP address of the load balancer. The only access you have to the real source IP at the web server level is in the X-Forwarded-For HTTP header inside that actual requests.&lt;/p&gt;
+
+&lt;h4 id=&#34;blocking-the-traffic&#34;&gt;Blocking the Traffic&lt;/h4&gt;
+
+&lt;p&gt;The best you can do in this scenario is to block all requests at the actual web servers. In our case on nginx this was as simple as adding the following directives to the &lt;em&gt;server&lt;/em&gt; block:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;set_real_ip_from 172.16.10.9;         // Our ELB
+real_ip_header X-Forwarded-For;       // The real IP from the ELB
+deny 208.96.18.11;                    // Have some HTTP 403
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This doesn&amp;rsquo;t stop the traffic at all, it simply returns HTTP 403&amp;rsquo;s to any requests from the IP addresses or netblock listed. This does take the load off the application servers though, and since nginx is quite efficient at returning 403&amp;rsquo;s with little resource usage, we can serve them up nice and quickly. It would still be nice to firewall that traffic entirely, and hopefully, someday, Amazon adds the ability to configure &lt;em&gt;allow&lt;/em&gt; &lt;strong&gt;and&lt;/strong&gt; &lt;em&gt;deny&lt;/em&gt; rules in security groups.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Puppet Modules - Debsecan</title>
+      <link>https://sigterm.sh/2011/01/02/puppet-modules-debsecan</link>
+      <pubDate>Sun, 02 Jan 2011 12:00:00 -0400</pubDate>
+      
+      <guid>https://sigterm.sh/2011/01/02/puppet-modules-debsecan</guid>
+      <description>&lt;p&gt;This is the first post of (hopefully) many, detailing some of my &lt;a href=&#34;http://www.puppetlabs.com/&#34;&gt;Puppet&lt;/a&gt; module implementations. Being the first, I thought I would start off with something simple.&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+
+&lt;h4 id=&#34;debsecan&#34;&gt;Debsecan&lt;/h4&gt;
+
+&lt;p&gt;The &lt;a href=&#34;http://www.enyo.de/fw/software/debsecan/&#34;&gt;debsecan&lt;/a&gt; program evaluates the security status of a host running the &lt;a href=&#34;http://www.debian.org&#34;&gt;Debian&lt;/a&gt; operation system. It reports missing security updates and known vulnerabilities in the programs which are installed on the host.&lt;/p&gt;
+
+&lt;p&gt;This is a great package that I wanted installed on all &lt;a href=&#34;http://www.debian.org&#34;&gt;Debian&lt;/a&gt; machines across my entire infrastructure. Thanks to Puppet, this is a breeze.&lt;/p&gt;
+
+&lt;h4 id=&#34;module-layout&#34;&gt;Module layout&lt;/h4&gt;
+
+&lt;pre&gt;&lt;code&gt;greg@codemine:~/code/puppet %&amp;gt; find modules/debsecan
+modules/debsecan
+modules/debsecan/files
+modules/debsecan/files/debsecan
+modules/debsecan/files/debsecan-cron
+modules/debsecan/manifests
+modules/debsecan/manifests/init.pp
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;manifest-init-pp&#34;&gt;Manifest - init.pp&lt;/h4&gt;
+
+&lt;pre&gt;&lt;code&gt;greg@codemine:~/code/puppet %&amp;gt; cat modules/debsecan/manifests/init.pp
+class debsecan {
+    package { debsecan: ensure =&amp;gt; latest }
+
+    file {
+        debsecan:
+            path =&amp;gt; &amp;quot;/etc/default/debsecan&amp;quot;,
+            owner =&amp;gt; root,
+            group =&amp;gt; &amp;quot;root&amp;quot;,
+            mode =&amp;gt; 644,
+            source  =&amp;gt; &amp;quot;puppet:///debsecan/debsecan&amp;quot;,
+            require =&amp;gt; Package[&amp;quot;debsecan&amp;quot;];
+        debsecan-cron:
+            path =&amp;gt; &amp;quot;/etc/cron.d/debsecan&amp;quot;,
+            owner =&amp;gt; root,
+            group =&amp;gt; &amp;quot;root&amp;quot;,
+            mode =&amp;gt; 644,
+            source  =&amp;gt; &amp;quot;puppet:///debsecan/debsecan-cron&amp;quot;,
+            require =&amp;gt; Package[&amp;quot;debsecan&amp;quot;];
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;There is really not much to this manifest. It essentially ensures debsecan is installed at the latest available version, it sets up my /etc/default/debsecan config and it ensures there is a cron entry to run it.&lt;/p&gt;
+
+&lt;h4 id=&#34;debsecan-config&#34;&gt;Debsecan config&lt;/h4&gt;
+
+&lt;pre&gt;&lt;code&gt;greg@codemine:~/code/puppet %&amp;gt; cat modules/debsecan/files/debsecan     
+# Configuration file for debsecan.  Contents of this file should
+# adhere to the KEY=VALUE shell syntax.  This file may be edited by
+# debsecan&#39;s scripts, but your modifications are preserved.
+
+# If true, enable daily reports, sent by email.
+REPORT=true
+
+# For better reporting, specify the correct suite here, using the code
+# name (that is, &amp;quot;sid&amp;quot; instead of &amp;quot;unstable&amp;quot;).
+SUITE=lenny
+
+# Mail address to which reports are sent.
+MAILTO=root
+
+# The URL from which vulnerability data is downloaded.  Empty for the
+# built-in default.
+SOURCE=
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;debsecan-cron&#34;&gt;Debsecan cron&lt;/h4&gt;
+
+&lt;pre&gt;&lt;code&gt;greg@codemine:~/code/puppet %&amp;gt; cat modules/debsecan/files/debsecan-cron
+# cron entry for debsecan
+MAILTO=root
+
+42 * * * * daemon test -x /usr/bin/debsecan &amp;amp;&amp;amp; /usr/bin/debsecan --cron
+# (Note: debsecan delays actual processing past 2:00 AM, and runs only
+# once per day.)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You can grab a copy of all the above files (the complete module) here: &lt;a href=&#39;http://code.geek.sh/wp-content/uploads/2010/12/debsecan-puppet.tar.gz&#39;&gt;debsecan-puppet.tar.gz&lt;/a&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Using ferm to build firewall rulesets</title>
+      <link>https://sigterm.sh/2010/12/31/using-ferm-to-build-firewall-rulesets</link>
+      <pubDate>Fri, 31 Dec 2010 12:00:00 -0400</pubDate>
+      
+      <guid>https://sigterm.sh/2010/12/31/using-ferm-to-build-firewall-rulesets</guid>
+      <description>&lt;p&gt;This post is thanks to a suggestion from &lt;a href=&#34;http://twitter.com/froztbyte&#34;&gt;JP Viljoen&lt;/a&gt; to check out &lt;a href=&#34;http://ferm.foo-projects.org/&#34;&gt;ferm&lt;/a&gt;. Well, I did, and it&amp;rsquo;s fairly neat. You get to express your firewall configuration in structures resembling simple C code along with using things like arrays, functions and if / else constructs which makes building complex rulesets quite a simple task.&lt;/p&gt;
+
+&lt;p&gt;I&amp;rsquo;ve included an example configuration below of one of my machines. The network configuration is not extremely complex, but there is a mix of IPv4, IPv6 and - as this is an IRC server - some DNAT to make the IRC service available on a number of other privileged ports without having the service actually listen on those ports. This particular server is running Debian however ferm is basically just a front to ip(6)tables so it&amp;rsquo;ll run pretty much anywhere that runs.&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+
+&lt;p&gt;First off, here is my network interface configuration to give you an idea of what is where:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;kore:~# cat /etc/network/interfaces
+
+auto lo
+iface lo inet loopback
+
+auto eth0
+iface eth0 inet static
+    address 173.134.21.19             # Static eth0 IP
+    netmask 255.255.255.0
+    gateway 173.134.21.1
+
+iface eth0 inet6 static
+    address 2001:410:1e9b:ba22::2     # Primary HE.net IPv6 /64 address
+    netmask 64
+
+auto eth0:0
+iface eth0:0 inet static
+    address 192.168.49.97             # Local networking
+    netmask 255.255.128.0
+
+auto he-ipv6
+iface he-ipv6 inet6 v4tunnel
+    address 2001:410:1e9a:ba22::2     # Tunnel address
+    netmask 64
+    ttl 255
+    gateway 2001:410:1e9a:ba22::1
+    endpoint 216.218.224.42
+    local 173.134.21.19
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;There is nothing extremely complicated here, just a basic IPv4 static IP assigned by my provider, a local network for traffic between this and other local nodes, a &lt;a href=&#34;http://tunnelbroker.net/&#34;&gt;Hurricane Electric IPv6 tunnel&lt;/a&gt; and a static IP from my HE.net provided /64.&lt;/p&gt;
+
+&lt;p&gt;The ferm configuration in use here looks like this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;kore:~# cat /etc/ferm/ferm.conf
+# -*- shell-script -*-
+#
+#  Configuration file for ferm(1).
+#
+
+@def $PORTS = (22 25 161 4949 6667 6668 7000 7352 7535); # Services running
+@def $IRC_PORTS = (21 23 53 80 110 143 993);             # Additional ports
+
+table filter {
+    chain INPUT {
+        policy DROP;
+
+        # connection tracking
+        mod state state INVALID DROP;
+        mod state state (ESTABLISHED RELATED) ACCEPT;
+
+        # allow local packages
+        interface lo ACCEPT;
+
+        # respond to ping
+        proto icmp ACCEPT;
+
+        # standard ports we allow from the outside
+        proto tcp dport $PORTS ACCEPT;
+    }
+
+    chain OUTPUT {
+        policy ACCEPT;
+
+        # connection tracking
+        #mod state state INVALID DROP;
+        mod state state (ESTABLISHED RELATED) ACCEPT;
+    }
+
+    chain FORWARD {
+        policy DROP;
+
+        # connection tracking
+        mod state state INVALID DROP;
+        mod state state (ESTABLISHED RELATED) ACCEPT;
+    }
+}
+
+table nat {
+    chain PREROUTING {
+        # additional ports we listen on and redirect to the IRC server
+        interface eth0 proto tcp dport $IRC_PORTS DNAT to 173.134.21.19:6667;
+    }
+}
+
+# IPv6:
+domain ip6 table filter {
+    chain INPUT {
+        policy DROP;
+
+        # connection tracking
+        mod state state INVALID DROP;
+        mod state state (ESTABLISHED RELATED) ACCEPT;
+
+        # allow ICMP (for neighbor solicitation, like ARP for IPv4)
+        proto ipv6-icmp ACCEPT;
+
+        # standard ports we allow from the outside
+        proto tcp dport $PORTS ACCEPT;
+    }
+
+    chain OUTPUT {
+        policy ACCEPT;
+
+        # connection tracking
+        #mod state state INVALID DROP;
+        mod state state (ESTABLISHED RELATED) ACCEPT;
+    }
+
+    chain FORWARD {
+        policy DROP;
+
+        # connection tracking
+        mod state state INVALID DROP;
+        mod state state (ESTABLISHED RELATED) ACCEPT;
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;So this ruleset is basically broken down into 3 parts:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;IPv4 filter table&lt;/li&gt;
+&lt;li&gt;IPv4 nat table&lt;/li&gt;
+&lt;li&gt;IPv6 filter table&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&#34;ipv4-filter-table&#34;&gt;IPv4 filter table&lt;/h4&gt;
+
+&lt;p&gt;We control the INPUT, OUTPUT and FORWARD chains here. On the INPUT chain, we default to dropping everything, enable connection state tracking, allow all traffic through our local interface, allow ICMP and specify a list of ports we allow the outside world to use. On the OUTPUT chain we allow everything out and enable connection state tracking. Finally on the FORWARD chain we drop everything as this machine is not a router. Pretty concise right ?&lt;/p&gt;
+
+&lt;h4 id=&#34;ipv4-nat-table&#34;&gt;IPv4 nat table&lt;/h4&gt;
+
+&lt;p&gt;In the nat table config, we basically setup the DNAT of those privileged ports under the PREROUTING chain.&lt;/p&gt;
+
+&lt;h4 id=&#34;ipv6-filter-table&#34;&gt;IPv6 filter table&lt;/h4&gt;
+
+&lt;p&gt;Finally, in the IPv6 filter table, we allow the same set of incoming ports as IPv4, allow ipv6-icmp and setup connection state tracking as before.&lt;/p&gt;
+
+&lt;p&gt;Once that&amp;rsquo;s done, simply run:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;kore:~# ferm /etc/ferm/ferm.conf
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&amp;hellip; and your new ruleset is validated and loaded.&lt;/p&gt;
+
+&lt;p&gt;On a side note, if you are interested in playing around with IPv6 I would highly recommend setting up a Hurricane Electric tunnel and then doing the &lt;a href=&#34;http://ipv6.he.net/certification/&#34;&gt;certification&lt;/a&gt;. It makes for a great Saturday afternoon time waster and you might learn something along the way:&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://ipv6.he.net/certification/&#34;&gt;&lt;img src=&#34;http://ipv6.he.net/certification/create_badge.php?pass_name=gregarmer&amp;badge=1&#34; alt=&#34;IPv6 Certification&#34; width=&#34;150&#34; /&gt;&lt;/a&gt;&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

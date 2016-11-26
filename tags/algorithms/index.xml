@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>./sigterm.sh</title>
+    <link>https://sigterm.sh/tags/algorithms/index.xml</link>
+    <description>Recent content on ./sigterm.sh</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>Gregory Armer. All rights reserved.</copyright>
+    <atom:link href="https://sigterm.sh/tags/algorithms/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Natural order sorting strings with numbers</title>
+      <link>https://sigterm.sh/2010/09/23/natural-order-sorting-strings-with-numbers</link>
+      <pubDate>Thu, 23 Sep 2010 12:00:00 -0400</pubDate>
+      
+      <guid>https://sigterm.sh/2010/09/23/natural-order-sorting-strings-with-numbers</guid>
+      <description>&lt;p&gt;The following python code makes natural sorting sequences of lexical and numerical values a little easier. It supports any iterable containing strings which have embedded numbers. In short it would give you this:&lt;/p&gt;
+
+&lt;p&gt;foo1 &amp;lt; foo2 &amp;lt; foo10&lt;/p&gt;
+
+&lt;p&gt;instead of this:&lt;/p&gt;
+
+&lt;p&gt;foo1 &amp;lt; foo10 &amp;lt; foo2&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+
+&lt;p&gt;As an example, if you have this sequence:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;gt;&amp;gt;&amp;gt; seq = [&#39;foo&#39;, &#39;foo1&#39;, &#39;foo2&#39;, &#39;foo10&#39;, &#39;foobar10&#39;, &#39;20&#39;, &#39;100&#39;, &#39;1&#39;, &#39;3&#39;, &#39;bar1&#39;]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;a regular sort would produce this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;gt;&amp;gt;&amp;gt; sorted(seq)
+[&#39;1&#39;, &#39;100&#39;, &#39;20&#39;, &#39;3&#39;, &#39;bar1&#39;, &#39;foo&#39;, &#39;foo1&#39;, &#39;foo10&#39;, &#39;foo2&#39;, &#39;foobar10&#39;]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;whereas a natural sort would produce this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;gt;&amp;gt;&amp;gt; natural_sort(seq)
+[&#39;1&#39;, &#39;3&#39;, &#39;20&#39;, &#39;100&#39;, &#39;bar1&#39;, &#39;foo&#39;, &#39;foo1&#39;, &#39;foo2&#39;, &#39;foo10&#39;, &#39;foobar10&#39;]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Here is the code:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;import re
+
+def natsort_key(item):
+    chunks = re.split(&#39;(\d+(?:\.\d+)?)&#39;, item)
+    for ii in range(len(chunks)):
+        if chunks[ii] and chunks[ii][0] in &#39;0123456789&#39;:
+            if &#39;.&#39; in chunks[ii]: numtype = float
+            else: numtype = int
+            chunks[ii] = (0, numtype(chunks[ii]))
+        else:
+            chunks[ii] = (1, chunks[ii])
+    return (chunks, item)
+
+def natural_sort(seq):
+    sortlist = [item for item in seq]
+    sortlist.sort(key=natsort_key)
+    return sortlist
+&lt;/code&gt;&lt;/pre&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

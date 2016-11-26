@@ -1,0 +1,1327 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>./sigterm.sh</title>
+    <link>https://sigterm.sh/index.xml</link>
+    <description>Recent content on ./sigterm.sh</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>Gregory Armer. All rights reserved.</copyright>
+    <lastBuildDate>Sat, 05 Nov 2016 14:26:00 -0400</lastBuildDate>
+    <atom:link href="https://sigterm.sh/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Passing VLANs over an LACP trunk in OpenBSD</title>
+      <link>https://sigterm.sh/2016/11/05/passing-vlans-over-an-lacp-trunk-in-openbsd</link>
+      <pubDate>Sat, 05 Nov 2016 14:26:00 -0400</pubDate>
+      
+      <guid>https://sigterm.sh/2016/11/05/passing-vlans-over-an-lacp-trunk-in-openbsd</guid>
+      <description>&lt;p&gt;It took me a little while to figure this out, so for anyone stuck on this, here&amp;rsquo;s what I did.&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+
+&lt;p&gt;I did this with a Cisco 3750 switch.  The switch config was:&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;Port-channel&lt;/em&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;interface Port-channel42
+ description etherchannel fw
+ switchport trunk encapsulation dot1q
+ switchport trunk allowed vlan 56-61,63
+ switchport mode trunk
+ spanning-tree portfast
+ spanning-tree bpduguard enable
+!
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;em&gt;Interfaces&lt;/em&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;interface GigabitEthernet1/0/23
+ description fw-pc42-1
+ switchport trunk encapsulation dot1q
+ switchport trunk allowed vlan 56-61,63
+ switchport mode trunk
+ channel-protocol lacp
+ channel-group 42 mode active
+!
+interface GigabitEthernet1/0/24
+ description fw-pc42-2
+ switchport trunk encapsulation dot1q
+ switchport trunk allowed vlan 56-61,63
+ switchport mode trunk
+ channel-protocol lacp
+ channel-group 42 mode active
+!
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Then on the firewall:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;# cat /etc/hostname.em0
+up
+# cat /etc/hostname.em1
+up
+# cat /etc/hostname.trunk0
+trunkproto lacp trunkport em0 trunkport em1
+up
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;and lastly the VLAN interfaces:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;# cat /etc/hostname.vlan57
+inet 172.29.57.1 255.255.255.0 NONE vlan 57 vlandev trunk0 descr WIFI
+# cat /etc/hostname.vlan58
+inet 172.29.58.1 255.255.254.0 NONE vlan 58 vlandev trunk0 descr SERVERS
+# cat /etc/hostname.vlan60
+inet 172.29.60.1 255.255.255.0 NONE vlan 60 vlandev trunk0 descr WIRED
+# cat /etc/hostname.vlan61
+inet 172.29.61.1 255.255.255.0 NONE vlan 61 vlandev trunk0 descr IPMI
+# cat /etc/hostname.vlan63
+inet 172.29.63.1 255.255.255.0 NONE vlan 63 vlandev trunk0 descr MGMT
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You can set this up by executing &lt;code&gt;sh /etc/netstart&lt;/code&gt; without having to run a bunch of &lt;code&gt;ifconfig&lt;/code&gt; commands.&lt;/p&gt;
+
+&lt;p&gt;Your interfaces should look like this when it&amp;rsquo;s up:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;em0: flags=8b43&amp;lt;UP,BROADCAST,RUNNING,PROMISC,ALLMULTI,SIMPLEX,MULTICAST&amp;gt; mtu 1500
+        lladdr 0c:c4:7a:ac:70:02
+        index 1 priority 0 llprio 3
+        trunk: trunkdev trunk0
+        media: Ethernet autoselect (1000baseT full-duplex)
+        status: active
+
+em1: flags=8b43&amp;lt;UP,BROADCAST,RUNNING,PROMISC,ALLMULTI,SIMPLEX,MULTICAST&amp;gt; mtu 1500
+        lladdr 0c:c4:7a:ac:70:02
+        index 2 priority 0 llprio 3
+        trunk: trunkdev trunk0
+        media: Ethernet autoselect (1000baseT full-duplex)
+        status: active
+
+trunk0: flags=8843&amp;lt;UP,BROADCAST,RUNNING,SIMPLEX,MULTICAST&amp;gt; mtu 1500
+        lladdr 0c:c4:7a:ac:70:02
+        index 8 priority 0 llprio 3
+        trunk: trunkproto lacp
+        trunk id: [(8000,0c:c4:7a:ac:70:02,4044,0000,0000),
+                 (8000,00:1a:e2:1f:0b:00,002A,0000,0000)]
+                trunkport em1 active,collecting,distributing
+                trunkport em0 active,collecting,distributing
+        groups: trunk
+        media: Ethernet autoselect
+        status: active
+
+vlan58: flags=8843&amp;lt;UP,BROADCAST,RUNNING,SIMPLEX,MULTICAST&amp;gt; mtu 1500
+        lladdr 0c:c4:7a:ac:70:02
+        description: SERVERS
+        index 11 priority 0 llprio 3
+        vlan: 58 parent interface: trunk0
+        vnetid: 58
+        parent: trunk0
+        groups: vlan
+        status: active
+        inet 172.29.58.1 netmask 0xfffffe00 broadcast 172.29.59.255
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;and the switch:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;core-3750-1#show etherchannel summary
+Flags:  D - down        P - bundled in port-channel
+        I - stand-alone s - suspended
+        H - Hot-standby (LACP only)
+        R - Layer3      S - Layer2
+        U - in use      f - failed to allocate aggregator
+
+        M - not in use, minimum links not met
+        u - unsuitable for bundling
+        w - waiting to be aggregated
+        d - default port
+
+
+Number of channel-groups in use: 3
+Number of aggregators:           3
+
+Group  Port-channel  Protocol    Ports
+------+-------------+-----------+-----------------------------------------------
+1      Po1(SU)         LACP      Gi1/0/15(P) Gi1/0/16(P)
+2      Po2(SU)         LACP      Gi1/0/13(P) Gi1/0/14(P)
+42     Po42(SU)        LACP      Gi1/0/23(P) Gi1/0/24(P)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;A few things that got me:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;You will get an error if the &lt;code&gt;em*&lt;/code&gt; interfaces are not marked as &lt;code&gt;up&lt;/code&gt; when you add them as trunkports.  Set them as up with &lt;code&gt;ifconfig em0 up&lt;/code&gt; before your &lt;code&gt;ifconfig trunk0 trunkport em0&lt;/code&gt; command.&lt;/li&gt;
+&lt;li&gt;When the tunnel is configured with &lt;code&gt;ifconfig&lt;/code&gt; it doesn&amp;rsquo;t automatically start, so you&amp;rsquo;ll need an explicit &lt;code&gt;ifconfig trunk0 up&lt;/code&gt; to bring it up.&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+    
+    <item>
+      <title>Recording backend processing time in Golang</title>
+      <link>https://sigterm.sh/2015/03/08/recording-backend-processing-time-in-go</link>
+      <pubDate>Sun, 08 Mar 2015 18:58:00 -0400</pubDate>
+      
+      <guid>https://sigterm.sh/2015/03/08/recording-backend-processing-time-in-go</guid>
+      <description>&lt;p&gt;I recently wrote a RESTful web service in Golang, and wanted to pull out some stats on how my handlers were doing in terms of performance.&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+
+&lt;p&gt;A simplified version of where I started would be:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;package main
+
+import (
+	&amp;quot;github.com/gorilla/mux&amp;quot;
+	&amp;quot;log&amp;quot;
+	&amp;quot;net/http&amp;quot;
+)
+
+// Some handlers here
+
+func main() {
+	router := mux.NewRouter().StrictSlash(true)
+	router.HandleFunc(&amp;quot;/api/something&amp;quot;, SomethingIndexHandler).Methods(&amp;quot;GET&amp;quot;)
+	router.HandleFunc(&amp;quot;/api/something&amp;quot;, SomethingCreateHandler).Methods(&amp;quot;POST&amp;quot;)
+
+	port := &amp;quot;:9000&amp;quot;
+	log.Printf(&amp;quot;Starting web server on &amp;quot; + port)
+	err := http.ListenAndServe(port, router)
+	if err != nil {
+		log.Fatal(err)
+	}
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This is actually pretty simple, we just need something to wrap all our routes, and emit logs containing start and end times. That would look something like this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;func DefaultWrapper(handler http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		start := time.Now()
+		handler.ServeHTTP(w, r)
+		log.Printf(&amp;quot;%s %s %s %s&amp;quot;, r.RemoteAddr, time.Since(start), r.Method, r.URL)
+	})
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You would then wrap your router with this wrapper:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;err := http.ListenAndServe(port, DefaultWrapper(router))
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;We would then see logs like:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;go-app git:master ❯ go run *.go
+2015/03/08 17:34:55 Starting web server on :9000
+2015/03/08 17:34:57 [::1]:49868 824µs GET /api/something?limit=10
+2015/03/08 17:34:58 [::1]:49868 7.954824ms POST /api/something
+2015/03/08 17:34:59 [::1]:49868 34.745µs GET /
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;final-code&#34;&gt;Final code&lt;/h4&gt;
+
+&lt;pre&gt;&lt;code&gt;package main
+ 
+import (  
+   &amp;quot;fmt&amp;quot;
+   &amp;quot;github.com/gorilla/mux&amp;quot;
+   &amp;quot;log&amp;quot;
+   &amp;quot;net/http&amp;quot;
+   &amp;quot;time&amp;quot;
+)
+ 
+// Some handlers here
+ 
+func DefaultWrapper(handler http.Handler) http.Handler {  
+   return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+      start := time.Now()
+      handler.ServeHTTP(w, r)
+      log.Printf(&amp;quot;%s %s %s %s&amp;quot;, r.RemoteAddr, time.Since(start), r.Method, r.URL)
+   })
+}
+ 
+func main() {  
+   router := mux.NewRouter().StrictSlash(true)
+   router.HandleFunc(&amp;quot;/api/something&amp;quot;, SomethingIndexHandler).Methods(&amp;quot;GET&amp;quot;)
+   router.HandleFunc(&amp;quot;/api/something&amp;quot;, SomethingCreateHandler).Methods(&amp;quot;POST&amp;quot;)
+ 
+   port := &amp;quot;:9000&amp;quot;
+   log.Printf(&amp;quot;Starting web server on &amp;quot; + port)
+   err := http.ListenAndServe(port, DefaultWrapper(router))
+   if err != nil {
+      log.Fatal(err)
+   }
+}
+&lt;/code&gt;&lt;/pre&gt;</description>
+    </item>
+    
+    <item>
+      <title>Announcing flake8-diff</title>
+      <link>https://sigterm.sh/2015/01/06/announcing-flake8-diff</link>
+      <pubDate>Tue, 06 Jan 2015 18:50:00 -0400</pubDate>
+      
+      <guid>https://sigterm.sh/2015/01/06/announcing-flake8-diff</guid>
+      <description>&lt;h3 id=&#34;purpose&#34;&gt;Purpose&lt;/h3&gt;
+
+&lt;p&gt;This utility allows you to run flake8 over a set of changed files and filter out violations that would be introduced by merging those changes.&lt;/p&gt;
+
+&lt;p&gt;We use this as part of our build / CI infrastructure to alert developers opening pull requests to new violations their pull request will introduce, if it were merged.&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;using-flake8-diff&#34;&gt;Using flake8-diff&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code&gt;$ pip install flake8-diff
+$ flake8-diff -h
+usage: flake8-diff [-h] [--flake8-options ...] [--vcs {git}]
+                   [--standard-flake8-output] [-v]
+                   [--color {off,colorful,light,nocolor,dark,boring}]
+                   [commit [commit ...]]
+
+This script runs flake8 across a set of changed files and filters out
+violations occurring only on the lines that were changed.
+
+positional arguments:
+  commit                At most two commit hashes or branch names which will
+                        be compared to figure out changed lines between the
+                        two. If only one commit is provided, that commit will
+                        be compared against current files.Default is
+                        &amp;quot;origin/master&amp;quot;.
+
+optional arguments:
+  -h, --help            show this help message and exit
+  --flake8-options ...  Options to be passed to flake8 command. Can be used to
+                        configure flake8 on-the-fly when flake8 configuration
+                        file is not present.
+  --vcs {git}           VCS to use. By default VCS is attempted to determine
+                        automatically. Can be any of &amp;quot;git&amp;quot;
+  --standard-flake8-output
+                        Output standard flake8 output instead of simplified,
+                        more readable summary.
+  -v, --verbose         Be verbose. This will print out every compared file.
+                        Can be supplied multiple times to increase verbosity
+                        level
+  --color {off,colorful,light,nocolor,dark,boring}
+                        Color theme to use. Default is &amp;quot;colorful&amp;quot;. Can be any
+                        of &amp;quot;off, colorful, light, nocolor, dark, boring&amp;quot;
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;contributing&#34;&gt;Contributing&lt;/h3&gt;
+
+&lt;p&gt;Contributions are welcome, and they are greatly appreciated! Every little bit helps, and credit will always be given.&lt;/p&gt;
+
+&lt;p&gt;You can contribute in many ways:&lt;/p&gt;
+
+&lt;h4 id=&#34;types-of-contributions&#34;&gt;Types of Contributions&lt;/h4&gt;
+
+&lt;h5 id=&#34;report-bugs&#34;&gt;Report Bugs&lt;/h5&gt;
+
+&lt;p&gt;Report bugs at &lt;a href=&#34;https://github.com/dealertrack/flake8-diff/issues&#34;&gt;https://github.com/dealertrack/flake8-diff/issues&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;If you are reporting a bug, please include:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Any details about your local setup that might be helpful in troubleshooting.&lt;/li&gt;
+&lt;li&gt;Detailed steps to reproduce the bug.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h5 id=&#34;fix-bugs&#34;&gt;Fix Bugs&lt;/h5&gt;
+
+&lt;p&gt;Look through the GitHub issues for bugs. Anything tagged with &amp;ldquo;bug&amp;rdquo; is open to whoever wants to fix it.&lt;/p&gt;
+
+&lt;h5 id=&#34;implement-features&#34;&gt;Implement Features&lt;/h5&gt;
+
+&lt;p&gt;Look through the GitHub issues for features. Anything tagged with &amp;ldquo;enhancement&amp;rdquo; is open to whoever wants to implement it.&lt;/p&gt;
+
+&lt;h5 id=&#34;write-documentation&#34;&gt;Write Documentation&lt;/h5&gt;
+
+&lt;p&gt;flake8-diff could always use more documentation, whether as part of the official docs, in docstrings, or even on the web in blog posts, articles, and such.&lt;/p&gt;
+
+&lt;h5 id=&#34;submit-feedback&#34;&gt;Submit Feedback&lt;/h5&gt;
+
+&lt;p&gt;The best way to send feedback is to file an issue at &lt;a href=&#34;https://github.com/dealertrack/flake8-diff/issues&#34;&gt;https://github.com/dealertrack/flake8-diff/issues&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;If you are proposing a feature:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Explain in detail how it would work.&lt;/li&gt;
+&lt;li&gt;Keep the scope as narrow as possible, to make it easier to implement.&lt;/li&gt;
+&lt;li&gt;Remember that this is a volunteer-driven project, and that contributions are welcome :)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&#34;getting-started&#34;&gt;Getting Started!&lt;/h4&gt;
+
+&lt;p&gt;Ready to contribute? Here&amp;rsquo;s how to set up &lt;code&gt;flake8-diff&lt;/code&gt; for local development.&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Fork the &lt;code&gt;flake8-diff&lt;/code&gt; repo on GitHub.&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Clone your fork locally:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ git clone git@github.com:your_name_here/flake8-diff.git
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Install your local copy into a virtualenv. Assuming you have virtualenvwrapper installed, this is how you set up your fork for local development:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ mkvirtualenv flake8-diff
+$ cd flake8-diff/
+$ python setup.py develop
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Create a branch for local development:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ git checkout -b name-of-your-bugfix-or-feature
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Now you can make your changes locally.&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;When you&amp;rsquo;re done making changes, check that your changes pass flake8 and the tests, including testing other Python versions with tox:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ flake8 flake8-diff tests
+$ python setup.py test
+$ tox
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;To get flake8 and tox, just pip install them into your virtualenv.&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Commit your changes and push your branch to GitHub:&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;pre&gt;&lt;code&gt;   $ git add .
+   $ git commit -m &amp;quot;Your detailed description of your changes.&amp;quot;
+   $ git push origin name-of-your-bugfix-or-feature
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Submit a pull request through the GitHub website.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h4 id=&#34;pull-request-guidelines&#34;&gt;Pull Request Guidelines&lt;/h4&gt;
+
+&lt;p&gt;Before you submit a pull request, check that it meets these guidelines:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;The pull request should include tests.&lt;/li&gt;
+&lt;li&gt;If the pull request adds functionality, the docs should be updated. Put your new functionality into a function with a docstring, and add the feature to the list in README.md.&lt;/li&gt;
+&lt;li&gt;The pull request should work for Python 2.6, 2.7, and 3.3, and for PyPy. Check &lt;a href=&#34;https://travis-ci.org/dealertrack/flake8-diff/pull_requests&#34;&gt;https://travis-ci.org/dealertrack/flake8-diff/pull_requests&lt;/a&gt; and make sure that the tests pass for all supported Python versions.&lt;/li&gt;
+&lt;/ol&gt;</description>
+    </item>
+    
+    <item>
+      <title>SSL Configuration</title>
+      <link>https://sigterm.sh/2014/10/26/ssl-configuration</link>
+      <pubDate>Sun, 26 Oct 2014 05:53:00 -0400</pubDate>
+      
+      <guid>https://sigterm.sh/2014/10/26/ssl-configuration</guid>
+      <description>&lt;p&gt;As you may have noticed, this site is now served over HTTPS!&lt;/p&gt;
+
+&lt;p&gt;IE6 users, you&amp;rsquo;re pretty much SOL since I turned off all your cipher suites. It&amp;rsquo;s 2014 and it&amp;rsquo;s probably a pretty good time to get yourself a slightly newer browser anyway.&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+
+&lt;p&gt;For anyone interested, here&amp;rsquo;s the NGINX config I&amp;rsquo;m using:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;server {
+    listen 80;
+    server_name sigterm.sh;
+    rewrite ^(.*) https://sigterm.sh$1 permanent;
+}
+
+server {
+    listen 443 ssl;
+    server_name sigterm.sh;
+    ssl_certificate certs/sigterm.sh.crt;
+    ssl_certificate_key certs/sigterm.sh.key;
+    ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
+    ssl_prefer_server_ciphers on;
+    ssl_session_timeout 5m;
+    ssl_ciphers &amp;quot;EECDH+ECDSA+AESGCM EECDH+aRSA+AESGCM EECDH+ECDSA+SHA384 \
+        EECDH+ECDSA+SHA256 EECDH+aRSA+SHA384 EECDH+aRSA+SHA256 EECDH+aRSA+RC4 \
+        EECDH EDH+aRSA RC4 !aNULL !eNULL !LOW !3DES !MD5 !EXP !PSK !SRP !DSS&amp;quot;;
+
+    gzip on;
+    gzip_min_length 2000;
+    gzip_proxied any;
+    gzip_types application/json;
+
+    location / {
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header Host $http_host;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_pass http://127.0.0.1:1234;
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You can check out the full test report over at &lt;a href=&#34;https://www.ssllabs.com/ssltest/analyze.html?d=sigterm.sh&#34;&gt;SSL Labs&lt;/a&gt;.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Thoughts on Google Inbox</title>
+      <link>https://sigterm.sh/2014/10/26/google-inbox</link>
+      <pubDate>Sun, 26 Oct 2014 04:35:00 -0400</pubDate>
+      
+      <guid>https://sigterm.sh/2014/10/26/google-inbox</guid>
+      <description>&lt;p&gt;This is an insanely awesome way to work with your e-mail!  Google have essentially turned your e-mail inbox into a massive todo list, which as it turns out, is actually a nice way to treat it.&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+
+&lt;p&gt;The bundling is great, and is pretty accurate from what I&amp;rsquo;ve seen.  Also, the extra meta-info they add in to some e-mails seems to be quite useful - things like flight details, or purchases.&lt;/p&gt;
+
+&lt;p&gt;Reminders is also great, especially for people like me who e-mail themselves things to remember.&lt;/p&gt;
+
+&lt;p&gt;I&amp;rsquo;m a big fan and really wish I could use it with my red-taped security controlled corporate Exchange e-mail account too.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Highly Available NFS Cluster on Debian Wheezy</title>
+      <link>https://sigterm.sh/2014/02/01/highly-available-nfs-cluster-on-debian-wheezy</link>
+      <pubDate>Sat, 01 Feb 2014 12:00:00 -0400</pubDate>
+      
+      <guid>https://sigterm.sh/2014/02/01/highly-available-nfs-cluster-on-debian-wheezy</guid>
+      <description>&lt;h4 id=&#34;overview&#34;&gt;Overview&lt;/h4&gt;
+
+&lt;p&gt;This guide will help you setup a highly available NFS server on Debian Wheezy. This is a relatively battle-tested configuration, and there is plenty information out there on how it works - I&amp;rsquo;ll include some links at the end of this post.&lt;/p&gt;
+
+&lt;p&gt;I was using GlusterFS up until recently, but I&amp;rsquo;m not happy with file corruption issues I&amp;rsquo;m seeing, and the insane load it puts on 2 rather beefy servers trying to resync data after one fails for just a short time.&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+
+&lt;p&gt;This guide will give you a setup as follows:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;One active NFS server with its own public, private and floating IP (VIP)&lt;/li&gt;
+&lt;li&gt;One passive hot standby NFS server with its own public and private IP&lt;/li&gt;
+&lt;li&gt;Automatic failover when one of the nodes becomes unresponsive or unreachable.&lt;/li&gt;
+&lt;li&gt;Unicast cluster syncronization (so it works on Linode and other places where multicast (like corosync) isn&amp;rsquo;t available.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;servers&#34;&gt;Servers&lt;/h3&gt;
+
+&lt;p&gt;While writing this guide, I used 2 virtualbox VMs (alice and bob). Each VM configured as follows:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Default Debian Wheezy install from a netinst iso&lt;/li&gt;
+&lt;li&gt;512MB RAM&lt;/li&gt;
+&lt;li&gt;1 x 8GB OS disk (all partitions - /dev/sda)&lt;/li&gt;
+&lt;li&gt;1 x 10GB data disk (/dev/sdb)&lt;/li&gt;
+&lt;li&gt;Bridged networking (so it&amp;rsquo;s easier to test)
+
+&lt;ul&gt;
+&lt;li&gt;alice has IP 192.168.1.201&lt;/li&gt;
+&lt;li&gt;bob has IP 192.168.1.202&lt;/li&gt;
+&lt;li&gt;Our floating virtual IP will be 192.168.1.200&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;configurations&#34;&gt;Configurations&lt;/h3&gt;
+
+&lt;p&gt;It&amp;rsquo;s good to get some basics down first.&lt;/p&gt;
+
+&lt;h4 id=&#34;packages&#34;&gt;Packages&lt;/h4&gt;
+
+&lt;p&gt;Let&amp;rsquo;s start with some useful packages (install on alice and bob):&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;alice $ apt-get install ntp vim
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;networking&#34;&gt;Networking&lt;/h4&gt;
+
+&lt;p&gt;Tweak to suit your environment, of course.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;alice $ cat /etc/network/interfaces
+# This file describes the network interfaces available on your system
+# and how to activate them. For more information, see interfaces(5).
+
+# The loopback network interface
+auto lo
+iface lo inet loopback
+
+# The primary network interface
+auto eth0
+iface eth0 inet static
+    address 192.168.1.201
+    netmask 255.255.255.0
+    gateway 192.168.1.1
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The config will be the same on bob, apart from the IP, which will be 192.168.1.202&lt;/p&gt;
+
+&lt;h4 id=&#34;hostname&#34;&gt;Hostname&lt;/h4&gt;
+
+&lt;p&gt;This is pretty important, since pretty much everything relies on the servers hostnames.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;alice $ hostname alice.local
+alice $ echo alice.local &amp;gt; /etc/hostname
+bob $ hostname bob.local
+bob $ echo bob.local &amp;gt; /etc/hostname
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;install-and-configure-drbd&#34;&gt;Install and Configure DRBD&lt;/h4&gt;
+
+&lt;p&gt;DRBD will be used to constantly sync all data from the primary to the slave, whichever servers they may be at that point in time.&lt;/p&gt;
+
+&lt;p&gt;Install DRBD8 utils on alice and bob:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;alice $ apt-get install drbd8-utils
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Drop in the configs on alice and bob. First /etc/drbd.d/global_common.conf&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;global {
+    usage-count yes;
+}
+
+common {
+    protocol C;
+
+    handlers {
+        pri-on-incon-degr &amp;quot;/usr/lib/drbd/notify-pri-on-incon-degr.sh; /usr/lib/drbd/notify-emergency-reboot.sh; echo b &amp;gt; /proc/sysrq-trigger; reboot -f&amp;quot;;
+        pri-lost-after-sb &amp;quot;/usr/lib/drbd/notify-pri-lost-after-sb.sh; /usr/lib/drbd/notify-emergency-reboot.sh; echo b &amp;gt; /proc/sysrq-trigger; reboot -f&amp;quot;;
+        local-io-error &amp;quot;/usr/lib/drbd/notify-io-error.sh; /usr/lib/drbd/notify-emergency-shutdown.sh; echo o &amp;gt; /proc/sysrq-trigger; halt -f&amp;quot;;
+
+        split-brain &amp;quot;/usr/lib/drbd/notify-split-brain.sh root&amp;quot;;
+    }
+
+    startup {
+        wfc-timeout 15;
+        degr-wfc-timeout 60;
+    }
+
+    net {
+        cram-hmac-alg sha1;
+    }
+
+    syncer {
+        rate 10M;
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;and your DRBD resource config in /etc/drbd.d/r0.res&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;resource r0 {
+    net {
+        shared-secret &amp;quot;s3kr1t&amp;quot;;
+    }
+
+    on alice {
+        device    /dev/drbd0;
+        disk      /dev/sdb;
+        address   192.168.1.201:7788;
+        meta-disk internal;
+    }
+
+    on bob {
+        device    /dev/drbd0;
+        disk      /dev/sdb;
+        address   192.168.1.202:7788;
+        meta-disk internal;
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Let&amp;rsquo;s get DRBD started so the initial sync can get going.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;# Create metadata on alice
+alice $ drbdadm create-md r0
+
+# Start DRBD on both nodes
+alice $ /etc/init.d/drbd start
+bob $ /etc/init.d/drbd start
+
+# Setup primary DRBD connection and sync
+alice $ drbdadm -- --overwrite-data-of-peer primary r0
+alice $ drbdadm disconnect r0
+alice $ drbdadm connect r0
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You can check the sync status with this command:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;alice $ cat /proc/drbd
+version: 8.3.10 (api:88/proto:86-96)
+built-in
+ 0: cs:SyncSource ro:Primary/Secondary ds:UpToDate/Inconsistent C r-----
+    ns:3116484 nr:0 dw:0 dr:3593516 al:0 bm:219 lo:0 pe:2 ua:1 ap:0 ep:1 wo:f oos:1649980
+    [============&amp;gt;.......] sync&#39;ed: 65.5% (1608/4652) finish: 0:05:08 speed: 5,328 (5,056) K/sec
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You can now format the DRBD disk using any filesystem you prefer, here I&amp;rsquo;m using EXT4&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;alice $ mkfs.ext4 /dev/drbd0
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Add the DRBD disk to /etc/fstab on alice and bob&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;alice $ vi /etc/fstab
+
+# Add a line like this - substitute for your preferred fs and settings
+/dev/drbd0      /data           ext4    defaults        0 0
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;install-and-configure-nfs&#34;&gt;Install and Configure NFS&lt;/h4&gt;
+
+&lt;p&gt;NFS will be used to serve our highly available data.&lt;/p&gt;
+
+&lt;p&gt;Let&amp;rsquo;s start with installing some packages on alice and bob&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;alice $ apt-get install nfs-kernel-server
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Now tell the new dependency based booting not to start NFS automatically.  NFS will be started automatically by heartbeat later on.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;alice $ insserv --remove nfs-common
+alice $ insserv --remove nfs-kernel-server
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Setup our exports on alice and bob&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;alice $ vi /etc/exports
+
+# Add a line similar to this, change to suit your network and requirements
+/data   192.168.1.0/255.255.255.0(rw,no_root_squash,no_all_squash,sync)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;install-and-configure-heartbeat&#34;&gt;Install and Configure heartbeat&lt;/h4&gt;
+
+&lt;p&gt;We&amp;rsquo;ll use heartbeat to syncronize the cluster, handle fencing and to promote the slave to the master.&lt;/p&gt;
+
+&lt;p&gt;Install heartbeat on alice and bob&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;alice $ apt-get install heartbeat
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Drop in the configs on alice and bob as below.  You&amp;rsquo;ll need 3 files in total.&lt;/p&gt;
+
+&lt;p&gt;/etc/heartbeat/ha.cf&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;logfacility     local0
+keepalive 2
+deadtime 10
+bcast   eth0
+auto_failback off
+node alice bob
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;/etc/heartbeat/haresources&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;alice  IPaddr::192.168.1.200/24/eth0 drbddisk::r0 Filesystem::/dev/drbd0::/data::ext4 nfs-kernel-server
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;em&gt;Note:&lt;/em&gt; this line starts with &lt;em&gt;alice&lt;/em&gt; on both nodes - this is the &amp;ldquo;preferred primary&amp;rdquo;.&lt;/p&gt;
+
+&lt;p&gt;/etc/heartbeat/authkeys&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;auth 3
+3 md5 s3kr1t
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;em&gt;Note:&lt;/em&gt; set a good password, especially if you deploy this in a public cloud!&lt;/p&gt;
+
+&lt;p&gt;Finally, start up heartbeat:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;alice $ /etc/init.d/heartbeat start
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;If you run &lt;em&gt;ifconfig&lt;/em&gt; on alice, you should see that it now has the floating IP. You&amp;rsquo;ll also notice the NFS is running, and /data is mounted.&lt;/p&gt;
+
+&lt;h4 id=&#34;testing&#34;&gt;Testing&lt;/h4&gt;
+
+&lt;p&gt;This is the best part.  Let&amp;rsquo;s kill the primary server and make sure the slave takes over seamlessly.&lt;/p&gt;
+
+&lt;p&gt;The simplest way to simulate a failure is to stop heartbeat on whichever server is currently the primary.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;alice $ /etc/init.d/heartbeat stop
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Within a few seconds, you should see all services move over to bob, including the floating IP, NFS, and the /data mount.  A quick check of &lt;em&gt;cat /proc/drbd&lt;/em&gt; should also show bob set to Primary.&lt;/p&gt;
+
+&lt;h3 id=&#34;references&#34;&gt;References&lt;/h3&gt;
+
+&lt;p&gt;Finally, the links I promised in the beginning of this post.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Why the servers are named &lt;a href=&#34;http://en.wikipedia.org/wiki/Alice_and_Bob&#34;&gt;Alice and Bob&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;An &lt;a href=&#34;http://www.howtoforge.com/high_availability_nfs_drbd_heartbeat&#34;&gt;older guide&lt;/a&gt; I used while figuring this out&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://version2beta.com/articles/high-availability-linode-pairs/&#34;&gt;Linode HA info&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://linux-ha.org/wiki/Heartbeat&#34;&gt;Heartbeat&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://www.drbd.org/users-guide-8.3/&#34;&gt;DRBD 8.3.x Users Guide&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+    
+    <item>
+      <title>About This Blog</title>
+      <link>https://sigterm.sh/about/</link>
+      <pubDate>Fri, 21 Jun 2013 11:27:27 -0400</pubDate>
+      
+      <guid>https://sigterm.sh/about/</guid>
+      <description>
+
+&lt;p&gt;Hi, I&amp;rsquo;m Greg and this is my personal blog.  You&amp;rsquo;ll find a lot of tech / programming related posts here, along with posts around some of my hobbies like photography.&lt;/p&gt;
+
+&lt;p&gt;I have a passion for open source software, Linux, UNIX, the quest for perfect code and doing everything the best way possible.&lt;/p&gt;
+
+&lt;h4 id=&#34;what-i-do&#34;&gt;What I do&lt;/h4&gt;
+
+&lt;p&gt;I’m a software and systems architect who lives in New York, USA. I work mostly on systems and network code involving high availability, clustering and scalable architecture. My day job involves working on a number of web based enterprise applications, looking after a bunch of servers and generally doing my part in making the web a better place. I also spend as much time as I can working on open source software and contributing to the open source community.&lt;/p&gt;
+
+&lt;h4 id=&#34;interests&#34;&gt;Interests&lt;/h4&gt;
+
+&lt;p&gt;My interests include &lt;a href=&#34;http://www.python.org/&#34; target=&#34;_blank&#34;&gt;Python&lt;/a&gt;, &lt;a href=&#34;http://twistedmatrix.com/trac/&#34; target=&#34;_blank&#34;&gt;Twisted&lt;/a&gt; and most things produced by &lt;a href=&#34;https://launchpad.net/divmod.org&#34; target=&#34;_blank&#34;&gt;Divmod&lt;/a&gt;, C / C++, Java, application architecture, multi-core processing, efficiency, clustering, scalability, photography and music (mostly the guitar).&lt;/p&gt;
+
+&lt;h4 id=&#34;where-you-can-find-me&#34;&gt;Where you can find me&lt;/h4&gt;
+
+&lt;table class=&#34;table condensed-table&#34;&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;th&gt;E-mail&lt;/th&gt;
+      &lt;td&gt;greg at sigterm dot sh&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;IRC&lt;/th&gt;
+      &lt;td&gt;wiqd on networks &lt;a href=&#34;http://freenode.net/&#34;&gt;Freenode&lt;/a&gt;, &lt;a href=&#34;http://shadowfire.org/&#34;&gt;ShadowFire&lt;/a&gt; and &lt;a href=&#34;http://www.oftc.net/oftc/&#34;&gt;OFTC&lt;/a&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;LinkedIn&lt;/th&gt;
+      &lt;td&gt;&lt;a href=&#34;http://www.linkedin.com/in/gregarmer&#34;&gt;http://www.linkedin.com/in/gregarmer&lt;/a&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Twitter&lt;/th&gt;
+      &lt;td&gt;&lt;a href=&#34;https://twitter.com/#!/gregarmer&#34;&gt;https://twitter.com/#!/gregarmer&lt;/a&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Github&lt;/th&gt;
+      &lt;td&gt;&lt;a href=&#34;https://github.com/gregarmer&#34;&gt;https://github.com/gregarmer&lt;/a&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Launchpad&lt;/th&gt;
+      &lt;td&gt;&lt;a href=&#34;http://launchpad.net/~wiqd&#34;&gt;http://launchpad.net/~wiqd&lt;/a&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;OpenPGP keys&lt;/th&gt;
+      &lt;td&gt;&lt;a href=&#34;http://keyserver.ubuntu.com:11371/pks/lookup?search=0xC12DE9B4E4FA0F406B44F898A4E1B379D1C2BAC9&amp;amp;op=index&#34;&gt;D1C2BAC9&lt;/a&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;SSH keys&lt;/th&gt;
+      &lt;td&gt;&lt;a href=&#34;https://greg.pub/&#34;&gt;greg.pub&lt;/a&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Code</title>
+      <link>https://sigterm.sh/code/</link>
+      <pubDate>Fri, 21 Jun 2013 11:27:27 -0400</pubDate>
+      
+      <guid>https://sigterm.sh/code/</guid>
+      <description>
+
+&lt;p&gt;&lt;img src=&#34;https://media.sigterm.sh/2015/source-code.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;These are some of the open source projects that I am currently working on.&lt;/p&gt;
+
+&lt;h3 id=&#34;flake8-diff&#34;&gt;flake8-diff&lt;/h3&gt;
+
+&lt;p&gt;flake8-diff allows you to run flake8 over a set of changed files and filter out violations that would be introduced by merging those changes.&lt;/p&gt;
+
+&lt;p&gt;I use this as part of my build / CI infrastructure to alert developers opening pull requests to new violations their pull request will introduce, if it were merged.&lt;/p&gt;
+
+&lt;p&gt;You can find &lt;a href=&#34;https://github.com/dealertrack/flake8-diff&#34;&gt;the code here&lt;/a&gt;.
+And some &lt;a href=&#34;https://sigterm.sh/2015/01/06/announcing-flake8-diff/&#34;&gt;more info here&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h3 id=&#34;puppetlast&#34;&gt;puppetlast&lt;/h3&gt;
+
+&lt;p&gt;puppetlast is a simple python script that shows the last connect time of puppet nodes. It currently displays them in red / green depending on if they&amp;rsquo;ve connected in the past 30 minutes.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;Warning:&lt;/em&gt; This code needs a lot of work, but it&amp;rsquo;s in working condition.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://github.com/gregarmer/puppetlast&#34;&gt;https://github.com/gregarmer/puppetlast&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;trunserver&#34;&gt;trunserver&lt;/h3&gt;
+
+&lt;p&gt;trunserver is a simple replacement for the built-in Django runserver command that uses the far more polished and multiple process capable Twisted Web server. It currently handles the same autoreload-after-save provided by the built-in Django runserver command.&lt;/p&gt;
+
+&lt;p&gt;You can grab it on pypi too at
+&lt;a href=&#34;http://pypi.python.org/pypi/trunserver&#34;&gt;http://pypi.python.org/pypi/trunserver&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://github.com/gregarmer/trunserver&#34;&gt;https://github.com/gregarmer/trunserver&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;gina&#34;&gt;Gina&lt;/h3&gt;
+
+&lt;p&gt;Gina is an XMPP bot written in Python that leverages off the excellent &lt;a href=&#34;http://twistedmatrix.com/trac&#34;&gt;Twisted&lt;/a&gt; library. It allows you to subscribe to your RSS/Atom feeds which are sent to you whenever a feed updates along with the summary of the update.  It is built around a plugin style architecture that makes it really easy to write your own plugins to extend functionality. There is also the humble beginning of an alarm / reminder plugin.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://launchpad.net/gina&#34;&gt;http://launchpad.net/gina&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;thoth&#34;&gt;Thoth&lt;/h3&gt;
+
+&lt;p&gt;Thoth is a pastebin with IRC integration.   Thoth is written in Python and makes use of the Twisted, Nevow and Axiom libraries. This project is still relatively new so there is only a basic implementation so far.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://launchpad.net/thoth&#34;&gt;http://launchpad.net/thoth&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;kali&#34;&gt;Kali&lt;/h3&gt;
+
+&lt;p&gt;Kali is an IRC services packaged developed by and for the Shadowfire IRC network.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://launchpad.net/kali&#34;&gt;http://launchpad.net/kali&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>dn42 Peering Information</title>
+      <link>https://sigterm.sh/dn42-peering/</link>
+      <pubDate>Fri, 21 Jun 2013 11:27:27 -0400</pubDate>
+      
+      <guid>https://sigterm.sh/dn42-peering/</guid>
+      <description>
+
+&lt;p&gt;If you are interested in peering with me on &lt;a href=&#34;https://dn42.net/Home&#34;&gt;dn42&lt;/a&gt;, find the closest node(s) below and send the following to me in an e-mail to greg[at]sigterm.sh:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;AS Number:&lt;/li&gt;
+&lt;li&gt;Tunnel IP:&lt;/li&gt;
+&lt;li&gt;Public IP:&lt;/li&gt;
+&lt;li&gt;IPv6 supported? (link-local preferred)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;I prefer to use IPsec/GRE where possible, but let me know if you can&amp;rsquo;t do it and we can work something out.&lt;/p&gt;
+
+&lt;p&gt;My ASN: &lt;strong&gt;AS4242423602&lt;/strong&gt;&lt;br/&gt;
+Network Name: &lt;strong&gt;GXANET&lt;/strong&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;locations&#34;&gt;Locations&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;New York, NY, USA&lt;/li&gt;
+&lt;li&gt;San Francisco, CA, USA&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;ipsec-parameters&#34;&gt;IPsec Parameters&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code&gt;keyexchange=ikev2
+ike=aes256-sha256-modp2048!
+esp=aes256-sha256-modp2048!
+ikelifetime=28800s
+lifetime=3600s
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;nodes&#34;&gt;Nodes&lt;/h3&gt;
+
+&lt;h4 id=&#34;gxa-nyc-01-sigterm-dn42&#34;&gt;gxa-nyc-01.sigterm.dn42&lt;/h4&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Location: New York, NY, USA&lt;/li&gt;
+&lt;li&gt;Public IPv4: 159.203.180.81&lt;/li&gt;
+&lt;li&gt;Public IPv6: 2604:a880:400:d0::8f7:1&lt;/li&gt;
+&lt;li&gt;Tunnel IPv4: 172.20.194.70&lt;/li&gt;
+&lt;li&gt;IPsec Public Key:&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code&gt;-----BEGIN PUBLIC KEY-----
+MIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEA2JI2A4TffozZplEoy8s3
+6/UNc1L4LvNXEceUwIPHxfdEfvimkeHOHsh+WJC2OBAIw3pSCAP5EQPy1zc4sNvM
+zLrwBdiS8v/KsNGBn7pAWmnDx7hnFUr2Rw6zqX4n8WzL7ewOUxb2qGu5BdwJvEqW
+3VOdepm19AvAbU5SkeS5BsyTzjnBBvOs589EewMHtb5z15VlOg7TmKpFkw59HR/n
+KKRuh0NhdTOp4gFU310JpIL7aK9etSr72/JjeBFe8JjgfXa6dj3Hf7WdT70hAAfc
+b4EyLd8hfpb3k9FfKDrqLIomipsx8xMUVzpb9x7sRcP1ZK9s59/sRFiVJul5dMKQ
+kMZh0L8GHtqE9IyEvYr8mixx1dwYZVwEp2qsdfcj02hubRtf6k6bEI/nfw+boszH
+hdbuL7ChIQg+frt0YWIE8vxswq3SUQgSga8C3XR6J36CHfgGa4CYXDwmjT/tgT/J
+E1WFzUZAnryGsFvrc0KsyI+1rT0LHxmKpydWiwVLBzPG59lbi+QjVEa284HmS81H
+wIZ4NqWiCEzuvZeShD5sV+6mftt9/n+hcLi5ZfflJJ9i4Ci/sv/HLGvJV0rQiW2y
+aob+uuOTNSWTt2/+mqaD8rySMttuGYa58LoybViFf4Hg1lhzdgpzZ81dV1Dowhts
+UL2S4ZUBxcQGnO75UAFTZDUCAwEAAQ==
+-----END PUBLIC KEY-----
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;gxa-sfo-01-sigterm-dn42&#34;&gt;gxa-sfo-01.sigterm.dn42&lt;/h4&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Location: San Francisco, CA, USA&lt;/li&gt;
+&lt;li&gt;Public IPv4: 104.236.188.18&lt;/li&gt;
+&lt;li&gt;Public IPv6: 2604:a880:1:20::dd9:5001&lt;/li&gt;
+&lt;li&gt;Tunnel IPv4: 172.20.194.90&lt;/li&gt;
+&lt;li&gt;IPsec Public Key:&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code&gt;-----BEGIN PUBLIC KEY-----
+MIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEAu3d3SAmnGW89loxS2DQi
++AgMYNTumxcRijzQIZCNHjzpfYMOQUAxos2OPE67nr24KQsl+m5wt6U2h0jXSQZh
+sciyn9EXgZ6Uwc+BdUEH+sm+8JJCLh0De+GOb5dvnOeJupxUHN2P3iSUsdIt6dKS
+nqCr0q5EN97LE51oqfkn9JMvI/XfpQaBezfUr2kfJyDMbAGbJUDQ4le7cIiZTlTE
+e3xWH6cQ2UeGjjyn0ZK7e6wf1lhNoiFAbaRgv0CoPLbT8NTMVrw1kDENJfj3Enm6
+BL+Et+lVu4L9vaCAMcy99zVBONaL5I2RWj7jgjpEZHBo8JX1RBuCrdGUf9JYvvpM
+hPQm4hhUMGhlWwYcZMP3TZXrV2plUMvDmjzOrW6b51B3F98d438dWSkD6BlRjVSl
+qLZt2Uipi3Kns+ascGwAKTE1l020O2n5rbB4/6IbsARqS3dGhUoaqBqfiRdF21U0
+gtHmfM153dOnHvAwKSEB8NSdOa8wm+jcdCQTQ9EMQcq8zTmmgMFFrdhQAE5T/i70
+aa2ZHW/XqjXY8NX8J1UBHsB9/mQXUQEdhcx/KK+QpwEAG4XpK8FdIthuotJrT+X8
+bx28UEf3O8eh/SwNzvrW54yB6gT/7xL1HUtXCKeSMpa0Cjh61Dhl2PmfrZfYhWs9
+lG/3jHWGHgwBf6Wm7h1mHEMCAwEAAQ==
+-----END PUBLIC KEY-----
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>nginx, Apache 2 and subversion - 502 Bad Gateway error</title>
+      <link>https://sigterm.sh/2012/10/09/nginx-apache-2-and-subversion-502-bad-gateway-error</link>
+      <pubDate>Tue, 09 Oct 2012 12:00:00 -0400</pubDate>
+      
+      <guid>https://sigterm.sh/2012/10/09/nginx-apache-2-and-subversion-502-bad-gateway-error</guid>
+      <description>&lt;h4 id=&#34;the-problem&#34;&gt;The Problem&lt;/h4&gt;
+
+&lt;p&gt;I recently ran into this problem and couldn&amp;rsquo;t find any useful information on the net around fixing it. All subversion checkouts, commits and other basic operations work just fine, but when attempting to copy, move or tag (copy) I would get the below (502 Bad Gateway) error.&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;greg@codemine:~/code/Foo (git-svn)-[trunk] %&amp;gt; git svn tag foo-2.1.1                      
+Copying https://svn/projects/Foo/trunk at r18311 to https://svn/projects/Foo/tags/foo-2.1.1...
+RA layer request failed: Server sent unexpected return value (502 Bad Gateway) in response to COPY request for &#39;/projects/!svn/bc/18311/Foo/trunk&#39; at /usr/libexec/git-core/git-svn line 1123
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;our-setup&#34;&gt;Our Setup&lt;/h4&gt;
+
+&lt;p&gt;We have a machine running nginx on port 80 (and 443 SSL) that serves up a bunch of development tools - buildbots, Jenkins, git repos and of course a few subversion repos. Behind it we have an Apache2 server that serves up subversion repos over WebDAV.&lt;/p&gt;
+
+&lt;p&gt;nginx simply reverse proxies requests to the backend Apache 2 servers and handles the SSL termination as our repos are only available over SSL (https).&lt;/p&gt;
+
+&lt;h4 id=&#34;what-s-really-happening&#34;&gt;What&amp;rsquo;s Really Happening&lt;/h4&gt;
+
+&lt;p&gt;The actual problem is not really that obvious.&lt;/p&gt;
+
+&lt;p&gt;When you perform a remote svn operation like MOVE or COPY the actual request is translated into a WebDAV request that looks similar to this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;COPY /svn/repos/oldname.txt HTTP/1.1
+Host: svn.example.org
+Destination: https://svn.example.org/svn/repos/newname.txt
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Apache, the webserver, translates the above request to:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;COPY https://svn.example.org/svn/repos/oldname.txt https://svn.example.org/svn/repos/newname.txt
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;It uses the Host parameter &lt;em&gt;svn.example.org&lt;/em&gt; and the first request line &lt;code&gt;COPY
+/svn/repos/oldname.txt HTTP/1.1&lt;/code&gt; to assemble the source URL,
+&lt;code&gt;https://svn.example.org/svn/repos/oldname.txt&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;However, since requests are being reverse proxied through nginx, the source URL is changed from https:// to http:// as Apache listens on port 80 (HTTP). This results in a COPY operation that looks like this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;COPY http://svn.example.org/svn/repos/oldname.txt https://svn.example.org/svn/repos/newname.txt
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;em&gt;Note the http:// instead of https://&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;Apache quickly figures out that it can&amp;rsquo;t move a file &lt;a href=&#34;http://svn.example.org/svn/repos/oldname.txt&#34;&gt;http://svn.example.org/svn/repos/oldname.txt&lt;/a&gt; to &lt;a href=&#34;https://svn.example.org/svn/repos/newname.txt&#34;&gt;https://svn.example.org/svn/repos/newname.txt&lt;/a&gt;, because as far as Apache is concerned &lt;a href=&#34;http://svn.example.org/&#34;&gt;http://svn.example.org/&lt;/a&gt; and &lt;a href=&#34;https://svn.example.org/&#34;&gt;https://svn.example.org/&lt;/a&gt; are two entirely different hosts.&lt;/p&gt;
+
+&lt;p&gt;&amp;hellip; and you end up with a &amp;ldquo;502 Bad Gateway&amp;rdquo; error.&lt;/p&gt;
+
+&lt;h4 id=&#34;the-solution&#34;&gt;The Solution&lt;/h4&gt;
+
+&lt;p&gt;The solution to this problem is getting nginx to change the Destination header in the same way it changes the Host header. Apache can then handle the COPY or MOVE operation correctly. This is done by adding the following to your nginx configuration:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;set $fixed_destination $http_destination;  
+if ( $http_destination ~* ^https(.*)$ ) {  
+    set $fixed_destination http$1;  
+}  
+proxy_set_header Destination $fixed_destination;  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;complete-configs&#34;&gt;Complete Configs&lt;/h4&gt;
+
+&lt;p&gt;For reference purposes I&amp;rsquo;ve included the complete configs below.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;/etc/nginx/sites-available/svn.example.org&lt;/em&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;server {
+    listen 80;
+    server_name svn.example.org;
+    rewrite ^(.*) https://svn.example.org$1 permanent;
+}
+
+server {
+    listen 443;
+    server_name svn.example.org;
+
+    ssl on;
+    ssl_certificate /etc/nginx/conf.d/svn.example.org.crt;
+    ssl_certificate_key /etc/nginx/conf.d/svn.example.org.key;
+    ssl_verify_depth 3;
+
+    client_max_body_size 100m;
+    access_log /var/log/nginx/svn.example.org-access.log;
+
+    location / {
+        set $fixed_destination $http_destination;
+        if ( $http_destination ~* ^https(.*)$ ) {
+            set $fixed_destination http$1;
+        }
+        proxy_set_header Destination $fixed_destination;
+        proxy_set_header Host $http_host;
+
+        proxy_pass http://localhost:9080;
+        proxy_connect_timeout 75;
+        proxy_read_timeout 300;
+        proxy_send_timeout 300;
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;em&gt;/etc/apache2/sites-available/svn.example.org&lt;/em&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;VirtualHost *:9080&amp;gt;
+    ServerName svn.example.org
+    ErrorLog /var/log/apache2/svn.example.org-error.log
+    &amp;lt;Location /&amp;gt;
+        DAV svn
+        DAVMinTimeout 0
+        SVNParentPath /home/svn
+        AuthType Basic
+        AuthName &amp;quot;Subversion Repos&amp;quot;
+        AuthUserFile /home/svn/.htpasswd
+        AuthzSVNAccessFile /home/svn/conf/authz
+        Require valid-user
+    &amp;lt;/Location&amp;gt;
+&amp;lt;/VirtualHost&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;</description>
+    </item>
+    
+    <item>
+      <title>Blocking web traffic behind an Elastic Load Balancer (ELB)</title>
+      <link>https://sigterm.sh/2012/09/28/blocking-web-traffic-behind-an-elastic-load-balancer-elb</link>
+      <pubDate>Fri, 28 Sep 2012 12:00:00 -0400</pubDate>
+      
+      <guid>https://sigterm.sh/2012/09/28/blocking-web-traffic-behind-an-elastic-load-balancer-elb</guid>
+      <description>&lt;p&gt;Over the past few hours we&amp;rsquo;ve been on the receiving end of a fairly large scale set of web requests (read: attack) to a website we host over on Amazon EC2. Our setup is not really that complicated, however we encountered a problem that wasn&amp;rsquo;t that easy to solve.&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+
+&lt;h4 id=&#34;our-setup&#34;&gt;Our Setup&lt;/h4&gt;
+
+&lt;p&gt;So we have an &lt;a href=&#34;http://aws.amazon.com/elasticloadbalancing/&#34; title=&#34;Elastic Load Balancer&#34;&gt;Elastic Load Balancer&lt;/a&gt; out in front, that sends on web requests to a set of web servers. These web servers are in an auto-scaling group and simply run &lt;a href=&#34;http://nginx.org/en/&#34; title=&#34;nginx&#34;&gt;nginx&lt;/a&gt;. They then pass traffic onto a set of load balanced application servers. Nothing really out of the ordinary here.&lt;/p&gt;
+
+&lt;p&gt;The entire setup lives inside a &lt;a href=&#34;http://aws.amazon.com/vpc/&#34; title=&#34;VPC&#34;&gt;VPC&lt;/a&gt; so these server have no direct access to the internet, and specific traffic is NAT&amp;rsquo;d out another gateway.&lt;/p&gt;
+
+&lt;h4 id=&#34;the-problem&#34;&gt;The Problem&lt;/h4&gt;
+
+&lt;p&gt;We narrowed down the attack to a set of IPs all originating from the same netblock. These requests were largely made up of SQL injection attacks, along with some other crazy requests.&lt;/p&gt;
+
+&lt;p&gt;The requests looked like this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;208.96.18.11 &amp;quot;GET /results/2011%27%20OR%20%271%27%3D%271/11/ HTTP/1.1&amp;quot; &amp;quot;Mozilla/5.0&amp;quot;
+208.96.18.11 &amp;quot;GET /results/2011)%20OR%201%3D(1/11/ HTTP/1.1&amp;quot; &amp;quot;Mozilla/5.0&amp;quot;
+208.96.18.11 &amp;quot;GET /results/2011%27)%20OR%20%271%27%3D(%271/11/ HTTP/1.1&amp;quot; &amp;quot;Mozilla/5.0&amp;quot;
+208.96.18.11 &amp;quot;GET /results/2011%27%20OR%201%3D1%20%23/11/ HTTP/1.1&amp;quot; &amp;quot;Mozilla/5.0&amp;quot;
+208.96.18.11 &amp;quot;GET /results/2011%27)%20AND%20%271%27%20in%20(%270/11/ HTTP/1.1&amp;quot; &amp;quot;Mozilla/5.0&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;and without the URL encoding:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;208.96.18.11 &amp;quot;GET /results/2011&#39; OR &#39;1&#39;=&#39;1/11/ HTTP/1.1&amp;quot; &amp;quot;Mozilla/5.0&amp;quot;
+208.96.18.11 &amp;quot;GET /results/2011) OR 1=(1/11/ HTTP/1.1&amp;quot; &amp;quot;Mozilla/5.0&amp;quot;
+208.96.18.11 &amp;quot;GET /results/2011&#39;) OR &#39;1&#39;=(&#39;1/11/ HTTP/1.1&amp;quot; &amp;quot;Mozilla/5.0&amp;quot;
+208.96.18.11 &amp;quot;GET /results/2011&#39; OR 1=1 #/11/ HTTP/1.1&amp;quot; &amp;quot;Mozilla/5.0&amp;quot;
+208.96.18.11 &amp;quot;GET /results/2011&#39;) AND &#39;1&#39; in (&#39;0/11/ HTTP/1.1&amp;quot; &amp;quot;Mozilla/5.0&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;em&gt;(Yes, that&amp;rsquo;s one of the actual IPs attacking us.)&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;So the obvious move here is to block traffic from the offending IPs, right ?&lt;/p&gt;
+
+&lt;p&gt;Unfortunately that&amp;rsquo;s simply not possible with an ELB, as the only control you have over the traffic is through a &lt;a href=&#34;http://docs.amazonwebservices.com/AWSEC2/latest/UserGuide/using-network-security.html&#34; title=&#34;Security Groups&#34;&gt;security group&lt;/a&gt;. However, the security group only lets you control &lt;em&gt;allow&lt;/em&gt; rules, so to block a specific IP you&amp;rsquo;d need to explicitly allow traffic from all other IPs on the internet. This is simply not feasible.&lt;/p&gt;
+
+&lt;p&gt;You can&amp;rsquo;t block the traffic with a firewall on the web servers either, as the traffic hitting the web servers has the source IP address of the load balancer. The only access you have to the real source IP at the web server level is in the X-Forwarded-For HTTP header inside that actual requests.&lt;/p&gt;
+
+&lt;h4 id=&#34;blocking-the-traffic&#34;&gt;Blocking the Traffic&lt;/h4&gt;
+
+&lt;p&gt;The best you can do in this scenario is to block all requests at the actual web servers. In our case on nginx this was as simple as adding the following directives to the &lt;em&gt;server&lt;/em&gt; block:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;set_real_ip_from 172.16.10.9;         // Our ELB
+real_ip_header X-Forwarded-For;       // The real IP from the ELB
+deny 208.96.18.11;                    // Have some HTTP 403
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This doesn&amp;rsquo;t stop the traffic at all, it simply returns HTTP 403&amp;rsquo;s to any requests from the IP addresses or netblock listed. This does take the load off the application servers though, and since nginx is quite efficient at returning 403&amp;rsquo;s with little resource usage, we can serve them up nice and quickly. It would still be nice to firewall that traffic entirely, and hopefully, someday, Amazon adds the ability to configure &lt;em&gt;allow&lt;/em&gt; &lt;strong&gt;and&lt;/strong&gt; &lt;em&gt;deny&lt;/em&gt; rules in security groups.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Forking background processes in Python</title>
+      <link>https://sigterm.sh/2012/08/22/forking-background-processes-in-python</link>
+      <pubDate>Wed, 22 Aug 2012 12:00:00 -0400</pubDate>
+      
+      <guid>https://sigterm.sh/2012/08/22/forking-background-processes-in-python</guid>
+      <description>&lt;p&gt;This post attempts to explain how to fork child processes in Python, or at least how to use forking on an existing Python script. For some strange reason I&amp;rsquo;ve had to explain this a few times recently, so I decided an easy to reference blog post would probably make life a little easier.&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+
+&lt;p&gt;So you have a basic Python script that you&amp;rsquo;d like to run as a background process, for whatever reason; perhaps it&amp;rsquo;s a network service that waits for incoming connections, or you want to watch a log file for something. As an example, let&amp;rsquo;s say it looks something like this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;import time
+import sys
+
+def do_something():
+    # Do something for 10 seconds, then exit nicely.
+    time.sleep(10)
+    print &amp;quot;Done.&amp;quot;
+    sys.exit(0)
+
+if __name__ == &amp;quot;__main__&amp;quot;:
+    do_something()
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;So one method of running it in the background is to &lt;a href=&#34;http://en.wikipedia.org/wiki/Fork_(operating_system)&#34;&gt;fork&lt;/a&gt; it. The term &lt;em&gt;fork&lt;/em&gt; means that we want to launch a child &lt;a href=&#34;http://en.wikipedia.org/wiki/Process_(computing)&#34;&gt;process&lt;/a&gt; from this process (the parent process) and then disown that child process and exit cleanly. The child process will then continue running in the background until it completes whatever it has to do, or until it is shutdown or killed, in the case of a long
+running process.&lt;/p&gt;
+
+&lt;p&gt;In order to accomplish this we need something that looks like the following:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;import time
+import sys
+import os
+
+def do_something():
+    # Do something for 10 seconds, then exist cleanly.
+    time.sleep(10)
+    print &amp;quot;kbye&amp;quot;
+    sys.exit(0)
+
+if __name__ == &amp;quot;__main__&amp;quot;:
+    print (&amp;quot;Hello and welcome to a Python forking example. I&#39;ll now fork a &amp;quot;
+           &amp;quot;backgrounded child process and then exit, leaving it to run all by &amp;quot;
+           &amp;quot;itself. Watch for the &#39;Done&#39; in 10 seconds...&amp;quot;)
+
+    try:
+        pid = os.fork()
+        if pid &amp;gt; 0:
+            # Exit parent process
+            sys.exit(0)
+    except OSError, e:
+        print &amp;gt;&amp;gt; sys.stderr, &amp;quot;fork failed: %d (%s)&amp;quot; % (e.errno, e.strerror)
+        sys.exit(1)
+
+    # Configure the child processes environment
+    os.chdir(&amp;quot;/&amp;quot;)
+    os.setsid()
+    os.umask(0)
+
+    # Execute something in the background
+    do_something()
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;so-what-is-actually-going-on-here&#34;&gt;So what is actually going on here ?&lt;/h4&gt;
+
+&lt;p&gt;Nothing changes in the actual code apart from giving it the ability to fork. This makes it easy to give existing (or 3rd party) code the ability to fork.&lt;/p&gt;
+
+&lt;p&gt;First off, we execute a system fork() call (which is an operating system call), this returns the process ID of the child process. We then have some basic sanity checking and make sure it&amp;rsquo;s a real PID and the forking didn&amp;rsquo;t raise any exceptions.&lt;/p&gt;
+
+&lt;p&gt;After that, we change the child processes environment so that it is no longer a child of our main parent process and so that it can live on its own after we exit.&lt;/p&gt;
+
+&lt;p&gt;Finally, we execute the original code, now inside a detached child process. This can run for as long as it needs, and could potentially log to a log file if you care about any stdout output.&lt;/p&gt;
+
+&lt;p&gt;There are also some better alternatives, something like this for example:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;import os
+os.spawnl(os.P_DETACH, &#39;some_log_running_command&#39;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;Note:&lt;/strong&gt; &lt;code&gt;os.P_DETACH&lt;/code&gt; is win32 specific. For better portability you could use &lt;code&gt;os.P_NOWAIT&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://docs.python.org/library/os.html#os.spawnl&#34;&gt;Here is the documentation&lt;/a&gt;.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Replacing Django&#39;s Nasty &#39;runserver&#39;</title>
+      <link>https://sigterm.sh/2011/12/06/replacing-djangos-nasty-runserver</link>
+      <pubDate>Tue, 06 Dec 2011 12:00:00 -0400</pubDate>
+      
+      <guid>https://sigterm.sh/2011/12/06/replacing-djangos-nasty-runserver</guid>
+      <description>&lt;p&gt;Have you ever tried to have more than one person view a development site using &lt;a title=&#34;Django&#34; href=&#34;http://www.djangoproject.com/&#34; target=&#34;_blank&#34;&gt;Django&amp;rsquo;s&lt;/a&gt; &lt;a title=&#34;Django runserver&#34; href=&#34;https://docs.djangoproject.com/en/1.3/ref/django-admin/#runserver-port-or-address-port&#34; target=&#34;_blank&#34;&gt;built-in development server&lt;/a&gt; ? Yeah, it really sucks. Apparently concurrency wasn&amp;rsquo;t high on the features list and they have stated that it never will be.&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;DO NOT USE THIS SERVER IN A PRODUCTION SETTING. It has not gone through security audits or performance tests. (And that&amp;rsquo;s how it&amp;rsquo;s gonna stay. We&amp;rsquo;re in the business of making Web frameworks, not Web servers, so improving this server to be able to handle a production environment is outside the scope of Django.)&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;So how do we go about using something a little nicer without losing any of the auto-reload goodness and without having to setup a full blown production environment ?&lt;/p&gt;
+
+&lt;p&gt;There are a number of alternatives, however I&amp;rsquo;ve selected &lt;a title=&#34;Twisted Web&#34; href=&#34;http://twistedmatrix.com/documents/current/web/howto/web-in-60/index.html&#34; target=&#34;_blank&#34;&gt;Twisted Web&lt;/a&gt; simply because I really like the &lt;a title=&#34;Twisted&#34; href=&#34;http://twistedmatrix.com/trac/&#34; target=&#34;_blank&#34;&gt;twisted framework&lt;/a&gt; and due to the experience I have in using it, I am very comfortable with it. It&amp;rsquo;s a great feature-packed web server that handles concurrency (and a ton of other things) exceptionally well.&lt;/p&gt;
+
+&lt;p&gt;So how do we use it to serve our little Django project in a development friendly way ?&lt;/p&gt;
+
+&lt;p&gt;I&amp;rsquo;ve put together some code (some borrowed from other sources) and constructed a simple replacement command called &amp;ldquo;trunserver&amp;rdquo; (twisted-runserver). You can grab this code from &lt;a title=&#34;GitHub - trunserver&#34; href=&#34;https://github.com/gregarmer/trunserver&#34; target=&#34;_blank&#34;&gt;Github&lt;/a&gt;. Simply install it using the standard methods, and run it with:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;python manage.py trunserver [IP:PORT] [--settings=foo] [--noreload]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;So this will start up a twisted web instance serving your Django project and just like the build-in runserver, it will automatically reload your code when it notices that your files have been modified unless &amp;ndash;noreload has been passed.&lt;/p&gt;
+
+&lt;p&gt;There are a few things missing at this point, like IPv6 support and static file serving, however these are on the roadmap.&lt;/p&gt;
+
+&lt;p&gt;I&amp;rsquo;ll post again with some more info once it is a little more stable and an official release has been provided.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>The impact of being behind schedule</title>
+      <link>https://sigterm.sh/2011/02/11/the-impact-of-being-behind-schedule</link>
+      <pubDate>Fri, 11 Feb 2011 12:00:00 -0400</pubDate>
+      
+      <guid>https://sigterm.sh/2011/02/11/the-impact-of-being-behind-schedule</guid>
+      <description>&lt;p&gt;In managing a group of software engineers, this is something that has happened frequently in my team and has been bothering me for a while. It&amp;rsquo;s a lot easier for me to notice, as in my case, I actively write software with my team.&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;the-problem&#34;&gt;The problem&lt;/h3&gt;
+
+&lt;p&gt;The entire team tends to perform so much better when we&amp;rsquo;re ahead of schedule, our spirits are high, everyone is motivated, the &lt;a title=&#34;SCRUM&#34; href=&#34;http://en.wikipedia.org/wiki/Scrum_(development)&#34; target=&#34;_blank&#34;&gt;SCRUM&lt;/a&gt; board is bouncing around actively and everything is going great. However, as soon as the pressure starts to increase, a few milestones are missed and things start falling a little behind schedule. The entire team rapidly starts losing hope, everyone appears lethargic, demotivation kicks in and things slowly start grinding to a halt.&lt;/p&gt;
+
+&lt;h3 id=&#34;so-how-do-we-stop-this&#34;&gt;So how do we stop this ?&lt;/h3&gt;
+
+&lt;p&gt;In trying to curb this level of demotivation and fatigue, we first need to understand why this happens. In reality, being a bit behind schedule is really not the end of the world. Estimates are provided on project milestones, but we need to realize that they are called estimates for a reason. No matter how many proven processes your software engineering team has in place and how good you have become at determining your teams velocity, there will always be parts of a project that cannot be put into a little box with a start and end date.&lt;/p&gt;
+
+&lt;p&gt;In addition to that, even though your estimates may be quite realistic, you can never accurately gauge what other problems may come along during a sprint. In our environment, we often have &amp;ldquo;urgent&amp;rdquo; requests to deal with; bugs, emergency maintenance, and other pesky time-wasters. To the management suits upstairs, these may seem inconsequential but in my experience, they have a far greater reaching impact than the suits realize.&lt;/p&gt;
+
+&lt;p&gt;All of this unexpected work contributes to pushing the team behind schedule. Most times we can catch up without impacting the projects final delivery, but there are rare times where we fall further and further behind schedule. It is these times that the team seems to get stuck in this cycle of despair and their relative output is reduced to who shouts at them the loudest.&lt;/p&gt;
+
+&lt;p&gt;So far, I have not found a good way to reverse this mindset after it has happened. The best way to work around this problem, in my humble opinion, is to not get there in the first place. Software engineers, sales teams and clients must realize that deadlines are going to be missed, specs are not always accurate and all kinds of impediments are going to get in the way of delivering quality work on time. The best thing we can do to prevent this is to manage everyones expectations in the best way possible.&lt;/p&gt;
+
+&lt;h3 id=&#34;keeping-everyone-happy&#34;&gt;Keeping everyone happy&lt;/h3&gt;
+
+&lt;p&gt;Communication is key in managing the expectations of everyone involved. It is a lot easier to keep everyone happy when they know upfront that the team is falling behind schedule. The pressure from clients is reduced when they are informed early that an expected date of delivery is unlikely to be hit, which in turn reduces the amount of pressure. This contributes greatly to keeping the workforce in high spirits, amidst the whooshing sound of missed milestones flying by, and lets them stay motivated and productive.&lt;/p&gt;
+
+&lt;p&gt;Increasing the amount of pressure really does nothing to help a project along, although this is often the only solution that the clients and non-developers can think up. In fact, I strongly believe it does just the opposite of what it was intended to do. Adding pressure to an already drowning team only culls whatever motivation there was still remaining. This leads to developers lying about the status of a project in a desperate attempt to alleviate that pressure. That inaccurate status gets communicated back to the stake holders and the cycle just begins over - except with more pressure as the team is now even further behind.&lt;/p&gt;
+
+&lt;h3 id=&#34;in-conclusion&#34;&gt;In conclusion&lt;/h3&gt;
+
+&lt;p&gt;Software engineers, be honest and accurate about your actual status, it may not seem like it, but you&amp;rsquo;re only going to help yourselves in the long run. Suits, be nicer to your workforce, they&amp;rsquo;re doing the best they can. Adding more pressure is helping no-one.&lt;/p&gt;
+
+&lt;p&gt;That is all.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>The day the routers died...</title>
+      <link>https://sigterm.sh/2011/02/03/the-day-the-routers-died</link>
+      <pubDate>Thu, 03 Feb 2011 12:00:00 -0400</pubDate>
+      
+      <guid>https://sigterm.sh/2011/02/03/the-day-the-routers-died</guid>
+      <description>&lt;p&gt;On February 3, 1959, Buddy Holly, Richie Valens and JP Richardson (aka The Big Bopper) died in a plane crash. Don McLean immortalized that day as &amp;ldquo;The Day The Music Died&amp;rdquo; in his 1971 hit, &amp;ldquo;American Pie&amp;rdquo;.&lt;/p&gt;
+
+&lt;p&gt;It&amp;rsquo;s somewhat ironic that on February 3, 2010 the last five /8s from the IANA IPv4 pool have been distributed to the RIRs.&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;102/8   AfriNIC    2011-02    whois.afrinic.net ALLOCATED
+103/8   APNIC      2011-02    whois.apnic.net   ALLOCATED
+104/8   ARIN       2011-02    whois.arin.net    ALLOCATED
+179/8   LACNIC     2011-02    whois.lacnic.net  ALLOCATED
+185/8   RIPE NCC   2011-02    whois.ripe.net    ALLOCATED
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;During a RIPE55 meeting surrounding IPv4 exhaustion, this rephrased version of that 1971 hit was played:&lt;/p&gt;
+
+&lt;iframe title=&#34;YouTube video player&#34; width=&#34;480&#34; height=&#34;390&#34; src=&#34;http://www.youtube.com/embed/_y36fG2Oba0&#34; frameborder=&#34;0&#34; allowfullscreen&gt;&lt;/iframe&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

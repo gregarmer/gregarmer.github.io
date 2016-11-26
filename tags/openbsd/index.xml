@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>./sigterm.sh</title>
+    <link>https://sigterm.sh/tags/openbsd/index.xml</link>
+    <description>Recent content on ./sigterm.sh</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>Gregory Armer. All rights reserved.</copyright>
+    <atom:link href="https://sigterm.sh/tags/openbsd/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Passing VLANs over an LACP trunk in OpenBSD</title>
+      <link>https://sigterm.sh/2016/11/05/passing-vlans-over-an-lacp-trunk-in-openbsd</link>
+      <pubDate>Sat, 05 Nov 2016 14:26:00 -0400</pubDate>
+      
+      <guid>https://sigterm.sh/2016/11/05/passing-vlans-over-an-lacp-trunk-in-openbsd</guid>
+      <description>&lt;p&gt;It took me a little while to figure this out, so for anyone stuck on this, here&amp;rsquo;s what I did.&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+
+&lt;p&gt;I did this with a Cisco 3750 switch.  The switch config was:&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;Port-channel&lt;/em&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;interface Port-channel42
+ description etherchannel fw
+ switchport trunk encapsulation dot1q
+ switchport trunk allowed vlan 56-61,63
+ switchport mode trunk
+ spanning-tree portfast
+ spanning-tree bpduguard enable
+!
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;em&gt;Interfaces&lt;/em&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;interface GigabitEthernet1/0/23
+ description fw-pc42-1
+ switchport trunk encapsulation dot1q
+ switchport trunk allowed vlan 56-61,63
+ switchport mode trunk
+ channel-protocol lacp
+ channel-group 42 mode active
+!
+interface GigabitEthernet1/0/24
+ description fw-pc42-2
+ switchport trunk encapsulation dot1q
+ switchport trunk allowed vlan 56-61,63
+ switchport mode trunk
+ channel-protocol lacp
+ channel-group 42 mode active
+!
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Then on the firewall:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;# cat /etc/hostname.em0
+up
+# cat /etc/hostname.em1
+up
+# cat /etc/hostname.trunk0
+trunkproto lacp trunkport em0 trunkport em1
+up
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;and lastly the VLAN interfaces:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;# cat /etc/hostname.vlan57
+inet 172.29.57.1 255.255.255.0 NONE vlan 57 vlandev trunk0 descr WIFI
+# cat /etc/hostname.vlan58
+inet 172.29.58.1 255.255.254.0 NONE vlan 58 vlandev trunk0 descr SERVERS
+# cat /etc/hostname.vlan60
+inet 172.29.60.1 255.255.255.0 NONE vlan 60 vlandev trunk0 descr WIRED
+# cat /etc/hostname.vlan61
+inet 172.29.61.1 255.255.255.0 NONE vlan 61 vlandev trunk0 descr IPMI
+# cat /etc/hostname.vlan63
+inet 172.29.63.1 255.255.255.0 NONE vlan 63 vlandev trunk0 descr MGMT
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You can set this up by executing &lt;code&gt;sh /etc/netstart&lt;/code&gt; without having to run a bunch of &lt;code&gt;ifconfig&lt;/code&gt; commands.&lt;/p&gt;
+
+&lt;p&gt;Your interfaces should look like this when it&amp;rsquo;s up:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;em0: flags=8b43&amp;lt;UP,BROADCAST,RUNNING,PROMISC,ALLMULTI,SIMPLEX,MULTICAST&amp;gt; mtu 1500
+        lladdr 0c:c4:7a:ac:70:02
+        index 1 priority 0 llprio 3
+        trunk: trunkdev trunk0
+        media: Ethernet autoselect (1000baseT full-duplex)
+        status: active
+
+em1: flags=8b43&amp;lt;UP,BROADCAST,RUNNING,PROMISC,ALLMULTI,SIMPLEX,MULTICAST&amp;gt; mtu 1500
+        lladdr 0c:c4:7a:ac:70:02
+        index 2 priority 0 llprio 3
+        trunk: trunkdev trunk0
+        media: Ethernet autoselect (1000baseT full-duplex)
+        status: active
+
+trunk0: flags=8843&amp;lt;UP,BROADCAST,RUNNING,SIMPLEX,MULTICAST&amp;gt; mtu 1500
+        lladdr 0c:c4:7a:ac:70:02
+        index 8 priority 0 llprio 3
+        trunk: trunkproto lacp
+        trunk id: [(8000,0c:c4:7a:ac:70:02,4044,0000,0000),
+                 (8000,00:1a:e2:1f:0b:00,002A,0000,0000)]
+                trunkport em1 active,collecting,distributing
+                trunkport em0 active,collecting,distributing
+        groups: trunk
+        media: Ethernet autoselect
+        status: active
+
+vlan58: flags=8843&amp;lt;UP,BROADCAST,RUNNING,SIMPLEX,MULTICAST&amp;gt; mtu 1500
+        lladdr 0c:c4:7a:ac:70:02
+        description: SERVERS
+        index 11 priority 0 llprio 3
+        vlan: 58 parent interface: trunk0
+        vnetid: 58
+        parent: trunk0
+        groups: vlan
+        status: active
+        inet 172.29.58.1 netmask 0xfffffe00 broadcast 172.29.59.255
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;and the switch:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;core-3750-1#show etherchannel summary
+Flags:  D - down        P - bundled in port-channel
+        I - stand-alone s - suspended
+        H - Hot-standby (LACP only)
+        R - Layer3      S - Layer2
+        U - in use      f - failed to allocate aggregator
+
+        M - not in use, minimum links not met
+        u - unsuitable for bundling
+        w - waiting to be aggregated
+        d - default port
+
+
+Number of channel-groups in use: 3
+Number of aggregators:           3
+
+Group  Port-channel  Protocol    Ports
+------+-------------+-----------+-----------------------------------------------
+1      Po1(SU)         LACP      Gi1/0/15(P) Gi1/0/16(P)
+2      Po2(SU)         LACP      Gi1/0/13(P) Gi1/0/14(P)
+42     Po42(SU)        LACP      Gi1/0/23(P) Gi1/0/24(P)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;A few things that got me:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;You will get an error if the &lt;code&gt;em*&lt;/code&gt; interfaces are not marked as &lt;code&gt;up&lt;/code&gt; when you add them as trunkports.  Set them as up with &lt;code&gt;ifconfig em0 up&lt;/code&gt; before your &lt;code&gt;ifconfig trunk0 trunkport em0&lt;/code&gt; command.&lt;/li&gt;
+&lt;li&gt;When the tunnel is configured with &lt;code&gt;ifconfig&lt;/code&gt; it doesn&amp;rsquo;t automatically start, so you&amp;rsquo;ll need an explicit &lt;code&gt;ifconfig trunk0 up&lt;/code&gt; to bring it up.&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

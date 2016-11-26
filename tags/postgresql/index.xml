@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>./sigterm.sh</title>
+    <link>https://sigterm.sh/tags/postgresql/index.xml</link>
+    <description>Recent content on ./sigterm.sh</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>Gregory Armer. All rights reserved.</copyright>
+    <atom:link href="https://sigterm.sh/tags/postgresql/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Generating a dependency graph for Postgres DB</title>
+      <link>https://sigterm.sh/2010/07/09/generating-a-dependency-graph-for-a-postgresql-database</link>
+      <pubDate>Fri, 09 Jul 2010 12:00:00 -0400</pubDate>
+      
+      <guid>https://sigterm.sh/2010/07/09/generating-a-dependency-graph-for-a-postgresql-database</guid>
+      <description>&lt;p&gt;This post was mostly inspired by &lt;a href=&#34;http://code.activestate.com/recipes/577298-plot-database-table-dependecies-for-a-mysql-databa/&#34;&gt;this one&lt;/a&gt;, which shows how to generate a dependency graph for a MySQL database. Here we do something similar for PostgreSQL.&lt;/p&gt;
+
+&lt;p&gt;This script will generate the required digraph data to pipe into &lt;a href=&#34;http://www.graphviz.org/&#34; target=&#34;_blank&#34;&gt;graphviz dot&lt;/a&gt; which will generate a visual representation of dependencies in a database schema, based on foreign key constraints.&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+
+&lt;p&gt;The script:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;from optparse import OptionParser, OptionGroup
+
+import psycopg2
+import sys
+
+
+def writedeps(cursor, tbl):
+    sql = &amp;quot;&amp;quot;&amp;quot;SELECT
+        tc.constraint_name, tc.table_name, kcu.column_name,
+        ccu.table_name AS foreign_table_name,
+        ccu.column_name AS foreign_column_name
+    FROM
+        information_schema.table_constraints AS tc
+    JOIN information_schema.key_column_usage AS kcu ON
+        tc.constraint_name = kcu.constraint_name
+    JOIN information_schema.constraint_column_usage AS ccu ON
+        ccu.constraint_name = tc.constraint_name
+    WHERE constraint_type = &#39;FOREIGN KEY&#39; AND tc.table_name = &#39;%s&#39;&amp;quot;&amp;quot;&amp;quot;
+    cursor.execute(sql % tbl)
+    for row in cursor.fetchall():
+        constraint, table, column, foreign_table, foreign_column = row
+        print &#39;&amp;quot;%s&amp;quot; -&amp;gt; &amp;quot;%s&amp;quot; [label=&amp;quot;%s&amp;quot;];&#39; % (tbl, foreign_table, constraint)
+
+
+def get_tables(cursor):
+    cursor.execute(&amp;quot;SELECT tablename FROM pg_tables WHERE schemaname=&#39;public&#39;&amp;quot;)
+    for row in cursor.fetchall():
+        yield row[0]
+
+
+def main():
+    parser = OptionParser()
+
+    group = OptionGroup(parser, &amp;quot;Database Options&amp;quot;)
+    group.add_option(&amp;quot;--dbname&amp;quot;, action=&amp;quot;store&amp;quot;, dest=&amp;quot;dbname&amp;quot;,
+            help=&amp;quot;The database name.&amp;quot;)
+    group.add_option(&amp;quot;--dbhost&amp;quot;, action=&amp;quot;store&amp;quot;, dest=&amp;quot;dbhost&amp;quot;,
+            default=&amp;quot;localhost&amp;quot;,  help=&amp;quot;The database host.&amp;quot;)
+    group.add_option(&amp;quot;--dbuser&amp;quot;, action=&amp;quot;store&amp;quot;, dest=&amp;quot;dbuser&amp;quot;,
+            help=&amp;quot;The database username.&amp;quot;)
+    group.add_option(&amp;quot;--dbpass&amp;quot;, action=&amp;quot;store&amp;quot;, dest=&amp;quot;dbpass&amp;quot;,
+            help=&amp;quot;The database password.&amp;quot;)
+    parser.add_option_group(group)
+
+    (options, args) = parser.parse_args()
+
+    if not options.dbname:
+        print &amp;quot;Please supply a database name, see --help for more info.&amp;quot;
+        sys.exit(1)
+
+    try:
+        conn = psycopg2.connect(&amp;quot;dbname=&#39;%s&#39; user=&#39;%s&#39; host=&#39;%s&#39; password=&#39;%s&#39;&amp;quot;
+            % (options.dbname, options.dbuser, options.dbhost, options.dbpass))
+    except psycopg2.OperationalError, e:
+        print &amp;quot;Failed to connect to database,&amp;quot;,
+        print &amp;quot;perhaps you need to supply auth details:\n %s&amp;quot; % str(e)
+        print &amp;quot;Use --help for more info.&amp;quot;
+        sys.exit(1)
+
+    cursor = conn.cursor()
+
+    print &amp;quot;Digraph F {\n&amp;quot;
+    print &#39;ranksep=1.0; size=&amp;quot;18.5, 15.5&amp;quot;; rankdir=LR;&#39;
+    for i in get_tables(cursor):
+        writedeps(cursor, i)
+    print &amp;quot;}&amp;quot;
+
+    sys.exit(0)
+
+
+if __name__ == &amp;quot;__main__&amp;quot;:
+    main()
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You could run it as follows:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;python postgres-deps.py --dbname some_database | dot -Tpng &amp;gt; deps.png
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;Note&lt;/strong&gt;: for other options use:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;python postgres-deps.py --help
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;That should spit out one of these:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://media.sigterm.sh/2014/d.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

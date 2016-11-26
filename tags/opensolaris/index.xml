@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>./sigterm.sh</title>
+    <link>https://sigterm.sh/tags/opensolaris/index.xml</link>
+    <description>Recent content on ./sigterm.sh</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>Gregory Armer. All rights reserved.</copyright>
+    <atom:link href="https://sigterm.sh/tags/opensolaris/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Using a ZFS filesystem with Time Machine</title>
+      <link>https://sigterm.sh/2009/10/04/using-a-zfs-filesystem-with-time-machine</link>
+      <pubDate>Sun, 04 Oct 2009 12:00:00 -0400</pubDate>
+      
+      <guid>https://sigterm.sh/2009/10/04/using-a-zfs-filesystem-with-time-machine</guid>
+      <description>&lt;p&gt;This simple how-to explains how to get your Time Machine backups working with a ZFS filesystem. This allows you to use the features of ZFS filesystems for your Time Machine backups.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Please note this is for Mac OS X - Snow Leopard.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+
+&lt;p&gt;1)    Enable unsupported network volumes on your Mac by opening a Terminal and pasting this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;greg@macbook:~ %&amp;gt; defaults write com.apple.systempreferences TMShowUnsupportedNetworkVolumes 1
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;2)    Create a new ZFS filesystem and enable CIFS access to it:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;greg@opensolaris:~ %&amp;gt; zfs create tank/userbackups
+greg@opensolaris:~ %&amp;gt; zfs set sharesmb=on tank/userbackups
+greg@opensolaris:~ %&amp;gt; zfs set sharesmb=name=userbackups tank/userbackups
+greg@opensolaris:~ %&amp;gt; zfs set aclmode=passthrough tank/userbackups
+greg@opensolaris:~ %&amp;gt; zfs set aclinherit=passthrough tank/userbackups
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You will probably want to setup the correct permissions on your new share, more details in &lt;a href=&#34;http://code.geek.sh/2009/07/the-basics-of-zfs-acls/&#34;&gt;[this post]&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;3)    Make sure you can mount this share and write to it from your Mac.&lt;/p&gt;
+
+&lt;p&gt;4)    Create the correct disk image:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;greg@macbook:~ %&amp;gt; /bin/bash
+greg@macbook:~ %&amp;gt; cd /Volumes/userbackups
+greg@macbook:~ %&amp;gt; SYSNAME=`scutil --get ComputerName`
+greg@macbook:~ %&amp;gt; hdiutil create -size 600G -fs HFS+J \
+&amp;gt; -volname &#39;Time Machine Backups&#39; -type SPARSEBUNDLE &amp;quot;${SYSNAME}.sparsebundle&amp;quot;
+greg@macbook:~ %&amp;gt; UUID=`system_profiler | grep &#39;Hardware UUID&#39; | awk &#39;{print $3}&#39;`
+greg@macbook:~ %&amp;gt; cat &amp;lt;&amp;lt; EOF &amp;gt; &amp;quot;${SYSNAME}.sparsebundle&amp;quot;/com.apple.TimeMachine.MachineID.plist
+&amp;gt; &amp;lt;?xml version=&amp;quot;1.0&amp;quot; encoding=&amp;quot;UTF-8&amp;quot;?&amp;gt;
+&amp;gt; &amp;lt;!DOCTYPE plist PUBLIC &amp;quot;-//Apple//DTD PLIST 1.0//EN&amp;quot; &amp;quot;http://www.apple.com/DTDs/PropertyList-1.0.dtd&amp;quot;&amp;gt;
+&amp;gt; &amp;lt;plist version=&amp;quot;1.0&amp;quot;&amp;gt;
+&amp;gt; &amp;lt;dict&amp;gt;
+&amp;gt;         &amp;lt;key&amp;gt;com.apple.backupd.HostUUID&amp;lt;/key&amp;gt;
+&amp;gt;         &amp;lt;string&amp;gt;$UUID&amp;lt;/string&amp;gt;
+&amp;gt; &amp;lt;/dict&amp;gt;
+&amp;gt; &amp;lt;/plist&amp;gt;
+&amp;gt; EOF
+greg@macbook:~ %&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;5)    and finally, open up Time Machine. You should now see your network share as an option. Choose it, configure any excludes you want and kick off your first backup!&lt;/p&gt;
+
+&lt;p&gt;I&amp;rsquo;ll post a little later on restoring these backups using one of these methods:&lt;/p&gt;
+
+&lt;ul style=&#34;padding-left: 30px;&#34;&gt;
+    &lt;li&gt;Restore from Time Machine by using the boot disk&lt;/li&gt;
+    &lt;li&gt;or by doing a standard install then using the Migration Assistant.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Good luck!&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Quick Solaris zone stats</title>
+      <link>https://sigterm.sh/2009/08/13/quick-solaris-zone-stats</link>
+      <pubDate>Thu, 13 Aug 2009 12:00:00 -0400</pubDate>
+      
+      <guid>https://sigterm.sh/2009/08/13/quick-solaris-zone-stats</guid>
+      <description>&lt;p&gt;Add this:&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;alias zonestat=&amp;quot;prstat -vZ 1 1 | grep -A50 &#39;^ZONEID&#39;&amp;quot;&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;to your ~/.profile and you should see something like this when running it:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;root@tank:~# zonestat
+ZONEID    NPROC  SWAP   RSS MEMORY      TIME  CPU ZONE
+     0       58 1198M 1206M    30%  16:15:40 1.7% global
+     6       25  172M  175M   4.4%   0:03:14 0.0% cl-build
+     2       27   48M   31M   0.8%   0:00:47 0.0% mirror
+Total: 110 processes, 534 lwps, load averages: 0.09, 0.08, 0.07
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>The basics of ZFS ACLs</title>
+      <link>https://sigterm.sh/2009/07/31/the-basics-of-zfs-acls</link>
+      <pubDate>Fri, 31 Jul 2009 12:00:00 -0400</pubDate>
+      
+      <guid>https://sigterm.sh/2009/07/31/the-basics-of-zfs-acls</guid>
+      <description>&lt;p&gt;This post was mostly inspired by reading &lt;a href=&#34;http://www.1stbyte.com/2009/07/24/zfs-cifs-and-acl-inheritance/&#34;&gt;this post&lt;/a&gt; in trying to get my head around the ZFS ACL and permission system.&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+
+&lt;p&gt;Basically I have a pool set out as follows:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;tank
+tank/media
+tank/zones
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;tank/media is served via CIFS and NFS to multiple clients on my network, each with their own unix account on the OpenSolaris server. tank/zones is used for extra zones running on the host.&lt;/p&gt;
+
+&lt;p&gt;Everything was working great until I found that files and directories created by clients ended up looking like this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;----------  1 greg staff 734310400 2009-07-18 19:10 foo.txt
+d---------  2 greg staff        19 2008-12-06 14:10 Bar
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This sure didn&amp;rsquo;t go down well when other users needed to access those files or directories.&lt;/p&gt;
+
+&lt;p&gt;So in following the above mentioned post I did this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;# zfs set aclinherit=passthrough tank/media
+# zfs set aclmode=passthrough tank/media
+# /bin/chmod 0774 /tank/media
+# /bin/chmod -R A- /tank/media
+# /bin/chmod -R A=owner@:full_set:fd:allow /tank/media
+# /bin/chmod -R A+group@:full_set:fd:allow /tank/media
+# /bin/chmod -R A+everyone@:read_set:fd:allow /tank/media
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;A better description of what the flags / syntax mean can be found &lt;a href=&#34;http://dlc.sun.com/osol/docs/content/ZFSADMIN/gbace.html&#34;&gt;here&lt;/a&gt; and &lt;a href=&#34;http://dlc.sun.com/osol/docs/content/ZFSADMIN/gbacb.html&#34;&gt;here&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;A simple breakdown:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;First off, we tell ZFS that all files or directories must inherit all acls / permissions from their parent.&lt;/li&gt;
+&lt;li&gt;We use /bin/chmod as the chmod in the default path is the GNU chmod which does not understand ZFS acls.&lt;/li&gt;
+&lt;li&gt;The second chmod &amp;ldquo;A-&amp;rdquo; will remove all acls currently set on the object.&lt;/li&gt;
+&lt;li&gt;We then set the owners permission to the &amp;ldquo;full_set&amp;rdquo;, thus giving the owner all possible permissions.&lt;/li&gt;
+&lt;li&gt;We do the same for the group.&lt;/li&gt;
+&lt;li&gt;Finally, we give everyone else read access.&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

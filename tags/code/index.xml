@@ -1,0 +1,857 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>./sigterm.sh</title>
+    <link>https://sigterm.sh/tags/code/index.xml</link>
+    <description>Recent content on ./sigterm.sh</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>Gregory Armer. All rights reserved.</copyright>
+    <atom:link href="https://sigterm.sh/tags/code/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Recording backend processing time in Golang</title>
+      <link>https://sigterm.sh/2015/03/08/recording-backend-processing-time-in-go</link>
+      <pubDate>Sun, 08 Mar 2015 18:58:00 -0400</pubDate>
+      
+      <guid>https://sigterm.sh/2015/03/08/recording-backend-processing-time-in-go</guid>
+      <description>&lt;p&gt;I recently wrote a RESTful web service in Golang, and wanted to pull out some stats on how my handlers were doing in terms of performance.&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+
+&lt;p&gt;A simplified version of where I started would be:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;package main
+
+import (
+	&amp;quot;github.com/gorilla/mux&amp;quot;
+	&amp;quot;log&amp;quot;
+	&amp;quot;net/http&amp;quot;
+)
+
+// Some handlers here
+
+func main() {
+	router := mux.NewRouter().StrictSlash(true)
+	router.HandleFunc(&amp;quot;/api/something&amp;quot;, SomethingIndexHandler).Methods(&amp;quot;GET&amp;quot;)
+	router.HandleFunc(&amp;quot;/api/something&amp;quot;, SomethingCreateHandler).Methods(&amp;quot;POST&amp;quot;)
+
+	port := &amp;quot;:9000&amp;quot;
+	log.Printf(&amp;quot;Starting web server on &amp;quot; + port)
+	err := http.ListenAndServe(port, router)
+	if err != nil {
+		log.Fatal(err)
+	}
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This is actually pretty simple, we just need something to wrap all our routes, and emit logs containing start and end times. That would look something like this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;func DefaultWrapper(handler http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		start := time.Now()
+		handler.ServeHTTP(w, r)
+		log.Printf(&amp;quot;%s %s %s %s&amp;quot;, r.RemoteAddr, time.Since(start), r.Method, r.URL)
+	})
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You would then wrap your router with this wrapper:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;err := http.ListenAndServe(port, DefaultWrapper(router))
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;We would then see logs like:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;go-app git:master ❯ go run *.go
+2015/03/08 17:34:55 Starting web server on :9000
+2015/03/08 17:34:57 [::1]:49868 824µs GET /api/something?limit=10
+2015/03/08 17:34:58 [::1]:49868 7.954824ms POST /api/something
+2015/03/08 17:34:59 [::1]:49868 34.745µs GET /
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;final-code&#34;&gt;Final code&lt;/h4&gt;
+
+&lt;pre&gt;&lt;code&gt;package main
+ 
+import (  
+   &amp;quot;fmt&amp;quot;
+   &amp;quot;github.com/gorilla/mux&amp;quot;
+   &amp;quot;log&amp;quot;
+   &amp;quot;net/http&amp;quot;
+   &amp;quot;time&amp;quot;
+)
+ 
+// Some handlers here
+ 
+func DefaultWrapper(handler http.Handler) http.Handler {  
+   return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+      start := time.Now()
+      handler.ServeHTTP(w, r)
+      log.Printf(&amp;quot;%s %s %s %s&amp;quot;, r.RemoteAddr, time.Since(start), r.Method, r.URL)
+   })
+}
+ 
+func main() {  
+   router := mux.NewRouter().StrictSlash(true)
+   router.HandleFunc(&amp;quot;/api/something&amp;quot;, SomethingIndexHandler).Methods(&amp;quot;GET&amp;quot;)
+   router.HandleFunc(&amp;quot;/api/something&amp;quot;, SomethingCreateHandler).Methods(&amp;quot;POST&amp;quot;)
+ 
+   port := &amp;quot;:9000&amp;quot;
+   log.Printf(&amp;quot;Starting web server on &amp;quot; + port)
+   err := http.ListenAndServe(port, DefaultWrapper(router))
+   if err != nil {
+      log.Fatal(err)
+   }
+}
+&lt;/code&gt;&lt;/pre&gt;</description>
+    </item>
+    
+    <item>
+      <title>Announcing flake8-diff</title>
+      <link>https://sigterm.sh/2015/01/06/announcing-flake8-diff</link>
+      <pubDate>Tue, 06 Jan 2015 18:50:00 -0400</pubDate>
+      
+      <guid>https://sigterm.sh/2015/01/06/announcing-flake8-diff</guid>
+      <description>&lt;h3 id=&#34;purpose&#34;&gt;Purpose&lt;/h3&gt;
+
+&lt;p&gt;This utility allows you to run flake8 over a set of changed files and filter out violations that would be introduced by merging those changes.&lt;/p&gt;
+
+&lt;p&gt;We use this as part of our build / CI infrastructure to alert developers opening pull requests to new violations their pull request will introduce, if it were merged.&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;using-flake8-diff&#34;&gt;Using flake8-diff&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code&gt;$ pip install flake8-diff
+$ flake8-diff -h
+usage: flake8-diff [-h] [--flake8-options ...] [--vcs {git}]
+                   [--standard-flake8-output] [-v]
+                   [--color {off,colorful,light,nocolor,dark,boring}]
+                   [commit [commit ...]]
+
+This script runs flake8 across a set of changed files and filters out
+violations occurring only on the lines that were changed.
+
+positional arguments:
+  commit                At most two commit hashes or branch names which will
+                        be compared to figure out changed lines between the
+                        two. If only one commit is provided, that commit will
+                        be compared against current files.Default is
+                        &amp;quot;origin/master&amp;quot;.
+
+optional arguments:
+  -h, --help            show this help message and exit
+  --flake8-options ...  Options to be passed to flake8 command. Can be used to
+                        configure flake8 on-the-fly when flake8 configuration
+                        file is not present.
+  --vcs {git}           VCS to use. By default VCS is attempted to determine
+                        automatically. Can be any of &amp;quot;git&amp;quot;
+  --standard-flake8-output
+                        Output standard flake8 output instead of simplified,
+                        more readable summary.
+  -v, --verbose         Be verbose. This will print out every compared file.
+                        Can be supplied multiple times to increase verbosity
+                        level
+  --color {off,colorful,light,nocolor,dark,boring}
+                        Color theme to use. Default is &amp;quot;colorful&amp;quot;. Can be any
+                        of &amp;quot;off, colorful, light, nocolor, dark, boring&amp;quot;
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;contributing&#34;&gt;Contributing&lt;/h3&gt;
+
+&lt;p&gt;Contributions are welcome, and they are greatly appreciated! Every little bit helps, and credit will always be given.&lt;/p&gt;
+
+&lt;p&gt;You can contribute in many ways:&lt;/p&gt;
+
+&lt;h4 id=&#34;types-of-contributions&#34;&gt;Types of Contributions&lt;/h4&gt;
+
+&lt;h5 id=&#34;report-bugs&#34;&gt;Report Bugs&lt;/h5&gt;
+
+&lt;p&gt;Report bugs at &lt;a href=&#34;https://github.com/dealertrack/flake8-diff/issues&#34;&gt;https://github.com/dealertrack/flake8-diff/issues&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;If you are reporting a bug, please include:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Any details about your local setup that might be helpful in troubleshooting.&lt;/li&gt;
+&lt;li&gt;Detailed steps to reproduce the bug.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h5 id=&#34;fix-bugs&#34;&gt;Fix Bugs&lt;/h5&gt;
+
+&lt;p&gt;Look through the GitHub issues for bugs. Anything tagged with &amp;ldquo;bug&amp;rdquo; is open to whoever wants to fix it.&lt;/p&gt;
+
+&lt;h5 id=&#34;implement-features&#34;&gt;Implement Features&lt;/h5&gt;
+
+&lt;p&gt;Look through the GitHub issues for features. Anything tagged with &amp;ldquo;enhancement&amp;rdquo; is open to whoever wants to implement it.&lt;/p&gt;
+
+&lt;h5 id=&#34;write-documentation&#34;&gt;Write Documentation&lt;/h5&gt;
+
+&lt;p&gt;flake8-diff could always use more documentation, whether as part of the official docs, in docstrings, or even on the web in blog posts, articles, and such.&lt;/p&gt;
+
+&lt;h5 id=&#34;submit-feedback&#34;&gt;Submit Feedback&lt;/h5&gt;
+
+&lt;p&gt;The best way to send feedback is to file an issue at &lt;a href=&#34;https://github.com/dealertrack/flake8-diff/issues&#34;&gt;https://github.com/dealertrack/flake8-diff/issues&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;If you are proposing a feature:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Explain in detail how it would work.&lt;/li&gt;
+&lt;li&gt;Keep the scope as narrow as possible, to make it easier to implement.&lt;/li&gt;
+&lt;li&gt;Remember that this is a volunteer-driven project, and that contributions are welcome :)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&#34;getting-started&#34;&gt;Getting Started!&lt;/h4&gt;
+
+&lt;p&gt;Ready to contribute? Here&amp;rsquo;s how to set up &lt;code&gt;flake8-diff&lt;/code&gt; for local development.&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Fork the &lt;code&gt;flake8-diff&lt;/code&gt; repo on GitHub.&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Clone your fork locally:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ git clone git@github.com:your_name_here/flake8-diff.git
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Install your local copy into a virtualenv. Assuming you have virtualenvwrapper installed, this is how you set up your fork for local development:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ mkvirtualenv flake8-diff
+$ cd flake8-diff/
+$ python setup.py develop
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Create a branch for local development:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ git checkout -b name-of-your-bugfix-or-feature
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Now you can make your changes locally.&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;When you&amp;rsquo;re done making changes, check that your changes pass flake8 and the tests, including testing other Python versions with tox:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ flake8 flake8-diff tests
+$ python setup.py test
+$ tox
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;To get flake8 and tox, just pip install them into your virtualenv.&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Commit your changes and push your branch to GitHub:&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;pre&gt;&lt;code&gt;   $ git add .
+   $ git commit -m &amp;quot;Your detailed description of your changes.&amp;quot;
+   $ git push origin name-of-your-bugfix-or-feature
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Submit a pull request through the GitHub website.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h4 id=&#34;pull-request-guidelines&#34;&gt;Pull Request Guidelines&lt;/h4&gt;
+
+&lt;p&gt;Before you submit a pull request, check that it meets these guidelines:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;The pull request should include tests.&lt;/li&gt;
+&lt;li&gt;If the pull request adds functionality, the docs should be updated. Put your new functionality into a function with a docstring, and add the feature to the list in README.md.&lt;/li&gt;
+&lt;li&gt;The pull request should work for Python 2.6, 2.7, and 3.3, and for PyPy. Check &lt;a href=&#34;https://travis-ci.org/dealertrack/flake8-diff/pull_requests&#34;&gt;https://travis-ci.org/dealertrack/flake8-diff/pull_requests&lt;/a&gt; and make sure that the tests pass for all supported Python versions.&lt;/li&gt;
+&lt;/ol&gt;</description>
+    </item>
+    
+    <item>
+      <title>nginx, Apache 2 and subversion - 502 Bad Gateway error</title>
+      <link>https://sigterm.sh/2012/10/09/nginx-apache-2-and-subversion-502-bad-gateway-error</link>
+      <pubDate>Tue, 09 Oct 2012 12:00:00 -0400</pubDate>
+      
+      <guid>https://sigterm.sh/2012/10/09/nginx-apache-2-and-subversion-502-bad-gateway-error</guid>
+      <description>&lt;h4 id=&#34;the-problem&#34;&gt;The Problem&lt;/h4&gt;
+
+&lt;p&gt;I recently ran into this problem and couldn&amp;rsquo;t find any useful information on the net around fixing it. All subversion checkouts, commits and other basic operations work just fine, but when attempting to copy, move or tag (copy) I would get the below (502 Bad Gateway) error.&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;greg@codemine:~/code/Foo (git-svn)-[trunk] %&amp;gt; git svn tag foo-2.1.1                      
+Copying https://svn/projects/Foo/trunk at r18311 to https://svn/projects/Foo/tags/foo-2.1.1...
+RA layer request failed: Server sent unexpected return value (502 Bad Gateway) in response to COPY request for &#39;/projects/!svn/bc/18311/Foo/trunk&#39; at /usr/libexec/git-core/git-svn line 1123
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;our-setup&#34;&gt;Our Setup&lt;/h4&gt;
+
+&lt;p&gt;We have a machine running nginx on port 80 (and 443 SSL) that serves up a bunch of development tools - buildbots, Jenkins, git repos and of course a few subversion repos. Behind it we have an Apache2 server that serves up subversion repos over WebDAV.&lt;/p&gt;
+
+&lt;p&gt;nginx simply reverse proxies requests to the backend Apache 2 servers and handles the SSL termination as our repos are only available over SSL (https).&lt;/p&gt;
+
+&lt;h4 id=&#34;what-s-really-happening&#34;&gt;What&amp;rsquo;s Really Happening&lt;/h4&gt;
+
+&lt;p&gt;The actual problem is not really that obvious.&lt;/p&gt;
+
+&lt;p&gt;When you perform a remote svn operation like MOVE or COPY the actual request is translated into a WebDAV request that looks similar to this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;COPY /svn/repos/oldname.txt HTTP/1.1
+Host: svn.example.org
+Destination: https://svn.example.org/svn/repos/newname.txt
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Apache, the webserver, translates the above request to:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;COPY https://svn.example.org/svn/repos/oldname.txt https://svn.example.org/svn/repos/newname.txt
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;It uses the Host parameter &lt;em&gt;svn.example.org&lt;/em&gt; and the first request line &lt;code&gt;COPY
+/svn/repos/oldname.txt HTTP/1.1&lt;/code&gt; to assemble the source URL,
+&lt;code&gt;https://svn.example.org/svn/repos/oldname.txt&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;However, since requests are being reverse proxied through nginx, the source URL is changed from https:// to http:// as Apache listens on port 80 (HTTP). This results in a COPY operation that looks like this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;COPY http://svn.example.org/svn/repos/oldname.txt https://svn.example.org/svn/repos/newname.txt
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;em&gt;Note the http:// instead of https://&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;Apache quickly figures out that it can&amp;rsquo;t move a file &lt;a href=&#34;http://svn.example.org/svn/repos/oldname.txt&#34;&gt;http://svn.example.org/svn/repos/oldname.txt&lt;/a&gt; to &lt;a href=&#34;https://svn.example.org/svn/repos/newname.txt&#34;&gt;https://svn.example.org/svn/repos/newname.txt&lt;/a&gt;, because as far as Apache is concerned &lt;a href=&#34;http://svn.example.org/&#34;&gt;http://svn.example.org/&lt;/a&gt; and &lt;a href=&#34;https://svn.example.org/&#34;&gt;https://svn.example.org/&lt;/a&gt; are two entirely different hosts.&lt;/p&gt;
+
+&lt;p&gt;&amp;hellip; and you end up with a &amp;ldquo;502 Bad Gateway&amp;rdquo; error.&lt;/p&gt;
+
+&lt;h4 id=&#34;the-solution&#34;&gt;The Solution&lt;/h4&gt;
+
+&lt;p&gt;The solution to this problem is getting nginx to change the Destination header in the same way it changes the Host header. Apache can then handle the COPY or MOVE operation correctly. This is done by adding the following to your nginx configuration:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;set $fixed_destination $http_destination;  
+if ( $http_destination ~* ^https(.*)$ ) {  
+    set $fixed_destination http$1;  
+}  
+proxy_set_header Destination $fixed_destination;  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;complete-configs&#34;&gt;Complete Configs&lt;/h4&gt;
+
+&lt;p&gt;For reference purposes I&amp;rsquo;ve included the complete configs below.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;/etc/nginx/sites-available/svn.example.org&lt;/em&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;server {
+    listen 80;
+    server_name svn.example.org;
+    rewrite ^(.*) https://svn.example.org$1 permanent;
+}
+
+server {
+    listen 443;
+    server_name svn.example.org;
+
+    ssl on;
+    ssl_certificate /etc/nginx/conf.d/svn.example.org.crt;
+    ssl_certificate_key /etc/nginx/conf.d/svn.example.org.key;
+    ssl_verify_depth 3;
+
+    client_max_body_size 100m;
+    access_log /var/log/nginx/svn.example.org-access.log;
+
+    location / {
+        set $fixed_destination $http_destination;
+        if ( $http_destination ~* ^https(.*)$ ) {
+            set $fixed_destination http$1;
+        }
+        proxy_set_header Destination $fixed_destination;
+        proxy_set_header Host $http_host;
+
+        proxy_pass http://localhost:9080;
+        proxy_connect_timeout 75;
+        proxy_read_timeout 300;
+        proxy_send_timeout 300;
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;em&gt;/etc/apache2/sites-available/svn.example.org&lt;/em&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;VirtualHost *:9080&amp;gt;
+    ServerName svn.example.org
+    ErrorLog /var/log/apache2/svn.example.org-error.log
+    &amp;lt;Location /&amp;gt;
+        DAV svn
+        DAVMinTimeout 0
+        SVNParentPath /home/svn
+        AuthType Basic
+        AuthName &amp;quot;Subversion Repos&amp;quot;
+        AuthUserFile /home/svn/.htpasswd
+        AuthzSVNAccessFile /home/svn/conf/authz
+        Require valid-user
+    &amp;lt;/Location&amp;gt;
+&amp;lt;/VirtualHost&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;</description>
+    </item>
+    
+    <item>
+      <title>Replacing Django&#39;s Nasty &#39;runserver&#39;</title>
+      <link>https://sigterm.sh/2011/12/06/replacing-djangos-nasty-runserver</link>
+      <pubDate>Tue, 06 Dec 2011 12:00:00 -0400</pubDate>
+      
+      <guid>https://sigterm.sh/2011/12/06/replacing-djangos-nasty-runserver</guid>
+      <description>&lt;p&gt;Have you ever tried to have more than one person view a development site using &lt;a title=&#34;Django&#34; href=&#34;http://www.djangoproject.com/&#34; target=&#34;_blank&#34;&gt;Django&amp;rsquo;s&lt;/a&gt; &lt;a title=&#34;Django runserver&#34; href=&#34;https://docs.djangoproject.com/en/1.3/ref/django-admin/#runserver-port-or-address-port&#34; target=&#34;_blank&#34;&gt;built-in development server&lt;/a&gt; ? Yeah, it really sucks. Apparently concurrency wasn&amp;rsquo;t high on the features list and they have stated that it never will be.&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;DO NOT USE THIS SERVER IN A PRODUCTION SETTING. It has not gone through security audits or performance tests. (And that&amp;rsquo;s how it&amp;rsquo;s gonna stay. We&amp;rsquo;re in the business of making Web frameworks, not Web servers, so improving this server to be able to handle a production environment is outside the scope of Django.)&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;So how do we go about using something a little nicer without losing any of the auto-reload goodness and without having to setup a full blown production environment ?&lt;/p&gt;
+
+&lt;p&gt;There are a number of alternatives, however I&amp;rsquo;ve selected &lt;a title=&#34;Twisted Web&#34; href=&#34;http://twistedmatrix.com/documents/current/web/howto/web-in-60/index.html&#34; target=&#34;_blank&#34;&gt;Twisted Web&lt;/a&gt; simply because I really like the &lt;a title=&#34;Twisted&#34; href=&#34;http://twistedmatrix.com/trac/&#34; target=&#34;_blank&#34;&gt;twisted framework&lt;/a&gt; and due to the experience I have in using it, I am very comfortable with it. It&amp;rsquo;s a great feature-packed web server that handles concurrency (and a ton of other things) exceptionally well.&lt;/p&gt;
+
+&lt;p&gt;So how do we use it to serve our little Django project in a development friendly way ?&lt;/p&gt;
+
+&lt;p&gt;I&amp;rsquo;ve put together some code (some borrowed from other sources) and constructed a simple replacement command called &amp;ldquo;trunserver&amp;rdquo; (twisted-runserver). You can grab this code from &lt;a title=&#34;GitHub - trunserver&#34; href=&#34;https://github.com/gregarmer/trunserver&#34; target=&#34;_blank&#34;&gt;Github&lt;/a&gt;. Simply install it using the standard methods, and run it with:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;python manage.py trunserver [IP:PORT] [--settings=foo] [--noreload]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;So this will start up a twisted web instance serving your Django project and just like the build-in runserver, it will automatically reload your code when it notices that your files have been modified unless &amp;ndash;noreload has been passed.&lt;/p&gt;
+
+&lt;p&gt;There are a few things missing at this point, like IPv6 support and static file serving, however these are on the roadmap.&lt;/p&gt;
+
+&lt;p&gt;I&amp;rsquo;ll post again with some more info once it is a little more stable and an official release has been provided.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Natural order sorting strings with numbers</title>
+      <link>https://sigterm.sh/2010/09/23/natural-order-sorting-strings-with-numbers</link>
+      <pubDate>Thu, 23 Sep 2010 12:00:00 -0400</pubDate>
+      
+      <guid>https://sigterm.sh/2010/09/23/natural-order-sorting-strings-with-numbers</guid>
+      <description>&lt;p&gt;The following python code makes natural sorting sequences of lexical and numerical values a little easier. It supports any iterable containing strings which have embedded numbers. In short it would give you this:&lt;/p&gt;
+
+&lt;p&gt;foo1 &amp;lt; foo2 &amp;lt; foo10&lt;/p&gt;
+
+&lt;p&gt;instead of this:&lt;/p&gt;
+
+&lt;p&gt;foo1 &amp;lt; foo10 &amp;lt; foo2&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+
+&lt;p&gt;As an example, if you have this sequence:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;gt;&amp;gt;&amp;gt; seq = [&#39;foo&#39;, &#39;foo1&#39;, &#39;foo2&#39;, &#39;foo10&#39;, &#39;foobar10&#39;, &#39;20&#39;, &#39;100&#39;, &#39;1&#39;, &#39;3&#39;, &#39;bar1&#39;]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;a regular sort would produce this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;gt;&amp;gt;&amp;gt; sorted(seq)
+[&#39;1&#39;, &#39;100&#39;, &#39;20&#39;, &#39;3&#39;, &#39;bar1&#39;, &#39;foo&#39;, &#39;foo1&#39;, &#39;foo10&#39;, &#39;foo2&#39;, &#39;foobar10&#39;]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;whereas a natural sort would produce this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;gt;&amp;gt;&amp;gt; natural_sort(seq)
+[&#39;1&#39;, &#39;3&#39;, &#39;20&#39;, &#39;100&#39;, &#39;bar1&#39;, &#39;foo&#39;, &#39;foo1&#39;, &#39;foo2&#39;, &#39;foo10&#39;, &#39;foobar10&#39;]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Here is the code:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;import re
+
+def natsort_key(item):
+    chunks = re.split(&#39;(\d+(?:\.\d+)?)&#39;, item)
+    for ii in range(len(chunks)):
+        if chunks[ii] and chunks[ii][0] in &#39;0123456789&#39;:
+            if &#39;.&#39; in chunks[ii]: numtype = float
+            else: numtype = int
+            chunks[ii] = (0, numtype(chunks[ii]))
+        else:
+            chunks[ii] = (1, chunks[ii])
+    return (chunks, item)
+
+def natural_sort(seq):
+    sortlist = [item for item in seq]
+    sortlist.sort(key=natsort_key)
+    return sortlist
+&lt;/code&gt;&lt;/pre&gt;</description>
+    </item>
+    
+    <item>
+      <title>Generating a dependency graph for Postgres DB</title>
+      <link>https://sigterm.sh/2010/07/09/generating-a-dependency-graph-for-a-postgresql-database</link>
+      <pubDate>Fri, 09 Jul 2010 12:00:00 -0400</pubDate>
+      
+      <guid>https://sigterm.sh/2010/07/09/generating-a-dependency-graph-for-a-postgresql-database</guid>
+      <description>&lt;p&gt;This post was mostly inspired by &lt;a href=&#34;http://code.activestate.com/recipes/577298-plot-database-table-dependecies-for-a-mysql-databa/&#34;&gt;this one&lt;/a&gt;, which shows how to generate a dependency graph for a MySQL database. Here we do something similar for PostgreSQL.&lt;/p&gt;
+
+&lt;p&gt;This script will generate the required digraph data to pipe into &lt;a href=&#34;http://www.graphviz.org/&#34; target=&#34;_blank&#34;&gt;graphviz dot&lt;/a&gt; which will generate a visual representation of dependencies in a database schema, based on foreign key constraints.&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+
+&lt;p&gt;The script:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;from optparse import OptionParser, OptionGroup
+
+import psycopg2
+import sys
+
+
+def writedeps(cursor, tbl):
+    sql = &amp;quot;&amp;quot;&amp;quot;SELECT
+        tc.constraint_name, tc.table_name, kcu.column_name,
+        ccu.table_name AS foreign_table_name,
+        ccu.column_name AS foreign_column_name
+    FROM
+        information_schema.table_constraints AS tc
+    JOIN information_schema.key_column_usage AS kcu ON
+        tc.constraint_name = kcu.constraint_name
+    JOIN information_schema.constraint_column_usage AS ccu ON
+        ccu.constraint_name = tc.constraint_name
+    WHERE constraint_type = &#39;FOREIGN KEY&#39; AND tc.table_name = &#39;%s&#39;&amp;quot;&amp;quot;&amp;quot;
+    cursor.execute(sql % tbl)
+    for row in cursor.fetchall():
+        constraint, table, column, foreign_table, foreign_column = row
+        print &#39;&amp;quot;%s&amp;quot; -&amp;gt; &amp;quot;%s&amp;quot; [label=&amp;quot;%s&amp;quot;];&#39; % (tbl, foreign_table, constraint)
+
+
+def get_tables(cursor):
+    cursor.execute(&amp;quot;SELECT tablename FROM pg_tables WHERE schemaname=&#39;public&#39;&amp;quot;)
+    for row in cursor.fetchall():
+        yield row[0]
+
+
+def main():
+    parser = OptionParser()
+
+    group = OptionGroup(parser, &amp;quot;Database Options&amp;quot;)
+    group.add_option(&amp;quot;--dbname&amp;quot;, action=&amp;quot;store&amp;quot;, dest=&amp;quot;dbname&amp;quot;,
+            help=&amp;quot;The database name.&amp;quot;)
+    group.add_option(&amp;quot;--dbhost&amp;quot;, action=&amp;quot;store&amp;quot;, dest=&amp;quot;dbhost&amp;quot;,
+            default=&amp;quot;localhost&amp;quot;,  help=&amp;quot;The database host.&amp;quot;)
+    group.add_option(&amp;quot;--dbuser&amp;quot;, action=&amp;quot;store&amp;quot;, dest=&amp;quot;dbuser&amp;quot;,
+            help=&amp;quot;The database username.&amp;quot;)
+    group.add_option(&amp;quot;--dbpass&amp;quot;, action=&amp;quot;store&amp;quot;, dest=&amp;quot;dbpass&amp;quot;,
+            help=&amp;quot;The database password.&amp;quot;)
+    parser.add_option_group(group)
+
+    (options, args) = parser.parse_args()
+
+    if not options.dbname:
+        print &amp;quot;Please supply a database name, see --help for more info.&amp;quot;
+        sys.exit(1)
+
+    try:
+        conn = psycopg2.connect(&amp;quot;dbname=&#39;%s&#39; user=&#39;%s&#39; host=&#39;%s&#39; password=&#39;%s&#39;&amp;quot;
+            % (options.dbname, options.dbuser, options.dbhost, options.dbpass))
+    except psycopg2.OperationalError, e:
+        print &amp;quot;Failed to connect to database,&amp;quot;,
+        print &amp;quot;perhaps you need to supply auth details:\n %s&amp;quot; % str(e)
+        print &amp;quot;Use --help for more info.&amp;quot;
+        sys.exit(1)
+
+    cursor = conn.cursor()
+
+    print &amp;quot;Digraph F {\n&amp;quot;
+    print &#39;ranksep=1.0; size=&amp;quot;18.5, 15.5&amp;quot;; rankdir=LR;&#39;
+    for i in get_tables(cursor):
+        writedeps(cursor, i)
+    print &amp;quot;}&amp;quot;
+
+    sys.exit(0)
+
+
+if __name__ == &amp;quot;__main__&amp;quot;:
+    main()
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You could run it as follows:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;python postgres-deps.py --dbname some_database | dot -Tpng &amp;gt; deps.png
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;Note&lt;/strong&gt;: for other options use:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;python postgres-deps.py --help
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;That should spit out one of these:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://media.sigterm.sh/2014/d.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Extending Python with modules written in C</title>
+      <link>https://sigterm.sh/2009/12/26/extending-python-with-modules-written-in-c</link>
+      <pubDate>Sat, 26 Dec 2009 12:00:00 -0400</pubDate>
+      
+      <guid>https://sigterm.sh/2009/12/26/extending-python-with-modules-written-in-c</guid>
+      <description>&lt;p&gt;Using C (or C++) to create Python modules is really quite simple, providing you know a little C of course. I recently had to do some work around getting a bunch of legacy C code talking to a newer system and thought I&amp;rsquo;d post a nice simple example of how the Python extensions work.&lt;/p&gt;
+
+&lt;p&gt;This code gives you a single method &amp;ldquo;do()&amp;rdquo; that will print the output of a command, passed to it as a string, to stdout and return the exit code as a python int.&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+
+&lt;p&gt;Dump this into &lt;code&gt;mycmd.c&lt;/code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;#include &amp;lt;Python.h&amp;gt;
+
+static PyObject * mycmd_do(PyObject *self, PyObject *args) {
+    const char *command;
+    int sts;
+
+    if (!PyArg_ParseTuple(args, &amp;quot;s&amp;quot;, &amp;amp;command))
+        return NULL;
+    sts = system(command);
+    return Py_BuildValue(&amp;quot;i&amp;quot;, sts);
+}
+
+static PyMethodDef MyCmdMethods[] = {
+    {&amp;quot;do&amp;quot;, mycmd_do, METH_VARARGS, &amp;quot;Print output of &#39;cmd&#39;, return exit code.&amp;quot;},
+    {NULL, NULL, 0, NULL}        /* Sentinel */
+};
+
+PyMODINIT_FUNC
+initmycmd(void) {
+    (void) Py_InitModule(&amp;quot;mycmd&amp;quot;, MyCmdMethods);
+}
+
+int main(int argc, char *argv[]) {
+    Py_SetProgramName(argv[0]);
+    Py_Initialize();
+    initmycmd();
+    return 0;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Great, so we have some example code now, here is how you build an importable module with it:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;greg@codemine:~/code/mycmd %&amp;gt; cc -dynamic -g -Wall -I/System/Library/Frameworks/Python.framework/Versions/2.6/include/python2.6 -c mycmd.c -o mycmd.o
+greg@codemine:~/code/mycmd %&amp;gt; cc -bundle -undefined dynamic_lookup mycmd.o -o mycmd.so
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;Note:&lt;/strong&gt; Don&amp;rsquo;t forget to replace the include path above with the correct path to Python.h on your machine.&lt;/p&gt;
+
+&lt;p&gt;This should give you a mycmd.so on unix / linux and a mycmd.dll on windows. In the same directory, run a python interpreter and test it out.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;greg@codemine:~/code/mycmd %&amp;gt; python
+Python 2.6.3 (r263:75183, Nov  4 2009, 12:53:19)
+[GCC 4.2.1 (Apple Inc. build 5646)] on darwin
+Type &amp;quot;help&amp;quot;, &amp;quot;copyright&amp;quot;, &amp;quot;credits&amp;quot; or &amp;quot;license&amp;quot; for more information.
+&amp;gt;&amp;gt;&amp;gt; import mycmd
+&amp;gt;&amp;gt;&amp;gt; mycmd.do(&#39;/usr/bin/false&#39;)
+256
+&amp;gt;&amp;gt;&amp;gt; mycmd.do(&#39;/usr/bin/true&#39;)
+0
+&amp;gt;&amp;gt;&amp;gt; mycmd.do(&#39;uname -a&#39;)
+Darwin codemine.codelounge.int 10.2.0 Darwin Kernel Version 10.2.0: Tue Nov  3 10:37:10 PST 2009; root:xnu-1486.2.11~1/RELEASE_I386 i386
+0
+&amp;gt;&amp;gt;&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;There is much more you can do around this, thankfully the &lt;a href=&#34;http://docs.python.org/extending/&#34;&gt;documentation&lt;/a&gt; is remarkably good.&lt;/p&gt;
+
+&lt;p&gt;There is not much to the actual code. First, we define the C function that will handle our command &amp;ldquo;mycmd_do&amp;rdquo;. Then we set up an array of methods we want to expose to python &amp;ldquo;MyCmdMethods&amp;rdquo;. We then setup an initializer &amp;ldquo;initmycmd&amp;rdquo; to expose the module which is executed from &amp;ldquo;main&amp;rdquo; after the python initializer &amp;ldquo;Py_Initialize&amp;rdquo;.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Simple HTTP POST in Java</title>
+      <link>https://sigterm.sh/2009/10/07/simple-http-post-in-java</link>
+      <pubDate>Wed, 07 Oct 2009 12:00:00 -0400</pubDate>
+      
+      <guid>https://sigterm.sh/2009/10/07/simple-http-post-in-java</guid>
+      <description>&lt;p&gt;Today I was helping a friend debug a web service they had implemented. Their side was working correctly but the developer who was trying to interface with it seemed to be running into many problems. Since they were integrating an application written in Java, I whipped up a simple test for them. All we really needed to do was to send a few variables using HTTP POST to this resource and make sure it returned exactly what we were expecting.&lt;/p&gt;
+
+&lt;p&gt;This uses standard libraries only, and doesn&amp;rsquo;t require anything third party. It does nothing fancy at all, just simply posts data to a URL. Hopefully you find this useful at some point.&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;/*
+ * Java POST Example
+ */
+
+package postit;
+
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.ProtocolException;
+import java.net.URL;
+import java.net.URLEncoder;
+import java.io.DataOutputStream;
+import java.io.DataInputStream;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+/**
+ *
+ * @author Greg
+ */
+public class Main {
+
+    /**
+     * Pretend you&#39;re a script...
+     */
+    public static void main(String[] args) {
+        final String server = &amp;quot;somewhere.ontheinter.net&amp;quot;;
+
+        URL url = null;
+        try {
+            url = new URL(&amp;quot;http://&amp;quot; + server + &amp;quot;/we-expect-post/data&amp;quot;);
+        } catch (MalformedURLException ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        HttpURLConnection urlConn = null;
+        try {
+            // URL connection channel.
+            urlConn = (HttpURLConnection) url.openConnection();
+        } catch (IOException ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        // Let the run-time system (RTS) know that we want input.
+        urlConn.setDoInput (true);
+
+        // Let the RTS know that we want to do output.
+        urlConn.setDoOutput (true);
+
+        // No caching, we want the real thing.
+        urlConn.setUseCaches (false);
+
+        try {
+            urlConn.setRequestMethod(&amp;quot;POST&amp;quot;);
+        } catch (ProtocolException ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        try {
+            urlConn.connect();
+        } catch (IOException ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        DataOutputStream output = null;
+        DataInputStream input = null;
+
+        try {
+            output = new DataOutputStream(urlConn.getOutputStream());
+        } catch (IOException ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        // Specify the content type if needed.
+        //urlConn.setRequestProperty(&amp;quot;Content-Type&amp;quot;,
+        //  &amp;quot;application/x-www-form-urlencoded&amp;quot;);
+
+        // Construct the POST data.
+        String content =
+          &amp;quot;name=&amp;quot; + URLEncoder.encode(&amp;quot;Greg&amp;quot;) +
+          &amp;quot;&amp;amp;email=&amp;quot; + URLEncoder.encode(&amp;quot;greg at code dot geek dot sh&amp;quot;);
+
+        // Send the request data.
+        try {
+            output.writeBytes(content);
+            output.flush();
+            output.close();
+        } catch (IOException ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        // Get response data.
+        String str = null;
+        try {
+            input = new DataInputStream (urlConn.getInputStream());
+            while (null != ((str = input.readLine()))) {
+                System.out.println(str);
+            }
+            input.close ();
+        } catch (IOException ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;</description>
+    </item>
+    
+    <item>
+      <title>Simple OpenVPN Server Statistics</title>
+      <link>https://sigterm.sh/2009/07/16/simple-openvpn-server-statistics</link>
+      <pubDate>Thu, 16 Jul 2009 12:00:00 -0400</pubDate>
+      
+      <guid>https://sigterm.sh/2009/07/16/simple-openvpn-server-statistics</guid>
+      <description>&lt;p&gt;Ever wondered what the status of your OpenVPN server is, or wanted some simple stats ?&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+
+&lt;p&gt;Here is a really simple script to give you some info. The output looks like this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;greg@leonis:~$ vpnstatus
+Common Name   Virtual Address    Real Address          Sent      Received             Connected Since
+greg.vpn      10.8.142.6         196.9.23.59        1.11 MB     282.50 KB    Thu Jul 16 09:07:15 2009
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Firstly, ensure your server is actually saving the stats somewhere (/etc/openvpn/openvpn.status in my example):&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;greg@leonis:~$ grep status /etc/openvpn/server.conf
+status openvpn.status
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Once that is happening, drop this code into a file and make it executable.&lt;/p&gt;
+
+&lt;script src=&#34;https://gist.github.com/gregarmer/5a6c096be858580da889.js&#34;&gt;&lt;/script&gt;</description>
+    </item>
+    
+    <item>
+      <title>Run something as another user</title>
+      <link>https://sigterm.sh/2009/07/08/run-something-as-another-user</link>
+      <pubDate>Wed, 08 Jul 2009 13:00:00 -0400</pubDate>
+      
+      <guid>https://sigterm.sh/2009/07/08/run-something-as-another-user</guid>
+      <description>&lt;p&gt;Here is a simple way to run something on UNIX / Linux as another user, without having to resort to weird sudo incantations. The Makefile is left as an exercise for the reader.&lt;/p&gt;
+
+&lt;p&gt;This has only been tested on FreeBSD, Debian Linux and OpenSolaris so far.&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+
+&lt;p&gt;Compile with: &lt;code&gt;cc -o setuid setuid.c&lt;/code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;#include &amp;lt;stdio.h&amp;gt;
+#include &amp;lt;sys/types.h&amp;gt;
+#include &amp;lt;pwd.h&amp;gt;
+#include &amp;lt;grp.h&amp;gt;
+
+int main(int argc, const char **argv) {
+    /* Check command line */
+    if (argc &amp;lt; 3) {
+        fprintf(stderr, &amp;quot;Usage: %s user cmd\n&amp;quot;, argv[0]);
+        return 1;
+    }
+
+    struct passwd *pw;
+    pw = getpwnam(argv[1]);
+
+    if (pw==NULL) {
+        fprintf(stderr, &amp;quot;User not found\n&amp;quot;);
+        return 1;
+    }
+
+    if (initgroups(argv[1], pw-&amp;gt;pw_gid)==-1) {
+        perror(&amp;quot;initgroups&amp;quot;);
+        return 1;
+    }
+
+    if (setregid(pw-&amp;gt;pw_gid, pw-&amp;gt;pw_gid)==0 &amp;amp;&amp;amp;
+        setreuid(pw-&amp;gt;pw_uid, pw-&amp;gt;pw_uid)==0) {
+        argv += 2;
+        execvp(argv[0], argv);
+        perror(&amp;quot;exec&amp;quot;);
+        return 1;
+    }
+
+    perror(&amp;quot;setre[gu]id&amp;quot;);
+    return 1;
+}
+&lt;/code&gt;&lt;/pre&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

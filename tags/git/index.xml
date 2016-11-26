@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>./sigterm.sh</title>
+    <link>https://sigterm.sh/tags/git/index.xml</link>
+    <description>Recent content on ./sigterm.sh</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>Gregory Armer. All rights reserved.</copyright>
+    <atom:link href="https://sigterm.sh/tags/git/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Getting Git man pages on OS X</title>
+      <link>https://sigterm.sh/2010/04/15/getting-git-manpages-on-os-x</link>
+      <pubDate>Thu, 15 Apr 2010 12:00:00 -0400</pubDate>
+      
+      <guid>https://sigterm.sh/2010/04/15/getting-git-manpages-on-os-x</guid>
+      <description>&lt;p&gt;For some reason the OS X install of Git doesn&amp;rsquo;t include the manpages. Here is how I installed them.&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+
+&lt;p&gt;First off, find the appropriate manpath.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;greg@codemine:~ %&amp;gt; cat /etc/manpaths
+/usr/share/man
+/usr/local/share/man
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;/usr/local/share/man looks good&amp;hellip;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;greg@codemine:~ %&amp;gt; VER=`git --version | awk &#39;{print $3}&#39;`
+greg@codemine:~ %&amp;gt; curl -O http://www.kernel.org/pub/software/scm/git/git-manpages-$VER.tar.bz2                              
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100  242k  100  242k    0     0  92051      0  0:00:02  0:00:02 --:--:--   99k
+greg@codemine:~ %&amp;gt; sudo tar xjv -C /usr/local/share/man -f git-manpages-$VER.tar.bz2   
+Password:
+x ./
+x ./man1/
+x ./man1/git-add.1
+[snip]
+x ./man7/gitworkflows.7
+greg@codemine:~ %&amp;gt; rm git-manpages-$VER.tar.bz2    
+greg@codemine:~ %&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&amp;ldquo;man git-add&amp;rdquo; should now work fine.&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

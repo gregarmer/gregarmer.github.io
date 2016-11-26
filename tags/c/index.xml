@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>./sigterm.sh</title>
+    <link>https://sigterm.sh/tags/c/index.xml</link>
+    <description>Recent content on ./sigterm.sh</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>Gregory Armer. All rights reserved.</copyright>
+    <atom:link href="https://sigterm.sh/tags/c/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Extending Python with modules written in C</title>
+      <link>https://sigterm.sh/2009/12/26/extending-python-with-modules-written-in-c</link>
+      <pubDate>Sat, 26 Dec 2009 12:00:00 -0400</pubDate>
+      
+      <guid>https://sigterm.sh/2009/12/26/extending-python-with-modules-written-in-c</guid>
+      <description>&lt;p&gt;Using C (or C++) to create Python modules is really quite simple, providing you know a little C of course. I recently had to do some work around getting a bunch of legacy C code talking to a newer system and thought I&amp;rsquo;d post a nice simple example of how the Python extensions work.&lt;/p&gt;
+
+&lt;p&gt;This code gives you a single method &amp;ldquo;do()&amp;rdquo; that will print the output of a command, passed to it as a string, to stdout and return the exit code as a python int.&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+
+&lt;p&gt;Dump this into &lt;code&gt;mycmd.c&lt;/code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;#include &amp;lt;Python.h&amp;gt;
+
+static PyObject * mycmd_do(PyObject *self, PyObject *args) {
+    const char *command;
+    int sts;
+
+    if (!PyArg_ParseTuple(args, &amp;quot;s&amp;quot;, &amp;amp;command))
+        return NULL;
+    sts = system(command);
+    return Py_BuildValue(&amp;quot;i&amp;quot;, sts);
+}
+
+static PyMethodDef MyCmdMethods[] = {
+    {&amp;quot;do&amp;quot;, mycmd_do, METH_VARARGS, &amp;quot;Print output of &#39;cmd&#39;, return exit code.&amp;quot;},
+    {NULL, NULL, 0, NULL}        /* Sentinel */
+};
+
+PyMODINIT_FUNC
+initmycmd(void) {
+    (void) Py_InitModule(&amp;quot;mycmd&amp;quot;, MyCmdMethods);
+}
+
+int main(int argc, char *argv[]) {
+    Py_SetProgramName(argv[0]);
+    Py_Initialize();
+    initmycmd();
+    return 0;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Great, so we have some example code now, here is how you build an importable module with it:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;greg@codemine:~/code/mycmd %&amp;gt; cc -dynamic -g -Wall -I/System/Library/Frameworks/Python.framework/Versions/2.6/include/python2.6 -c mycmd.c -o mycmd.o
+greg@codemine:~/code/mycmd %&amp;gt; cc -bundle -undefined dynamic_lookup mycmd.o -o mycmd.so
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;Note:&lt;/strong&gt; Don&amp;rsquo;t forget to replace the include path above with the correct path to Python.h on your machine.&lt;/p&gt;
+
+&lt;p&gt;This should give you a mycmd.so on unix / linux and a mycmd.dll on windows. In the same directory, run a python interpreter and test it out.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;greg@codemine:~/code/mycmd %&amp;gt; python
+Python 2.6.3 (r263:75183, Nov  4 2009, 12:53:19)
+[GCC 4.2.1 (Apple Inc. build 5646)] on darwin
+Type &amp;quot;help&amp;quot;, &amp;quot;copyright&amp;quot;, &amp;quot;credits&amp;quot; or &amp;quot;license&amp;quot; for more information.
+&amp;gt;&amp;gt;&amp;gt; import mycmd
+&amp;gt;&amp;gt;&amp;gt; mycmd.do(&#39;/usr/bin/false&#39;)
+256
+&amp;gt;&amp;gt;&amp;gt; mycmd.do(&#39;/usr/bin/true&#39;)
+0
+&amp;gt;&amp;gt;&amp;gt; mycmd.do(&#39;uname -a&#39;)
+Darwin codemine.codelounge.int 10.2.0 Darwin Kernel Version 10.2.0: Tue Nov  3 10:37:10 PST 2009; root:xnu-1486.2.11~1/RELEASE_I386 i386
+0
+&amp;gt;&amp;gt;&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;There is much more you can do around this, thankfully the &lt;a href=&#34;http://docs.python.org/extending/&#34;&gt;documentation&lt;/a&gt; is remarkably good.&lt;/p&gt;
+
+&lt;p&gt;There is not much to the actual code. First, we define the C function that will handle our command &amp;ldquo;mycmd_do&amp;rdquo;. Then we set up an array of methods we want to expose to python &amp;ldquo;MyCmdMethods&amp;rdquo;. We then setup an initializer &amp;ldquo;initmycmd&amp;rdquo; to expose the module which is executed from &amp;ldquo;main&amp;rdquo; after the python initializer &amp;ldquo;Py_Initialize&amp;rdquo;.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Run something as another user</title>
+      <link>https://sigterm.sh/2009/07/08/run-something-as-another-user</link>
+      <pubDate>Wed, 08 Jul 2009 13:00:00 -0400</pubDate>
+      
+      <guid>https://sigterm.sh/2009/07/08/run-something-as-another-user</guid>
+      <description>&lt;p&gt;Here is a simple way to run something on UNIX / Linux as another user, without having to resort to weird sudo incantations. The Makefile is left as an exercise for the reader.&lt;/p&gt;
+
+&lt;p&gt;This has only been tested on FreeBSD, Debian Linux and OpenSolaris so far.&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+
+&lt;p&gt;Compile with: &lt;code&gt;cc -o setuid setuid.c&lt;/code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;#include &amp;lt;stdio.h&amp;gt;
+#include &amp;lt;sys/types.h&amp;gt;
+#include &amp;lt;pwd.h&amp;gt;
+#include &amp;lt;grp.h&amp;gt;
+
+int main(int argc, const char **argv) {
+    /* Check command line */
+    if (argc &amp;lt; 3) {
+        fprintf(stderr, &amp;quot;Usage: %s user cmd\n&amp;quot;, argv[0]);
+        return 1;
+    }
+
+    struct passwd *pw;
+    pw = getpwnam(argv[1]);
+
+    if (pw==NULL) {
+        fprintf(stderr, &amp;quot;User not found\n&amp;quot;);
+        return 1;
+    }
+
+    if (initgroups(argv[1], pw-&amp;gt;pw_gid)==-1) {
+        perror(&amp;quot;initgroups&amp;quot;);
+        return 1;
+    }
+
+    if (setregid(pw-&amp;gt;pw_gid, pw-&amp;gt;pw_gid)==0 &amp;amp;&amp;amp;
+        setreuid(pw-&amp;gt;pw_uid, pw-&amp;gt;pw_uid)==0) {
+        argv += 2;
+        execvp(argv[0], argv);
+        perror(&amp;quot;exec&amp;quot;);
+        return 1;
+    }
+
+    perror(&amp;quot;setre[gu]id&amp;quot;);
+    return 1;
+}
+&lt;/code&gt;&lt;/pre&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

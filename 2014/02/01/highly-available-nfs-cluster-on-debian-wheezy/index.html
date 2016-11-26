@@ -1,0 +1,1188 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+    <title>Highly Available NFS Cluster on Debian Wheezy &middot; ./sigterm.sh</title>
+    <meta name="generator" content="Hugo 0.17" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="author" content="Gregory Armer">
+    
+      <meta name="description" content="The raddest of all teh kill signals.">
+    
+    
+    <link rel="canonical" href="https://sigterm.sh/2014/02/01/highly-available-nfs-cluster-on-debian-wheezy"/>
+    <link rel="icon" href="https://sigterm.sh/favicon.ico">
+    <link rel="apple-touch-icon" href="https://sigterm.sh/apple-touch-icon.png"/>
+    <link rel="stylesheet" href="https://sigterm.sh/css/style.css">
+    <link rel="stylesheet" href="https://sigterm.sh/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://sigterm.sh/css/monokai.css">
+    <link rel="stylesheet" href="https://sigterm.sh/fancybox/jquery.fancybox.css">
+    
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400italic,400,600' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Source+Code+Pro' rel='stylesheet' type='text/css'>
+    <meta property="og:title" content="Highly Available NFS Cluster on Debian Wheezy" />
+<meta property="og:description" content="Overview
+
+This guide will help you setup a highly available NFS server on Debian Wheezy. This is a relatively battle-tested configuration, and there is plenty information out there on how it works - I&rsquo;ll include some links at the end of this post.
+
+I was using GlusterFS up until recently, but I&rsquo;m not happy with file corruption issues I&rsquo;m seeing, and the insane load it puts on 2 rather beefy servers trying to resync data after one fails for just a short time.
+
+" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://sigterm.sh/2014/02/01/highly-available-nfs-cluster-on-debian-wheezy" />
+
+
+<meta property="og:updated_time" content="2014-02-01T12:00:00-04:00"/>
+
+
+
+
+
+
+
+
+
+
+    
+    
+<meta itemprop="name" content="Highly Available NFS Cluster on Debian Wheezy">
+<meta itemprop="description" content="Overview
+
+This guide will help you setup a highly available NFS server on Debian Wheezy. This is a relatively battle-tested configuration, and there is plenty information out there on how it works - I&rsquo;ll include some links at the end of this post.
+
+I was using GlusterFS up until recently, but I&rsquo;m not happy with file corruption issues I&rsquo;m seeing, and the insane load it puts on 2 rather beefy servers trying to resync data after one fails for just a short time.
+
+">
+
+
+<meta itemprop="dateModified" content="2014-02-01T12:00:00-04:00" />
+<meta itemprop="wordCount" content="998">
+
+
+
+<meta itemprop="keywords" content="algorithms,amazonaws,c,code,debian,django,freebsd,general,git,golang,ipv6,java,linux,mac,networking,openbsd,opensolaris,postgresql,puppet,python,random-thoughts,security,software-engineering,unix,zfs," />
+
+    
+
+  <meta name="twitter:card" content="summary"/>
+
+
+
+<meta name="twitter:title" content="Highly Available NFS Cluster on Debian Wheezy"/>
+<meta name="twitter:description" content="Overview
+
+This guide will help you setup a highly available NFS server on Debian Wheezy. This is a relatively battle-tested configuration, and there is plenty information out there on how it works - I&rsquo;ll include some links at the end of this post.
+
+I was using GlusterFS up until recently, but I&rsquo;m not happy with file corruption issues I&rsquo;m seeing, and the insane load it puts on 2 rather beefy servers trying to resync data after one fails for just a short time.
+
+"/>
+<meta name="twitter:site" content="@gregarmer"/>
+
+
+    
+
+    
+
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+</head>
+<body>
+<div class="container">
+
+
+<div id="container">
+	<header id="header">
+  <div id="header-main" class="header-inner">
+    <div class="outer">
+      <a href="https://sigterm.sh/" id="logo">
+          
+          <span class="site-title">./sigterm.sh</span>
+      </a>
+      <nav id="main-nav">
+          
+          
+          <a class="main-nav-link" href="https://sigterm.sh/">Home</a>
+          
+          
+          
+          
+          
+          
+          
+          
+
+          
+
+          
+          
+          
+          
+          <a class="main-nav-link" href="https://sigterm.sh/code/">Code</a>
+          
+          
+          
+          <a class="main-nav-link" href="https://sigterm.sh/dn42-peering/">dn42</a>
+          
+          
+          
+          <a class="main-nav-link" href="https://sigterm.sh/about/">About</a>
+          
+          
+      </nav>
+        <nav id="sub-nav">
+          <div class="profile" id="profile-nav">
+            <a id="profile-anchor" href="javascript:;"><img class="avatar" src="https://sigterm.sh/avatar.jpeg"><i class="fa fa-caret-down"></i></a>
+          </div>
+        </nav>
+        <div id="search-form-wrap">
+          <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form">
+              <input type="search" name="q" class="search-form-input" placeholder="Search">
+              <button type="submit" class="search-form-submit">
+              </button>
+              <input type="hidden" name="q" value="site:https://sigterm.sh/">
+         </form>
+        </div>
+    </div>
+  </div>
+  <div id="main-nav-mobile" class="header-sub header-inner">
+    <table class="menu outer">
+      <tbody>
+          <tr>
+          
+          
+          <td><a class="main-nav-link" href="https://sigterm.sh/">Home</a></td>
+          
+          
+          
+          
+          
+          
+          
+          
+
+          
+
+          
+          
+          
+          
+          <td><a class="main-nav-link" href="https://sigterm.sh/code/">Code</a></td>
+          
+          
+          
+          <td><a class="main-nav-link" href="https://sigterm.sh/dn42-peering/">dn42</a></td>
+          
+          
+          
+          <td><a class="main-nav-link" href="https://sigterm.sh/about/">About</a></td>
+          
+          
+          <td>
+          <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form">
+          <input type="search" name="q" class="search-form-input" placeholder="Search">
+          <input type="hidden" name="q" value="site:https://sigterm.sh/">
+          </form>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</header>
+
+   	
+   	<div class="outer">
+   		
+	    <aside id="profile">
+  <div class="inner profile-inner">
+    <div class="base-info profile-block">
+      <img id="avatar" src="https://sigterm.sh/avatar.jpeg">
+      <h2 id="name">Gregory Armer</h2>
+      <h3 id="title">Sometimes I just want to give it all up and become a handsome billionaire.</h3>
+      <span id="location"><i class="fa fa-map-marker"></i>New York, NY</span>
+      
+          <a id="follow" href="https://github.com/gregarmer">
+              Follow Me
+          </a>
+      
+    </div>
+    <div class="article-info profile-block">
+      <div class="article-info-block">
+        28
+        <span>Posts</span>
+      </div>
+      <div class="article-info-block">
+        
+          25
+        
+        <span>
+            Tags
+        </span>
+      </div>
+    </div>
+    <div class="profile-block social-links">
+      <table>
+        <tr>
+          
+<td><a href="//github.com/gregarmer" target="_blank" title="GitHub"><i class="fa fa-github"></i></a></td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<td><a href="//instagram.com/greg.armer" target="_blank" title="Instagram"><i class="fa fa-instagram"></i></a></td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<td><a href="//plus.google.com/+gregoryarmer" target="_blank" title="Google+"><i class="fa fa-google-plus"></i></a></td>
+
+
+
+
+
+<td><a href="//twitter.com/gregarmer" target="_blank" title="Twitter"><i class="fa fa-twitter"></i></a></td>
+
+
+          <td><a href="" target="_blank" title="RSS"><i class="fa fa-rss"></i></a></td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</aside>
+
+	    
+
+	    
+<section id="main">
+
+    <article id="page-undefined" class="article article-type-page" itemscope="" itemprop="blogPost">
+        <div class="article-inner">
+            
+
+            <header class="article-header">
+    <a href="https://sigterm.sh/2014/02/01/highly-available-nfs-cluster-on-debian-wheezy">
+    <h1 class="article-title" itemprop="name">
+        Highly Available NFS Cluster on Debian Wheezy
+    </h1>
+    </a>
+    <div class="article-meta">
+        <div class="article-date">
+            <i class="fa fa-calendar"></i>
+            <time datetime="2014-02-01 12:00:00 -0400 -0400" itemprop="datePublished">Feb 02, 2014</time>
+            &middot;
+            998
+            words
+            &middot;
+            5
+            minute read
+        </div>
+
+
+        
+
+        
+            
+            
+            <div class="article-category">
+                <i class="fa fa-tags"></i>
+                
+                
+                <a class="article-category-link" href="tags/debian">debian</a>
+                &middot;
+                
+                
+                <a class="article-category-link" href="tags/linux">linux</a>
+                
+                
+            </div>
+            
+        
+    </div>
+</header>
+
+            <div class="article-entry" itemprop="articleBody">
+                <h4 id="overview">Overview</h4>
+
+<p>This guide will help you setup a highly available NFS server on Debian Wheezy. This is a relatively battle-tested configuration, and there is plenty information out there on how it works - I&rsquo;ll include some links at the end of this post.</p>
+
+<p>I was using GlusterFS up until recently, but I&rsquo;m not happy with file corruption issues I&rsquo;m seeing, and the insane load it puts on 2 rather beefy servers trying to resync data after one fails for just a short time.</p>
+
+<p></p>
+
+<p>This guide will give you a setup as follows:</p>
+
+<ul>
+<li>One active NFS server with its own public, private and floating IP (VIP)</li>
+<li>One passive hot standby NFS server with its own public and private IP</li>
+<li>Automatic failover when one of the nodes becomes unresponsive or unreachable.</li>
+<li>Unicast cluster syncronization (so it works on Linode and other places where multicast (like corosync) isn&rsquo;t available.</li>
+</ul>
+
+<h3 id="servers">Servers</h3>
+
+<p>While writing this guide, I used 2 virtualbox VMs (alice and bob). Each VM configured as follows:</p>
+
+<ul>
+<li>Default Debian Wheezy install from a netinst iso</li>
+<li>512MB RAM</li>
+<li>1 x 8GB OS disk (all partitions - /dev/sda)</li>
+<li>1 x 10GB data disk (/dev/sdb)</li>
+<li>Bridged networking (so it&rsquo;s easier to test)
+
+<ul>
+<li>alice has IP 192.168.1.201</li>
+<li>bob has IP 192.168.1.202</li>
+<li>Our floating virtual IP will be 192.168.1.200</li>
+</ul></li>
+</ul>
+
+<h3 id="configurations">Configurations</h3>
+
+<p>It&rsquo;s good to get some basics down first.</p>
+
+<h4 id="packages">Packages</h4>
+
+<p>Let&rsquo;s start with some useful packages (install on alice and bob):</p>
+
+<pre><code>alice $ apt-get install ntp vim
+</code></pre>
+
+<h4 id="networking">Networking</h4>
+
+<p>Tweak to suit your environment, of course.</p>
+
+<pre><code>alice $ cat /etc/network/interfaces
+# This file describes the network interfaces available on your system
+# and how to activate them. For more information, see interfaces(5).
+
+# The loopback network interface
+auto lo
+iface lo inet loopback
+
+# The primary network interface
+auto eth0
+iface eth0 inet static
+    address 192.168.1.201
+    netmask 255.255.255.0
+    gateway 192.168.1.1
+</code></pre>
+
+<p>The config will be the same on bob, apart from the IP, which will be 192.168.1.202</p>
+
+<h4 id="hostname">Hostname</h4>
+
+<p>This is pretty important, since pretty much everything relies on the servers hostnames.</p>
+
+<pre><code>alice $ hostname alice.local
+alice $ echo alice.local &gt; /etc/hostname
+bob $ hostname bob.local
+bob $ echo bob.local &gt; /etc/hostname
+</code></pre>
+
+<h4 id="install-and-configure-drbd">Install and Configure DRBD</h4>
+
+<p>DRBD will be used to constantly sync all data from the primary to the slave, whichever servers they may be at that point in time.</p>
+
+<p>Install DRBD8 utils on alice and bob:</p>
+
+<pre><code>alice $ apt-get install drbd8-utils
+</code></pre>
+
+<p>Drop in the configs on alice and bob. First /etc/drbd.d/global_common.conf</p>
+
+<pre><code>global {
+    usage-count yes;
+}
+
+common {
+    protocol C;
+
+    handlers {
+        pri-on-incon-degr &quot;/usr/lib/drbd/notify-pri-on-incon-degr.sh; /usr/lib/drbd/notify-emergency-reboot.sh; echo b &gt; /proc/sysrq-trigger; reboot -f&quot;;
+        pri-lost-after-sb &quot;/usr/lib/drbd/notify-pri-lost-after-sb.sh; /usr/lib/drbd/notify-emergency-reboot.sh; echo b &gt; /proc/sysrq-trigger; reboot -f&quot;;
+        local-io-error &quot;/usr/lib/drbd/notify-io-error.sh; /usr/lib/drbd/notify-emergency-shutdown.sh; echo o &gt; /proc/sysrq-trigger; halt -f&quot;;
+
+        split-brain &quot;/usr/lib/drbd/notify-split-brain.sh root&quot;;
+    }
+
+    startup {
+        wfc-timeout 15;
+        degr-wfc-timeout 60;
+    }
+
+    net {
+        cram-hmac-alg sha1;
+    }
+
+    syncer {
+        rate 10M;
+    }
+}
+</code></pre>
+
+<p>and your DRBD resource config in /etc/drbd.d/r0.res</p>
+
+<pre><code>resource r0 {
+    net {
+        shared-secret &quot;s3kr1t&quot;;
+    }
+
+    on alice {
+        device    /dev/drbd0;
+        disk      /dev/sdb;
+        address   192.168.1.201:7788;
+        meta-disk internal;
+    }
+
+    on bob {
+        device    /dev/drbd0;
+        disk      /dev/sdb;
+        address   192.168.1.202:7788;
+        meta-disk internal;
+    }
+}
+</code></pre>
+
+<p>Let&rsquo;s get DRBD started so the initial sync can get going.</p>
+
+<pre><code># Create metadata on alice
+alice $ drbdadm create-md r0
+
+# Start DRBD on both nodes
+alice $ /etc/init.d/drbd start
+bob $ /etc/init.d/drbd start
+
+# Setup primary DRBD connection and sync
+alice $ drbdadm -- --overwrite-data-of-peer primary r0
+alice $ drbdadm disconnect r0
+alice $ drbdadm connect r0
+</code></pre>
+
+<p>You can check the sync status with this command:</p>
+
+<pre><code>alice $ cat /proc/drbd
+version: 8.3.10 (api:88/proto:86-96)
+built-in
+ 0: cs:SyncSource ro:Primary/Secondary ds:UpToDate/Inconsistent C r-----
+    ns:3116484 nr:0 dw:0 dr:3593516 al:0 bm:219 lo:0 pe:2 ua:1 ap:0 ep:1 wo:f oos:1649980
+    [============&gt;.......] sync'ed: 65.5% (1608/4652) finish: 0:05:08 speed: 5,328 (5,056) K/sec
+</code></pre>
+
+<p>You can now format the DRBD disk using any filesystem you prefer, here I&rsquo;m using EXT4</p>
+
+<pre><code>alice $ mkfs.ext4 /dev/drbd0
+</code></pre>
+
+<p>Add the DRBD disk to /etc/fstab on alice and bob</p>
+
+<pre><code>alice $ vi /etc/fstab
+
+# Add a line like this - substitute for your preferred fs and settings
+/dev/drbd0      /data           ext4    defaults        0 0
+</code></pre>
+
+<h4 id="install-and-configure-nfs">Install and Configure NFS</h4>
+
+<p>NFS will be used to serve our highly available data.</p>
+
+<p>Let&rsquo;s start with installing some packages on alice and bob</p>
+
+<pre><code>alice $ apt-get install nfs-kernel-server
+</code></pre>
+
+<p>Now tell the new dependency based booting not to start NFS automatically.  NFS will be started automatically by heartbeat later on.</p>
+
+<pre><code>alice $ insserv --remove nfs-common
+alice $ insserv --remove nfs-kernel-server
+</code></pre>
+
+<p>Setup our exports on alice and bob</p>
+
+<pre><code>alice $ vi /etc/exports
+
+# Add a line similar to this, change to suit your network and requirements
+/data   192.168.1.0/255.255.255.0(rw,no_root_squash,no_all_squash,sync)
+</code></pre>
+
+<h4 id="install-and-configure-heartbeat">Install and Configure heartbeat</h4>
+
+<p>We&rsquo;ll use heartbeat to syncronize the cluster, handle fencing and to promote the slave to the master.</p>
+
+<p>Install heartbeat on alice and bob</p>
+
+<pre><code>alice $ apt-get install heartbeat
+</code></pre>
+
+<p>Drop in the configs on alice and bob as below.  You&rsquo;ll need 3 files in total.</p>
+
+<p>/etc/heartbeat/ha.cf</p>
+
+<pre><code>logfacility     local0
+keepalive 2
+deadtime 10
+bcast   eth0
+auto_failback off
+node alice bob
+</code></pre>
+
+<p>/etc/heartbeat/haresources</p>
+
+<pre><code>alice  IPaddr::192.168.1.200/24/eth0 drbddisk::r0 Filesystem::/dev/drbd0::/data::ext4 nfs-kernel-server
+</code></pre>
+
+<p><em>Note:</em> this line starts with <em>alice</em> on both nodes - this is the &ldquo;preferred primary&rdquo;.</p>
+
+<p>/etc/heartbeat/authkeys</p>
+
+<pre><code>auth 3
+3 md5 s3kr1t
+</code></pre>
+
+<p><em>Note:</em> set a good password, especially if you deploy this in a public cloud!</p>
+
+<p>Finally, start up heartbeat:</p>
+
+<pre><code>alice $ /etc/init.d/heartbeat start
+</code></pre>
+
+<p>If you run <em>ifconfig</em> on alice, you should see that it now has the floating IP. You&rsquo;ll also notice the NFS is running, and /data is mounted.</p>
+
+<h4 id="testing">Testing</h4>
+
+<p>This is the best part.  Let&rsquo;s kill the primary server and make sure the slave takes over seamlessly.</p>
+
+<p>The simplest way to simulate a failure is to stop heartbeat on whichever server is currently the primary.</p>
+
+<pre><code>alice $ /etc/init.d/heartbeat stop
+</code></pre>
+
+<p>Within a few seconds, you should see all services move over to bob, including the floating IP, NFS, and the /data mount.  A quick check of <em>cat /proc/drbd</em> should also show bob set to Primary.</p>
+
+<h3 id="references">References</h3>
+
+<p>Finally, the links I promised in the beginning of this post.</p>
+
+<ul>
+<li>Why the servers are named <a href="http://en.wikipedia.org/wiki/Alice_and_Bob">Alice and Bob</a></li>
+<li>An <a href="http://www.howtoforge.com/high_availability_nfs_drbd_heartbeat">older guide</a> I used while figuring this out</li>
+<li><a href="http://version2beta.com/articles/high-availability-linode-pairs/">Linode HA info</a></li>
+<li><a href="http://linux-ha.org/wiki/Heartbeat">Heartbeat</a></li>
+<li><a href="http://www.drbd.org/users-guide-8.3/">DRBD 8.3.x Users Guide</a></li>
+</ul>
+            </div>
+            <footer class="article-footer">
+    <a data-url="https://sigterm.sh/2014/02/01/highly-available-nfs-cluster-on-debian-wheezy" data-id="cbb792a3f3d1c37c7546393b037b9b48" class="article-share-link">
+        <i class="fa fa-share"></i>
+        Share
+    </a>
+    
+    <a href="https://sigterm.sh/2014/02/01/highly-available-nfs-cluster-on-debian-wheezy/#disqus_thread" class="article-comment-link">
+        Comments
+    </a>
+    
+
+    <script>
+    (function ($) {
+        
+        if (typeof(__SHARE_BUTTON_BINDED__) === 'undefined' || !__SHARE_BUTTON_BINDED__) {
+            __SHARE_BUTTON_BINDED__ = true;
+        } else {
+            return;
+        }
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="fa fa-twitter article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="fa fa-facebook article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="fa fa-pinterest article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="fa fa-google article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+    </script>
+</footer>
+
+        </div>
+
+        
+<nav id="article-nav">
+    
+    <a href="https://sigterm.sh/2012/10/09/nginx-apache-2-and-subversion-502-bad-gateway-error" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">
+          Older
+      </strong>
+      <div class="article-nav-title">nginx, Apache 2 and subversion - 502 Bad Gateway error</div>
+    </a>
+    
+
+    
+    <a href="https://sigterm.sh/2014/10/26/google-inbox" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">
+          Newer
+      </strong>
+      <div class="article-nav-title">Thoughts on Google Inbox</div>
+    </a>
+    
+</nav>
+
+
+    </article>
+
+    
+    <section id="comments">
+        <div id="disqus_thread">
+            <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'codegeeksh';
+    var disqus_identifier = 'https:\/\/sigterm.sh\/2014\/02\/01\/highly-available-nfs-cluster-on-debian-wheezy';
+    var disqus_title = 'Highly Available NFS Cluster on Debian Wheezy';
+    var disqus_url = 'https:\/\/sigterm.sh\/2014\/02\/01\/highly-available-nfs-cluster-on-debian-wheezy';
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+        </div>
+    </section>
+    
+</section>
+
+
+	    
+	    <aside id="sidebar">
+    
+<div class="widget-wrap">
+    <h3 class="widget-title">
+        Recents
+    </h3>
+    <div class="widget">
+        <ul id="recent-post">
+            
+            <li>
+                <div class="item-thumbnail">
+                    <a href="https://sigterm.sh/2016/11/05/passing-vlans-over-an-lacp-trunk-in-openbsd" class="thumbnail">
+                    
+                        <span class="thumbnail-image thumbnail-none"></span>
+                    
+                    </a>
+                </div>
+                <div class="item-inner">
+                    
+                    <p class="item-title"><a href="https://sigterm.sh/2016/11/05/passing-vlans-over-an-lacp-trunk-in-openbsd" class="title">Passing VLANs over an LACP trunk in OpenBSD</a></p>
+                    <p class="item-date">
+                        <time datetime="2016-11-05 14:26:00 -0400 EDT" itemprop="datePublished">Nov 11, 2016</time>
+                    </p>
+                </div>
+            </li>
+            
+            <li>
+                <div class="item-thumbnail">
+                    <a href="https://sigterm.sh/2015/03/08/recording-backend-processing-time-in-go" class="thumbnail">
+                    
+                        <span class="thumbnail-image thumbnail-none"></span>
+                    
+                    </a>
+                </div>
+                <div class="item-inner">
+                    
+                    <p class="item-title"><a href="https://sigterm.sh/2015/03/08/recording-backend-processing-time-in-go" class="title">Recording backend processing time in Golang</a></p>
+                    <p class="item-date">
+                        <time datetime="2015-03-08 18:58:00 -0400 EDT" itemprop="datePublished">Mar 03, 2015</time>
+                    </p>
+                </div>
+            </li>
+            
+            <li>
+                <div class="item-thumbnail">
+                    <a href="https://sigterm.sh/2015/01/06/announcing-flake8-diff" class="thumbnail">
+                    
+                        <span class="thumbnail-image thumbnail-none"></span>
+                    
+                    </a>
+                </div>
+                <div class="item-inner">
+                    
+                    <p class="item-title"><a href="https://sigterm.sh/2015/01/06/announcing-flake8-diff" class="title">Announcing flake8-diff</a></p>
+                    <p class="item-date">
+                        <time datetime="2015-01-06 18:50:00 -0400 -0400" itemprop="datePublished">Jan 01, 2015</time>
+                    </p>
+                </div>
+            </li>
+            
+            <li>
+                <div class="item-thumbnail">
+                    <a href="https://sigterm.sh/2014/10/26/ssl-configuration" class="thumbnail">
+                    
+                        <span style="background-image:url(https://media.sigterm.sh/2015/Screen-Shot-2014-10-26-at-5-34-16-AM.png)" alt="Highly Available NFS Cluster on Debian Wheezy" class="thumbnail-image"></span>
+                    
+                    </a>
+                </div>
+                <div class="item-inner">
+                    
+                    <p class="item-title"><a href="https://sigterm.sh/2014/10/26/ssl-configuration" class="title">SSL Configuration</a></p>
+                    <p class="item-date">
+                        <time datetime="2014-10-26 05:53:00 -0400 EDT" itemprop="datePublished">Oct 10, 2014</time>
+                    </p>
+                </div>
+            </li>
+            
+            <li>
+                <div class="item-thumbnail">
+                    <a href="https://sigterm.sh/2014/10/26/google-inbox" class="thumbnail">
+                    
+                        <span style="background-image:url(https://media.sigterm.sh/2015/Screen-Shot-2014-10-26-at-4-35-23-AM-1.png)" alt="Highly Available NFS Cluster on Debian Wheezy" class="thumbnail-image"></span>
+                    
+                    </a>
+                </div>
+                <div class="item-inner">
+                    
+                    <p class="item-title"><a href="https://sigterm.sh/2014/10/26/google-inbox" class="title">Thoughts on Google Inbox</a></p>
+                    <p class="item-date">
+                        <time datetime="2014-10-26 04:35:00 -0400 EDT" itemprop="datePublished">Oct 10, 2014</time>
+                    </p>
+                </div>
+            </li>
+            
+        </ul>
+    </div>
+</div>
+
+
+    
+
+
+
+
+
+    
+
+
+<div class="widget-wrap">
+    <h3 class="widget-title">
+        Tags
+    </h3>
+    <div class="widget">
+        <ul class="category-list">
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://sigterm.sh/tags/algorithms">
+                    algorithms
+                </a>
+                <span class="category-list-count">1</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://sigterm.sh/tags/amazonaws">
+                    amazonaws
+                </a>
+                <span class="category-list-count">1</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://sigterm.sh/tags/c">
+                    c
+                </a>
+                <span class="category-list-count">2</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://sigterm.sh/tags/code">
+                    code
+                </a>
+                <span class="category-list-count">10</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://sigterm.sh/tags/debian">
+                    debian
+                </a>
+                <span class="category-list-count">2</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://sigterm.sh/tags/django">
+                    django
+                </a>
+                <span class="category-list-count">1</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://sigterm.sh/tags/freebsd">
+                    freebsd
+                </a>
+                <span class="category-list-count">1</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://sigterm.sh/tags/general">
+                    general
+                </a>
+                <span class="category-list-count">6</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://sigterm.sh/tags/git">
+                    git
+                </a>
+                <span class="category-list-count">1</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://sigterm.sh/tags/golang">
+                    golang
+                </a>
+                <span class="category-list-count">1</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://sigterm.sh/tags/ipv6">
+                    ipv6
+                </a>
+                <span class="category-list-count">1</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://sigterm.sh/tags/java">
+                    java
+                </a>
+                <span class="category-list-count">1</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://sigterm.sh/tags/linux">
+                    linux
+                </a>
+                <span class="category-list-count">4</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://sigterm.sh/tags/mac">
+                    mac
+                </a>
+                <span class="category-list-count">3</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://sigterm.sh/tags/networking">
+                    networking
+                </a>
+                <span class="category-list-count">1</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://sigterm.sh/tags/openbsd">
+                    openbsd
+                </a>
+                <span class="category-list-count">1</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://sigterm.sh/tags/opensolaris">
+                    opensolaris
+                </a>
+                <span class="category-list-count">3</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://sigterm.sh/tags/postgresql">
+                    postgresql
+                </a>
+                <span class="category-list-count">1</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://sigterm.sh/tags/puppet">
+                    puppet
+                </a>
+                <span class="category-list-count">1</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://sigterm.sh/tags/python">
+                    python
+                </a>
+                <span class="category-list-count">7</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://sigterm.sh/tags/random-thoughts">
+                    random-thoughts
+                </a>
+                <span class="category-list-count">2</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://sigterm.sh/tags/security">
+                    security
+                </a>
+                <span class="category-list-count">4</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://sigterm.sh/tags/software-engineering">
+                    software-engineering
+                </a>
+                <span class="category-list-count">5</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://sigterm.sh/tags/unix">
+                    unix
+                </a>
+                <span class="category-list-count">8</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://sigterm.sh/tags/zfs">
+                    zfs
+                </a>
+                <span class="category-list-count">2</span>
+            </li>
+            
+        </ul>
+    </div>
+</div>
+
+
+
+
+    
+
+
+<div class="widget-wrap">
+    <h3 class="widget-title">
+        Tag cloud
+    </h3>
+    <div class="widget tagcloud">
+        
+        
+        <a href="https://sigterm.sh/tags/algorithms" style="font-size: 12px;">algorithms</a>
+        
+        
+        <a href="https://sigterm.sh/tags/amazonaws" style="font-size: 12px;">amazonaws</a>
+        
+        
+        <a href="https://sigterm.sh/tags/c" style="font-size: 12px;">c</a>
+        
+        
+        <a href="https://sigterm.sh/tags/code" style="font-size: 12px;">code</a>
+        
+        
+        <a href="https://sigterm.sh/tags/debian" style="font-size: 12px;">debian</a>
+        
+        
+        <a href="https://sigterm.sh/tags/django" style="font-size: 12px;">django</a>
+        
+        
+        <a href="https://sigterm.sh/tags/freebsd" style="font-size: 12px;">freebsd</a>
+        
+        
+        <a href="https://sigterm.sh/tags/general" style="font-size: 12px;">general</a>
+        
+        
+        <a href="https://sigterm.sh/tags/git" style="font-size: 12px;">git</a>
+        
+        
+        <a href="https://sigterm.sh/tags/golang" style="font-size: 12px;">golang</a>
+        
+        
+        <a href="https://sigterm.sh/tags/ipv6" style="font-size: 12px;">ipv6</a>
+        
+        
+        <a href="https://sigterm.sh/tags/java" style="font-size: 12px;">java</a>
+        
+        
+        <a href="https://sigterm.sh/tags/linux" style="font-size: 12px;">linux</a>
+        
+        
+        <a href="https://sigterm.sh/tags/mac" style="font-size: 12px;">mac</a>
+        
+        
+        <a href="https://sigterm.sh/tags/networking" style="font-size: 12px;">networking</a>
+        
+        
+        <a href="https://sigterm.sh/tags/openbsd" style="font-size: 12px;">openbsd</a>
+        
+        
+        <a href="https://sigterm.sh/tags/opensolaris" style="font-size: 12px;">opensolaris</a>
+        
+        
+        <a href="https://sigterm.sh/tags/postgresql" style="font-size: 12px;">postgresql</a>
+        
+        
+        <a href="https://sigterm.sh/tags/puppet" style="font-size: 12px;">puppet</a>
+        
+        
+        <a href="https://sigterm.sh/tags/python" style="font-size: 12px;">python</a>
+        
+        
+        <a href="https://sigterm.sh/tags/random-thoughts" style="font-size: 12px;">random-thoughts</a>
+        
+        
+        <a href="https://sigterm.sh/tags/security" style="font-size: 12px;">security</a>
+        
+        
+        <a href="https://sigterm.sh/tags/software-engineering" style="font-size: 12px;">software-engineering</a>
+        
+        
+        <a href="https://sigterm.sh/tags/unix" style="font-size: 12px;">unix</a>
+        
+        
+        <a href="https://sigterm.sh/tags/zfs" style="font-size: 12px;">zfs</a>
+        
+    </div>
+</div>
+
+
+
+
+
+    <div id="toTop" class="fa fa-angle-up"></div>
+</aside>
+
+	    
+	</div>
+</div>
+
+<footer id="footer">
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2016
+      Gregory Armer. All rights reserved.
+    </div>
+  </div>
+</footer>
+
+
+<script src="https://sigterm.sh/fancybox/jquery.fancybox.pack.js"></script>
+<script src="https://sigterm.sh/js/script.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.8.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+<!-- MathJax -->
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']]}
+  });
+</script>
+<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+
+</body>
+</html>

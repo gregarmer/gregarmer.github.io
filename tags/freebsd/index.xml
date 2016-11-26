@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>./sigterm.sh</title>
+    <link>https://sigterm.sh/tags/freebsd/index.xml</link>
+    <description>Recent content on ./sigterm.sh</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>Gregory Armer. All rights reserved.</copyright>
+    <atom:link href="https://sigterm.sh/tags/freebsd/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Using an alternative mirror for FreeBSD port retrieval</title>
+      <link>https://sigterm.sh/2009/10/12/using-an-alternative-mirror-for-freebsd-port-retrieval</link>
+      <pubDate>Mon, 12 Oct 2009 16:00:00 -0400</pubDate>
+      
+      <guid>https://sigterm.sh/2009/10/12/using-an-alternative-mirror-for-freebsd-port-retrieval</guid>
+      <description>&lt;p&gt;This is something I always search for which doesn&amp;rsquo;t seem to be very clear from the initial results. The mirrors included below are South Africa specific, so if you are not in South Africa then replace the hostname with something more appropriate for your location.&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+
+&lt;p&gt;Add these to &lt;strong&gt;/etc/make.conf&lt;/strong&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;MASTER_SITE_BACKUP?=    \
+    ftp://ftp.za.freebsd.org/pub/FreeBSD/ports/distfiles/${DIST_SUBDIR}/
+
+MASTER_SITE_OVERRIDE?=  ${MASTER_SITE_BACKUP}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;mirrors&#34;&gt;Mirrors&lt;/h4&gt;
+
+&lt;table class=&#34;table table-condensed&#34; cellpadding=&#34;1&#34; cellspacing=&#34;1&#34; border=&#34;0&#34;&gt;
+  &lt;tr&gt;
+    &lt;td&gt;&lt;strong&gt;Network&lt;/strong&gt;&lt;/td&gt;
+    &lt;td&gt;&lt;strong&gt;Hostname&lt;/strong&gt;&lt;/td&gt;
+    &lt;td&gt;&lt;strong&gt;Alias&lt;/strong&gt;&lt;/td&gt;
+    &lt;td&gt;&lt;strong&gt;IPv4&lt;/strong&gt;&lt;/td&gt;
+    &lt;td&gt;&lt;strong&gt;IPv6&lt;/strong&gt;&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;Tenet&lt;/td&gt;
+    &lt;td&gt;ftp.za.freebsd.org&lt;/td&gt;
+    &lt;td&gt;freebsd.mirror.ac.za&lt;/td&gt;
+    &lt;td&gt;155.232.191.209&lt;/td&gt;
+    &lt;td&gt;-&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;CSIR&lt;/td&gt;
+    &lt;td&gt;ftp2.za.freebsd.org&lt;/td&gt;
+    &lt;td&gt;-&lt;/td&gt;
+    &lt;td&gt;146.64.8.4&lt;/td&gt;
+    &lt;td&gt;2001:4200:7000:1::4&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;MTN&lt;/td&gt;
+    &lt;td&gt;ftp3.za.freebsd.org&lt;/td&gt;
+    &lt;td&gt;-&lt;/td&gt;
+    &lt;td&gt;196.30.227.198&lt;/td&gt;
+    &lt;td&gt;-&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;IS&lt;/td&gt;
+    &lt;td&gt;ftp4.za.freebsd.org&lt;/td&gt;
+    &lt;td&gt;ftp.is.co.za&lt;/td&gt;
+    &lt;td&gt;196.4.160.12&lt;/td&gt;
+    &lt;td&gt;-&lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/table&gt;
+
+&lt;p&gt;See &lt;a href=&#34;http://crnl.org/blog/2008/11/02/freebsd-local-ports-distfile-downloads-for-south-africans&#34;&gt;this post&lt;/a&gt; for a far more detailed set of MASTER_SITE make variables. This references a lot more of the locally mirrored content.&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>
