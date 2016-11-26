@@ -20,12 +20,11 @@
 &lt;p&gt;&lt;/p&gt;
 
 &lt;p&gt;Add these to &lt;strong&gt;/etc/make.conf&lt;/strong&gt;:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;MASTER_SITE_BACKUP?=    \
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;MASTER_SITE_BACKUP?=    \
     ftp://ftp.za.freebsd.org/pub/FreeBSD/ports/distfiles/${DIST_SUBDIR}/
 
 MASTER_SITE_OVERRIDE?=  ${MASTER_SITE_BACKUP}
-&lt;/code&gt;&lt;/pre&gt;
+&lt;/pre&gt;&lt;/div&gt;
 
 &lt;h4 id=&#34;mirrors&#34;&gt;Mirrors&lt;/h4&gt;
 

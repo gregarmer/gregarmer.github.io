@@ -24,8 +24,7 @@
 &lt;p&gt;&lt;/p&gt;
 
 &lt;h3 id=&#34;using-flake8-diff&#34;&gt;Using flake8-diff&lt;/h3&gt;
-
-&lt;pre&gt;&lt;code&gt;$ pip install flake8-diff
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;$ pip install flake8-diff
 $ flake8-diff -h
 usage: flake8-diff [-h] [--flake8-options ...] [--vcs {git}]
                    [--standard-flake8-output] [-v]
@@ -58,8 +57,7 @@ optional arguments:
   --color {off,colorful,light,nocolor,dark,boring}
                         Color theme to use. Default is &amp;quot;colorful&amp;quot;. Can be any
                         of &amp;quot;off, colorful, light, nocolor, dark, boring&amp;quot;
-
-&lt;/code&gt;&lt;/pre&gt;
+&lt;/pre&gt;&lt;/div&gt;
 
 &lt;h3 id=&#34;contributing&#34;&gt;Contributing&lt;/h3&gt;
 
@@ -112,47 +110,34 @@ optional arguments:
 &lt;li&gt;Fork the &lt;code&gt;flake8-diff&lt;/code&gt; repo on GitHub.&lt;/li&gt;
 
 &lt;li&gt;&lt;p&gt;Clone your fork locally:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;$ git clone git@github.com:your_name_here/flake8-diff.git
-&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;$ git clone git@github.com:your_name_here/flake8-diff.git
+&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
 
 &lt;li&gt;&lt;p&gt;Install your local copy into a virtualenv. Assuming you have virtualenvwrapper installed, this is how you set up your fork for local development:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;$ mkvirtualenv flake8-diff
-$ cd flake8-diff/
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;$ mkvirtualenv flake8-diff
+$ &lt;span style=&#34;color: #f8f8f2&#34;&gt;cd&lt;/span&gt; flake8-diff/
 $ python setup.py develop
-&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
 
-&lt;li&gt;&lt;p&gt;Create a branch for local development:&lt;/p&gt;
+&lt;li&gt;&lt;p&gt;Create a branch for local development, then you can make your changes locally:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;$ git checkout -b name-of-your-bugfix-or-feature
+&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
 
-&lt;pre&gt;&lt;code&gt;$ git checkout -b name-of-your-bugfix-or-feature
-&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;Now you can make your changes locally.&lt;/p&gt;
-
-&lt;ol&gt;
 &lt;li&gt;&lt;p&gt;When you&amp;rsquo;re done making changes, check that your changes pass flake8 and the tests, including testing other Python versions with tox:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;$ flake8 flake8-diff tests
-$ python setup.py test
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;$ flake8 flake8-diff tests
+$ python setup.py &lt;span style=&#34;color: #f8f8f2&#34;&gt;test&lt;/span&gt;
 $ tox
-&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
-&lt;/ol&gt;
+&lt;/pre&gt;&lt;/div&gt;
 
-&lt;p&gt;To get flake8 and tox, just pip install them into your virtualenv.&lt;/p&gt;
+&lt;p&gt;To get flake8 and tox, just pip install them into your virtualenv.&lt;/p&gt;&lt;/li&gt;
 
-&lt;ol&gt;
-&lt;li&gt;Commit your changes and push your branch to GitHub:&lt;/li&gt;
-&lt;/ol&gt;
+&lt;li&gt;&lt;p&gt;Commit your changes and push your branch to GitHub:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;$ git add .
+$ git commit -m &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;Your detailed description of your changes.&amp;quot;&lt;/span&gt;
+$ git push origin name-of-your-bugfix-or-feature
+&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
 
-&lt;pre&gt;&lt;code&gt;   $ git add .
-   $ git commit -m &amp;quot;Your detailed description of your changes.&amp;quot;
-   $ git push origin name-of-your-bugfix-or-feature
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;ol&gt;
-&lt;li&gt;Submit a pull request through the GitHub website.&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Submit a pull request through the GitHub website.&lt;/p&gt;&lt;/li&gt;
 &lt;/ol&gt;
 
 &lt;h4 id=&#34;pull-request-guidelines&#34;&gt;Pull Request Guidelines&lt;/h4&gt;
@@ -177,11 +162,10 @@ $ tox
 &lt;p&gt;I recently ran into this problem and couldn&amp;rsquo;t find any useful information on the net around fixing it. All subversion checkouts, commits and other basic operations work just fine, but when attempting to copy, move or tag (copy) I would get the below (502 Bad Gateway) error.&lt;/p&gt;
 
 &lt;p&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;greg@codemine:~/code/Foo (git-svn)-[trunk] %&amp;gt; git svn tag foo-2.1.1                      
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;greg@codemine:~/code/Foo (git-svn)-[trunk] %&amp;gt; git svn tag foo-2.1.1
 Copying https://svn/projects/Foo/trunk at r18311 to https://svn/projects/Foo/tags/foo-2.1.1...
-RA layer request failed: Server sent unexpected return value (502 Bad Gateway) in response to COPY request for &#39;/projects/!svn/bc/18311/Foo/trunk&#39; at /usr/libexec/git-core/git-svn line 1123
-&lt;/code&gt;&lt;/pre&gt;
+RA layer request failed: Server sent unexpected return value (502 Bad Gateway) in response to COPY request for &amp;#39;/projects/!svn/bc/18311/Foo/trunk&amp;#39; at /usr/libexec/git-core/git-svn line 1123
+&lt;/pre&gt;&lt;/div&gt;
 
 &lt;h4 id=&#34;our-setup&#34;&gt;Our Setup&lt;/h4&gt;
 
@@ -194,25 +178,22 @@ RA layer request failed: Server sent unexpected return value (502 Bad Gateway) i
 &lt;p&gt;The actual problem is not really that obvious.&lt;/p&gt;
 
 &lt;p&gt;When you perform a remote svn operation like MOVE or COPY the actual request is translated into a WebDAV request that looks similar to this:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;COPY /svn/repos/oldname.txt HTTP/1.1
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;COPY /svn/repos/oldname.txt HTTP/1.1
 Host: svn.example.org
 Destination: https://svn.example.org/svn/repos/newname.txt
-&lt;/code&gt;&lt;/pre&gt;
+&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;Apache, the webserver, translates the above request to:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;COPY https://svn.example.org/svn/repos/oldname.txt https://svn.example.org/svn/repos/newname.txt
-&lt;/code&gt;&lt;/pre&gt;
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;COPY https://svn.example.org/svn/repos/oldname.txt https://svn.example.org/svn/repos/newname.txt
+&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;It uses the Host parameter &lt;em&gt;svn.example.org&lt;/em&gt; and the first request line &lt;code&gt;COPY
 /svn/repos/oldname.txt HTTP/1.1&lt;/code&gt; to assemble the source URL,
 &lt;code&gt;https://svn.example.org/svn/repos/oldname.txt&lt;/code&gt;.&lt;/p&gt;
 
 &lt;p&gt;However, since requests are being reverse proxied through nginx, the source URL is changed from https:// to http:// as Apache listens on port 80 (HTTP). This results in a COPY operation that looks like this:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;COPY http://svn.example.org/svn/repos/oldname.txt https://svn.example.org/svn/repos/newname.txt
-&lt;/code&gt;&lt;/pre&gt;
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;COPY http://svn.example.org/svn/repos/oldname.txt https://svn.example.org/svn/repos/newname.txt
+&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;&lt;em&gt;Note the http:// instead of https://&lt;/em&gt;&lt;/p&gt;
 
@@ -223,71 +204,68 @@ Destination: https://svn.example.org/svn/repos/newname.txt
 &lt;h4 id=&#34;the-solution&#34;&gt;The Solution&lt;/h4&gt;
 
 &lt;p&gt;The solution to this problem is getting nginx to change the Destination header in the same way it changes the Host header. Apache can then handle the COPY or MOVE operation correctly. This is done by adding the following to your nginx configuration:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;set $fixed_destination $http_destination;  
-if ( $http_destination ~* ^https(.*)$ ) {  
-    set $fixed_destination http$1;  
-}  
-proxy_set_header Destination $fixed_destination;  
-&lt;/code&gt;&lt;/pre&gt;
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span style=&#34;color: #66d9ef&#34;&gt;set&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;$fixed_destination&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;$http_destination;&lt;/span&gt;
+&lt;span style=&#34;color: #66d9ef&#34;&gt;if&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;(&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;$http_destination&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;~&lt;/span&gt;&lt;span style=&#34;color: #e6db74&#34;&gt;*&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;^https(.*)&lt;/span&gt;$ &lt;span style=&#34;color: #e6db74&#34;&gt;)&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;{&lt;/span&gt;
+    &lt;span style=&#34;color: #f92672&#34;&gt;set&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;$fixed_destination&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;http&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;$1;&lt;/span&gt;
+&lt;span style=&#34;color: #f8f8f2&#34;&gt;}&lt;/span&gt;
+&lt;span style=&#34;color: #66d9ef&#34;&gt;proxy_set_header&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;Destination&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;$fixed_destination;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
 
 &lt;h4 id=&#34;complete-configs&#34;&gt;Complete Configs&lt;/h4&gt;
 
 &lt;p&gt;For reference purposes I&amp;rsquo;ve included the complete configs below.&lt;/p&gt;
 
 &lt;p&gt;&lt;em&gt;/etc/nginx/sites-available/svn.example.org&lt;/em&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span style=&#34;color: #66d9ef&#34;&gt;server&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;{&lt;/span&gt;
+    &lt;span style=&#34;color: #f92672&#34;&gt;listen&lt;/span&gt; &lt;span style=&#34;color: #ae81ff&#34;&gt;80&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;;&lt;/span&gt;
+    &lt;span style=&#34;color: #f92672&#34;&gt;server_name&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;svn.example.org&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;;&lt;/span&gt;
+    &lt;span style=&#34;color: #f92672&#34;&gt;rewrite&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;^(.*)&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;https://svn.example.org&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;$1&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;permanent&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;;&lt;/span&gt;
+&lt;span style=&#34;color: #f8f8f2&#34;&gt;}&lt;/span&gt;
 
-&lt;pre&gt;&lt;code&gt;server {
-    listen 80;
-    server_name svn.example.org;
-    rewrite ^(.*) https://svn.example.org$1 permanent;
-}
+&lt;span style=&#34;color: #66d9ef&#34;&gt;server&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;{&lt;/span&gt;
+    &lt;span style=&#34;color: #f92672&#34;&gt;listen&lt;/span&gt; &lt;span style=&#34;color: #ae81ff&#34;&gt;443&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;;&lt;/span&gt;
+    &lt;span style=&#34;color: #f92672&#34;&gt;server_name&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;svn.example.org&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;;&lt;/span&gt;
 
-server {
-    listen 443;
-    server_name svn.example.org;
+    &lt;span style=&#34;color: #f92672&#34;&gt;ssl&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;on&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;;&lt;/span&gt;
+    &lt;span style=&#34;color: #f92672&#34;&gt;ssl_certificate&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;/etc/nginx/conf.d/svn.example.org.crt&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;;&lt;/span&gt;
+    &lt;span style=&#34;color: #f92672&#34;&gt;ssl_certificate_key&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;/etc/nginx/conf.d/svn.example.org.key&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;;&lt;/span&gt;
+    &lt;span style=&#34;color: #f92672&#34;&gt;ssl_verify_depth&lt;/span&gt; &lt;span style=&#34;color: #ae81ff&#34;&gt;3&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;;&lt;/span&gt;
 
-    ssl on;
-    ssl_certificate /etc/nginx/conf.d/svn.example.org.crt;
-    ssl_certificate_key /etc/nginx/conf.d/svn.example.org.key;
-    ssl_verify_depth 3;
+    &lt;span style=&#34;color: #f92672&#34;&gt;client_max_body_size&lt;/span&gt; &lt;span style=&#34;color: #ae81ff&#34;&gt;100m&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;;&lt;/span&gt;
+    &lt;span style=&#34;color: #f92672&#34;&gt;access_log&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;/var/log/nginx/svn.example.org-access.log&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;;&lt;/span&gt;
 
-    client_max_body_size 100m;
-    access_log /var/log/nginx/svn.example.org-access.log;
+    &lt;span style=&#34;color: #f92672&#34;&gt;location&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;/&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;{&lt;/span&gt;
+        &lt;span style=&#34;color: #f92672&#34;&gt;set&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;$fixed_destination&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;$http_destination;&lt;/span&gt;
+        &lt;span style=&#34;color: #f92672&#34;&gt;if&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;(&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;$http_destination&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;~&lt;/span&gt;&lt;span style=&#34;color: #e6db74&#34;&gt;*&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;^https(.*)&lt;/span&gt;$ &lt;span style=&#34;color: #e6db74&#34;&gt;)&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;{&lt;/span&gt;
+            &lt;span style=&#34;color: #f92672&#34;&gt;set&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;$fixed_destination&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;http&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;$1;&lt;/span&gt;
+        &lt;span style=&#34;color: #f8f8f2&#34;&gt;}&lt;/span&gt;
+        &lt;span style=&#34;color: #f92672&#34;&gt;proxy_set_header&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;Destination&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;$fixed_destination;&lt;/span&gt;
+        &lt;span style=&#34;color: #f92672&#34;&gt;proxy_set_header&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;Host&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;$http_host;&lt;/span&gt;
 
-    location / {
-        set $fixed_destination $http_destination;
-        if ( $http_destination ~* ^https(.*)$ ) {
-            set $fixed_destination http$1;
-        }
-        proxy_set_header Destination $fixed_destination;
-        proxy_set_header Host $http_host;
-
-        proxy_pass http://localhost:9080;
-        proxy_connect_timeout 75;
-        proxy_read_timeout 300;
-        proxy_send_timeout 300;
-    }
-}
-&lt;/code&gt;&lt;/pre&gt;
+        &lt;span style=&#34;color: #f92672&#34;&gt;proxy_pass&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;http://localhost:9080&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;;&lt;/span&gt;
+        &lt;span style=&#34;color: #f92672&#34;&gt;proxy_connect_timeout&lt;/span&gt; &lt;span style=&#34;color: #ae81ff&#34;&gt;75&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;;&lt;/span&gt;
+        &lt;span style=&#34;color: #f92672&#34;&gt;proxy_read_timeout&lt;/span&gt; &lt;span style=&#34;color: #ae81ff&#34;&gt;300&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;;&lt;/span&gt;
+        &lt;span style=&#34;color: #f92672&#34;&gt;proxy_send_timeout&lt;/span&gt; &lt;span style=&#34;color: #ae81ff&#34;&gt;300&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;;&lt;/span&gt;
+    &lt;span style=&#34;color: #f8f8f2&#34;&gt;}&lt;/span&gt;
+&lt;span style=&#34;color: #f8f8f2&#34;&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;&lt;em&gt;/etc/apache2/sites-available/svn.example.org&lt;/em&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;&amp;lt;VirtualHost *:9080&amp;gt;
-    ServerName svn.example.org
-    ErrorLog /var/log/apache2/svn.example.org-error.log
-    &amp;lt;Location /&amp;gt;
-        DAV svn
-        DAVMinTimeout 0
-        SVNParentPath /home/svn
-        AuthType Basic
-        AuthName &amp;quot;Subversion Repos&amp;quot;
-        AuthUserFile /home/svn/.htpasswd
-        AuthzSVNAccessFile /home/svn/conf/authz
-        Require valid-user
-    &amp;lt;/Location&amp;gt;
-&amp;lt;/VirtualHost&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;</description>
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;&amp;lt;VirtualHost&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;*:9080&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;&amp;gt;&lt;/span&gt;
+    &lt;span style=&#34;color: #f8f8f2&#34;&gt;ServerName&lt;/span&gt; svn.example.org
+    &lt;span style=&#34;color: #f8f8f2&#34;&gt;ErrorLog&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;/var/log/apache2/svn.example.org-error.log&lt;/span&gt;
+    &lt;span style=&#34;color: #f92672&#34;&gt;&amp;lt;Location&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;&amp;gt;&lt;/span&gt;
+        &lt;span style=&#34;color: #f8f8f2&#34;&gt;DAV&lt;/span&gt; svn
+        &lt;span style=&#34;color: #f8f8f2&#34;&gt;DAVMinTimeout&lt;/span&gt; &lt;span style=&#34;color: #ae81ff&#34;&gt;0&lt;/span&gt;
+        &lt;span style=&#34;color: #f8f8f2&#34;&gt;SVNParentPath&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;/home/svn&lt;/span&gt;
+        &lt;span style=&#34;color: #f8f8f2&#34;&gt;AuthType&lt;/span&gt; Basic
+        &lt;span style=&#34;color: #f8f8f2&#34;&gt;AuthName&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;Subversion Repos&amp;quot;&lt;/span&gt;
+        &lt;span style=&#34;color: #f8f8f2&#34;&gt;AuthUserFile&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;/home/svn/.htpasswd&lt;/span&gt;
+        &lt;span style=&#34;color: #f8f8f2&#34;&gt;AuthzSVNAccessFile&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;/home/svn/conf/authz&lt;/span&gt;
+        &lt;span style=&#34;color: #f8f8f2&#34;&gt;Require&lt;/span&gt; valid-user
+    &lt;span style=&#34;color: #f92672&#34;&gt;&amp;lt;/Location&amp;gt;&lt;/span&gt;
+&lt;span style=&#34;color: #f92672&#34;&gt;&amp;lt;/VirtualHost&amp;gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;</description>
     </item>
     
     <item>
@@ -301,57 +279,55 @@ server {
 &lt;p&gt;&lt;/p&gt;
 
 &lt;p&gt;So you have a basic Python script that you&amp;rsquo;d like to run as a background process, for whatever reason; perhaps it&amp;rsquo;s a network service that waits for incoming connections, or you want to watch a log file for something. As an example, let&amp;rsquo;s say it looks something like this:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;time&lt;/span&gt;
+&lt;span style=&#34;color: #f92672&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;sys&lt;/span&gt;
 
-&lt;pre&gt;&lt;code&gt;import time
-import sys
+&lt;span style=&#34;color: #66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color: #a6e22e&#34;&gt;do_something&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;():&lt;/span&gt;
+    &lt;span style=&#34;color: #75715e&#34;&gt;# Do something for 10 seconds, then exit nicely.&lt;/span&gt;
+    &lt;span style=&#34;color: #f8f8f2&#34;&gt;time&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;sleep(&lt;/span&gt;&lt;span style=&#34;color: #ae81ff&#34;&gt;10&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;)&lt;/span&gt;
+    &lt;span style=&#34;color: #66d9ef&#34;&gt;print&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;Done.&amp;quot;&lt;/span&gt;
+    &lt;span style=&#34;color: #f8f8f2&#34;&gt;sys&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;exit(&lt;/span&gt;&lt;span style=&#34;color: #ae81ff&#34;&gt;0&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;)&lt;/span&gt;
 
-def do_something():
-    # Do something for 10 seconds, then exit nicely.
-    time.sleep(10)
-    print &amp;quot;Done.&amp;quot;
-    sys.exit(0)
-
-if __name__ == &amp;quot;__main__&amp;quot;:
-    do_something()
-&lt;/code&gt;&lt;/pre&gt;
+&lt;span style=&#34;color: #66d9ef&#34;&gt;if&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;__name__&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;__main__&amp;quot;&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;:&lt;/span&gt;
+    &lt;span style=&#34;color: #f8f8f2&#34;&gt;do_something()&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;So one method of running it in the background is to &lt;a href=&#34;http://en.wikipedia.org/wiki/Fork_(operating_system)&#34;&gt;fork&lt;/a&gt; it. The term &lt;em&gt;fork&lt;/em&gt; means that we want to launch a child &lt;a href=&#34;http://en.wikipedia.org/wiki/Process_(computing)&#34;&gt;process&lt;/a&gt; from this process (the parent process) and then disown that child process and exit cleanly. The child process will then continue running in the background until it completes whatever it has to do, or until it is shutdown or killed, in the case of a long
 running process.&lt;/p&gt;
 
 &lt;p&gt;In order to accomplish this we need something that looks like the following:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;time&lt;/span&gt;
+&lt;span style=&#34;color: #f92672&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;sys&lt;/span&gt;
+&lt;span style=&#34;color: #f92672&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;os&lt;/span&gt;
 
-&lt;pre&gt;&lt;code&gt;import time
-import sys
-import os
+&lt;span style=&#34;color: #66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color: #a6e22e&#34;&gt;do_something&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;():&lt;/span&gt;
+    &lt;span style=&#34;color: #75715e&#34;&gt;# Do something for 10 seconds, then exist cleanly.&lt;/span&gt;
+    &lt;span style=&#34;color: #f8f8f2&#34;&gt;time&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;sleep(&lt;/span&gt;&lt;span style=&#34;color: #ae81ff&#34;&gt;10&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;)&lt;/span&gt;
+    &lt;span style=&#34;color: #66d9ef&#34;&gt;print&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;kbye&amp;quot;&lt;/span&gt;
+    &lt;span style=&#34;color: #f8f8f2&#34;&gt;sys&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;exit(&lt;/span&gt;&lt;span style=&#34;color: #ae81ff&#34;&gt;0&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;)&lt;/span&gt;
 
-def do_something():
-    # Do something for 10 seconds, then exist cleanly.
-    time.sleep(10)
-    print &amp;quot;kbye&amp;quot;
-    sys.exit(0)
+&lt;span style=&#34;color: #66d9ef&#34;&gt;if&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;__name__&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;__main__&amp;quot;&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;:&lt;/span&gt;
+    &lt;span style=&#34;color: #66d9ef&#34;&gt;print&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;Hello and welcome to a Python forking example. I&amp;#39;ll now fork a &amp;quot;&lt;/span&gt;
+           &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;backgrounded child process and then exit, leaving it to run all by &amp;quot;&lt;/span&gt;
+           &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;itself. Watch for the &amp;#39;Done&amp;#39; in 10 seconds...&amp;quot;&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;)&lt;/span&gt;
 
-if __name__ == &amp;quot;__main__&amp;quot;:
-    print (&amp;quot;Hello and welcome to a Python forking example. I&#39;ll now fork a &amp;quot;
-           &amp;quot;backgrounded child process and then exit, leaving it to run all by &amp;quot;
-           &amp;quot;itself. Watch for the &#39;Done&#39; in 10 seconds...&amp;quot;)
+    &lt;span style=&#34;color: #66d9ef&#34;&gt;try&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;:&lt;/span&gt;
+        &lt;span style=&#34;color: #f8f8f2&#34;&gt;pid&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;os&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;fork()&lt;/span&gt;
+        &lt;span style=&#34;color: #66d9ef&#34;&gt;if&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;pid&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span style=&#34;color: #ae81ff&#34;&gt;0&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;:&lt;/span&gt;
+            &lt;span style=&#34;color: #75715e&#34;&gt;# Exit parent process&lt;/span&gt;
+            &lt;span style=&#34;color: #f8f8f2&#34;&gt;sys&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;exit(&lt;/span&gt;&lt;span style=&#34;color: #ae81ff&#34;&gt;0&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;)&lt;/span&gt;
+    &lt;span style=&#34;color: #66d9ef&#34;&gt;except&lt;/span&gt; &lt;span style=&#34;color: #a6e22e&#34;&gt;OSError&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;e:&lt;/span&gt;
+        &lt;span style=&#34;color: #66d9ef&#34;&gt;print&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;sys&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;stderr,&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;fork failed: %d (%s)&amp;quot;&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;%&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;(e&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;errno,&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;e&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;strerror)&lt;/span&gt;
+        &lt;span style=&#34;color: #f8f8f2&#34;&gt;sys&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;exit(&lt;/span&gt;&lt;span style=&#34;color: #ae81ff&#34;&gt;1&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;)&lt;/span&gt;
 
-    try:
-        pid = os.fork()
-        if pid &amp;gt; 0:
-            # Exit parent process
-            sys.exit(0)
-    except OSError, e:
-        print &amp;gt;&amp;gt; sys.stderr, &amp;quot;fork failed: %d (%s)&amp;quot; % (e.errno, e.strerror)
-        sys.exit(1)
+    &lt;span style=&#34;color: #75715e&#34;&gt;# Configure the child processes environment&lt;/span&gt;
+    &lt;span style=&#34;color: #f8f8f2&#34;&gt;os&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;chdir(&lt;/span&gt;&lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;/&amp;quot;&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;)&lt;/span&gt;
+    &lt;span style=&#34;color: #f8f8f2&#34;&gt;os&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;setsid()&lt;/span&gt;
+    &lt;span style=&#34;color: #f8f8f2&#34;&gt;os&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;umask(&lt;/span&gt;&lt;span style=&#34;color: #ae81ff&#34;&gt;0&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;)&lt;/span&gt;
 
-    # Configure the child processes environment
-    os.chdir(&amp;quot;/&amp;quot;)
-    os.setsid()
-    os.umask(0)
-
-    # Execute something in the background
-    do_something()
-&lt;/code&gt;&lt;/pre&gt;
+    &lt;span style=&#34;color: #75715e&#34;&gt;# Execute something in the background&lt;/span&gt;
+    &lt;span style=&#34;color: #f8f8f2&#34;&gt;do_something()&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
 
 &lt;h4 id=&#34;so-what-is-actually-going-on-here&#34;&gt;So what is actually going on here ?&lt;/h4&gt;
 
@@ -364,10 +340,9 @@ if __name__ == &amp;quot;__main__&amp;quot;:
 &lt;p&gt;Finally, we execute the original code, now inside a detached child process. This can run for as long as it needs, and could potentially log to a log file if you care about any stdout output.&lt;/p&gt;
 
 &lt;p&gt;There are also some better alternatives, something like this for example:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;import os
-os.spawnl(os.P_DETACH, &#39;some_log_running_command&#39;)
-&lt;/code&gt;&lt;/pre&gt;
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;os&lt;/span&gt;
+&lt;span style=&#34;color: #f8f8f2&#34;&gt;os&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;spawnl(os&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;P_DETACH,&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;#39;some_log_running_command&amp;#39;&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;&lt;strong&gt;Note:&lt;/strong&gt; &lt;code&gt;os.P_DETACH&lt;/code&gt; is win32 specific. For better portability you could use &lt;code&gt;os.P_NOWAIT&lt;/code&gt;.&lt;/p&gt;
 
@@ -395,9 +370,8 @@ os.spawnl(os.P_DETACH, &#39;some_log_running_command&#39;)
 &lt;p&gt;So how do we use it to serve our little Django project in a development friendly way ?&lt;/p&gt;
 
 &lt;p&gt;I&amp;rsquo;ve put together some code (some borrowed from other sources) and constructed a simple replacement command called &amp;ldquo;trunserver&amp;rdquo; (twisted-runserver). You can grab this code from &lt;a title=&#34;GitHub - trunserver&#34; href=&#34;https://github.com/gregarmer/trunserver&#34; target=&#34;_blank&#34;&gt;Github&lt;/a&gt;. Simply install it using the standard methods, and run it with:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;python manage.py trunserver [IP:PORT] [--settings=foo] [--noreload]
-&lt;/code&gt;&lt;/pre&gt;
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;python manage.py trunserver [IP:PORT] [--settings=foo] [--noreload]
+&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;So this will start up a twisted web instance serving your Django project and just like the build-in runserver, it will automatically reload your code when it notices that your files have been modified unless &amp;ndash;noreload has been passed.&lt;/p&gt;
 

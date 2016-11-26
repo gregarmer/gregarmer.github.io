@@ -333,17 +333,15 @@
 <p></p>
 
 <p>Here is a really simple script to give you some info. The output looks like this:</p>
-
-<pre><code>greg@leonis:~$ vpnstatus
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span>greg@leonis:~$ vpnstatus
 Common Name   Virtual Address    Real Address          Sent      Received             Connected Since
 greg.vpn      10.8.142.6         196.9.23.59        1.11 MB     282.50 KB    Thu Jul 16 09:07:15 2009
-</code></pre>
+</pre></div>
 
 <p>Firstly, ensure your server is actually saving the stats somewhere (/etc/openvpn/openvpn.status in my example):</p>
-
-<pre><code>greg@leonis:~$ grep status /etc/openvpn/server.conf
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span>greg@leonis:~$ grep status /etc/openvpn/server.conf
 status openvpn.status
-</code></pre>
+</pre></div>
 
 <p>Once that is happening, drop this code into a file and make it executable.</p>
 
@@ -906,6 +904,16 @@ status openvpn.status
   </div>
 </footer>
 
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-11073510-1', 'auto');
+ga('send', 'pageview');
+</script>
 
 <script src="https://sigterm.sh/fancybox/jquery.fancybox.pack.js"></script>
 <script src="https://sigterm.sh/js/script.js"></script>

@@ -22,38 +22,37 @@
 &lt;p&gt;&lt;/p&gt;
 
 &lt;p&gt;For anyone interested, here&amp;rsquo;s the NGINX config I&amp;rsquo;m using:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span style=&#34;color: #66d9ef&#34;&gt;server&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;{&lt;/span&gt;
+    &lt;span style=&#34;color: #f92672&#34;&gt;listen&lt;/span&gt; &lt;span style=&#34;color: #ae81ff&#34;&gt;80&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;;&lt;/span&gt;
+    &lt;span style=&#34;color: #f92672&#34;&gt;server_name&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;sigterm.sh&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;;&lt;/span&gt;
+    &lt;span style=&#34;color: #f92672&#34;&gt;rewrite&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;^(.*)&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;https://sigterm.sh&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;$1&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;permanent&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;;&lt;/span&gt;
+&lt;span style=&#34;color: #f8f8f2&#34;&gt;}&lt;/span&gt;
 
-&lt;pre&gt;&lt;code&gt;server {
-    listen 80;
-    server_name sigterm.sh;
-    rewrite ^(.*) https://sigterm.sh$1 permanent;
-}
+&lt;span style=&#34;color: #66d9ef&#34;&gt;server&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;{&lt;/span&gt;
+    &lt;span style=&#34;color: #f92672&#34;&gt;listen&lt;/span&gt; &lt;span style=&#34;color: #ae81ff&#34;&gt;443&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;ssl&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;;&lt;/span&gt;
+    &lt;span style=&#34;color: #f92672&#34;&gt;server_name&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;sigterm.sh&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;;&lt;/span&gt;
+    &lt;span style=&#34;color: #f92672&#34;&gt;ssl_certificate&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;certs/sigterm.sh.crt&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;;&lt;/span&gt;
+    &lt;span style=&#34;color: #f92672&#34;&gt;ssl_certificate_key&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;certs/sigterm.sh.key&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;;&lt;/span&gt;
+    &lt;span style=&#34;color: #f92672&#34;&gt;ssl_protocols&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;TLSv1&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;TLSv1.1&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;TLSv1.2&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;;&lt;/span&gt;
+    &lt;span style=&#34;color: #f92672&#34;&gt;ssl_prefer_server_ciphers&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;on&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;;&lt;/span&gt;
+    &lt;span style=&#34;color: #f92672&#34;&gt;ssl_session_timeout&lt;/span&gt; &lt;span style=&#34;color: #ae81ff&#34;&gt;5m&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;;&lt;/span&gt;
+    &lt;span style=&#34;color: #f92672&#34;&gt;ssl_ciphers&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;EECDH+ECDSA+AESGCM&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;EECDH+aRSA+AESGCM&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;EECDH+ECDSA+SHA384&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;\&lt;/span&gt;
+        &lt;span style=&#34;color: #e6db74&#34;&gt;EECDH+ECDSA+SHA256&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;EECDH+aRSA+SHA384&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;EECDH+aRSA+SHA256&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;EECDH+aRSA+RC4&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;\&lt;/span&gt;
+        &lt;span style=&#34;color: #e6db74&#34;&gt;EECDH&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;EDH+aRSA&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;RC4&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;!aNULL&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;!eNULL&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;!LOW&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;!3DES&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;!MD5&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;!EXP&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;!PSK&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;!SRP&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;!DSS&amp;quot;&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;;&lt;/span&gt;
 
-server {
-    listen 443 ssl;
-    server_name sigterm.sh;
-    ssl_certificate certs/sigterm.sh.crt;
-    ssl_certificate_key certs/sigterm.sh.key;
-    ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
-    ssl_prefer_server_ciphers on;
-    ssl_session_timeout 5m;
-    ssl_ciphers &amp;quot;EECDH+ECDSA+AESGCM EECDH+aRSA+AESGCM EECDH+ECDSA+SHA384 \
-        EECDH+ECDSA+SHA256 EECDH+aRSA+SHA384 EECDH+aRSA+SHA256 EECDH+aRSA+RC4 \
-        EECDH EDH+aRSA RC4 !aNULL !eNULL !LOW !3DES !MD5 !EXP !PSK !SRP !DSS&amp;quot;;
+    &lt;span style=&#34;color: #f92672&#34;&gt;gzip&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;on&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;;&lt;/span&gt;
+    &lt;span style=&#34;color: #f92672&#34;&gt;gzip_min_length&lt;/span&gt; &lt;span style=&#34;color: #ae81ff&#34;&gt;2000&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;;&lt;/span&gt;
+    &lt;span style=&#34;color: #f92672&#34;&gt;gzip_proxied&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;any&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;;&lt;/span&gt;
+    &lt;span style=&#34;color: #f92672&#34;&gt;gzip_types&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;application/json&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;;&lt;/span&gt;
 
-    gzip on;
-    gzip_min_length 2000;
-    gzip_proxied any;
-    gzip_types application/json;
-
-    location / {
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_set_header Host $http_host;
-        proxy_set_header X-Forwarded-Proto $scheme;
-        proxy_pass http://127.0.0.1:1234;
-    }
-}
-&lt;/code&gt;&lt;/pre&gt;
+    &lt;span style=&#34;color: #f92672&#34;&gt;location&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;/&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;{&lt;/span&gt;
+        &lt;span style=&#34;color: #f92672&#34;&gt;proxy_set_header&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;X-Forwarded-For&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;$proxy_add_x_forwarded_for;&lt;/span&gt;
+        &lt;span style=&#34;color: #f92672&#34;&gt;proxy_set_header&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;Host&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;$http_host;&lt;/span&gt;
+        &lt;span style=&#34;color: #f92672&#34;&gt;proxy_set_header&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;X-Forwarded-Proto&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;$scheme;&lt;/span&gt;
+        &lt;span style=&#34;color: #f92672&#34;&gt;proxy_pass&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;http://127.0.0.1:1234&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;;&lt;/span&gt;
+    &lt;span style=&#34;color: #f8f8f2&#34;&gt;}&lt;/span&gt;
+&lt;span style=&#34;color: #f8f8f2&#34;&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;You can check out the full test report over at &lt;a href=&#34;https://www.ssllabs.com/ssltest/analyze.html?d=sigterm.sh&#34;&gt;SSL Labs&lt;/a&gt;.&lt;/p&gt;</description>
     </item>
@@ -133,19 +132,17 @@ deny 208.96.18.11;                    // Have some HTTP 403
 &lt;p&gt;This is a great package that I wanted installed on all &lt;a href=&#34;http://www.debian.org&#34;&gt;Debian&lt;/a&gt; machines across my entire infrastructure. Thanks to Puppet, this is a breeze.&lt;/p&gt;
 
 &lt;h4 id=&#34;module-layout&#34;&gt;Module layout&lt;/h4&gt;
-
-&lt;pre&gt;&lt;code&gt;greg@codemine:~/code/puppet %&amp;gt; find modules/debsecan
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;greg@codemine:~/code/puppet %&amp;gt; find modules/debsecan
 modules/debsecan
 modules/debsecan/files
 modules/debsecan/files/debsecan
 modules/debsecan/files/debsecan-cron
 modules/debsecan/manifests
 modules/debsecan/manifests/init.pp
-&lt;/code&gt;&lt;/pre&gt;
+&lt;/pre&gt;&lt;/div&gt;
 
 &lt;h4 id=&#34;manifest-init-pp&#34;&gt;Manifest - init.pp&lt;/h4&gt;
-
-&lt;pre&gt;&lt;code&gt;greg@codemine:~/code/puppet %&amp;gt; cat modules/debsecan/manifests/init.pp
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;greg@codemine:~/code/puppet %&amp;gt; cat modules/debsecan/manifests/init.pp
 class debsecan {
     package { debsecan: ensure =&amp;gt; latest }
 
@@ -166,42 +163,40 @@ class debsecan {
             require =&amp;gt; Package[&amp;quot;debsecan&amp;quot;];
     }
 }
-&lt;/code&gt;&lt;/pre&gt;
+&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;There is really not much to this manifest. It essentially ensures debsecan is installed at the latest available version, it sets up my /etc/default/debsecan config and it ensures there is a cron entry to run it.&lt;/p&gt;
 
 &lt;h4 id=&#34;debsecan-config&#34;&gt;Debsecan config&lt;/h4&gt;
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;greg@codemine:~/code/puppet %&amp;gt; cat modules/debsecan/files/debsecan
+# Configuration file &lt;span style=&#34;color: #66d9ef&#34;&gt;for&lt;/span&gt; debsecan.  Contents of this file should
+# adhere to the &lt;span style=&#34;color: #f8f8f2&#34;&gt;KEY&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;=&lt;/span&gt;VALUE shell syntax.  This file may be edited by
+# debsecan&lt;span style=&#34;color: #960050; background-color: #1e0010&#34;&gt;&amp;#39;&lt;/span&gt;s scripts, but your modifications are preserved.
 
-&lt;pre&gt;&lt;code&gt;greg@codemine:~/code/puppet %&amp;gt; cat modules/debsecan/files/debsecan     
-# Configuration file for debsecan.  Contents of this file should
-# adhere to the KEY=VALUE shell syntax.  This file may be edited by
-# debsecan&#39;s scripts, but your modifications are preserved.
-
-# If true, enable daily reports, sent by email.
+# If true, &lt;span style=&#34;color: #f8f8f2&#34;&gt;enable&lt;/span&gt; daily reports, sent by email.
 REPORT=true
 
 # For better reporting, specify the correct suite here, using the code
-# name (that is, &amp;quot;sid&amp;quot; instead of &amp;quot;unstable&amp;quot;).
+# name &lt;span style=&#34;color: #f92672&#34;&gt;(&lt;/span&gt;that is, &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;sid&amp;quot;&lt;/span&gt; instead of &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;unstable&amp;quot;&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;)&lt;/span&gt;.
 SUITE=lenny
 
 # Mail address to which reports are sent.
 MAILTO=root
 
-# The URL from which vulnerability data is downloaded.  Empty for the
+# The URL from which vulnerability data is downloaded.  Empty &lt;span style=&#34;color: #66d9ef&#34;&gt;for&lt;/span&gt; the
 # built-in default.
 SOURCE=
-&lt;/code&gt;&lt;/pre&gt;
+&lt;/pre&gt;&lt;/div&gt;
 
 &lt;h4 id=&#34;debsecan-cron&#34;&gt;Debsecan cron&lt;/h4&gt;
-
-&lt;pre&gt;&lt;code&gt;greg@codemine:~/code/puppet %&amp;gt; cat modules/debsecan/files/debsecan-cron
-# cron entry for debsecan
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;greg@codemine:~/code/puppet %&amp;gt; cat modules/debsecan/files/debsecan-cron
+# cron entry &lt;span style=&#34;color: #66d9ef&#34;&gt;for&lt;/span&gt; debsecan
 MAILTO=root
 
 42 * * * * daemon test -x /usr/bin/debsecan &amp;amp;&amp;amp; /usr/bin/debsecan --cron
-# (Note: debsecan delays actual processing past 2:00 AM, and runs only
-# once per day.)
-&lt;/code&gt;&lt;/pre&gt;
+# &lt;span style=&#34;color: #f92672&#34;&gt;(&lt;/span&gt;Note: debsecan delays actual processing past 2:00 AM, and runs only
+# once per day.&lt;span style=&#34;color: #f92672&#34;&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;You can grab a copy of all the above files (the complete module) here: &lt;a href=&#39;http://code.geek.sh/wp-content/uploads/2010/12/debsecan-puppet.tar.gz&#39;&gt;debsecan-puppet.tar.gz&lt;/a&gt;&lt;/p&gt;</description>
     </item>
@@ -219,8 +214,7 @@ MAILTO=root
 &lt;p&gt;&lt;/p&gt;
 
 &lt;p&gt;First off, here is my network interface configuration to give you an idea of what is where:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;kore:~# cat /etc/network/interfaces
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;kore:~# cat /etc/network/interfaces
 
 auto lo
 iface lo inet loopback
@@ -248,16 +242,15 @@ iface he-ipv6 inet6 v4tunnel
     gateway 2001:410:1e9a:ba22::1
     endpoint 216.218.224.42
     local 173.134.21.19
-&lt;/code&gt;&lt;/pre&gt;
+&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;There is nothing extremely complicated here, just a basic IPv4 static IP assigned by my provider, a local network for traffic between this and other local nodes, a &lt;a href=&#34;http://tunnelbroker.net/&#34;&gt;Hurricane Electric IPv6 tunnel&lt;/a&gt; and a static IP from my HE.net provided /64.&lt;/p&gt;
 
 &lt;p&gt;The ferm configuration in use here looks like this:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;kore:~# cat /etc/ferm/ferm.conf
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;kore:~# cat /etc/ferm/ferm.conf
 # -*- shell-script -*-
 #
-#  Configuration file for ferm(1).
+#  Configuration file &lt;span style=&#34;color: #66d9ef&#34;&gt;for&lt;/span&gt; ferm&lt;span style=&#34;color: #f92672&#34;&gt;(&lt;/span&gt;1&lt;span style=&#34;color: #f92672&#34;&gt;)&lt;/span&gt;.
 #
 
 @def $PORTS = (22 25 161 4949 6667 6668 7000 7352 7535); # Services running
@@ -271,7 +264,7 @@ table filter {
         mod state state INVALID DROP;
         mod state state (ESTABLISHED RELATED) ACCEPT;
 
-        # allow local packages
+        # allow &lt;span style=&#34;color: #f8f8f2&#34;&gt;local&lt;/span&gt; packages
         interface lo ACCEPT;
 
         # respond to ping
@@ -285,7 +278,7 @@ table filter {
         policy ACCEPT;
 
         # connection tracking
-        #mod state state INVALID DROP;
+        #mod state state INVALID DROP&lt;span style=&#34;color: #f8f8f2&#34;&gt;;&lt;/span&gt;
         mod state state (ESTABLISHED RELATED) ACCEPT;
     }
 
@@ -314,7 +307,7 @@ domain ip6 table filter {
         mod state state INVALID DROP;
         mod state state (ESTABLISHED RELATED) ACCEPT;
 
-        # allow ICMP (for neighbor solicitation, like ARP for IPv4)
+        # allow ICMP &lt;span style=&#34;color: #f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color: #66d9ef&#34;&gt;for&lt;/span&gt; neighbor solicitation, like ARP &lt;span style=&#34;color: #66d9ef&#34;&gt;for&lt;/span&gt; IPv4&lt;span style=&#34;color: #f92672&#34;&gt;)&lt;/span&gt;
         proto ipv6-icmp ACCEPT;
 
         # standard ports we allow from the outside
@@ -325,7 +318,7 @@ domain ip6 table filter {
         policy ACCEPT;
 
         # connection tracking
-        #mod state state INVALID DROP;
+        #mod state state INVALID DROP&lt;span style=&#34;color: #f8f8f2&#34;&gt;;&lt;/span&gt;
         mod state state (ESTABLISHED RELATED) ACCEPT;
     }
 
@@ -337,7 +330,7 @@ domain ip6 table filter {
         mod state state (ESTABLISHED RELATED) ACCEPT;
     }
 }
-&lt;/code&gt;&lt;/pre&gt;
+&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;So this ruleset is basically broken down into 3 parts:&lt;/p&gt;
 
@@ -360,9 +353,8 @@ domain ip6 table filter {
 &lt;p&gt;Finally, in the IPv6 filter table, we allow the same set of incoming ports as IPv4, allow ipv6-icmp and setup connection state tracking as before.&lt;/p&gt;
 
 &lt;p&gt;Once that&amp;rsquo;s done, simply run:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;kore:~# ferm /etc/ferm/ferm.conf
-&lt;/code&gt;&lt;/pre&gt;
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;kore:~# ferm /etc/ferm/ferm.conf
+&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;&amp;hellip; and your new ruleset is validated and loaded.&lt;/p&gt;
 

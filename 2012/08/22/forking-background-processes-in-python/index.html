@@ -333,57 +333,55 @@
 <p></p>
 
 <p>So you have a basic Python script that you&rsquo;d like to run as a background process, for whatever reason; perhaps it&rsquo;s a network service that waits for incoming connections, or you want to watch a log file for something. As an example, let&rsquo;s say it looks something like this:</p>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #f92672">import</span> <span style="color: #f8f8f2">time</span>
+<span style="color: #f92672">import</span> <span style="color: #f8f8f2">sys</span>
 
-<pre><code>import time
-import sys
+<span style="color: #66d9ef">def</span> <span style="color: #a6e22e">do_something</span><span style="color: #f8f8f2">():</span>
+    <span style="color: #75715e"># Do something for 10 seconds, then exit nicely.</span>
+    <span style="color: #f8f8f2">time</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">sleep(</span><span style="color: #ae81ff">10</span><span style="color: #f8f8f2">)</span>
+    <span style="color: #66d9ef">print</span> <span style="color: #e6db74">&quot;Done.&quot;</span>
+    <span style="color: #f8f8f2">sys</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">exit(</span><span style="color: #ae81ff">0</span><span style="color: #f8f8f2">)</span>
 
-def do_something():
-    # Do something for 10 seconds, then exit nicely.
-    time.sleep(10)
-    print &quot;Done.&quot;
-    sys.exit(0)
-
-if __name__ == &quot;__main__&quot;:
-    do_something()
-</code></pre>
+<span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">__name__</span> <span style="color: #f92672">==</span> <span style="color: #e6db74">&quot;__main__&quot;</span><span style="color: #f8f8f2">:</span>
+    <span style="color: #f8f8f2">do_something()</span>
+</pre></div>
 
 <p>So one method of running it in the background is to <a href="http://en.wikipedia.org/wiki/Fork_(operating_system)">fork</a> it. The term <em>fork</em> means that we want to launch a child <a href="http://en.wikipedia.org/wiki/Process_(computing)">process</a> from this process (the parent process) and then disown that child process and exit cleanly. The child process will then continue running in the background until it completes whatever it has to do, or until it is shutdown or killed, in the case of a long
 running process.</p>
 
 <p>In order to accomplish this we need something that looks like the following:</p>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #f92672">import</span> <span style="color: #f8f8f2">time</span>
+<span style="color: #f92672">import</span> <span style="color: #f8f8f2">sys</span>
+<span style="color: #f92672">import</span> <span style="color: #f8f8f2">os</span>
 
-<pre><code>import time
-import sys
-import os
+<span style="color: #66d9ef">def</span> <span style="color: #a6e22e">do_something</span><span style="color: #f8f8f2">():</span>
+    <span style="color: #75715e"># Do something for 10 seconds, then exist cleanly.</span>
+    <span style="color: #f8f8f2">time</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">sleep(</span><span style="color: #ae81ff">10</span><span style="color: #f8f8f2">)</span>
+    <span style="color: #66d9ef">print</span> <span style="color: #e6db74">&quot;kbye&quot;</span>
+    <span style="color: #f8f8f2">sys</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">exit(</span><span style="color: #ae81ff">0</span><span style="color: #f8f8f2">)</span>
 
-def do_something():
-    # Do something for 10 seconds, then exist cleanly.
-    time.sleep(10)
-    print &quot;kbye&quot;
-    sys.exit(0)
+<span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">__name__</span> <span style="color: #f92672">==</span> <span style="color: #e6db74">&quot;__main__&quot;</span><span style="color: #f8f8f2">:</span>
+    <span style="color: #66d9ef">print</span> <span style="color: #f8f8f2">(</span><span style="color: #e6db74">&quot;Hello and welcome to a Python forking example. I&#39;ll now fork a &quot;</span>
+           <span style="color: #e6db74">&quot;backgrounded child process and then exit, leaving it to run all by &quot;</span>
+           <span style="color: #e6db74">&quot;itself. Watch for the &#39;Done&#39; in 10 seconds...&quot;</span><span style="color: #f8f8f2">)</span>
 
-if __name__ == &quot;__main__&quot;:
-    print (&quot;Hello and welcome to a Python forking example. I'll now fork a &quot;
-           &quot;backgrounded child process and then exit, leaving it to run all by &quot;
-           &quot;itself. Watch for the 'Done' in 10 seconds...&quot;)
+    <span style="color: #66d9ef">try</span><span style="color: #f8f8f2">:</span>
+        <span style="color: #f8f8f2">pid</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">os</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">fork()</span>
+        <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">pid</span> <span style="color: #f92672">&gt;</span> <span style="color: #ae81ff">0</span><span style="color: #f8f8f2">:</span>
+            <span style="color: #75715e"># Exit parent process</span>
+            <span style="color: #f8f8f2">sys</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">exit(</span><span style="color: #ae81ff">0</span><span style="color: #f8f8f2">)</span>
+    <span style="color: #66d9ef">except</span> <span style="color: #a6e22e">OSError</span><span style="color: #f8f8f2">,</span> <span style="color: #f8f8f2">e:</span>
+        <span style="color: #66d9ef">print</span> <span style="color: #f92672">&gt;&gt;</span> <span style="color: #f8f8f2">sys</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">stderr,</span> <span style="color: #e6db74">&quot;fork failed: %d (%s)&quot;</span> <span style="color: #f92672">%</span> <span style="color: #f8f8f2">(e</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">errno,</span> <span style="color: #f8f8f2">e</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">strerror)</span>
+        <span style="color: #f8f8f2">sys</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">exit(</span><span style="color: #ae81ff">1</span><span style="color: #f8f8f2">)</span>
 
-    try:
-        pid = os.fork()
-        if pid &gt; 0:
-            # Exit parent process
-            sys.exit(0)
-    except OSError, e:
-        print &gt;&gt; sys.stderr, &quot;fork failed: %d (%s)&quot; % (e.errno, e.strerror)
-        sys.exit(1)
+    <span style="color: #75715e"># Configure the child processes environment</span>
+    <span style="color: #f8f8f2">os</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">chdir(</span><span style="color: #e6db74">&quot;/&quot;</span><span style="color: #f8f8f2">)</span>
+    <span style="color: #f8f8f2">os</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">setsid()</span>
+    <span style="color: #f8f8f2">os</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">umask(</span><span style="color: #ae81ff">0</span><span style="color: #f8f8f2">)</span>
 
-    # Configure the child processes environment
-    os.chdir(&quot;/&quot;)
-    os.setsid()
-    os.umask(0)
-
-    # Execute something in the background
-    do_something()
-</code></pre>
+    <span style="color: #75715e"># Execute something in the background</span>
+    <span style="color: #f8f8f2">do_something()</span>
+</pre></div>
 
 <h4 id="so-what-is-actually-going-on-here">So what is actually going on here ?</h4>
 
@@ -396,10 +394,9 @@ if __name__ == &quot;__main__&quot;:
 <p>Finally, we execute the original code, now inside a detached child process. This can run for as long as it needs, and could potentially log to a log file if you care about any stdout output.</p>
 
 <p>There are also some better alternatives, something like this for example:</p>
-
-<pre><code>import os
-os.spawnl(os.P_DETACH, 'some_log_running_command')
-</code></pre>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #f92672">import</span> <span style="color: #f8f8f2">os</span>
+<span style="color: #f8f8f2">os</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">spawnl(os</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">P_DETACH,</span> <span style="color: #e6db74">&#39;some_log_running_command&#39;</span><span style="color: #f8f8f2">)</span>
+</pre></div>
 
 <p><strong>Note:</strong> <code>os.P_DETACH</code> is win32 specific. For better portability you could use <code>os.P_NOWAIT</code>.</p>
 
@@ -962,6 +959,16 @@ os.spawnl(os.P_DETACH, 'some_log_running_command')
   </div>
 </footer>
 
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-11073510-1', 'auto');
+ga('send', 'pageview');
+</script>
 
 <script src="https://sigterm.sh/fancybox/jquery.fancybox.pack.js"></script>
 <script src="https://sigterm.sh/js/script.js"></script>

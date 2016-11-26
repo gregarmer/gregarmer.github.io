@@ -22,38 +22,37 @@
 &lt;p&gt;&lt;/p&gt;
 
 &lt;p&gt;For anyone interested, here&amp;rsquo;s the NGINX config I&amp;rsquo;m using:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span style=&#34;color: #66d9ef&#34;&gt;server&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;{&lt;/span&gt;
+    &lt;span style=&#34;color: #f92672&#34;&gt;listen&lt;/span&gt; &lt;span style=&#34;color: #ae81ff&#34;&gt;80&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;;&lt;/span&gt;
+    &lt;span style=&#34;color: #f92672&#34;&gt;server_name&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;sigterm.sh&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;;&lt;/span&gt;
+    &lt;span style=&#34;color: #f92672&#34;&gt;rewrite&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;^(.*)&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;https://sigterm.sh&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;$1&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;permanent&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;;&lt;/span&gt;
+&lt;span style=&#34;color: #f8f8f2&#34;&gt;}&lt;/span&gt;
 
-&lt;pre&gt;&lt;code&gt;server {
-    listen 80;
-    server_name sigterm.sh;
-    rewrite ^(.*) https://sigterm.sh$1 permanent;
-}
+&lt;span style=&#34;color: #66d9ef&#34;&gt;server&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;{&lt;/span&gt;
+    &lt;span style=&#34;color: #f92672&#34;&gt;listen&lt;/span&gt; &lt;span style=&#34;color: #ae81ff&#34;&gt;443&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;ssl&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;;&lt;/span&gt;
+    &lt;span style=&#34;color: #f92672&#34;&gt;server_name&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;sigterm.sh&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;;&lt;/span&gt;
+    &lt;span style=&#34;color: #f92672&#34;&gt;ssl_certificate&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;certs/sigterm.sh.crt&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;;&lt;/span&gt;
+    &lt;span style=&#34;color: #f92672&#34;&gt;ssl_certificate_key&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;certs/sigterm.sh.key&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;;&lt;/span&gt;
+    &lt;span style=&#34;color: #f92672&#34;&gt;ssl_protocols&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;TLSv1&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;TLSv1.1&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;TLSv1.2&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;;&lt;/span&gt;
+    &lt;span style=&#34;color: #f92672&#34;&gt;ssl_prefer_server_ciphers&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;on&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;;&lt;/span&gt;
+    &lt;span style=&#34;color: #f92672&#34;&gt;ssl_session_timeout&lt;/span&gt; &lt;span style=&#34;color: #ae81ff&#34;&gt;5m&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;;&lt;/span&gt;
+    &lt;span style=&#34;color: #f92672&#34;&gt;ssl_ciphers&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;EECDH+ECDSA+AESGCM&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;EECDH+aRSA+AESGCM&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;EECDH+ECDSA+SHA384&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;\&lt;/span&gt;
+        &lt;span style=&#34;color: #e6db74&#34;&gt;EECDH+ECDSA+SHA256&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;EECDH+aRSA+SHA384&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;EECDH+aRSA+SHA256&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;EECDH+aRSA+RC4&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;\&lt;/span&gt;
+        &lt;span style=&#34;color: #e6db74&#34;&gt;EECDH&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;EDH+aRSA&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;RC4&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;!aNULL&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;!eNULL&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;!LOW&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;!3DES&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;!MD5&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;!EXP&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;!PSK&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;!SRP&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;!DSS&amp;quot;&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;;&lt;/span&gt;
 
-server {
-    listen 443 ssl;
-    server_name sigterm.sh;
-    ssl_certificate certs/sigterm.sh.crt;
-    ssl_certificate_key certs/sigterm.sh.key;
-    ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
-    ssl_prefer_server_ciphers on;
-    ssl_session_timeout 5m;
-    ssl_ciphers &amp;quot;EECDH+ECDSA+AESGCM EECDH+aRSA+AESGCM EECDH+ECDSA+SHA384 \
-        EECDH+ECDSA+SHA256 EECDH+aRSA+SHA384 EECDH+aRSA+SHA256 EECDH+aRSA+RC4 \
-        EECDH EDH+aRSA RC4 !aNULL !eNULL !LOW !3DES !MD5 !EXP !PSK !SRP !DSS&amp;quot;;
+    &lt;span style=&#34;color: #f92672&#34;&gt;gzip&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;on&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;;&lt;/span&gt;
+    &lt;span style=&#34;color: #f92672&#34;&gt;gzip_min_length&lt;/span&gt; &lt;span style=&#34;color: #ae81ff&#34;&gt;2000&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;;&lt;/span&gt;
+    &lt;span style=&#34;color: #f92672&#34;&gt;gzip_proxied&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;any&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;;&lt;/span&gt;
+    &lt;span style=&#34;color: #f92672&#34;&gt;gzip_types&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;application/json&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;;&lt;/span&gt;
 
-    gzip on;
-    gzip_min_length 2000;
-    gzip_proxied any;
-    gzip_types application/json;
-
-    location / {
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_set_header Host $http_host;
-        proxy_set_header X-Forwarded-Proto $scheme;
-        proxy_pass http://127.0.0.1:1234;
-    }
-}
-&lt;/code&gt;&lt;/pre&gt;
+    &lt;span style=&#34;color: #f92672&#34;&gt;location&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;/&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;{&lt;/span&gt;
+        &lt;span style=&#34;color: #f92672&#34;&gt;proxy_set_header&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;X-Forwarded-For&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;$proxy_add_x_forwarded_for;&lt;/span&gt;
+        &lt;span style=&#34;color: #f92672&#34;&gt;proxy_set_header&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;Host&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;$http_host;&lt;/span&gt;
+        &lt;span style=&#34;color: #f92672&#34;&gt;proxy_set_header&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;X-Forwarded-Proto&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;$scheme;&lt;/span&gt;
+        &lt;span style=&#34;color: #f92672&#34;&gt;proxy_pass&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;http://127.0.0.1:1234&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;;&lt;/span&gt;
+    &lt;span style=&#34;color: #f8f8f2&#34;&gt;}&lt;/span&gt;
+&lt;span style=&#34;color: #f8f8f2&#34;&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;You can check out the full test report over at &lt;a href=&#34;https://www.ssllabs.com/ssltest/analyze.html?d=sigterm.sh&#34;&gt;SSL Labs&lt;/a&gt;.&lt;/p&gt;</description>
     </item>
@@ -106,17 +105,15 @@ server {
 &lt;h4 id=&#34;packages&#34;&gt;Packages&lt;/h4&gt;
 
 &lt;p&gt;Let&amp;rsquo;s start with some useful packages (install on alice and bob):&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;alice $ apt-get install ntp vim
-&lt;/code&gt;&lt;/pre&gt;
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;alice $ apt-get install ntp vim
+&lt;/pre&gt;&lt;/div&gt;
 
 &lt;h4 id=&#34;networking&#34;&gt;Networking&lt;/h4&gt;
 
 &lt;p&gt;Tweak to suit your environment, of course.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;alice $ cat /etc/network/interfaces
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;alice $ cat /etc/network/interfaces
 # This file describes the network interfaces available on your system
-# and how to activate them. For more information, see interfaces(5).
+# and how to activate them. For more information, see interfaces&lt;span style=&#34;color: #f92672&#34;&gt;(&lt;/span&gt;5&lt;span style=&#34;color: #f92672&#34;&gt;)&lt;/span&gt;.
 
 # The loopback network interface
 auto lo
@@ -128,32 +125,29 @@ iface eth0 inet static
     address 192.168.1.201
     netmask 255.255.255.0
     gateway 192.168.1.1
-&lt;/code&gt;&lt;/pre&gt;
+&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;The config will be the same on bob, apart from the IP, which will be 192.168.1.202&lt;/p&gt;
 
 &lt;h4 id=&#34;hostname&#34;&gt;Hostname&lt;/h4&gt;
 
 &lt;p&gt;This is pretty important, since pretty much everything relies on the servers hostnames.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;alice $ hostname alice.local
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;alice $ hostname alice.local
 alice $ echo alice.local &amp;gt; /etc/hostname
 bob $ hostname bob.local
 bob $ echo bob.local &amp;gt; /etc/hostname
-&lt;/code&gt;&lt;/pre&gt;
+&lt;/pre&gt;&lt;/div&gt;
 
 &lt;h4 id=&#34;install-and-configure-drbd&#34;&gt;Install and Configure DRBD&lt;/h4&gt;
 
 &lt;p&gt;DRBD will be used to constantly sync all data from the primary to the slave, whichever servers they may be at that point in time.&lt;/p&gt;
 
 &lt;p&gt;Install DRBD8 utils on alice and bob:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;alice $ apt-get install drbd8-utils
-&lt;/code&gt;&lt;/pre&gt;
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;alice $ apt-get install drbd8-utils
+&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;Drop in the configs on alice and bob. First /etc/drbd.d/global_common.conf&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;global {
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;global {
     usage-count yes;
 }
 
@@ -181,11 +175,10 @@ common {
         rate 10M;
     }
 }
-&lt;/code&gt;&lt;/pre&gt;
+&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;and your DRBD resource config in /etc/drbd.d/r0.res&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;resource r0 {
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;resource r0 {
     net {
         shared-secret &amp;quot;s3kr1t&amp;quot;;
     }
@@ -204,11 +197,10 @@ common {
         meta-disk internal;
     }
 }
-&lt;/code&gt;&lt;/pre&gt;
+&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;Let&amp;rsquo;s get DRBD started so the initial sync can get going.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;# Create metadata on alice
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;# Create metadata on alice
 alice $ drbdadm create-md r0
 
 # Start DRBD on both nodes
@@ -219,94 +211,83 @@ bob $ /etc/init.d/drbd start
 alice $ drbdadm -- --overwrite-data-of-peer primary r0
 alice $ drbdadm disconnect r0
 alice $ drbdadm connect r0
-&lt;/code&gt;&lt;/pre&gt;
+&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;You can check the sync status with this command:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;alice $ cat /proc/drbd
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;alice $ cat /proc/drbd
 version: 8.3.10 (api:88/proto:86-96)
 built-in
  0: cs:SyncSource ro:Primary/Secondary ds:UpToDate/Inconsistent C r-----
     ns:3116484 nr:0 dw:0 dr:3593516 al:0 bm:219 lo:0 pe:2 ua:1 ap:0 ep:1 wo:f oos:1649980
-    [============&amp;gt;.......] sync&#39;ed: 65.5% (1608/4652) finish: 0:05:08 speed: 5,328 (5,056) K/sec
-&lt;/code&gt;&lt;/pre&gt;
+    [============&amp;gt;.......] sync&amp;#39;ed: 65.5% (1608/4652) finish: 0:05:08 speed: 5,328 (5,056) K/sec
+&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;You can now format the DRBD disk using any filesystem you prefer, here I&amp;rsquo;m using EXT4&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;alice $ mkfs.ext4 /dev/drbd0
-&lt;/code&gt;&lt;/pre&gt;
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;alice $ mkfs.ext4 /dev/drbd0
+&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;Add the DRBD disk to /etc/fstab on alice and bob&lt;/p&gt;
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;alice $ vi /etc/fstab
 
-&lt;pre&gt;&lt;code&gt;alice $ vi /etc/fstab
-
-# Add a line like this - substitute for your preferred fs and settings
+# Add a line like this - substitute &lt;span style=&#34;color: #66d9ef&#34;&gt;for&lt;/span&gt; your preferred fs and settings
 /dev/drbd0      /data           ext4    defaults        0 0
-&lt;/code&gt;&lt;/pre&gt;
+&lt;/pre&gt;&lt;/div&gt;
 
 &lt;h4 id=&#34;install-and-configure-nfs&#34;&gt;Install and Configure NFS&lt;/h4&gt;
 
 &lt;p&gt;NFS will be used to serve our highly available data.&lt;/p&gt;
 
 &lt;p&gt;Let&amp;rsquo;s start with installing some packages on alice and bob&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;alice $ apt-get install nfs-kernel-server
-&lt;/code&gt;&lt;/pre&gt;
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;alice $ apt-get install nfs-kernel-server
+&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;Now tell the new dependency based booting not to start NFS automatically.  NFS will be started automatically by heartbeat later on.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;alice $ insserv --remove nfs-common
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;alice $ insserv --remove nfs-common
 alice $ insserv --remove nfs-kernel-server
-&lt;/code&gt;&lt;/pre&gt;
+&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;Setup our exports on alice and bob&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;alice $ vi /etc/exports
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;alice $ vi /etc/exports
 
 # Add a line similar to this, change to suit your network and requirements
 /data   192.168.1.0/255.255.255.0(rw,no_root_squash,no_all_squash,sync)
-&lt;/code&gt;&lt;/pre&gt;
+&lt;/pre&gt;&lt;/div&gt;
 
 &lt;h4 id=&#34;install-and-configure-heartbeat&#34;&gt;Install and Configure heartbeat&lt;/h4&gt;
 
 &lt;p&gt;We&amp;rsquo;ll use heartbeat to syncronize the cluster, handle fencing and to promote the slave to the master.&lt;/p&gt;
 
 &lt;p&gt;Install heartbeat on alice and bob&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;alice $ apt-get install heartbeat
-&lt;/code&gt;&lt;/pre&gt;
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;alice $ apt-get install heartbeat
+&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;Drop in the configs on alice and bob as below.  You&amp;rsquo;ll need 3 files in total.&lt;/p&gt;
 
 &lt;p&gt;/etc/heartbeat/ha.cf&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;logfacility     local0
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;logfacility     local0
 keepalive 2
 deadtime 10
 bcast   eth0
 auto_failback off
 node alice bob
-&lt;/code&gt;&lt;/pre&gt;
+&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;/etc/heartbeat/haresources&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;alice  IPaddr::192.168.1.200/24/eth0 drbddisk::r0 Filesystem::/dev/drbd0::/data::ext4 nfs-kernel-server
-&lt;/code&gt;&lt;/pre&gt;
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;alice  IPaddr::192.168.1.200/24/eth0 drbddisk::r0 Filesystem::/dev/drbd0::/data::ext4 nfs-kernel-server
+&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;&lt;em&gt;Note:&lt;/em&gt; this line starts with &lt;em&gt;alice&lt;/em&gt; on both nodes - this is the &amp;ldquo;preferred primary&amp;rdquo;.&lt;/p&gt;
 
 &lt;p&gt;/etc/heartbeat/authkeys&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;auth 3
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;auth 3
 3 md5 s3kr1t
-&lt;/code&gt;&lt;/pre&gt;
+&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;&lt;em&gt;Note:&lt;/em&gt; set a good password, especially if you deploy this in a public cloud!&lt;/p&gt;
 
 &lt;p&gt;Finally, start up heartbeat:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;alice $ /etc/init.d/heartbeat start
-&lt;/code&gt;&lt;/pre&gt;
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;alice $ /etc/init.d/heartbeat start
+&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;If you run &lt;em&gt;ifconfig&lt;/em&gt; on alice, you should see that it now has the floating IP. You&amp;rsquo;ll also notice the NFS is running, and /data is mounted.&lt;/p&gt;
 
@@ -315,9 +296,8 @@ node alice bob
 &lt;p&gt;This is the best part.  Let&amp;rsquo;s kill the primary server and make sure the slave takes over seamlessly.&lt;/p&gt;
 
 &lt;p&gt;The simplest way to simulate a failure is to stop heartbeat on whichever server is currently the primary.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;alice $ /etc/init.d/heartbeat stop
-&lt;/code&gt;&lt;/pre&gt;
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;alice $ /etc/init.d/heartbeat stop
+&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;Within a few seconds, you should see all services move over to bob, including the floating IP, NFS, and the /data mount.  A quick check of &lt;em&gt;cat /proc/drbd&lt;/em&gt; should also show bob set to Primary.&lt;/p&gt;
 
@@ -409,19 +389,17 @@ deny 208.96.18.11;                    // Have some HTTP 403
 &lt;p&gt;This is a great package that I wanted installed on all &lt;a href=&#34;http://www.debian.org&#34;&gt;Debian&lt;/a&gt; machines across my entire infrastructure. Thanks to Puppet, this is a breeze.&lt;/p&gt;
 
 &lt;h4 id=&#34;module-layout&#34;&gt;Module layout&lt;/h4&gt;
-
-&lt;pre&gt;&lt;code&gt;greg@codemine:~/code/puppet %&amp;gt; find modules/debsecan
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;greg@codemine:~/code/puppet %&amp;gt; find modules/debsecan
 modules/debsecan
 modules/debsecan/files
 modules/debsecan/files/debsecan
 modules/debsecan/files/debsecan-cron
 modules/debsecan/manifests
 modules/debsecan/manifests/init.pp
-&lt;/code&gt;&lt;/pre&gt;
+&lt;/pre&gt;&lt;/div&gt;
 
 &lt;h4 id=&#34;manifest-init-pp&#34;&gt;Manifest - init.pp&lt;/h4&gt;
-
-&lt;pre&gt;&lt;code&gt;greg@codemine:~/code/puppet %&amp;gt; cat modules/debsecan/manifests/init.pp
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;greg@codemine:~/code/puppet %&amp;gt; cat modules/debsecan/manifests/init.pp
 class debsecan {
     package { debsecan: ensure =&amp;gt; latest }
 
@@ -442,42 +420,40 @@ class debsecan {
             require =&amp;gt; Package[&amp;quot;debsecan&amp;quot;];
     }
 }
-&lt;/code&gt;&lt;/pre&gt;
+&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;There is really not much to this manifest. It essentially ensures debsecan is installed at the latest available version, it sets up my /etc/default/debsecan config and it ensures there is a cron entry to run it.&lt;/p&gt;
 
 &lt;h4 id=&#34;debsecan-config&#34;&gt;Debsecan config&lt;/h4&gt;
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;greg@codemine:~/code/puppet %&amp;gt; cat modules/debsecan/files/debsecan
+# Configuration file &lt;span style=&#34;color: #66d9ef&#34;&gt;for&lt;/span&gt; debsecan.  Contents of this file should
+# adhere to the &lt;span style=&#34;color: #f8f8f2&#34;&gt;KEY&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;=&lt;/span&gt;VALUE shell syntax.  This file may be edited by
+# debsecan&lt;span style=&#34;color: #960050; background-color: #1e0010&#34;&gt;&amp;#39;&lt;/span&gt;s scripts, but your modifications are preserved.
 
-&lt;pre&gt;&lt;code&gt;greg@codemine:~/code/puppet %&amp;gt; cat modules/debsecan/files/debsecan     
-# Configuration file for debsecan.  Contents of this file should
-# adhere to the KEY=VALUE shell syntax.  This file may be edited by
-# debsecan&#39;s scripts, but your modifications are preserved.
-
-# If true, enable daily reports, sent by email.
+# If true, &lt;span style=&#34;color: #f8f8f2&#34;&gt;enable&lt;/span&gt; daily reports, sent by email.
 REPORT=true
 
 # For better reporting, specify the correct suite here, using the code
-# name (that is, &amp;quot;sid&amp;quot; instead of &amp;quot;unstable&amp;quot;).
+# name &lt;span style=&#34;color: #f92672&#34;&gt;(&lt;/span&gt;that is, &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;sid&amp;quot;&lt;/span&gt; instead of &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;unstable&amp;quot;&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;)&lt;/span&gt;.
 SUITE=lenny
 
 # Mail address to which reports are sent.
 MAILTO=root
 
-# The URL from which vulnerability data is downloaded.  Empty for the
+# The URL from which vulnerability data is downloaded.  Empty &lt;span style=&#34;color: #66d9ef&#34;&gt;for&lt;/span&gt; the
 # built-in default.
 SOURCE=
-&lt;/code&gt;&lt;/pre&gt;
+&lt;/pre&gt;&lt;/div&gt;
 
 &lt;h4 id=&#34;debsecan-cron&#34;&gt;Debsecan cron&lt;/h4&gt;
-
-&lt;pre&gt;&lt;code&gt;greg@codemine:~/code/puppet %&amp;gt; cat modules/debsecan/files/debsecan-cron
-# cron entry for debsecan
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;greg@codemine:~/code/puppet %&amp;gt; cat modules/debsecan/files/debsecan-cron
+# cron entry &lt;span style=&#34;color: #66d9ef&#34;&gt;for&lt;/span&gt; debsecan
 MAILTO=root
 
 42 * * * * daemon test -x /usr/bin/debsecan &amp;amp;&amp;amp; /usr/bin/debsecan --cron
-# (Note: debsecan delays actual processing past 2:00 AM, and runs only
-# once per day.)
-&lt;/code&gt;&lt;/pre&gt;
+# &lt;span style=&#34;color: #f92672&#34;&gt;(&lt;/span&gt;Note: debsecan delays actual processing past 2:00 AM, and runs only
+# once per day.&lt;span style=&#34;color: #f92672&#34;&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;You can grab a copy of all the above files (the complete module) here: &lt;a href=&#39;http://code.geek.sh/wp-content/uploads/2010/12/debsecan-puppet.tar.gz&#39;&gt;debsecan-puppet.tar.gz&lt;/a&gt;&lt;/p&gt;</description>
     </item>

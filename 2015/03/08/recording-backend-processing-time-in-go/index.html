@@ -333,91 +333,86 @@
 <p></p>
 
 <p>A simplified version of where I started would be:</p>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #f92672">package</span> <span style="color: #a6e22e">main</span>
 
-<pre><code>package main
+<span style="color: #f92672">import</span> <span style="color: #f8f8f2">(</span>
+	<span style="color: #e6db74">&quot;github.com/gorilla/mux&quot;</span>
+	<span style="color: #e6db74">&quot;log&quot;</span>
+	<span style="color: #e6db74">&quot;net/http&quot;</span>
+<span style="color: #f8f8f2">)</span>
 
-import (
-	&quot;github.com/gorilla/mux&quot;
-	&quot;log&quot;
-	&quot;net/http&quot;
-)
+<span style="color: #75715e">// Some handlers here</span>
 
-// Some handlers here
+<span style="color: #66d9ef">func</span> <span style="color: #a6e22e">main</span><span style="color: #f8f8f2">()</span> <span style="color: #f8f8f2">{</span>
+	<span style="color: #a6e22e">router</span> <span style="color: #f92672">:=</span> <span style="color: #a6e22e">mux</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">NewRouter</span><span style="color: #f8f8f2">().</span><span style="color: #a6e22e">StrictSlash</span><span style="color: #f8f8f2">(</span><span style="color: #66d9ef">true</span><span style="color: #f8f8f2">)</span>
+	<span style="color: #a6e22e">router</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">HandleFunc</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&quot;/api/something&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #a6e22e">SomethingIndexHandler</span><span style="color: #f8f8f2">).</span><span style="color: #a6e22e">Methods</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&quot;GET&quot;</span><span style="color: #f8f8f2">)</span>
+	<span style="color: #a6e22e">router</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">HandleFunc</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&quot;/api/something&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #a6e22e">SomethingCreateHandler</span><span style="color: #f8f8f2">).</span><span style="color: #a6e22e">Methods</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&quot;POST&quot;</span><span style="color: #f8f8f2">)</span>
 
-func main() {
-	router := mux.NewRouter().StrictSlash(true)
-	router.HandleFunc(&quot;/api/something&quot;, SomethingIndexHandler).Methods(&quot;GET&quot;)
-	router.HandleFunc(&quot;/api/something&quot;, SomethingCreateHandler).Methods(&quot;POST&quot;)
-
-	port := &quot;:9000&quot;
-	log.Printf(&quot;Starting web server on &quot; + port)
-	err := http.ListenAndServe(port, router)
-	if err != nil {
-		log.Fatal(err)
-	}
-}
-</code></pre>
+	<span style="color: #a6e22e">port</span> <span style="color: #f92672">:=</span> <span style="color: #e6db74">&quot;:9000&quot;</span>
+	<span style="color: #a6e22e">log</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">Printf</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&quot;Starting web server on &quot;</span> <span style="color: #f92672">+</span> <span style="color: #a6e22e">port</span><span style="color: #f8f8f2">)</span>
+	<span style="color: #a6e22e">err</span> <span style="color: #f92672">:=</span> <span style="color: #a6e22e">http</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">ListenAndServe</span><span style="color: #f8f8f2">(</span><span style="color: #a6e22e">port</span><span style="color: #f8f8f2">,</span> <span style="color: #a6e22e">router</span><span style="color: #f8f8f2">)</span>
+	<span style="color: #66d9ef">if</span> <span style="color: #a6e22e">err</span> <span style="color: #f92672">!=</span> <span style="color: #66d9ef">nil</span> <span style="color: #f8f8f2">{</span>
+		<span style="color: #a6e22e">log</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">Fatal</span><span style="color: #f8f8f2">(</span><span style="color: #a6e22e">err</span><span style="color: #f8f8f2">)</span>
+	<span style="color: #f8f8f2">}</span>
+<span style="color: #f8f8f2">}</span>
+</pre></div>
 
 <p>This is actually pretty simple, we just need something to wrap all our routes, and emit logs containing start and end times. That would look something like this:</p>
-
-<pre><code>func DefaultWrapper(handler http.Handler) http.Handler {
-	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		start := time.Now()
-		handler.ServeHTTP(w, r)
-		log.Printf(&quot;%s %s %s %s&quot;, r.RemoteAddr, time.Since(start), r.Method, r.URL)
-	})
-}
-</code></pre>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #66d9ef">func</span> <span style="color: #a6e22e">DefaultWrapper</span><span style="color: #f8f8f2">(</span><span style="color: #a6e22e">handler</span> <span style="color: #a6e22e">http</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">Handler</span><span style="color: #f8f8f2">)</span> <span style="color: #a6e22e">http</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">Handler</span> <span style="color: #f8f8f2">{</span>
+	<span style="color: #66d9ef">return</span> <span style="color: #a6e22e">http</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">HandlerFunc</span><span style="color: #f8f8f2">(</span><span style="color: #66d9ef">func</span><span style="color: #f8f8f2">(</span><span style="color: #a6e22e">w</span> <span style="color: #a6e22e">http</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">ResponseWriter</span><span style="color: #f8f8f2">,</span> <span style="color: #a6e22e">r</span> <span style="color: #f92672">*</span><span style="color: #a6e22e">http</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">Request</span><span style="color: #f8f8f2">)</span> <span style="color: #f8f8f2">{</span>
+		<span style="color: #a6e22e">start</span> <span style="color: #f92672">:=</span> <span style="color: #a6e22e">time</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">Now</span><span style="color: #f8f8f2">()</span>
+		<span style="color: #a6e22e">handler</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">ServeHTTP</span><span style="color: #f8f8f2">(</span><span style="color: #a6e22e">w</span><span style="color: #f8f8f2">,</span> <span style="color: #a6e22e">r</span><span style="color: #f8f8f2">)</span>
+		<span style="color: #a6e22e">log</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">Printf</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&quot;%s %s %s %s&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #a6e22e">r</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">RemoteAddr</span><span style="color: #f8f8f2">,</span> <span style="color: #a6e22e">time</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">Since</span><span style="color: #f8f8f2">(</span><span style="color: #a6e22e">start</span><span style="color: #f8f8f2">),</span> <span style="color: #a6e22e">r</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">Method</span><span style="color: #f8f8f2">,</span> <span style="color: #a6e22e">r</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">URL</span><span style="color: #f8f8f2">)</span>
+	<span style="color: #f8f8f2">})</span>
+<span style="color: #f8f8f2">}</span>
+</pre></div>
 
 <p>You would then wrap your router with this wrapper:</p>
-
-<pre><code>err := http.ListenAndServe(port, DefaultWrapper(router))
-</code></pre>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #a6e22e">err</span> <span style="color: #f92672">:=</span> <span style="color: #a6e22e">http</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">ListenAndServe</span><span style="color: #f8f8f2">(</span><span style="color: #a6e22e">port</span><span style="color: #f8f8f2">,</span> <span style="color: #a6e22e">DefaultWrapper</span><span style="color: #f8f8f2">(</span><span style="color: #a6e22e">router</span><span style="color: #f8f8f2">))</span>
+</pre></div>
 
 <p>We would then see logs like:</p>
-
-<pre><code>go-app git:master ❯ go run *.go
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span>go-app git:master ❯ go run *.go
 2015/03/08 17:34:55 Starting web server on :9000
 2015/03/08 17:34:57 [::1]:49868 824µs GET /api/something?limit=10
 2015/03/08 17:34:58 [::1]:49868 7.954824ms POST /api/something
 2015/03/08 17:34:59 [::1]:49868 34.745µs GET /
-</code></pre>
+</pre></div>
 
 <h4 id="final-code">Final code</h4>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #f92672">package</span> <span style="color: #a6e22e">main</span>
 
-<pre><code>package main
- 
-import (  
-   &quot;fmt&quot;
-   &quot;github.com/gorilla/mux&quot;
-   &quot;log&quot;
-   &quot;net/http&quot;
-   &quot;time&quot;
-)
- 
-// Some handlers here
- 
-func DefaultWrapper(handler http.Handler) http.Handler {  
-   return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-      start := time.Now()
-      handler.ServeHTTP(w, r)
-      log.Printf(&quot;%s %s %s %s&quot;, r.RemoteAddr, time.Since(start), r.Method, r.URL)
-   })
-}
- 
-func main() {  
-   router := mux.NewRouter().StrictSlash(true)
-   router.HandleFunc(&quot;/api/something&quot;, SomethingIndexHandler).Methods(&quot;GET&quot;)
-   router.HandleFunc(&quot;/api/something&quot;, SomethingCreateHandler).Methods(&quot;POST&quot;)
- 
-   port := &quot;:9000&quot;
-   log.Printf(&quot;Starting web server on &quot; + port)
-   err := http.ListenAndServe(port, DefaultWrapper(router))
-   if err != nil {
-      log.Fatal(err)
-   }
-}
-</code></pre>
+<span style="color: #f92672">import</span> <span style="color: #f8f8f2">(</span>
+   <span style="color: #e6db74">&quot;fmt&quot;</span>
+   <span style="color: #e6db74">&quot;github.com/gorilla/mux&quot;</span>
+   <span style="color: #e6db74">&quot;log&quot;</span>
+   <span style="color: #e6db74">&quot;net/http&quot;</span>
+   <span style="color: #e6db74">&quot;time&quot;</span>
+<span style="color: #f8f8f2">)</span>
+
+<span style="color: #75715e">// Some handlers here</span>
+
+<span style="color: #66d9ef">func</span> <span style="color: #a6e22e">DefaultWrapper</span><span style="color: #f8f8f2">(</span><span style="color: #a6e22e">handler</span> <span style="color: #a6e22e">http</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">Handler</span><span style="color: #f8f8f2">)</span> <span style="color: #a6e22e">http</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">Handler</span> <span style="color: #f8f8f2">{</span>
+   <span style="color: #66d9ef">return</span> <span style="color: #a6e22e">http</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">HandlerFunc</span><span style="color: #f8f8f2">(</span><span style="color: #66d9ef">func</span><span style="color: #f8f8f2">(</span><span style="color: #a6e22e">w</span> <span style="color: #a6e22e">http</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">ResponseWriter</span><span style="color: #f8f8f2">,</span> <span style="color: #a6e22e">r</span> <span style="color: #f92672">*</span><span style="color: #a6e22e">http</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">Request</span><span style="color: #f8f8f2">)</span> <span style="color: #f8f8f2">{</span>
+      <span style="color: #a6e22e">start</span> <span style="color: #f92672">:=</span> <span style="color: #a6e22e">time</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">Now</span><span style="color: #f8f8f2">()</span>
+      <span style="color: #a6e22e">handler</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">ServeHTTP</span><span style="color: #f8f8f2">(</span><span style="color: #a6e22e">w</span><span style="color: #f8f8f2">,</span> <span style="color: #a6e22e">r</span><span style="color: #f8f8f2">)</span>
+      <span style="color: #a6e22e">log</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">Printf</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&quot;%s %s %s %s&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #a6e22e">r</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">RemoteAddr</span><span style="color: #f8f8f2">,</span> <span style="color: #a6e22e">time</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">Since</span><span style="color: #f8f8f2">(</span><span style="color: #a6e22e">start</span><span style="color: #f8f8f2">),</span> <span style="color: #a6e22e">r</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">Method</span><span style="color: #f8f8f2">,</span> <span style="color: #a6e22e">r</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">URL</span><span style="color: #f8f8f2">)</span>
+   <span style="color: #f8f8f2">})</span>
+<span style="color: #f8f8f2">}</span>
+
+<span style="color: #66d9ef">func</span> <span style="color: #a6e22e">main</span><span style="color: #f8f8f2">()</span> <span style="color: #f8f8f2">{</span>
+   <span style="color: #a6e22e">router</span> <span style="color: #f92672">:=</span> <span style="color: #a6e22e">mux</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">NewRouter</span><span style="color: #f8f8f2">().</span><span style="color: #a6e22e">StrictSlash</span><span style="color: #f8f8f2">(</span><span style="color: #66d9ef">true</span><span style="color: #f8f8f2">)</span>
+   <span style="color: #a6e22e">router</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">HandleFunc</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&quot;/api/something&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #a6e22e">SomethingIndexHandler</span><span style="color: #f8f8f2">).</span><span style="color: #a6e22e">Methods</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&quot;GET&quot;</span><span style="color: #f8f8f2">)</span>
+   <span style="color: #a6e22e">router</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">HandleFunc</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&quot;/api/something&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #a6e22e">SomethingCreateHandler</span><span style="color: #f8f8f2">).</span><span style="color: #a6e22e">Methods</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&quot;POST&quot;</span><span style="color: #f8f8f2">)</span>
+
+   <span style="color: #a6e22e">port</span> <span style="color: #f92672">:=</span> <span style="color: #e6db74">&quot;:9000&quot;</span>
+   <span style="color: #a6e22e">log</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">Printf</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&quot;Starting web server on &quot;</span> <span style="color: #f92672">+</span> <span style="color: #a6e22e">port</span><span style="color: #f8f8f2">)</span>
+   <span style="color: #a6e22e">err</span> <span style="color: #f92672">:=</span> <span style="color: #a6e22e">http</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">ListenAndServe</span><span style="color: #f8f8f2">(</span><span style="color: #a6e22e">port</span><span style="color: #f8f8f2">,</span> <span style="color: #a6e22e">DefaultWrapper</span><span style="color: #f8f8f2">(</span><span style="color: #a6e22e">router</span><span style="color: #f8f8f2">))</span>
+   <span style="color: #66d9ef">if</span> <span style="color: #a6e22e">err</span> <span style="color: #f92672">!=</span> <span style="color: #66d9ef">nil</span> <span style="color: #f8f8f2">{</span>
+      <span style="color: #a6e22e">log</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">Fatal</span><span style="color: #f8f8f2">(</span><span style="color: #a6e22e">err</span><span style="color: #f8f8f2">)</span>
+   <span style="color: #f8f8f2">}</span>
+<span style="color: #f8f8f2">}</span>
+</pre></div>
             </div>
             <footer class="article-footer">
     <a data-url="https://sigterm.sh/2015/03/08/recording-backend-processing-time-in-go" data-id="85a10cd281a4c2ddc9d77b966812f0c3" class="article-share-link">
@@ -976,6 +971,16 @@ func main() {
   </div>
 </footer>
 
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-11073510-1', 'auto');
+ga('send', 'pageview');
+</script>
 
 <script src="https://sigterm.sh/fancybox/jquery.fancybox.pack.js"></script>
 <script src="https://sigterm.sh/js/script.js"></script>

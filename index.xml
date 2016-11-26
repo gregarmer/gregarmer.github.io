@@ -23,8 +23,7 @@
 &lt;p&gt;I did this with a Cisco 3750 switch.  The switch config was:&lt;/p&gt;
 
 &lt;p&gt;&lt;em&gt;Port-channel&lt;/em&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;interface Port-channel42
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;interface Port-channel42
  description etherchannel fw
  switchport trunk encapsulation dot1q
  switchport trunk allowed vlan 56-61,63
@@ -32,11 +31,10 @@
  spanning-tree portfast
  spanning-tree bpduguard enable
 !
-&lt;/code&gt;&lt;/pre&gt;
+&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;&lt;em&gt;Interfaces&lt;/em&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;interface GigabitEthernet1/0/23
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;interface GigabitEthernet1/0/23
  description fw-pc42-1
  switchport trunk encapsulation dot1q
  switchport trunk allowed vlan 56-61,63
@@ -52,22 +50,20 @@ interface GigabitEthernet1/0/24
  channel-protocol lacp
  channel-group 42 mode active
 !
-&lt;/code&gt;&lt;/pre&gt;
+&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;Then on the firewall:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;# cat /etc/hostname.em0
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;# cat /etc/hostname.em0
 up
 # cat /etc/hostname.em1
 up
 # cat /etc/hostname.trunk0
 trunkproto lacp trunkport em0 trunkport em1
 up
-&lt;/code&gt;&lt;/pre&gt;
+&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;and lastly the VLAN interfaces:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;# cat /etc/hostname.vlan57
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;# cat /etc/hostname.vlan57
 inet 172.29.57.1 255.255.255.0 NONE vlan 57 vlandev trunk0 descr WIFI
 # cat /etc/hostname.vlan58
 inet 172.29.58.1 255.255.254.0 NONE vlan 58 vlandev trunk0 descr SERVERS
@@ -77,13 +73,12 @@ inet 172.29.60.1 255.255.255.0 NONE vlan 60 vlandev trunk0 descr WIRED
 inet 172.29.61.1 255.255.255.0 NONE vlan 61 vlandev trunk0 descr IPMI
 # cat /etc/hostname.vlan63
 inet 172.29.63.1 255.255.255.0 NONE vlan 63 vlandev trunk0 descr MGMT
-&lt;/code&gt;&lt;/pre&gt;
+&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;You can set this up by executing &lt;code&gt;sh /etc/netstart&lt;/code&gt; without having to run a bunch of &lt;code&gt;ifconfig&lt;/code&gt; commands.&lt;/p&gt;
 
 &lt;p&gt;Your interfaces should look like this when it&amp;rsquo;s up:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;em0: flags=8b43&amp;lt;UP,BROADCAST,RUNNING,PROMISC,ALLMULTI,SIMPLEX,MULTICAST&amp;gt; mtu 1500
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;em0: flags=8b43&amp;lt;UP,BROADCAST,RUNNING,PROMISC,ALLMULTI,SIMPLEX,MULTICAST&amp;gt; mtu 1500
         lladdr 0c:c4:7a:ac:70:02
         index 1 priority 0 llprio 3
         trunk: trunkdev trunk0
@@ -119,11 +114,10 @@ vlan58: flags=8843&amp;lt;UP,BROADCAST,RUNNING,SIMPLEX,MULTICAST&amp;gt; mtu 150
         groups: vlan
         status: active
         inet 172.29.58.1 netmask 0xfffffe00 broadcast 172.29.59.255
-&lt;/code&gt;&lt;/pre&gt;
+&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;and the switch:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;core-3750-1#show etherchannel summary
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;core-3750-1#show etherchannel summary
 Flags:  D - down        P - bundled in port-channel
         I - stand-alone s - suspended
         H - Hot-standby (LACP only)
@@ -144,7 +138,7 @@ Group  Port-channel  Protocol    Ports
 1      Po1(SU)         LACP      Gi1/0/15(P) Gi1/0/16(P)
 2      Po2(SU)         LACP      Gi1/0/13(P) Gi1/0/14(P)
 42     Po42(SU)        LACP      Gi1/0/23(P) Gi1/0/24(P)
-&lt;/code&gt;&lt;/pre&gt;
+&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;A few things that got me:&lt;/p&gt;
 
@@ -165,91 +159,86 @@ Group  Port-channel  Protocol    Ports
 &lt;p&gt;&lt;/p&gt;
 
 &lt;p&gt;A simplified version of where I started would be:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;package&lt;/span&gt; &lt;span style=&#34;color: #a6e22e&#34;&gt;main&lt;/span&gt;
 
-&lt;pre&gt;&lt;code&gt;package main
+&lt;span style=&#34;color: #f92672&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;(&lt;/span&gt;
+	&lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;github.com/gorilla/mux&amp;quot;&lt;/span&gt;
+	&lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;log&amp;quot;&lt;/span&gt;
+	&lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;net/http&amp;quot;&lt;/span&gt;
+&lt;span style=&#34;color: #f8f8f2&#34;&gt;)&lt;/span&gt;
 
-import (
-	&amp;quot;github.com/gorilla/mux&amp;quot;
-	&amp;quot;log&amp;quot;
-	&amp;quot;net/http&amp;quot;
-)
+&lt;span style=&#34;color: #75715e&#34;&gt;// Some handlers here&lt;/span&gt;
 
-// Some handlers here
+&lt;span style=&#34;color: #66d9ef&#34;&gt;func&lt;/span&gt; &lt;span style=&#34;color: #a6e22e&#34;&gt;main&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;()&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;{&lt;/span&gt;
+	&lt;span style=&#34;color: #a6e22e&#34;&gt;router&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;:=&lt;/span&gt; &lt;span style=&#34;color: #a6e22e&#34;&gt;mux&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #a6e22e&#34;&gt;NewRouter&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;().&lt;/span&gt;&lt;span style=&#34;color: #a6e22e&#34;&gt;StrictSlash&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color: #66d9ef&#34;&gt;true&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;)&lt;/span&gt;
+	&lt;span style=&#34;color: #a6e22e&#34;&gt;router&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #a6e22e&#34;&gt;HandleFunc&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;/api/something&amp;quot;&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color: #a6e22e&#34;&gt;SomethingIndexHandler&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;).&lt;/span&gt;&lt;span style=&#34;color: #a6e22e&#34;&gt;Methods&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;GET&amp;quot;&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;)&lt;/span&gt;
+	&lt;span style=&#34;color: #a6e22e&#34;&gt;router&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #a6e22e&#34;&gt;HandleFunc&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;/api/something&amp;quot;&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color: #a6e22e&#34;&gt;SomethingCreateHandler&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;).&lt;/span&gt;&lt;span style=&#34;color: #a6e22e&#34;&gt;Methods&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;POST&amp;quot;&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;)&lt;/span&gt;
 
-func main() {
-	router := mux.NewRouter().StrictSlash(true)
-	router.HandleFunc(&amp;quot;/api/something&amp;quot;, SomethingIndexHandler).Methods(&amp;quot;GET&amp;quot;)
-	router.HandleFunc(&amp;quot;/api/something&amp;quot;, SomethingCreateHandler).Methods(&amp;quot;POST&amp;quot;)
-
-	port := &amp;quot;:9000&amp;quot;
-	log.Printf(&amp;quot;Starting web server on &amp;quot; + port)
-	err := http.ListenAndServe(port, router)
-	if err != nil {
-		log.Fatal(err)
-	}
-}
-&lt;/code&gt;&lt;/pre&gt;
+	&lt;span style=&#34;color: #a6e22e&#34;&gt;port&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;:=&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;:9000&amp;quot;&lt;/span&gt;
+	&lt;span style=&#34;color: #a6e22e&#34;&gt;log&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #a6e22e&#34;&gt;Printf&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;Starting web server on &amp;quot;&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color: #a6e22e&#34;&gt;port&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;)&lt;/span&gt;
+	&lt;span style=&#34;color: #a6e22e&#34;&gt;err&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;:=&lt;/span&gt; &lt;span style=&#34;color: #a6e22e&#34;&gt;http&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #a6e22e&#34;&gt;ListenAndServe&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color: #a6e22e&#34;&gt;port&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color: #a6e22e&#34;&gt;router&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;)&lt;/span&gt;
+	&lt;span style=&#34;color: #66d9ef&#34;&gt;if&lt;/span&gt; &lt;span style=&#34;color: #a6e22e&#34;&gt;err&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;!=&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;nil&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;{&lt;/span&gt;
+		&lt;span style=&#34;color: #a6e22e&#34;&gt;log&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #a6e22e&#34;&gt;Fatal&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color: #a6e22e&#34;&gt;err&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;)&lt;/span&gt;
+	&lt;span style=&#34;color: #f8f8f2&#34;&gt;}&lt;/span&gt;
+&lt;span style=&#34;color: #f8f8f2&#34;&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;This is actually pretty simple, we just need something to wrap all our routes, and emit logs containing start and end times. That would look something like this:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;func DefaultWrapper(handler http.Handler) http.Handler {
-	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		start := time.Now()
-		handler.ServeHTTP(w, r)
-		log.Printf(&amp;quot;%s %s %s %s&amp;quot;, r.RemoteAddr, time.Since(start), r.Method, r.URL)
-	})
-}
-&lt;/code&gt;&lt;/pre&gt;
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span style=&#34;color: #66d9ef&#34;&gt;func&lt;/span&gt; &lt;span style=&#34;color: #a6e22e&#34;&gt;DefaultWrapper&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color: #a6e22e&#34;&gt;handler&lt;/span&gt; &lt;span style=&#34;color: #a6e22e&#34;&gt;http&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #a6e22e&#34;&gt;Handler&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;)&lt;/span&gt; &lt;span style=&#34;color: #a6e22e&#34;&gt;http&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #a6e22e&#34;&gt;Handler&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;{&lt;/span&gt;
+	&lt;span style=&#34;color: #66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color: #a6e22e&#34;&gt;http&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #a6e22e&#34;&gt;HandlerFunc&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color: #66d9ef&#34;&gt;func&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color: #a6e22e&#34;&gt;w&lt;/span&gt; &lt;span style=&#34;color: #a6e22e&#34;&gt;http&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #a6e22e&#34;&gt;ResponseWriter&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color: #a6e22e&#34;&gt;r&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;*&lt;/span&gt;&lt;span style=&#34;color: #a6e22e&#34;&gt;http&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #a6e22e&#34;&gt;Request&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;)&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;{&lt;/span&gt;
+		&lt;span style=&#34;color: #a6e22e&#34;&gt;start&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;:=&lt;/span&gt; &lt;span style=&#34;color: #a6e22e&#34;&gt;time&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #a6e22e&#34;&gt;Now&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;()&lt;/span&gt;
+		&lt;span style=&#34;color: #a6e22e&#34;&gt;handler&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #a6e22e&#34;&gt;ServeHTTP&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color: #a6e22e&#34;&gt;w&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color: #a6e22e&#34;&gt;r&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;)&lt;/span&gt;
+		&lt;span style=&#34;color: #a6e22e&#34;&gt;log&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #a6e22e&#34;&gt;Printf&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;%s %s %s %s&amp;quot;&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color: #a6e22e&#34;&gt;r&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #a6e22e&#34;&gt;RemoteAddr&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color: #a6e22e&#34;&gt;time&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #a6e22e&#34;&gt;Since&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color: #a6e22e&#34;&gt;start&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;),&lt;/span&gt; &lt;span style=&#34;color: #a6e22e&#34;&gt;r&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #a6e22e&#34;&gt;Method&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color: #a6e22e&#34;&gt;r&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #a6e22e&#34;&gt;URL&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;)&lt;/span&gt;
+	&lt;span style=&#34;color: #f8f8f2&#34;&gt;})&lt;/span&gt;
+&lt;span style=&#34;color: #f8f8f2&#34;&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;You would then wrap your router with this wrapper:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;err := http.ListenAndServe(port, DefaultWrapper(router))
-&lt;/code&gt;&lt;/pre&gt;
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span style=&#34;color: #a6e22e&#34;&gt;err&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;:=&lt;/span&gt; &lt;span style=&#34;color: #a6e22e&#34;&gt;http&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #a6e22e&#34;&gt;ListenAndServe&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color: #a6e22e&#34;&gt;port&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color: #a6e22e&#34;&gt;DefaultWrapper&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color: #a6e22e&#34;&gt;router&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;))&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;We would then see logs like:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;go-app git:master ❯ go run *.go
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;go-app git:master ❯ go run *.go
 2015/03/08 17:34:55 Starting web server on :9000
 2015/03/08 17:34:57 [::1]:49868 824µs GET /api/something?limit=10
 2015/03/08 17:34:58 [::1]:49868 7.954824ms POST /api/something
 2015/03/08 17:34:59 [::1]:49868 34.745µs GET /
-&lt;/code&gt;&lt;/pre&gt;
+&lt;/pre&gt;&lt;/div&gt;
 
 &lt;h4 id=&#34;final-code&#34;&gt;Final code&lt;/h4&gt;
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;package&lt;/span&gt; &lt;span style=&#34;color: #a6e22e&#34;&gt;main&lt;/span&gt;
 
-&lt;pre&gt;&lt;code&gt;package main
- 
-import (  
-   &amp;quot;fmt&amp;quot;
-   &amp;quot;github.com/gorilla/mux&amp;quot;
-   &amp;quot;log&amp;quot;
-   &amp;quot;net/http&amp;quot;
-   &amp;quot;time&amp;quot;
-)
- 
-// Some handlers here
- 
-func DefaultWrapper(handler http.Handler) http.Handler {  
-   return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-      start := time.Now()
-      handler.ServeHTTP(w, r)
-      log.Printf(&amp;quot;%s %s %s %s&amp;quot;, r.RemoteAddr, time.Since(start), r.Method, r.URL)
-   })
-}
- 
-func main() {  
-   router := mux.NewRouter().StrictSlash(true)
-   router.HandleFunc(&amp;quot;/api/something&amp;quot;, SomethingIndexHandler).Methods(&amp;quot;GET&amp;quot;)
-   router.HandleFunc(&amp;quot;/api/something&amp;quot;, SomethingCreateHandler).Methods(&amp;quot;POST&amp;quot;)
- 
-   port := &amp;quot;:9000&amp;quot;
-   log.Printf(&amp;quot;Starting web server on &amp;quot; + port)
-   err := http.ListenAndServe(port, DefaultWrapper(router))
-   if err != nil {
-      log.Fatal(err)
-   }
-}
-&lt;/code&gt;&lt;/pre&gt;</description>
+&lt;span style=&#34;color: #f92672&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;(&lt;/span&gt;
+   &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;fmt&amp;quot;&lt;/span&gt;
+   &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;github.com/gorilla/mux&amp;quot;&lt;/span&gt;
+   &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;log&amp;quot;&lt;/span&gt;
+   &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;net/http&amp;quot;&lt;/span&gt;
+   &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;time&amp;quot;&lt;/span&gt;
+&lt;span style=&#34;color: #f8f8f2&#34;&gt;)&lt;/span&gt;
+
+&lt;span style=&#34;color: #75715e&#34;&gt;// Some handlers here&lt;/span&gt;
+
+&lt;span style=&#34;color: #66d9ef&#34;&gt;func&lt;/span&gt; &lt;span style=&#34;color: #a6e22e&#34;&gt;DefaultWrapper&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color: #a6e22e&#34;&gt;handler&lt;/span&gt; &lt;span style=&#34;color: #a6e22e&#34;&gt;http&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #a6e22e&#34;&gt;Handler&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;)&lt;/span&gt; &lt;span style=&#34;color: #a6e22e&#34;&gt;http&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #a6e22e&#34;&gt;Handler&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;{&lt;/span&gt;
+   &lt;span style=&#34;color: #66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color: #a6e22e&#34;&gt;http&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #a6e22e&#34;&gt;HandlerFunc&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color: #66d9ef&#34;&gt;func&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color: #a6e22e&#34;&gt;w&lt;/span&gt; &lt;span style=&#34;color: #a6e22e&#34;&gt;http&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #a6e22e&#34;&gt;ResponseWriter&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color: #a6e22e&#34;&gt;r&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;*&lt;/span&gt;&lt;span style=&#34;color: #a6e22e&#34;&gt;http&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #a6e22e&#34;&gt;Request&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;)&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;{&lt;/span&gt;
+      &lt;span style=&#34;color: #a6e22e&#34;&gt;start&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;:=&lt;/span&gt; &lt;span style=&#34;color: #a6e22e&#34;&gt;time&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #a6e22e&#34;&gt;Now&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;()&lt;/span&gt;
+      &lt;span style=&#34;color: #a6e22e&#34;&gt;handler&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #a6e22e&#34;&gt;ServeHTTP&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color: #a6e22e&#34;&gt;w&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color: #a6e22e&#34;&gt;r&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;)&lt;/span&gt;
+      &lt;span style=&#34;color: #a6e22e&#34;&gt;log&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #a6e22e&#34;&gt;Printf&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;%s %s %s %s&amp;quot;&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color: #a6e22e&#34;&gt;r&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #a6e22e&#34;&gt;RemoteAddr&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color: #a6e22e&#34;&gt;time&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #a6e22e&#34;&gt;Since&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color: #a6e22e&#34;&gt;start&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;),&lt;/span&gt; &lt;span style=&#34;color: #a6e22e&#34;&gt;r&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #a6e22e&#34;&gt;Method&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color: #a6e22e&#34;&gt;r&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #a6e22e&#34;&gt;URL&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;)&lt;/span&gt;
+   &lt;span style=&#34;color: #f8f8f2&#34;&gt;})&lt;/span&gt;
+&lt;span style=&#34;color: #f8f8f2&#34;&gt;}&lt;/span&gt;
+
+&lt;span style=&#34;color: #66d9ef&#34;&gt;func&lt;/span&gt; &lt;span style=&#34;color: #a6e22e&#34;&gt;main&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;()&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;{&lt;/span&gt;
+   &lt;span style=&#34;color: #a6e22e&#34;&gt;router&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;:=&lt;/span&gt; &lt;span style=&#34;color: #a6e22e&#34;&gt;mux&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #a6e22e&#34;&gt;NewRouter&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;().&lt;/span&gt;&lt;span style=&#34;color: #a6e22e&#34;&gt;StrictSlash&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color: #66d9ef&#34;&gt;true&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;)&lt;/span&gt;
+   &lt;span style=&#34;color: #a6e22e&#34;&gt;router&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #a6e22e&#34;&gt;HandleFunc&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;/api/something&amp;quot;&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color: #a6e22e&#34;&gt;SomethingIndexHandler&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;).&lt;/span&gt;&lt;span style=&#34;color: #a6e22e&#34;&gt;Methods&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;GET&amp;quot;&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;)&lt;/span&gt;
+   &lt;span style=&#34;color: #a6e22e&#34;&gt;router&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #a6e22e&#34;&gt;HandleFunc&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;/api/something&amp;quot;&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color: #a6e22e&#34;&gt;SomethingCreateHandler&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;).&lt;/span&gt;&lt;span style=&#34;color: #a6e22e&#34;&gt;Methods&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;POST&amp;quot;&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;)&lt;/span&gt;
+
+   &lt;span style=&#34;color: #a6e22e&#34;&gt;port&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;:=&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;:9000&amp;quot;&lt;/span&gt;
+   &lt;span style=&#34;color: #a6e22e&#34;&gt;log&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #a6e22e&#34;&gt;Printf&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;Starting web server on &amp;quot;&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color: #a6e22e&#34;&gt;port&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;)&lt;/span&gt;
+   &lt;span style=&#34;color: #a6e22e&#34;&gt;err&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;:=&lt;/span&gt; &lt;span style=&#34;color: #a6e22e&#34;&gt;http&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #a6e22e&#34;&gt;ListenAndServe&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color: #a6e22e&#34;&gt;port&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color: #a6e22e&#34;&gt;DefaultWrapper&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color: #a6e22e&#34;&gt;router&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;))&lt;/span&gt;
+   &lt;span style=&#34;color: #66d9ef&#34;&gt;if&lt;/span&gt; &lt;span style=&#34;color: #a6e22e&#34;&gt;err&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;!=&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;nil&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;{&lt;/span&gt;
+      &lt;span style=&#34;color: #a6e22e&#34;&gt;log&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #a6e22e&#34;&gt;Fatal&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color: #a6e22e&#34;&gt;err&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;)&lt;/span&gt;
+   &lt;span style=&#34;color: #f8f8f2&#34;&gt;}&lt;/span&gt;
+&lt;span style=&#34;color: #f8f8f2&#34;&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;</description>
     </item>
     
     <item>
@@ -267,8 +256,7 @@ func main() {
 &lt;p&gt;&lt;/p&gt;
 
 &lt;h3 id=&#34;using-flake8-diff&#34;&gt;Using flake8-diff&lt;/h3&gt;
-
-&lt;pre&gt;&lt;code&gt;$ pip install flake8-diff
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;$ pip install flake8-diff
 $ flake8-diff -h
 usage: flake8-diff [-h] [--flake8-options ...] [--vcs {git}]
                    [--standard-flake8-output] [-v]
@@ -301,8 +289,7 @@ optional arguments:
   --color {off,colorful,light,nocolor,dark,boring}
                         Color theme to use. Default is &amp;quot;colorful&amp;quot;. Can be any
                         of &amp;quot;off, colorful, light, nocolor, dark, boring&amp;quot;
-
-&lt;/code&gt;&lt;/pre&gt;
+&lt;/pre&gt;&lt;/div&gt;
 
 &lt;h3 id=&#34;contributing&#34;&gt;Contributing&lt;/h3&gt;
 
@@ -355,47 +342,34 @@ optional arguments:
 &lt;li&gt;Fork the &lt;code&gt;flake8-diff&lt;/code&gt; repo on GitHub.&lt;/li&gt;
 
 &lt;li&gt;&lt;p&gt;Clone your fork locally:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;$ git clone git@github.com:your_name_here/flake8-diff.git
-&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;$ git clone git@github.com:your_name_here/flake8-diff.git
+&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
 
 &lt;li&gt;&lt;p&gt;Install your local copy into a virtualenv. Assuming you have virtualenvwrapper installed, this is how you set up your fork for local development:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;$ mkvirtualenv flake8-diff
-$ cd flake8-diff/
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;$ mkvirtualenv flake8-diff
+$ &lt;span style=&#34;color: #f8f8f2&#34;&gt;cd&lt;/span&gt; flake8-diff/
 $ python setup.py develop
-&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
 
-&lt;li&gt;&lt;p&gt;Create a branch for local development:&lt;/p&gt;
+&lt;li&gt;&lt;p&gt;Create a branch for local development, then you can make your changes locally:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;$ git checkout -b name-of-your-bugfix-or-feature
+&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
 
-&lt;pre&gt;&lt;code&gt;$ git checkout -b name-of-your-bugfix-or-feature
-&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;Now you can make your changes locally.&lt;/p&gt;
-
-&lt;ol&gt;
 &lt;li&gt;&lt;p&gt;When you&amp;rsquo;re done making changes, check that your changes pass flake8 and the tests, including testing other Python versions with tox:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;$ flake8 flake8-diff tests
-$ python setup.py test
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;$ flake8 flake8-diff tests
+$ python setup.py &lt;span style=&#34;color: #f8f8f2&#34;&gt;test&lt;/span&gt;
 $ tox
-&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
-&lt;/ol&gt;
+&lt;/pre&gt;&lt;/div&gt;
 
-&lt;p&gt;To get flake8 and tox, just pip install them into your virtualenv.&lt;/p&gt;
+&lt;p&gt;To get flake8 and tox, just pip install them into your virtualenv.&lt;/p&gt;&lt;/li&gt;
 
-&lt;ol&gt;
-&lt;li&gt;Commit your changes and push your branch to GitHub:&lt;/li&gt;
-&lt;/ol&gt;
+&lt;li&gt;&lt;p&gt;Commit your changes and push your branch to GitHub:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;$ git add .
+$ git commit -m &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;Your detailed description of your changes.&amp;quot;&lt;/span&gt;
+$ git push origin name-of-your-bugfix-or-feature
+&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
 
-&lt;pre&gt;&lt;code&gt;   $ git add .
-   $ git commit -m &amp;quot;Your detailed description of your changes.&amp;quot;
-   $ git push origin name-of-your-bugfix-or-feature
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;ol&gt;
-&lt;li&gt;Submit a pull request through the GitHub website.&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Submit a pull request through the GitHub website.&lt;/p&gt;&lt;/li&gt;
 &lt;/ol&gt;
 
 &lt;h4 id=&#34;pull-request-guidelines&#34;&gt;Pull Request Guidelines&lt;/h4&gt;
@@ -422,38 +396,37 @@ $ tox
 &lt;p&gt;&lt;/p&gt;
 
 &lt;p&gt;For anyone interested, here&amp;rsquo;s the NGINX config I&amp;rsquo;m using:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span style=&#34;color: #66d9ef&#34;&gt;server&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;{&lt;/span&gt;
+    &lt;span style=&#34;color: #f92672&#34;&gt;listen&lt;/span&gt; &lt;span style=&#34;color: #ae81ff&#34;&gt;80&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;;&lt;/span&gt;
+    &lt;span style=&#34;color: #f92672&#34;&gt;server_name&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;sigterm.sh&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;;&lt;/span&gt;
+    &lt;span style=&#34;color: #f92672&#34;&gt;rewrite&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;^(.*)&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;https://sigterm.sh&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;$1&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;permanent&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;;&lt;/span&gt;
+&lt;span style=&#34;color: #f8f8f2&#34;&gt;}&lt;/span&gt;
 
-&lt;pre&gt;&lt;code&gt;server {
-    listen 80;
-    server_name sigterm.sh;
-    rewrite ^(.*) https://sigterm.sh$1 permanent;
-}
+&lt;span style=&#34;color: #66d9ef&#34;&gt;server&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;{&lt;/span&gt;
+    &lt;span style=&#34;color: #f92672&#34;&gt;listen&lt;/span&gt; &lt;span style=&#34;color: #ae81ff&#34;&gt;443&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;ssl&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;;&lt;/span&gt;
+    &lt;span style=&#34;color: #f92672&#34;&gt;server_name&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;sigterm.sh&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;;&lt;/span&gt;
+    &lt;span style=&#34;color: #f92672&#34;&gt;ssl_certificate&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;certs/sigterm.sh.crt&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;;&lt;/span&gt;
+    &lt;span style=&#34;color: #f92672&#34;&gt;ssl_certificate_key&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;certs/sigterm.sh.key&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;;&lt;/span&gt;
+    &lt;span style=&#34;color: #f92672&#34;&gt;ssl_protocols&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;TLSv1&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;TLSv1.1&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;TLSv1.2&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;;&lt;/span&gt;
+    &lt;span style=&#34;color: #f92672&#34;&gt;ssl_prefer_server_ciphers&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;on&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;;&lt;/span&gt;
+    &lt;span style=&#34;color: #f92672&#34;&gt;ssl_session_timeout&lt;/span&gt; &lt;span style=&#34;color: #ae81ff&#34;&gt;5m&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;;&lt;/span&gt;
+    &lt;span style=&#34;color: #f92672&#34;&gt;ssl_ciphers&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;EECDH+ECDSA+AESGCM&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;EECDH+aRSA+AESGCM&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;EECDH+ECDSA+SHA384&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;\&lt;/span&gt;
+        &lt;span style=&#34;color: #e6db74&#34;&gt;EECDH+ECDSA+SHA256&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;EECDH+aRSA+SHA384&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;EECDH+aRSA+SHA256&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;EECDH+aRSA+RC4&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;\&lt;/span&gt;
+        &lt;span style=&#34;color: #e6db74&#34;&gt;EECDH&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;EDH+aRSA&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;RC4&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;!aNULL&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;!eNULL&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;!LOW&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;!3DES&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;!MD5&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;!EXP&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;!PSK&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;!SRP&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;!DSS&amp;quot;&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;;&lt;/span&gt;
 
-server {
-    listen 443 ssl;
-    server_name sigterm.sh;
-    ssl_certificate certs/sigterm.sh.crt;
-    ssl_certificate_key certs/sigterm.sh.key;
-    ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
-    ssl_prefer_server_ciphers on;
-    ssl_session_timeout 5m;
-    ssl_ciphers &amp;quot;EECDH+ECDSA+AESGCM EECDH+aRSA+AESGCM EECDH+ECDSA+SHA384 \
-        EECDH+ECDSA+SHA256 EECDH+aRSA+SHA384 EECDH+aRSA+SHA256 EECDH+aRSA+RC4 \
-        EECDH EDH+aRSA RC4 !aNULL !eNULL !LOW !3DES !MD5 !EXP !PSK !SRP !DSS&amp;quot;;
+    &lt;span style=&#34;color: #f92672&#34;&gt;gzip&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;on&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;;&lt;/span&gt;
+    &lt;span style=&#34;color: #f92672&#34;&gt;gzip_min_length&lt;/span&gt; &lt;span style=&#34;color: #ae81ff&#34;&gt;2000&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;;&lt;/span&gt;
+    &lt;span style=&#34;color: #f92672&#34;&gt;gzip_proxied&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;any&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;;&lt;/span&gt;
+    &lt;span style=&#34;color: #f92672&#34;&gt;gzip_types&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;application/json&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;;&lt;/span&gt;
 
-    gzip on;
-    gzip_min_length 2000;
-    gzip_proxied any;
-    gzip_types application/json;
-
-    location / {
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_set_header Host $http_host;
-        proxy_set_header X-Forwarded-Proto $scheme;
-        proxy_pass http://127.0.0.1:1234;
-    }
-}
-&lt;/code&gt;&lt;/pre&gt;
+    &lt;span style=&#34;color: #f92672&#34;&gt;location&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;/&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;{&lt;/span&gt;
+        &lt;span style=&#34;color: #f92672&#34;&gt;proxy_set_header&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;X-Forwarded-For&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;$proxy_add_x_forwarded_for;&lt;/span&gt;
+        &lt;span style=&#34;color: #f92672&#34;&gt;proxy_set_header&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;Host&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;$http_host;&lt;/span&gt;
+        &lt;span style=&#34;color: #f92672&#34;&gt;proxy_set_header&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;X-Forwarded-Proto&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;$scheme;&lt;/span&gt;
+        &lt;span style=&#34;color: #f92672&#34;&gt;proxy_pass&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;http://127.0.0.1:1234&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;;&lt;/span&gt;
+    &lt;span style=&#34;color: #f8f8f2&#34;&gt;}&lt;/span&gt;
+&lt;span style=&#34;color: #f8f8f2&#34;&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;You can check out the full test report over at &lt;a href=&#34;https://www.ssllabs.com/ssltest/analyze.html?d=sigterm.sh&#34;&gt;SSL Labs&lt;/a&gt;.&lt;/p&gt;</description>
     </item>
@@ -523,17 +496,15 @@ server {
 &lt;h4 id=&#34;packages&#34;&gt;Packages&lt;/h4&gt;
 
 &lt;p&gt;Let&amp;rsquo;s start with some useful packages (install on alice and bob):&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;alice $ apt-get install ntp vim
-&lt;/code&gt;&lt;/pre&gt;
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;alice $ apt-get install ntp vim
+&lt;/pre&gt;&lt;/div&gt;
 
 &lt;h4 id=&#34;networking&#34;&gt;Networking&lt;/h4&gt;
 
 &lt;p&gt;Tweak to suit your environment, of course.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;alice $ cat /etc/network/interfaces
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;alice $ cat /etc/network/interfaces
 # This file describes the network interfaces available on your system
-# and how to activate them. For more information, see interfaces(5).
+# and how to activate them. For more information, see interfaces&lt;span style=&#34;color: #f92672&#34;&gt;(&lt;/span&gt;5&lt;span style=&#34;color: #f92672&#34;&gt;)&lt;/span&gt;.
 
 # The loopback network interface
 auto lo
@@ -545,32 +516,29 @@ iface eth0 inet static
     address 192.168.1.201
     netmask 255.255.255.0
     gateway 192.168.1.1
-&lt;/code&gt;&lt;/pre&gt;
+&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;The config will be the same on bob, apart from the IP, which will be 192.168.1.202&lt;/p&gt;
 
 &lt;h4 id=&#34;hostname&#34;&gt;Hostname&lt;/h4&gt;
 
 &lt;p&gt;This is pretty important, since pretty much everything relies on the servers hostnames.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;alice $ hostname alice.local
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;alice $ hostname alice.local
 alice $ echo alice.local &amp;gt; /etc/hostname
 bob $ hostname bob.local
 bob $ echo bob.local &amp;gt; /etc/hostname
-&lt;/code&gt;&lt;/pre&gt;
+&lt;/pre&gt;&lt;/div&gt;
 
 &lt;h4 id=&#34;install-and-configure-drbd&#34;&gt;Install and Configure DRBD&lt;/h4&gt;
 
 &lt;p&gt;DRBD will be used to constantly sync all data from the primary to the slave, whichever servers they may be at that point in time.&lt;/p&gt;
 
 &lt;p&gt;Install DRBD8 utils on alice and bob:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;alice $ apt-get install drbd8-utils
-&lt;/code&gt;&lt;/pre&gt;
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;alice $ apt-get install drbd8-utils
+&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;Drop in the configs on alice and bob. First /etc/drbd.d/global_common.conf&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;global {
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;global {
     usage-count yes;
 }
 
@@ -598,11 +566,10 @@ common {
         rate 10M;
     }
 }
-&lt;/code&gt;&lt;/pre&gt;
+&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;and your DRBD resource config in /etc/drbd.d/r0.res&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;resource r0 {
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;resource r0 {
     net {
         shared-secret &amp;quot;s3kr1t&amp;quot;;
     }
@@ -621,11 +588,10 @@ common {
         meta-disk internal;
     }
 }
-&lt;/code&gt;&lt;/pre&gt;
+&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;Let&amp;rsquo;s get DRBD started so the initial sync can get going.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;# Create metadata on alice
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;# Create metadata on alice
 alice $ drbdadm create-md r0
 
 # Start DRBD on both nodes
@@ -636,94 +602,83 @@ bob $ /etc/init.d/drbd start
 alice $ drbdadm -- --overwrite-data-of-peer primary r0
 alice $ drbdadm disconnect r0
 alice $ drbdadm connect r0
-&lt;/code&gt;&lt;/pre&gt;
+&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;You can check the sync status with this command:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;alice $ cat /proc/drbd
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;alice $ cat /proc/drbd
 version: 8.3.10 (api:88/proto:86-96)
 built-in
  0: cs:SyncSource ro:Primary/Secondary ds:UpToDate/Inconsistent C r-----
     ns:3116484 nr:0 dw:0 dr:3593516 al:0 bm:219 lo:0 pe:2 ua:1 ap:0 ep:1 wo:f oos:1649980
-    [============&amp;gt;.......] sync&#39;ed: 65.5% (1608/4652) finish: 0:05:08 speed: 5,328 (5,056) K/sec
-&lt;/code&gt;&lt;/pre&gt;
+    [============&amp;gt;.......] sync&amp;#39;ed: 65.5% (1608/4652) finish: 0:05:08 speed: 5,328 (5,056) K/sec
+&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;You can now format the DRBD disk using any filesystem you prefer, here I&amp;rsquo;m using EXT4&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;alice $ mkfs.ext4 /dev/drbd0
-&lt;/code&gt;&lt;/pre&gt;
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;alice $ mkfs.ext4 /dev/drbd0
+&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;Add the DRBD disk to /etc/fstab on alice and bob&lt;/p&gt;
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;alice $ vi /etc/fstab
 
-&lt;pre&gt;&lt;code&gt;alice $ vi /etc/fstab
-
-# Add a line like this - substitute for your preferred fs and settings
+# Add a line like this - substitute &lt;span style=&#34;color: #66d9ef&#34;&gt;for&lt;/span&gt; your preferred fs and settings
 /dev/drbd0      /data           ext4    defaults        0 0
-&lt;/code&gt;&lt;/pre&gt;
+&lt;/pre&gt;&lt;/div&gt;
 
 &lt;h4 id=&#34;install-and-configure-nfs&#34;&gt;Install and Configure NFS&lt;/h4&gt;
 
 &lt;p&gt;NFS will be used to serve our highly available data.&lt;/p&gt;
 
 &lt;p&gt;Let&amp;rsquo;s start with installing some packages on alice and bob&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;alice $ apt-get install nfs-kernel-server
-&lt;/code&gt;&lt;/pre&gt;
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;alice $ apt-get install nfs-kernel-server
+&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;Now tell the new dependency based booting not to start NFS automatically.  NFS will be started automatically by heartbeat later on.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;alice $ insserv --remove nfs-common
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;alice $ insserv --remove nfs-common
 alice $ insserv --remove nfs-kernel-server
-&lt;/code&gt;&lt;/pre&gt;
+&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;Setup our exports on alice and bob&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;alice $ vi /etc/exports
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;alice $ vi /etc/exports
 
 # Add a line similar to this, change to suit your network and requirements
 /data   192.168.1.0/255.255.255.0(rw,no_root_squash,no_all_squash,sync)
-&lt;/code&gt;&lt;/pre&gt;
+&lt;/pre&gt;&lt;/div&gt;
 
 &lt;h4 id=&#34;install-and-configure-heartbeat&#34;&gt;Install and Configure heartbeat&lt;/h4&gt;
 
 &lt;p&gt;We&amp;rsquo;ll use heartbeat to syncronize the cluster, handle fencing and to promote the slave to the master.&lt;/p&gt;
 
 &lt;p&gt;Install heartbeat on alice and bob&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;alice $ apt-get install heartbeat
-&lt;/code&gt;&lt;/pre&gt;
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;alice $ apt-get install heartbeat
+&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;Drop in the configs on alice and bob as below.  You&amp;rsquo;ll need 3 files in total.&lt;/p&gt;
 
 &lt;p&gt;/etc/heartbeat/ha.cf&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;logfacility     local0
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;logfacility     local0
 keepalive 2
 deadtime 10
 bcast   eth0
 auto_failback off
 node alice bob
-&lt;/code&gt;&lt;/pre&gt;
+&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;/etc/heartbeat/haresources&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;alice  IPaddr::192.168.1.200/24/eth0 drbddisk::r0 Filesystem::/dev/drbd0::/data::ext4 nfs-kernel-server
-&lt;/code&gt;&lt;/pre&gt;
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;alice  IPaddr::192.168.1.200/24/eth0 drbddisk::r0 Filesystem::/dev/drbd0::/data::ext4 nfs-kernel-server
+&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;&lt;em&gt;Note:&lt;/em&gt; this line starts with &lt;em&gt;alice&lt;/em&gt; on both nodes - this is the &amp;ldquo;preferred primary&amp;rdquo;.&lt;/p&gt;
 
 &lt;p&gt;/etc/heartbeat/authkeys&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;auth 3
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;auth 3
 3 md5 s3kr1t
-&lt;/code&gt;&lt;/pre&gt;
+&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;&lt;em&gt;Note:&lt;/em&gt; set a good password, especially if you deploy this in a public cloud!&lt;/p&gt;
 
 &lt;p&gt;Finally, start up heartbeat:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;alice $ /etc/init.d/heartbeat start
-&lt;/code&gt;&lt;/pre&gt;
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;alice $ /etc/init.d/heartbeat start
+&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;If you run &lt;em&gt;ifconfig&lt;/em&gt; on alice, you should see that it now has the floating IP. You&amp;rsquo;ll also notice the NFS is running, and /data is mounted.&lt;/p&gt;
 
@@ -732,9 +687,8 @@ node alice bob
 &lt;p&gt;This is the best part.  Let&amp;rsquo;s kill the primary server and make sure the slave takes over seamlessly.&lt;/p&gt;
 
 &lt;p&gt;The simplest way to simulate a failure is to stop heartbeat on whichever server is currently the primary.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;alice $ /etc/init.d/heartbeat stop
-&lt;/code&gt;&lt;/pre&gt;
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;alice $ /etc/init.d/heartbeat stop
+&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;Within a few seconds, you should see all services move over to bob, including the floating IP, NFS, and the /data mount.  A quick check of &lt;em&gt;cat /proc/drbd&lt;/em&gt; should also show bob set to Primary.&lt;/p&gt;
 
@@ -773,41 +727,55 @@ node alice bob
 
 &lt;h4 id=&#34;where-you-can-find-me&#34;&gt;Where you can find me&lt;/h4&gt;
 
-&lt;table class=&#34;table condensed-table&#34;&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;th&gt;E-mail&lt;/th&gt;
-      &lt;td&gt;greg at sigterm dot sh&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;th&gt;IRC&lt;/th&gt;
-      &lt;td&gt;wiqd on networks &lt;a href=&#34;http://freenode.net/&#34;&gt;Freenode&lt;/a&gt;, &lt;a href=&#34;http://shadowfire.org/&#34;&gt;ShadowFire&lt;/a&gt; and &lt;a href=&#34;http://www.oftc.net/oftc/&#34;&gt;OFTC&lt;/a&gt;&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;th&gt;LinkedIn&lt;/th&gt;
-      &lt;td&gt;&lt;a href=&#34;http://www.linkedin.com/in/gregarmer&#34;&gt;http://www.linkedin.com/in/gregarmer&lt;/a&gt;&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;th&gt;Twitter&lt;/th&gt;
-      &lt;td&gt;&lt;a href=&#34;https://twitter.com/#!/gregarmer&#34;&gt;https://twitter.com/#!/gregarmer&lt;/a&gt;&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;th&gt;Github&lt;/th&gt;
-      &lt;td&gt;&lt;a href=&#34;https://github.com/gregarmer&#34;&gt;https://github.com/gregarmer&lt;/a&gt;&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;th&gt;Launchpad&lt;/th&gt;
-      &lt;td&gt;&lt;a href=&#34;http://launchpad.net/~wiqd&#34;&gt;http://launchpad.net/~wiqd&lt;/a&gt;&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;th&gt;OpenPGP keys&lt;/th&gt;
-      &lt;td&gt;&lt;a href=&#34;http://keyserver.ubuntu.com:11371/pks/lookup?search=0xC12DE9B4E4FA0F406B44F898A4E1B379D1C2BAC9&amp;amp;op=index&#34;&gt;D1C2BAC9&lt;/a&gt;&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;th&gt;SSH keys&lt;/th&gt;
-      &lt;td&gt;&lt;a href=&#34;https://greg.pub/&#34;&gt;greg.pub&lt;/a&gt;&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;&lt;/th&gt;
+&lt;th&gt;&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;E-mail&lt;/td&gt;
+&lt;td&gt;greg[at]sigterm dot sh&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;IRC&lt;/td&gt;
+&lt;td&gt;wiqd on networks &lt;a href=&#34;http://freenode.net/&#34;&gt;Freenode&lt;/a&gt;, &lt;a href=&#34;http://shadowfire.org/&#34;&gt;ShadowFire&lt;/a&gt; and &lt;a href=&#34;http://www.oftc.net/oftc/&#34;&gt;OFTC&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;LinkedIn&lt;/td&gt;
+&lt;td&gt;&lt;a href=&#34;http://www.linkedin.com/in/gregarmer&#34;&gt;linkedin.com/in/gregarmer&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;Twitter&lt;/td&gt;
+&lt;td&gt;&lt;a href=&#34;https://twitter.com/gregarmer&#34;&gt;twitter.com/gregarmer&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;Github&lt;/td&gt;
+&lt;td&gt;&lt;a href=&#34;https://github.com/gregarmer&#34;&gt;github.com/gregarmer&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;Launchpad&lt;/td&gt;
+&lt;td&gt;&lt;a href=&#34;http://launchpad.net/~wiqd&#34;&gt;launchpad.net/~wiqd&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;OpenPGP Keys&lt;/td&gt;
+&lt;td&gt;&lt;a href=&#34;http://keyserver.ubuntu.com:11371/pks/lookup?search=0xC12DE9B4E4FA0F406B44F898A4E1B379D1C2BAC9&amp;amp;amp;op=index&#34;&gt;D1C2BAC9&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;SSH Keys&lt;/td&gt;
+&lt;td&gt;&lt;a href=&#34;https://greg.pub/&#34;&gt;greg.pub&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
 &lt;/table&gt;
 </description>
     </item>
@@ -975,11 +943,10 @@ lG/3jHWGHgwBf6Wm7h1mHEMCAwEAAQ==
 &lt;p&gt;I recently ran into this problem and couldn&amp;rsquo;t find any useful information on the net around fixing it. All subversion checkouts, commits and other basic operations work just fine, but when attempting to copy, move or tag (copy) I would get the below (502 Bad Gateway) error.&lt;/p&gt;
 
 &lt;p&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;greg@codemine:~/code/Foo (git-svn)-[trunk] %&amp;gt; git svn tag foo-2.1.1                      
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;greg@codemine:~/code/Foo (git-svn)-[trunk] %&amp;gt; git svn tag foo-2.1.1
 Copying https://svn/projects/Foo/trunk at r18311 to https://svn/projects/Foo/tags/foo-2.1.1...
-RA layer request failed: Server sent unexpected return value (502 Bad Gateway) in response to COPY request for &#39;/projects/!svn/bc/18311/Foo/trunk&#39; at /usr/libexec/git-core/git-svn line 1123
-&lt;/code&gt;&lt;/pre&gt;
+RA layer request failed: Server sent unexpected return value (502 Bad Gateway) in response to COPY request for &amp;#39;/projects/!svn/bc/18311/Foo/trunk&amp;#39; at /usr/libexec/git-core/git-svn line 1123
+&lt;/pre&gt;&lt;/div&gt;
 
 &lt;h4 id=&#34;our-setup&#34;&gt;Our Setup&lt;/h4&gt;
 
@@ -992,25 +959,22 @@ RA layer request failed: Server sent unexpected return value (502 Bad Gateway) i
 &lt;p&gt;The actual problem is not really that obvious.&lt;/p&gt;
 
 &lt;p&gt;When you perform a remote svn operation like MOVE or COPY the actual request is translated into a WebDAV request that looks similar to this:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;COPY /svn/repos/oldname.txt HTTP/1.1
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;COPY /svn/repos/oldname.txt HTTP/1.1
 Host: svn.example.org
 Destination: https://svn.example.org/svn/repos/newname.txt
-&lt;/code&gt;&lt;/pre&gt;
+&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;Apache, the webserver, translates the above request to:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;COPY https://svn.example.org/svn/repos/oldname.txt https://svn.example.org/svn/repos/newname.txt
-&lt;/code&gt;&lt;/pre&gt;
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;COPY https://svn.example.org/svn/repos/oldname.txt https://svn.example.org/svn/repos/newname.txt
+&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;It uses the Host parameter &lt;em&gt;svn.example.org&lt;/em&gt; and the first request line &lt;code&gt;COPY
 /svn/repos/oldname.txt HTTP/1.1&lt;/code&gt; to assemble the source URL,
 &lt;code&gt;https://svn.example.org/svn/repos/oldname.txt&lt;/code&gt;.&lt;/p&gt;
 
 &lt;p&gt;However, since requests are being reverse proxied through nginx, the source URL is changed from https:// to http:// as Apache listens on port 80 (HTTP). This results in a COPY operation that looks like this:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;COPY http://svn.example.org/svn/repos/oldname.txt https://svn.example.org/svn/repos/newname.txt
-&lt;/code&gt;&lt;/pre&gt;
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;COPY http://svn.example.org/svn/repos/oldname.txt https://svn.example.org/svn/repos/newname.txt
+&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;&lt;em&gt;Note the http:// instead of https://&lt;/em&gt;&lt;/p&gt;
 
@@ -1021,71 +985,68 @@ Destination: https://svn.example.org/svn/repos/newname.txt
 &lt;h4 id=&#34;the-solution&#34;&gt;The Solution&lt;/h4&gt;
 
 &lt;p&gt;The solution to this problem is getting nginx to change the Destination header in the same way it changes the Host header. Apache can then handle the COPY or MOVE operation correctly. This is done by adding the following to your nginx configuration:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;set $fixed_destination $http_destination;  
-if ( $http_destination ~* ^https(.*)$ ) {  
-    set $fixed_destination http$1;  
-}  
-proxy_set_header Destination $fixed_destination;  
-&lt;/code&gt;&lt;/pre&gt;
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span style=&#34;color: #66d9ef&#34;&gt;set&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;$fixed_destination&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;$http_destination;&lt;/span&gt;
+&lt;span style=&#34;color: #66d9ef&#34;&gt;if&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;(&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;$http_destination&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;~&lt;/span&gt;&lt;span style=&#34;color: #e6db74&#34;&gt;*&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;^https(.*)&lt;/span&gt;$ &lt;span style=&#34;color: #e6db74&#34;&gt;)&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;{&lt;/span&gt;
+    &lt;span style=&#34;color: #f92672&#34;&gt;set&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;$fixed_destination&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;http&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;$1;&lt;/span&gt;
+&lt;span style=&#34;color: #f8f8f2&#34;&gt;}&lt;/span&gt;
+&lt;span style=&#34;color: #66d9ef&#34;&gt;proxy_set_header&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;Destination&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;$fixed_destination;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
 
 &lt;h4 id=&#34;complete-configs&#34;&gt;Complete Configs&lt;/h4&gt;
 
 &lt;p&gt;For reference purposes I&amp;rsquo;ve included the complete configs below.&lt;/p&gt;
 
 &lt;p&gt;&lt;em&gt;/etc/nginx/sites-available/svn.example.org&lt;/em&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span style=&#34;color: #66d9ef&#34;&gt;server&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;{&lt;/span&gt;
+    &lt;span style=&#34;color: #f92672&#34;&gt;listen&lt;/span&gt; &lt;span style=&#34;color: #ae81ff&#34;&gt;80&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;;&lt;/span&gt;
+    &lt;span style=&#34;color: #f92672&#34;&gt;server_name&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;svn.example.org&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;;&lt;/span&gt;
+    &lt;span style=&#34;color: #f92672&#34;&gt;rewrite&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;^(.*)&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;https://svn.example.org&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;$1&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;permanent&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;;&lt;/span&gt;
+&lt;span style=&#34;color: #f8f8f2&#34;&gt;}&lt;/span&gt;
 
-&lt;pre&gt;&lt;code&gt;server {
-    listen 80;
-    server_name svn.example.org;
-    rewrite ^(.*) https://svn.example.org$1 permanent;
-}
+&lt;span style=&#34;color: #66d9ef&#34;&gt;server&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;{&lt;/span&gt;
+    &lt;span style=&#34;color: #f92672&#34;&gt;listen&lt;/span&gt; &lt;span style=&#34;color: #ae81ff&#34;&gt;443&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;;&lt;/span&gt;
+    &lt;span style=&#34;color: #f92672&#34;&gt;server_name&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;svn.example.org&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;;&lt;/span&gt;
 
-server {
-    listen 443;
-    server_name svn.example.org;
+    &lt;span style=&#34;color: #f92672&#34;&gt;ssl&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;on&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;;&lt;/span&gt;
+    &lt;span style=&#34;color: #f92672&#34;&gt;ssl_certificate&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;/etc/nginx/conf.d/svn.example.org.crt&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;;&lt;/span&gt;
+    &lt;span style=&#34;color: #f92672&#34;&gt;ssl_certificate_key&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;/etc/nginx/conf.d/svn.example.org.key&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;;&lt;/span&gt;
+    &lt;span style=&#34;color: #f92672&#34;&gt;ssl_verify_depth&lt;/span&gt; &lt;span style=&#34;color: #ae81ff&#34;&gt;3&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;;&lt;/span&gt;
 
-    ssl on;
-    ssl_certificate /etc/nginx/conf.d/svn.example.org.crt;
-    ssl_certificate_key /etc/nginx/conf.d/svn.example.org.key;
-    ssl_verify_depth 3;
+    &lt;span style=&#34;color: #f92672&#34;&gt;client_max_body_size&lt;/span&gt; &lt;span style=&#34;color: #ae81ff&#34;&gt;100m&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;;&lt;/span&gt;
+    &lt;span style=&#34;color: #f92672&#34;&gt;access_log&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;/var/log/nginx/svn.example.org-access.log&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;;&lt;/span&gt;
 
-    client_max_body_size 100m;
-    access_log /var/log/nginx/svn.example.org-access.log;
+    &lt;span style=&#34;color: #f92672&#34;&gt;location&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;/&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;{&lt;/span&gt;
+        &lt;span style=&#34;color: #f92672&#34;&gt;set&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;$fixed_destination&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;$http_destination;&lt;/span&gt;
+        &lt;span style=&#34;color: #f92672&#34;&gt;if&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;(&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;$http_destination&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;~&lt;/span&gt;&lt;span style=&#34;color: #e6db74&#34;&gt;*&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;^https(.*)&lt;/span&gt;$ &lt;span style=&#34;color: #e6db74&#34;&gt;)&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;{&lt;/span&gt;
+            &lt;span style=&#34;color: #f92672&#34;&gt;set&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;$fixed_destination&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;http&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;$1;&lt;/span&gt;
+        &lt;span style=&#34;color: #f8f8f2&#34;&gt;}&lt;/span&gt;
+        &lt;span style=&#34;color: #f92672&#34;&gt;proxy_set_header&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;Destination&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;$fixed_destination;&lt;/span&gt;
+        &lt;span style=&#34;color: #f92672&#34;&gt;proxy_set_header&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;Host&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;$http_host;&lt;/span&gt;
 
-    location / {
-        set $fixed_destination $http_destination;
-        if ( $http_destination ~* ^https(.*)$ ) {
-            set $fixed_destination http$1;
-        }
-        proxy_set_header Destination $fixed_destination;
-        proxy_set_header Host $http_host;
-
-        proxy_pass http://localhost:9080;
-        proxy_connect_timeout 75;
-        proxy_read_timeout 300;
-        proxy_send_timeout 300;
-    }
-}
-&lt;/code&gt;&lt;/pre&gt;
+        &lt;span style=&#34;color: #f92672&#34;&gt;proxy_pass&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;http://localhost:9080&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;;&lt;/span&gt;
+        &lt;span style=&#34;color: #f92672&#34;&gt;proxy_connect_timeout&lt;/span&gt; &lt;span style=&#34;color: #ae81ff&#34;&gt;75&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;;&lt;/span&gt;
+        &lt;span style=&#34;color: #f92672&#34;&gt;proxy_read_timeout&lt;/span&gt; &lt;span style=&#34;color: #ae81ff&#34;&gt;300&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;;&lt;/span&gt;
+        &lt;span style=&#34;color: #f92672&#34;&gt;proxy_send_timeout&lt;/span&gt; &lt;span style=&#34;color: #ae81ff&#34;&gt;300&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;;&lt;/span&gt;
+    &lt;span style=&#34;color: #f8f8f2&#34;&gt;}&lt;/span&gt;
+&lt;span style=&#34;color: #f8f8f2&#34;&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;&lt;em&gt;/etc/apache2/sites-available/svn.example.org&lt;/em&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;&amp;lt;VirtualHost *:9080&amp;gt;
-    ServerName svn.example.org
-    ErrorLog /var/log/apache2/svn.example.org-error.log
-    &amp;lt;Location /&amp;gt;
-        DAV svn
-        DAVMinTimeout 0
-        SVNParentPath /home/svn
-        AuthType Basic
-        AuthName &amp;quot;Subversion Repos&amp;quot;
-        AuthUserFile /home/svn/.htpasswd
-        AuthzSVNAccessFile /home/svn/conf/authz
-        Require valid-user
-    &amp;lt;/Location&amp;gt;
-&amp;lt;/VirtualHost&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;</description>
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;&amp;lt;VirtualHost&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;*:9080&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;&amp;gt;&lt;/span&gt;
+    &lt;span style=&#34;color: #f8f8f2&#34;&gt;ServerName&lt;/span&gt; svn.example.org
+    &lt;span style=&#34;color: #f8f8f2&#34;&gt;ErrorLog&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;/var/log/apache2/svn.example.org-error.log&lt;/span&gt;
+    &lt;span style=&#34;color: #f92672&#34;&gt;&amp;lt;Location&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;&amp;gt;&lt;/span&gt;
+        &lt;span style=&#34;color: #f8f8f2&#34;&gt;DAV&lt;/span&gt; svn
+        &lt;span style=&#34;color: #f8f8f2&#34;&gt;DAVMinTimeout&lt;/span&gt; &lt;span style=&#34;color: #ae81ff&#34;&gt;0&lt;/span&gt;
+        &lt;span style=&#34;color: #f8f8f2&#34;&gt;SVNParentPath&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;/home/svn&lt;/span&gt;
+        &lt;span style=&#34;color: #f8f8f2&#34;&gt;AuthType&lt;/span&gt; Basic
+        &lt;span style=&#34;color: #f8f8f2&#34;&gt;AuthName&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;Subversion Repos&amp;quot;&lt;/span&gt;
+        &lt;span style=&#34;color: #f8f8f2&#34;&gt;AuthUserFile&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;/home/svn/.htpasswd&lt;/span&gt;
+        &lt;span style=&#34;color: #f8f8f2&#34;&gt;AuthzSVNAccessFile&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;/home/svn/conf/authz&lt;/span&gt;
+        &lt;span style=&#34;color: #f8f8f2&#34;&gt;Require&lt;/span&gt; valid-user
+    &lt;span style=&#34;color: #f92672&#34;&gt;&amp;lt;/Location&amp;gt;&lt;/span&gt;
+&lt;span style=&#34;color: #f92672&#34;&gt;&amp;lt;/VirtualHost&amp;gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;</description>
     </item>
     
     <item>
@@ -1157,57 +1118,55 @@ deny 208.96.18.11;                    // Have some HTTP 403
 &lt;p&gt;&lt;/p&gt;
 
 &lt;p&gt;So you have a basic Python script that you&amp;rsquo;d like to run as a background process, for whatever reason; perhaps it&amp;rsquo;s a network service that waits for incoming connections, or you want to watch a log file for something. As an example, let&amp;rsquo;s say it looks something like this:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;time&lt;/span&gt;
+&lt;span style=&#34;color: #f92672&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;sys&lt;/span&gt;
 
-&lt;pre&gt;&lt;code&gt;import time
-import sys
+&lt;span style=&#34;color: #66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color: #a6e22e&#34;&gt;do_something&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;():&lt;/span&gt;
+    &lt;span style=&#34;color: #75715e&#34;&gt;# Do something for 10 seconds, then exit nicely.&lt;/span&gt;
+    &lt;span style=&#34;color: #f8f8f2&#34;&gt;time&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;sleep(&lt;/span&gt;&lt;span style=&#34;color: #ae81ff&#34;&gt;10&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;)&lt;/span&gt;
+    &lt;span style=&#34;color: #66d9ef&#34;&gt;print&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;Done.&amp;quot;&lt;/span&gt;
+    &lt;span style=&#34;color: #f8f8f2&#34;&gt;sys&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;exit(&lt;/span&gt;&lt;span style=&#34;color: #ae81ff&#34;&gt;0&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;)&lt;/span&gt;
 
-def do_something():
-    # Do something for 10 seconds, then exit nicely.
-    time.sleep(10)
-    print &amp;quot;Done.&amp;quot;
-    sys.exit(0)
-
-if __name__ == &amp;quot;__main__&amp;quot;:
-    do_something()
-&lt;/code&gt;&lt;/pre&gt;
+&lt;span style=&#34;color: #66d9ef&#34;&gt;if&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;__name__&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;__main__&amp;quot;&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;:&lt;/span&gt;
+    &lt;span style=&#34;color: #f8f8f2&#34;&gt;do_something()&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;So one method of running it in the background is to &lt;a href=&#34;http://en.wikipedia.org/wiki/Fork_(operating_system)&#34;&gt;fork&lt;/a&gt; it. The term &lt;em&gt;fork&lt;/em&gt; means that we want to launch a child &lt;a href=&#34;http://en.wikipedia.org/wiki/Process_(computing)&#34;&gt;process&lt;/a&gt; from this process (the parent process) and then disown that child process and exit cleanly. The child process will then continue running in the background until it completes whatever it has to do, or until it is shutdown or killed, in the case of a long
 running process.&lt;/p&gt;
 
 &lt;p&gt;In order to accomplish this we need something that looks like the following:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;time&lt;/span&gt;
+&lt;span style=&#34;color: #f92672&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;sys&lt;/span&gt;
+&lt;span style=&#34;color: #f92672&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;os&lt;/span&gt;
 
-&lt;pre&gt;&lt;code&gt;import time
-import sys
-import os
+&lt;span style=&#34;color: #66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color: #a6e22e&#34;&gt;do_something&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;():&lt;/span&gt;
+    &lt;span style=&#34;color: #75715e&#34;&gt;# Do something for 10 seconds, then exist cleanly.&lt;/span&gt;
+    &lt;span style=&#34;color: #f8f8f2&#34;&gt;time&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;sleep(&lt;/span&gt;&lt;span style=&#34;color: #ae81ff&#34;&gt;10&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;)&lt;/span&gt;
+    &lt;span style=&#34;color: #66d9ef&#34;&gt;print&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;kbye&amp;quot;&lt;/span&gt;
+    &lt;span style=&#34;color: #f8f8f2&#34;&gt;sys&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;exit(&lt;/span&gt;&lt;span style=&#34;color: #ae81ff&#34;&gt;0&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;)&lt;/span&gt;
 
-def do_something():
-    # Do something for 10 seconds, then exist cleanly.
-    time.sleep(10)
-    print &amp;quot;kbye&amp;quot;
-    sys.exit(0)
+&lt;span style=&#34;color: #66d9ef&#34;&gt;if&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;__name__&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;__main__&amp;quot;&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;:&lt;/span&gt;
+    &lt;span style=&#34;color: #66d9ef&#34;&gt;print&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;Hello and welcome to a Python forking example. I&amp;#39;ll now fork a &amp;quot;&lt;/span&gt;
+           &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;backgrounded child process and then exit, leaving it to run all by &amp;quot;&lt;/span&gt;
+           &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;itself. Watch for the &amp;#39;Done&amp;#39; in 10 seconds...&amp;quot;&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;)&lt;/span&gt;
 
-if __name__ == &amp;quot;__main__&amp;quot;:
-    print (&amp;quot;Hello and welcome to a Python forking example. I&#39;ll now fork a &amp;quot;
-           &amp;quot;backgrounded child process and then exit, leaving it to run all by &amp;quot;
-           &amp;quot;itself. Watch for the &#39;Done&#39; in 10 seconds...&amp;quot;)
+    &lt;span style=&#34;color: #66d9ef&#34;&gt;try&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;:&lt;/span&gt;
+        &lt;span style=&#34;color: #f8f8f2&#34;&gt;pid&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;os&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;fork()&lt;/span&gt;
+        &lt;span style=&#34;color: #66d9ef&#34;&gt;if&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;pid&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span style=&#34;color: #ae81ff&#34;&gt;0&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;:&lt;/span&gt;
+            &lt;span style=&#34;color: #75715e&#34;&gt;# Exit parent process&lt;/span&gt;
+            &lt;span style=&#34;color: #f8f8f2&#34;&gt;sys&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;exit(&lt;/span&gt;&lt;span style=&#34;color: #ae81ff&#34;&gt;0&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;)&lt;/span&gt;
+    &lt;span style=&#34;color: #66d9ef&#34;&gt;except&lt;/span&gt; &lt;span style=&#34;color: #a6e22e&#34;&gt;OSError&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;e:&lt;/span&gt;
+        &lt;span style=&#34;color: #66d9ef&#34;&gt;print&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;sys&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;stderr,&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;fork failed: %d (%s)&amp;quot;&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;%&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;(e&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;errno,&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;e&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;strerror)&lt;/span&gt;
+        &lt;span style=&#34;color: #f8f8f2&#34;&gt;sys&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;exit(&lt;/span&gt;&lt;span style=&#34;color: #ae81ff&#34;&gt;1&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;)&lt;/span&gt;
 
-    try:
-        pid = os.fork()
-        if pid &amp;gt; 0:
-            # Exit parent process
-            sys.exit(0)
-    except OSError, e:
-        print &amp;gt;&amp;gt; sys.stderr, &amp;quot;fork failed: %d (%s)&amp;quot; % (e.errno, e.strerror)
-        sys.exit(1)
+    &lt;span style=&#34;color: #75715e&#34;&gt;# Configure the child processes environment&lt;/span&gt;
+    &lt;span style=&#34;color: #f8f8f2&#34;&gt;os&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;chdir(&lt;/span&gt;&lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;/&amp;quot;&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;)&lt;/span&gt;
+    &lt;span style=&#34;color: #f8f8f2&#34;&gt;os&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;setsid()&lt;/span&gt;
+    &lt;span style=&#34;color: #f8f8f2&#34;&gt;os&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;umask(&lt;/span&gt;&lt;span style=&#34;color: #ae81ff&#34;&gt;0&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;)&lt;/span&gt;
 
-    # Configure the child processes environment
-    os.chdir(&amp;quot;/&amp;quot;)
-    os.setsid()
-    os.umask(0)
-
-    # Execute something in the background
-    do_something()
-&lt;/code&gt;&lt;/pre&gt;
+    &lt;span style=&#34;color: #75715e&#34;&gt;# Execute something in the background&lt;/span&gt;
+    &lt;span style=&#34;color: #f8f8f2&#34;&gt;do_something()&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
 
 &lt;h4 id=&#34;so-what-is-actually-going-on-here&#34;&gt;So what is actually going on here ?&lt;/h4&gt;
 
@@ -1220,10 +1179,9 @@ if __name__ == &amp;quot;__main__&amp;quot;:
 &lt;p&gt;Finally, we execute the original code, now inside a detached child process. This can run for as long as it needs, and could potentially log to a log file if you care about any stdout output.&lt;/p&gt;
 
 &lt;p&gt;There are also some better alternatives, something like this for example:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;import os
-os.spawnl(os.P_DETACH, &#39;some_log_running_command&#39;)
-&lt;/code&gt;&lt;/pre&gt;
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;os&lt;/span&gt;
+&lt;span style=&#34;color: #f8f8f2&#34;&gt;os&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;spawnl(os&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;P_DETACH,&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;#39;some_log_running_command&amp;#39;&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;&lt;strong&gt;Note:&lt;/strong&gt; &lt;code&gt;os.P_DETACH&lt;/code&gt; is win32 specific. For better portability you could use &lt;code&gt;os.P_NOWAIT&lt;/code&gt;.&lt;/p&gt;
 
@@ -1251,9 +1209,8 @@ os.spawnl(os.P_DETACH, &#39;some_log_running_command&#39;)
 &lt;p&gt;So how do we use it to serve our little Django project in a development friendly way ?&lt;/p&gt;
 
 &lt;p&gt;I&amp;rsquo;ve put together some code (some borrowed from other sources) and constructed a simple replacement command called &amp;ldquo;trunserver&amp;rdquo; (twisted-runserver). You can grab this code from &lt;a title=&#34;GitHub - trunserver&#34; href=&#34;https://github.com/gregarmer/trunserver&#34; target=&#34;_blank&#34;&gt;Github&lt;/a&gt;. Simply install it using the standard methods, and run it with:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;python manage.py trunserver [IP:PORT] [--settings=foo] [--noreload]
-&lt;/code&gt;&lt;/pre&gt;
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;python manage.py trunserver [IP:PORT] [--settings=foo] [--noreload]
+&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;So this will start up a twisted web instance serving your Django project and just like the build-in runserver, it will automatically reload your code when it notices that your files have been modified unless &amp;ndash;noreload has been passed.&lt;/p&gt;
 
@@ -1310,13 +1267,12 @@ os.spawnl(os.P_DETACH, &#39;some_log_running_command&#39;)
 &lt;p&gt;It&amp;rsquo;s somewhat ironic that on February 3, 2010 the last five /8s from the IANA IPv4 pool have been distributed to the RIRs.&lt;/p&gt;
 
 &lt;p&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;102/8   AfriNIC    2011-02    whois.afrinic.net ALLOCATED
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;102/8   AfriNIC    2011-02    whois.afrinic.net ALLOCATED
 103/8   APNIC      2011-02    whois.apnic.net   ALLOCATED
 104/8   ARIN       2011-02    whois.arin.net    ALLOCATED
 179/8   LACNIC     2011-02    whois.lacnic.net  ALLOCATED
 185/8   RIPE NCC   2011-02    whois.ripe.net    ALLOCATED
-&lt;/code&gt;&lt;/pre&gt;
+&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;During a RIPE55 meeting surrounding IPv4 exhaustion, this rephrased version of that 1971 hit was played:&lt;/p&gt;
 

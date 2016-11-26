@@ -347,19 +347,17 @@
 <p>This is a great package that I wanted installed on all <a href="http://www.debian.org">Debian</a> machines across my entire infrastructure. Thanks to Puppet, this is a breeze.</p>
 
 <h4 id="module-layout">Module layout</h4>
-
-<pre><code>greg@codemine:~/code/puppet %&gt; find modules/debsecan
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span>greg@codemine:~/code/puppet %&gt; find modules/debsecan
 modules/debsecan
 modules/debsecan/files
 modules/debsecan/files/debsecan
 modules/debsecan/files/debsecan-cron
 modules/debsecan/manifests
 modules/debsecan/manifests/init.pp
-</code></pre>
+</pre></div>
 
 <h4 id="manifest-init-pp">Manifest - init.pp</h4>
-
-<pre><code>greg@codemine:~/code/puppet %&gt; cat modules/debsecan/manifests/init.pp
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span>greg@codemine:~/code/puppet %&gt; cat modules/debsecan/manifests/init.pp
 class debsecan {
     package { debsecan: ensure =&gt; latest }
 
@@ -380,42 +378,40 @@ class debsecan {
             require =&gt; Package[&quot;debsecan&quot;];
     }
 }
-</code></pre>
+</pre></div>
 
 <p>There is really not much to this manifest. It essentially ensures debsecan is installed at the latest available version, it sets up my /etc/default/debsecan config and it ensures there is a cron entry to run it.</p>
 
 <h4 id="debsecan-config">Debsecan config</h4>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span>greg@codemine:~/code/puppet %&gt; cat modules/debsecan/files/debsecan
+# Configuration file <span style="color: #66d9ef">for</span> debsecan.  Contents of this file should
+# adhere to the <span style="color: #f8f8f2">KEY</span><span style="color: #f92672">=</span>VALUE shell syntax.  This file may be edited by
+# debsecan<span style="color: #960050; background-color: #1e0010">&#39;</span>s scripts, but your modifications are preserved.
 
-<pre><code>greg@codemine:~/code/puppet %&gt; cat modules/debsecan/files/debsecan     
-# Configuration file for debsecan.  Contents of this file should
-# adhere to the KEY=VALUE shell syntax.  This file may be edited by
-# debsecan's scripts, but your modifications are preserved.
-
-# If true, enable daily reports, sent by email.
+# If true, <span style="color: #f8f8f2">enable</span> daily reports, sent by email.
 REPORT=true
 
 # For better reporting, specify the correct suite here, using the code
-# name (that is, &quot;sid&quot; instead of &quot;unstable&quot;).
+# name <span style="color: #f92672">(</span>that is, <span style="color: #e6db74">&quot;sid&quot;</span> instead of <span style="color: #e6db74">&quot;unstable&quot;</span><span style="color: #f92672">)</span>.
 SUITE=lenny
 
 # Mail address to which reports are sent.
 MAILTO=root
 
-# The URL from which vulnerability data is downloaded.  Empty for the
+# The URL from which vulnerability data is downloaded.  Empty <span style="color: #66d9ef">for</span> the
 # built-in default.
 SOURCE=
-</code></pre>
+</pre></div>
 
 <h4 id="debsecan-cron">Debsecan cron</h4>
-
-<pre><code>greg@codemine:~/code/puppet %&gt; cat modules/debsecan/files/debsecan-cron
-# cron entry for debsecan
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span>greg@codemine:~/code/puppet %&gt; cat modules/debsecan/files/debsecan-cron
+# cron entry <span style="color: #66d9ef">for</span> debsecan
 MAILTO=root
 
 42 * * * * daemon test -x /usr/bin/debsecan &amp;&amp; /usr/bin/debsecan --cron
-# (Note: debsecan delays actual processing past 2:00 AM, and runs only
-# once per day.)
-</code></pre>
+# <span style="color: #f92672">(</span>Note: debsecan delays actual processing past 2:00 AM, and runs only
+# once per day.<span style="color: #f92672">)</span>
+</pre></div>
 
 <p>You can grab a copy of all the above files (the complete module) here: <a href='http://code.geek.sh/wp-content/uploads/2010/12/debsecan-puppet.tar.gz'>debsecan-puppet.tar.gz</a></p>
             </div>
@@ -976,6 +972,16 @@ MAILTO=root
   </div>
 </footer>
 
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-11073510-1', 'auto');
+ga('send', 'pageview');
+</script>
 
 <script src="https://sigterm.sh/fancybox/jquery.fancybox.pack.js"></script>
 <script src="https://sigterm.sh/js/script.js"></script>

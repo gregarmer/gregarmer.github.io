@@ -20,29 +20,27 @@
 &lt;p&gt;&lt;/p&gt;
 
 &lt;p&gt;First off, find the appropriate manpath.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;greg@codemine:~ %&amp;gt; cat /etc/manpaths
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;greg@codemine:~ %&amp;gt; cat /etc/manpaths
 /usr/share/man
 /usr/local/share/man
-&lt;/code&gt;&lt;/pre&gt;
+&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;/usr/local/share/man looks good&amp;hellip;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;greg@codemine:~ %&amp;gt; VER=`git --version | awk &#39;{print $3}&#39;`
-greg@codemine:~ %&amp;gt; curl -O http://www.kernel.org/pub/software/scm/git/git-manpages-$VER.tar.bz2                              
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;greg@codemine:~ %&amp;gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;VER&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color: #e6db74&#34;&gt;`&lt;/span&gt;git --version &lt;span style=&#34;color: #f8f8f2&#34;&gt;|&lt;/span&gt; awk &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;#39;{print $3}&amp;#39;`&lt;/span&gt;
+greg@codemine:~ %&amp;gt; curl -O http://www.kernel.org/pub/software/scm/git/git-manpages-&lt;span style=&#34;color: #f8f8f2&#34;&gt;$VER&lt;/span&gt;.tar.bz2
   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
                                  Dload  Upload   Total   Spent    Left  Speed
 100  242k  100  242k    0     0  92051      0  0:00:02  0:00:02 --:--:--   99k
-greg@codemine:~ %&amp;gt; sudo tar xjv -C /usr/local/share/man -f git-manpages-$VER.tar.bz2   
+greg@codemine:~ %&amp;gt; sudo tar xjv -C /usr/local/share/man -f git-manpages-&lt;span style=&#34;color: #f8f8f2&#34;&gt;$VER&lt;/span&gt;.tar.bz2
 Password:
 x ./
 x ./man1/
 x ./man1/git-add.1
 [snip]
 x ./man7/gitworkflows.7
-greg@codemine:~ %&amp;gt; rm git-manpages-$VER.tar.bz2    
+greg@codemine:~ %&amp;gt; rm git-manpages-&lt;span style=&#34;color: #f8f8f2&#34;&gt;$VER&lt;/span&gt;.tar.bz2
 greg@codemine:~ %&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
+&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;&amp;ldquo;man git-add&amp;rdquo; should now work fine.&lt;/p&gt;</description>
     </item>

@@ -382,17 +382,15 @@ I was using GlusterFS up until recently, but I&rsquo;m not happy with file corru
 <h4 id="packages">Packages</h4>
 
 <p>Let&rsquo;s start with some useful packages (install on alice and bob):</p>
-
-<pre><code>alice $ apt-get install ntp vim
-</code></pre>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span>alice $ apt-get install ntp vim
+</pre></div>
 
 <h4 id="networking">Networking</h4>
 
 <p>Tweak to suit your environment, of course.</p>
-
-<pre><code>alice $ cat /etc/network/interfaces
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span>alice $ cat /etc/network/interfaces
 # This file describes the network interfaces available on your system
-# and how to activate them. For more information, see interfaces(5).
+# and how to activate them. For more information, see interfaces<span style="color: #f92672">(</span>5<span style="color: #f92672">)</span>.
 
 # The loopback network interface
 auto lo
@@ -404,32 +402,29 @@ iface eth0 inet static
     address 192.168.1.201
     netmask 255.255.255.0
     gateway 192.168.1.1
-</code></pre>
+</pre></div>
 
 <p>The config will be the same on bob, apart from the IP, which will be 192.168.1.202</p>
 
 <h4 id="hostname">Hostname</h4>
 
 <p>This is pretty important, since pretty much everything relies on the servers hostnames.</p>
-
-<pre><code>alice $ hostname alice.local
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span>alice $ hostname alice.local
 alice $ echo alice.local &gt; /etc/hostname
 bob $ hostname bob.local
 bob $ echo bob.local &gt; /etc/hostname
-</code></pre>
+</pre></div>
 
 <h4 id="install-and-configure-drbd">Install and Configure DRBD</h4>
 
 <p>DRBD will be used to constantly sync all data from the primary to the slave, whichever servers they may be at that point in time.</p>
 
 <p>Install DRBD8 utils on alice and bob:</p>
-
-<pre><code>alice $ apt-get install drbd8-utils
-</code></pre>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span>alice $ apt-get install drbd8-utils
+</pre></div>
 
 <p>Drop in the configs on alice and bob. First /etc/drbd.d/global_common.conf</p>
-
-<pre><code>global {
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span>global {
     usage-count yes;
 }
 
@@ -457,11 +452,10 @@ common {
         rate 10M;
     }
 }
-</code></pre>
+</pre></div>
 
 <p>and your DRBD resource config in /etc/drbd.d/r0.res</p>
-
-<pre><code>resource r0 {
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span>resource r0 {
     net {
         shared-secret &quot;s3kr1t&quot;;
     }
@@ -480,11 +474,10 @@ common {
         meta-disk internal;
     }
 }
-</code></pre>
+</pre></div>
 
 <p>Let&rsquo;s get DRBD started so the initial sync can get going.</p>
-
-<pre><code># Create metadata on alice
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span># Create metadata on alice
 alice $ drbdadm create-md r0
 
 # Start DRBD on both nodes
@@ -495,94 +488,83 @@ bob $ /etc/init.d/drbd start
 alice $ drbdadm -- --overwrite-data-of-peer primary r0
 alice $ drbdadm disconnect r0
 alice $ drbdadm connect r0
-</code></pre>
+</pre></div>
 
 <p>You can check the sync status with this command:</p>
-
-<pre><code>alice $ cat /proc/drbd
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span>alice $ cat /proc/drbd
 version: 8.3.10 (api:88/proto:86-96)
 built-in
  0: cs:SyncSource ro:Primary/Secondary ds:UpToDate/Inconsistent C r-----
     ns:3116484 nr:0 dw:0 dr:3593516 al:0 bm:219 lo:0 pe:2 ua:1 ap:0 ep:1 wo:f oos:1649980
-    [============&gt;.......] sync'ed: 65.5% (1608/4652) finish: 0:05:08 speed: 5,328 (5,056) K/sec
-</code></pre>
+    [============&gt;.......] sync&#39;ed: 65.5% (1608/4652) finish: 0:05:08 speed: 5,328 (5,056) K/sec
+</pre></div>
 
 <p>You can now format the DRBD disk using any filesystem you prefer, here I&rsquo;m using EXT4</p>
-
-<pre><code>alice $ mkfs.ext4 /dev/drbd0
-</code></pre>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span>alice $ mkfs.ext4 /dev/drbd0
+</pre></div>
 
 <p>Add the DRBD disk to /etc/fstab on alice and bob</p>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span>alice $ vi /etc/fstab
 
-<pre><code>alice $ vi /etc/fstab
-
-# Add a line like this - substitute for your preferred fs and settings
+# Add a line like this - substitute <span style="color: #66d9ef">for</span> your preferred fs and settings
 /dev/drbd0      /data           ext4    defaults        0 0
-</code></pre>
+</pre></div>
 
 <h4 id="install-and-configure-nfs">Install and Configure NFS</h4>
 
 <p>NFS will be used to serve our highly available data.</p>
 
 <p>Let&rsquo;s start with installing some packages on alice and bob</p>
-
-<pre><code>alice $ apt-get install nfs-kernel-server
-</code></pre>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span>alice $ apt-get install nfs-kernel-server
+</pre></div>
 
 <p>Now tell the new dependency based booting not to start NFS automatically.  NFS will be started automatically by heartbeat later on.</p>
-
-<pre><code>alice $ insserv --remove nfs-common
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span>alice $ insserv --remove nfs-common
 alice $ insserv --remove nfs-kernel-server
-</code></pre>
+</pre></div>
 
 <p>Setup our exports on alice and bob</p>
-
-<pre><code>alice $ vi /etc/exports
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span>alice $ vi /etc/exports
 
 # Add a line similar to this, change to suit your network and requirements
 /data   192.168.1.0/255.255.255.0(rw,no_root_squash,no_all_squash,sync)
-</code></pre>
+</pre></div>
 
 <h4 id="install-and-configure-heartbeat">Install and Configure heartbeat</h4>
 
 <p>We&rsquo;ll use heartbeat to syncronize the cluster, handle fencing and to promote the slave to the master.</p>
 
 <p>Install heartbeat on alice and bob</p>
-
-<pre><code>alice $ apt-get install heartbeat
-</code></pre>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span>alice $ apt-get install heartbeat
+</pre></div>
 
 <p>Drop in the configs on alice and bob as below.  You&rsquo;ll need 3 files in total.</p>
 
 <p>/etc/heartbeat/ha.cf</p>
-
-<pre><code>logfacility     local0
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span>logfacility     local0
 keepalive 2
 deadtime 10
 bcast   eth0
 auto_failback off
 node alice bob
-</code></pre>
+</pre></div>
 
 <p>/etc/heartbeat/haresources</p>
-
-<pre><code>alice  IPaddr::192.168.1.200/24/eth0 drbddisk::r0 Filesystem::/dev/drbd0::/data::ext4 nfs-kernel-server
-</code></pre>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span>alice  IPaddr::192.168.1.200/24/eth0 drbddisk::r0 Filesystem::/dev/drbd0::/data::ext4 nfs-kernel-server
+</pre></div>
 
 <p><em>Note:</em> this line starts with <em>alice</em> on both nodes - this is the &ldquo;preferred primary&rdquo;.</p>
 
 <p>/etc/heartbeat/authkeys</p>
-
-<pre><code>auth 3
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span>auth 3
 3 md5 s3kr1t
-</code></pre>
+</pre></div>
 
 <p><em>Note:</em> set a good password, especially if you deploy this in a public cloud!</p>
 
 <p>Finally, start up heartbeat:</p>
-
-<pre><code>alice $ /etc/init.d/heartbeat start
-</code></pre>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span>alice $ /etc/init.d/heartbeat start
+</pre></div>
 
 <p>If you run <em>ifconfig</em> on alice, you should see that it now has the floating IP. You&rsquo;ll also notice the NFS is running, and /data is mounted.</p>
 
@@ -591,9 +573,8 @@ node alice bob
 <p>This is the best part.  Let&rsquo;s kill the primary server and make sure the slave takes over seamlessly.</p>
 
 <p>The simplest way to simulate a failure is to stop heartbeat on whichever server is currently the primary.</p>
-
-<pre><code>alice $ /etc/init.d/heartbeat stop
-</code></pre>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span>alice $ /etc/init.d/heartbeat stop
+</pre></div>
 
 <p>Within a few seconds, you should see all services move over to bob, including the floating IP, NFS, and the /data mount.  A quick check of <em>cat /proc/drbd</em> should also show bob set to Primary.</p>
 
@@ -1166,6 +1147,16 @@ node alice bob
   </div>
 </footer>
 
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-11073510-1', 'auto');
+ga('send', 'pageview');
+</script>
 
 <script src="https://sigterm.sh/fancybox/jquery.fancybox.pack.js"></script>
 <script src="https://sigterm.sh/js/script.js"></script>

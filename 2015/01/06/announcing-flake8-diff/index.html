@@ -353,8 +353,7 @@ We use this as part of our build / CI infrastructure to alert developers opening
 <p></p>
 
 <h3 id="using-flake8-diff">Using flake8-diff</h3>
-
-<pre><code>$ pip install flake8-diff
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span>$ pip install flake8-diff
 $ flake8-diff -h
 usage: flake8-diff [-h] [--flake8-options ...] [--vcs {git}]
                    [--standard-flake8-output] [-v]
@@ -387,8 +386,7 @@ optional arguments:
   --color {off,colorful,light,nocolor,dark,boring}
                         Color theme to use. Default is &quot;colorful&quot;. Can be any
                         of &quot;off, colorful, light, nocolor, dark, boring&quot;
-
-</code></pre>
+</pre></div>
 
 <h3 id="contributing">Contributing</h3>
 
@@ -441,47 +439,34 @@ optional arguments:
 <li>Fork the <code>flake8-diff</code> repo on GitHub.</li>
 
 <li><p>Clone your fork locally:</p>
-
-<pre><code>$ git clone git@github.com:your_name_here/flake8-diff.git
-</code></pre></li>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span>$ git clone git@github.com:your_name_here/flake8-diff.git
+</pre></div></li>
 
 <li><p>Install your local copy into a virtualenv. Assuming you have virtualenvwrapper installed, this is how you set up your fork for local development:</p>
-
-<pre><code>$ mkvirtualenv flake8-diff
-$ cd flake8-diff/
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span>$ mkvirtualenv flake8-diff
+$ <span style="color: #f8f8f2">cd</span> flake8-diff/
 $ python setup.py develop
-</code></pre></li>
+</pre></div></li>
 
-<li><p>Create a branch for local development:</p>
+<li><p>Create a branch for local development, then you can make your changes locally:</p>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span>$ git checkout -b name-of-your-bugfix-or-feature
+</pre></div></li>
 
-<pre><code>$ git checkout -b name-of-your-bugfix-or-feature
-</code></pre></li>
-</ol>
-
-<p>Now you can make your changes locally.</p>
-
-<ol>
 <li><p>When you&rsquo;re done making changes, check that your changes pass flake8 and the tests, including testing other Python versions with tox:</p>
-
-<pre><code>$ flake8 flake8-diff tests
-$ python setup.py test
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span>$ flake8 flake8-diff tests
+$ python setup.py <span style="color: #f8f8f2">test</span>
 $ tox
-</code></pre></li>
-</ol>
+</pre></div>
 
-<p>To get flake8 and tox, just pip install them into your virtualenv.</p>
+<p>To get flake8 and tox, just pip install them into your virtualenv.</p></li>
 
-<ol>
-<li>Commit your changes and push your branch to GitHub:</li>
-</ol>
+<li><p>Commit your changes and push your branch to GitHub:</p>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span>$ git add .
+$ git commit -m <span style="color: #e6db74">&quot;Your detailed description of your changes.&quot;</span>
+$ git push origin name-of-your-bugfix-or-feature
+</pre></div></li>
 
-<pre><code>   $ git add .
-   $ git commit -m &quot;Your detailed description of your changes.&quot;
-   $ git push origin name-of-your-bugfix-or-feature
-</code></pre>
-
-<ol>
-<li>Submit a pull request through the GitHub website.</li>
+<li><p>Submit a pull request through the GitHub website.</p></li>
 </ol>
 
 <h4 id="pull-request-guidelines">Pull Request Guidelines</h4>
@@ -1051,6 +1036,16 @@ $ tox
   </div>
 </footer>
 
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-11073510-1', 'auto');
+ga('send', 'pageview');
+</script>
 
 <script src="https://sigterm.sh/fancybox/jquery.fancybox.pack.js"></script>
 <script src="https://sigterm.sh/js/script.js"></script>

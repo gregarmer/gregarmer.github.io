@@ -335,8 +335,7 @@
 <p>I did this with a Cisco 3750 switch.  The switch config was:</p>
 
 <p><em>Port-channel</em></p>
-
-<pre><code>interface Port-channel42
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span>interface Port-channel42
  description etherchannel fw
  switchport trunk encapsulation dot1q
  switchport trunk allowed vlan 56-61,63
@@ -344,11 +343,10 @@
  spanning-tree portfast
  spanning-tree bpduguard enable
 !
-</code></pre>
+</pre></div>
 
 <p><em>Interfaces</em></p>
-
-<pre><code>interface GigabitEthernet1/0/23
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span>interface GigabitEthernet1/0/23
  description fw-pc42-1
  switchport trunk encapsulation dot1q
  switchport trunk allowed vlan 56-61,63
@@ -364,22 +362,20 @@ interface GigabitEthernet1/0/24
  channel-protocol lacp
  channel-group 42 mode active
 !
-</code></pre>
+</pre></div>
 
 <p>Then on the firewall:</p>
-
-<pre><code># cat /etc/hostname.em0
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span># cat /etc/hostname.em0
 up
 # cat /etc/hostname.em1
 up
 # cat /etc/hostname.trunk0
 trunkproto lacp trunkport em0 trunkport em1
 up
-</code></pre>
+</pre></div>
 
 <p>and lastly the VLAN interfaces:</p>
-
-<pre><code># cat /etc/hostname.vlan57
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span># cat /etc/hostname.vlan57
 inet 172.29.57.1 255.255.255.0 NONE vlan 57 vlandev trunk0 descr WIFI
 # cat /etc/hostname.vlan58
 inet 172.29.58.1 255.255.254.0 NONE vlan 58 vlandev trunk0 descr SERVERS
@@ -389,13 +385,12 @@ inet 172.29.60.1 255.255.255.0 NONE vlan 60 vlandev trunk0 descr WIRED
 inet 172.29.61.1 255.255.255.0 NONE vlan 61 vlandev trunk0 descr IPMI
 # cat /etc/hostname.vlan63
 inet 172.29.63.1 255.255.255.0 NONE vlan 63 vlandev trunk0 descr MGMT
-</code></pre>
+</pre></div>
 
 <p>You can set this up by executing <code>sh /etc/netstart</code> without having to run a bunch of <code>ifconfig</code> commands.</p>
 
 <p>Your interfaces should look like this when it&rsquo;s up:</p>
-
-<pre><code>em0: flags=8b43&lt;UP,BROADCAST,RUNNING,PROMISC,ALLMULTI,SIMPLEX,MULTICAST&gt; mtu 1500
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span>em0: flags=8b43&lt;UP,BROADCAST,RUNNING,PROMISC,ALLMULTI,SIMPLEX,MULTICAST&gt; mtu 1500
         lladdr 0c:c4:7a:ac:70:02
         index 1 priority 0 llprio 3
         trunk: trunkdev trunk0
@@ -431,11 +426,10 @@ vlan58: flags=8843&lt;UP,BROADCAST,RUNNING,SIMPLEX,MULTICAST&gt; mtu 1500
         groups: vlan
         status: active
         inet 172.29.58.1 netmask 0xfffffe00 broadcast 172.29.59.255
-</code></pre>
+</pre></div>
 
 <p>and the switch:</p>
-
-<pre><code>core-3750-1#show etherchannel summary
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span>core-3750-1#show etherchannel summary
 Flags:  D - down        P - bundled in port-channel
         I - stand-alone s - suspended
         H - Hot-standby (LACP only)
@@ -456,7 +450,7 @@ Group  Port-channel  Protocol    Ports
 1      Po1(SU)         LACP      Gi1/0/15(P) Gi1/0/16(P)
 2      Po2(SU)         LACP      Gi1/0/13(P) Gi1/0/14(P)
 42     Po42(SU)        LACP      Gi1/0/23(P) Gi1/0/24(P)
-</code></pre>
+</pre></div>
 
 <p>A few things that got me:</p>
 
@@ -1015,6 +1009,16 @@ Group  Port-channel  Protocol    Ports
   </div>
 </footer>
 
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-11073510-1', 'auto');
+ga('send', 'pageview');
+</script>
 
 <script src="https://sigterm.sh/fancybox/jquery.fancybox.pack.js"></script>
 <script src="https://sigterm.sh/js/script.js"></script>

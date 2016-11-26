@@ -20,13 +20,12 @@
 &lt;p&gt;It&amp;rsquo;s somewhat ironic that on February 3, 2010 the last five /8s from the IANA IPv4 pool have been distributed to the RIRs.&lt;/p&gt;
 
 &lt;p&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;102/8   AfriNIC    2011-02    whois.afrinic.net ALLOCATED
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;102/8   AfriNIC    2011-02    whois.afrinic.net ALLOCATED
 103/8   APNIC      2011-02    whois.apnic.net   ALLOCATED
 104/8   ARIN       2011-02    whois.arin.net    ALLOCATED
 179/8   LACNIC     2011-02    whois.lacnic.net  ALLOCATED
 185/8   RIPE NCC   2011-02    whois.ripe.net    ALLOCATED
-&lt;/code&gt;&lt;/pre&gt;
+&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;During a RIPE55 meeting surrounding IPv4 exhaustion, this rephrased version of that 1971 hit was played:&lt;/p&gt;
 

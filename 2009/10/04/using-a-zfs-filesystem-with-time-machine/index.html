@@ -52,7 +52,7 @@ Please note this is for Mac OS X - Snow Leopard.
 
 
 <meta itemprop="dateModified" content="2009-10-04T12:00:00-04:00" />
-<meta itemprop="wordCount" content="286">
+<meta itemprop="wordCount" content="277">
 
 
 
@@ -303,7 +303,7 @@ Please note this is for Mac OS X - Snow Leopard.
             <i class="fa fa-calendar"></i>
             <time datetime="2009-10-04 12:00:00 -0400 EDT" itemprop="datePublished">Oct 10, 2009</time>
             &middot;
-            286
+            277
             words
             &middot;
             2
@@ -349,43 +349,40 @@ Please note this is for Mac OS X - Snow Leopard.
 <p></p>
 
 <p>1)    Enable unsupported network volumes on your Mac by opening a Terminal and pasting this:</p>
-
-<pre><code>greg@macbook:~ %&gt; defaults write com.apple.systempreferences TMShowUnsupportedNetworkVolumes 1
-</code></pre>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span>greg@macbook:~ %&gt; defaults write com.apple.systempreferences TMShowUnsupportedNetworkVolumes 1
+</pre></div>
 
 <p>2)    Create a new ZFS filesystem and enable CIFS access to it:</p>
-
-<pre><code>greg@opensolaris:~ %&gt; zfs create tank/userbackups
-greg@opensolaris:~ %&gt; zfs set sharesmb=on tank/userbackups
-greg@opensolaris:~ %&gt; zfs set sharesmb=name=userbackups tank/userbackups
-greg@opensolaris:~ %&gt; zfs set aclmode=passthrough tank/userbackups
-greg@opensolaris:~ %&gt; zfs set aclinherit=passthrough tank/userbackups
-</code></pre>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span>greg@opensolaris:~ %&gt; zfs create tank/userbackups
+greg@opensolaris:~ %&gt; zfs <span style="color: #f8f8f2">set</span> <span style="color: #f8f8f2">sharesmb</span><span style="color: #f92672">=</span>on tank/userbackups
+greg@opensolaris:~ %&gt; zfs <span style="color: #f8f8f2">set</span> <span style="color: #f8f8f2">sharesmb</span><span style="color: #f92672">=</span><span style="color: #f8f8f2">name</span><span style="color: #f92672">=</span>userbackups tank/userbackups
+greg@opensolaris:~ %&gt; zfs <span style="color: #f8f8f2">set</span> <span style="color: #f8f8f2">aclmode</span><span style="color: #f92672">=</span>passthrough tank/userbackups
+greg@opensolaris:~ %&gt; zfs <span style="color: #f8f8f2">set</span> <span style="color: #f8f8f2">aclinherit</span><span style="color: #f92672">=</span>passthrough tank/userbackups
+</pre></div>
 
 <p>You will probably want to setup the correct permissions on your new share, more details in <a href="http://code.geek.sh/2009/07/the-basics-of-zfs-acls/">[this post]</a>.</p>
 
 <p>3)    Make sure you can mount this share and write to it from your Mac.</p>
 
 <p>4)    Create the correct disk image:</p>
-
-<pre><code>greg@macbook:~ %&gt; /bin/bash
-greg@macbook:~ %&gt; cd /Volumes/userbackups
-greg@macbook:~ %&gt; SYSNAME=`scutil --get ComputerName`
-greg@macbook:~ %&gt; hdiutil create -size 600G -fs HFS+J \
-&gt; -volname 'Time Machine Backups' -type SPARSEBUNDLE &quot;${SYSNAME}.sparsebundle&quot;
-greg@macbook:~ %&gt; UUID=`system_profiler | grep 'Hardware UUID' | awk '{print $3}'`
-greg@macbook:~ %&gt; cat &lt;&lt; EOF &gt; &quot;${SYSNAME}.sparsebundle&quot;/com.apple.TimeMachine.MachineID.plist
-&gt; &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
-&gt; &lt;!DOCTYPE plist PUBLIC &quot;-//Apple//DTD PLIST 1.0//EN&quot; &quot;http://www.apple.com/DTDs/PropertyList-1.0.dtd&quot;&gt;
-&gt; &lt;plist version=&quot;1.0&quot;&gt;
-&gt; &lt;dict&gt;
-&gt;         &lt;key&gt;com.apple.backupd.HostUUID&lt;/key&gt;
-&gt;         &lt;string&gt;$UUID&lt;/string&gt;
-&gt; &lt;/dict&gt;
-&gt; &lt;/plist&gt;
-&gt; EOF
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span>greg@macbook:~ %&gt; /bin/bash
+greg@macbook:~ %&gt; <span style="color: #f8f8f2">cd</span> /Volumes/userbackups
+greg@macbook:~ %&gt; <span style="color: #f8f8f2">SYSNAME</span><span style="color: #f92672">=</span><span style="color: #e6db74">`</span>scutil --get ComputerName<span style="color: #e6db74">`</span>
+greg@macbook:~ %&gt; hdiutil create -size 600G -fs HFS+J <span style="color: #ae81ff">\</span>
+&gt; -volname <span style="color: #e6db74">&#39;Time Machine Backups&#39;</span> -type SPARSEBUNDLE <span style="color: #e6db74">&quot;${</span><span style="color: #f8f8f2">SYSNAME</span><span style="color: #e6db74">}.sparsebundle&quot;</span>
+greg@macbook:~ %&gt; <span style="color: #f8f8f2">UUID</span><span style="color: #f92672">=</span><span style="color: #e6db74">`</span>system_profiler <span style="color: #f8f8f2">|</span> grep <span style="color: #e6db74">&#39;Hardware UUID&#39;</span> <span style="color: #f8f8f2">|</span> awk <span style="color: #e6db74">&#39;{print $3}&#39;`</span>
+greg@macbook:~ %&gt; cat <span style="color: #e6db74">&lt;&lt; EOF &gt; &quot;${SYSNAME}.sparsebundle&quot;/com.apple.TimeMachine.MachineID.plist</span>
+&gt;<span style="color: #e6db74"> &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span>
+&gt;<span style="color: #e6db74"> &lt;!DOCTYPE plist PUBLIC &quot;-//Apple//DTD PLIST 1.0//EN&quot; &quot;http://www.apple.com/DTDs/PropertyList-1.0.dtd&quot;&gt;</span>
+&gt;<span style="color: #e6db74"> &lt;plist version=&quot;1.0&quot;&gt;</span>
+&gt;<span style="color: #e6db74"> &lt;dict&gt;</span>
+&gt;<span style="color: #e6db74">         &lt;key&gt;com.apple.backupd.HostUUID&lt;/key&gt;</span>
+&gt;<span style="color: #e6db74">         &lt;string&gt;$UUID&lt;/string&gt;</span>
+&gt;<span style="color: #e6db74"> &lt;/dict&gt;</span>
+&gt;<span style="color: #e6db74"> &lt;/plist&gt;</span>
+&gt;<span style="color: #e6db74"> EOF</span>
 greg@macbook:~ %&gt;
-</code></pre>
+</pre></div>
 
 <p>5)    and finally, open up Time Machine. You should now see your network share as an option. Choose it, configure any excludes you want and kick off your first backup!</p>
 
@@ -955,6 +952,16 @@ greg@macbook:~ %&gt;
   </div>
 </footer>
 
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-11073510-1', 'auto');
+ga('send', 'pageview');
+</script>
 
 <script src="https://sigterm.sh/fancybox/jquery.fancybox.pack.js"></script>
 <script src="https://sigterm.sh/js/script.js"></script>

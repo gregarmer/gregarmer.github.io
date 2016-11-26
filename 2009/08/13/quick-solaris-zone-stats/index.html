@@ -336,14 +336,13 @@ root@tank:~# zonestat ZONEID NPROC SWAP RSS MEMORY TIME CPU ZONE 0 58 1198M 1206
 <p><code>alias zonestat=&quot;prstat -vZ 1 1 | grep -A50 '^ZONEID'&quot;</code></p>
 
 <p>to your ~/.profile and you should see something like this when running it:</p>
-
-<pre><code>root@tank:~# zonestat
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span>root@tank:~# zonestat
 ZONEID    NPROC  SWAP   RSS MEMORY      TIME  CPU ZONE
      0       58 1198M 1206M    30%  16:15:40 1.7% global
      6       25  172M  175M   4.4%   0:03:14 0.0% cl-build
      2       27   48M   31M   0.8%   0:00:47 0.0% mirror
 Total: 110 processes, 534 lwps, load averages: 0.09, 0.08, 0.07
-</code></pre>
+</pre></div>
 
             </div>
             <footer class="article-footer">
@@ -903,6 +902,16 @@ Total: 110 processes, 534 lwps, load averages: 0.09, 0.08, 0.07
   </div>
 </footer>
 
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-11073510-1', 'auto');
+ga('send', 'pageview');
+</script>
 
 <script src="https://sigterm.sh/fancybox/jquery.fancybox.pack.js"></script>
 <script src="https://sigterm.sh/js/script.js"></script>

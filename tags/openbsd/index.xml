@@ -22,8 +22,7 @@
 &lt;p&gt;I did this with a Cisco 3750 switch.  The switch config was:&lt;/p&gt;
 
 &lt;p&gt;&lt;em&gt;Port-channel&lt;/em&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;interface Port-channel42
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;interface Port-channel42
  description etherchannel fw
  switchport trunk encapsulation dot1q
  switchport trunk allowed vlan 56-61,63
@@ -31,11 +30,10 @@
  spanning-tree portfast
  spanning-tree bpduguard enable
 !
-&lt;/code&gt;&lt;/pre&gt;
+&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;&lt;em&gt;Interfaces&lt;/em&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;interface GigabitEthernet1/0/23
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;interface GigabitEthernet1/0/23
  description fw-pc42-1
  switchport trunk encapsulation dot1q
  switchport trunk allowed vlan 56-61,63
@@ -51,22 +49,20 @@ interface GigabitEthernet1/0/24
  channel-protocol lacp
  channel-group 42 mode active
 !
-&lt;/code&gt;&lt;/pre&gt;
+&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;Then on the firewall:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;# cat /etc/hostname.em0
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;# cat /etc/hostname.em0
 up
 # cat /etc/hostname.em1
 up
 # cat /etc/hostname.trunk0
 trunkproto lacp trunkport em0 trunkport em1
 up
-&lt;/code&gt;&lt;/pre&gt;
+&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;and lastly the VLAN interfaces:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;# cat /etc/hostname.vlan57
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;# cat /etc/hostname.vlan57
 inet 172.29.57.1 255.255.255.0 NONE vlan 57 vlandev trunk0 descr WIFI
 # cat /etc/hostname.vlan58
 inet 172.29.58.1 255.255.254.0 NONE vlan 58 vlandev trunk0 descr SERVERS
@@ -76,13 +72,12 @@ inet 172.29.60.1 255.255.255.0 NONE vlan 60 vlandev trunk0 descr WIRED
 inet 172.29.61.1 255.255.255.0 NONE vlan 61 vlandev trunk0 descr IPMI
 # cat /etc/hostname.vlan63
 inet 172.29.63.1 255.255.255.0 NONE vlan 63 vlandev trunk0 descr MGMT
-&lt;/code&gt;&lt;/pre&gt;
+&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;You can set this up by executing &lt;code&gt;sh /etc/netstart&lt;/code&gt; without having to run a bunch of &lt;code&gt;ifconfig&lt;/code&gt; commands.&lt;/p&gt;
 
 &lt;p&gt;Your interfaces should look like this when it&amp;rsquo;s up:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;em0: flags=8b43&amp;lt;UP,BROADCAST,RUNNING,PROMISC,ALLMULTI,SIMPLEX,MULTICAST&amp;gt; mtu 1500
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;em0: flags=8b43&amp;lt;UP,BROADCAST,RUNNING,PROMISC,ALLMULTI,SIMPLEX,MULTICAST&amp;gt; mtu 1500
         lladdr 0c:c4:7a:ac:70:02
         index 1 priority 0 llprio 3
         trunk: trunkdev trunk0
@@ -118,11 +113,10 @@ vlan58: flags=8843&amp;lt;UP,BROADCAST,RUNNING,SIMPLEX,MULTICAST&amp;gt; mtu 150
         groups: vlan
         status: active
         inet 172.29.58.1 netmask 0xfffffe00 broadcast 172.29.59.255
-&lt;/code&gt;&lt;/pre&gt;
+&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;and the switch:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;core-3750-1#show etherchannel summary
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;core-3750-1#show etherchannel summary
 Flags:  D - down        P - bundled in port-channel
         I - stand-alone s - suspended
         H - Hot-standby (LACP only)
@@ -143,7 +137,7 @@ Group  Port-channel  Protocol    Ports
 1      Po1(SU)         LACP      Gi1/0/15(P) Gi1/0/16(P)
 2      Po2(SU)         LACP      Gi1/0/13(P) Gi1/0/14(P)
 42     Po42(SU)        LACP      Gi1/0/23(P) Gi1/0/24(P)
-&lt;/code&gt;&lt;/pre&gt;
+&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;A few things that got me:&lt;/p&gt;
 
