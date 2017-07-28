@@ -1,98 +1,26 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>./sigterm.sh</title>
-    <link>https://sigterm.sh/tags/puppet/index.xml</link>
-    <description>Recent content on ./sigterm.sh</description>
+    <title>Puppet on ./sigterm.sh</title>
+    <link>https://sigterm.sh/tags/puppet/</link>
+    <description>Recent content in Puppet on ./sigterm.sh</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>Gregory Armer. All rights reserved.</copyright>
-    <atom:link href="https://sigterm.sh/tags/puppet/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 02 Jan 2011 12:00:00 -0400</lastBuildDate>
+    
+	<atom:link href="https://sigterm.sh/tags/puppet/index.xml" rel="self" type="application/rss+xml" />
+    
     
     <item>
       <title>Puppet Modules - Debsecan</title>
-      <link>https://sigterm.sh/2011/01/02/puppet-modules-debsecan</link>
+      <link>https://sigterm.sh/2011/01/02/puppet-modules-debsecan/</link>
       <pubDate>Sun, 02 Jan 2011 12:00:00 -0400</pubDate>
       
-      <guid>https://sigterm.sh/2011/01/02/puppet-modules-debsecan</guid>
+      <guid>https://sigterm.sh/2011/01/02/puppet-modules-debsecan/</guid>
       <description>&lt;p&gt;This is the first post of (hopefully) many, detailing some of my &lt;a href=&#34;http://www.puppetlabs.com/&#34;&gt;Puppet&lt;/a&gt; module implementations. Being the first, I thought I would start off with something simple.&lt;/p&gt;
 
-&lt;p&gt;&lt;/p&gt;
-
-&lt;h4 id=&#34;debsecan&#34;&gt;Debsecan&lt;/h4&gt;
-
-&lt;p&gt;The &lt;a href=&#34;http://www.enyo.de/fw/software/debsecan/&#34;&gt;debsecan&lt;/a&gt; program evaluates the security status of a host running the &lt;a href=&#34;http://www.debian.org&#34;&gt;Debian&lt;/a&gt; operation system. It reports missing security updates and known vulnerabilities in the programs which are installed on the host.&lt;/p&gt;
-
-&lt;p&gt;This is a great package that I wanted installed on all &lt;a href=&#34;http://www.debian.org&#34;&gt;Debian&lt;/a&gt; machines across my entire infrastructure. Thanks to Puppet, this is a breeze.&lt;/p&gt;
-
-&lt;h4 id=&#34;module-layout&#34;&gt;Module layout&lt;/h4&gt;
-&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;greg@codemine:~/code/puppet %&amp;gt; find modules/debsecan
-modules/debsecan
-modules/debsecan/files
-modules/debsecan/files/debsecan
-modules/debsecan/files/debsecan-cron
-modules/debsecan/manifests
-modules/debsecan/manifests/init.pp
-&lt;/pre&gt;&lt;/div&gt;
-
-&lt;h4 id=&#34;manifest-init-pp&#34;&gt;Manifest - init.pp&lt;/h4&gt;
-&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;greg@codemine:~/code/puppet %&amp;gt; cat modules/debsecan/manifests/init.pp
-class debsecan {
-    package { debsecan: ensure =&amp;gt; latest }
-
-    file {
-        debsecan:
-            path =&amp;gt; &amp;quot;/etc/default/debsecan&amp;quot;,
-            owner =&amp;gt; root,
-            group =&amp;gt; &amp;quot;root&amp;quot;,
-            mode =&amp;gt; 644,
-            source  =&amp;gt; &amp;quot;puppet:///debsecan/debsecan&amp;quot;,
-            require =&amp;gt; Package[&amp;quot;debsecan&amp;quot;];
-        debsecan-cron:
-            path =&amp;gt; &amp;quot;/etc/cron.d/debsecan&amp;quot;,
-            owner =&amp;gt; root,
-            group =&amp;gt; &amp;quot;root&amp;quot;,
-            mode =&amp;gt; 644,
-            source  =&amp;gt; &amp;quot;puppet:///debsecan/debsecan-cron&amp;quot;,
-            require =&amp;gt; Package[&amp;quot;debsecan&amp;quot;];
-    }
-}
-&lt;/pre&gt;&lt;/div&gt;
-
-&lt;p&gt;There is really not much to this manifest. It essentially ensures debsecan is installed at the latest available version, it sets up my /etc/default/debsecan config and it ensures there is a cron entry to run it.&lt;/p&gt;
-
-&lt;h4 id=&#34;debsecan-config&#34;&gt;Debsecan config&lt;/h4&gt;
-&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;greg@codemine:~/code/puppet %&amp;gt; cat modules/debsecan/files/debsecan
-# Configuration file &lt;span style=&#34;color: #66d9ef&#34;&gt;for&lt;/span&gt; debsecan.  Contents of this file should
-# adhere to the &lt;span style=&#34;color: #f8f8f2&#34;&gt;KEY&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;=&lt;/span&gt;VALUE shell syntax.  This file may be edited by
-# debsecan&lt;span style=&#34;color: #960050; background-color: #1e0010&#34;&gt;&amp;#39;&lt;/span&gt;s scripts, but your modifications are preserved.
-
-# If true, &lt;span style=&#34;color: #f8f8f2&#34;&gt;enable&lt;/span&gt; daily reports, sent by email.
-REPORT=true
-
-# For better reporting, specify the correct suite here, using the code
-# name &lt;span style=&#34;color: #f92672&#34;&gt;(&lt;/span&gt;that is, &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;sid&amp;quot;&lt;/span&gt; instead of &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;unstable&amp;quot;&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;)&lt;/span&gt;.
-SUITE=lenny
-
-# Mail address to which reports are sent.
-MAILTO=root
-
-# The URL from which vulnerability data is downloaded.  Empty &lt;span style=&#34;color: #66d9ef&#34;&gt;for&lt;/span&gt; the
-# built-in default.
-SOURCE=
-&lt;/pre&gt;&lt;/div&gt;
-
-&lt;h4 id=&#34;debsecan-cron&#34;&gt;Debsecan cron&lt;/h4&gt;
-&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;greg@codemine:~/code/puppet %&amp;gt; cat modules/debsecan/files/debsecan-cron
-# cron entry &lt;span style=&#34;color: #66d9ef&#34;&gt;for&lt;/span&gt; debsecan
-MAILTO=root
-
-42 * * * * daemon test -x /usr/bin/debsecan &amp;amp;&amp;amp; /usr/bin/debsecan --cron
-# &lt;span style=&#34;color: #f92672&#34;&gt;(&lt;/span&gt;Note: debsecan delays actual processing past 2:00 AM, and runs only
-# once per day.&lt;span style=&#34;color: #f92672&#34;&gt;)&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-&lt;p&gt;You can grab a copy of all the above files (the complete module) here: &lt;a href=&#39;http://code.geek.sh/wp-content/uploads/2010/12/debsecan-puppet.tar.gz&#39;&gt;debsecan-puppet.tar.gz&lt;/a&gt;&lt;/p&gt;</description>
+&lt;p&gt;&lt;/p&gt;</description>
     </item>
     
   </channel>

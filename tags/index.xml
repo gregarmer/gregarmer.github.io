@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tags on ./sigterm.sh</title>
+    <link>https://sigterm.sh/tags/</link>
+    <description>Recent content in Tags on ./sigterm.sh</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>Gregory Armer. All rights reserved.</copyright>
+    <lastBuildDate>Thu, 23 Sep 2010 12:00:00 -0400</lastBuildDate>
+    
+	<atom:link href="https://sigterm.sh/tags/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Algorithms</title>
+      <link>https://sigterm.sh/tags/algorithms/</link>
+      <pubDate>Thu, 23 Sep 2010 12:00:00 -0400</pubDate>
+      
+      <guid>https://sigterm.sh/tags/algorithms/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Amazonaws</title>
+      <link>https://sigterm.sh/tags/amazonaws/</link>
+      <pubDate>Fri, 28 Sep 2012 12:00:00 -0400</pubDate>
+      
+      <guid>https://sigterm.sh/tags/amazonaws/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>C</title>
+      <link>https://sigterm.sh/tags/c/</link>
+      <pubDate>Sat, 26 Dec 2009 12:00:00 -0400</pubDate>
+      
+      <guid>https://sigterm.sh/tags/c/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Code</title>
+      <link>https://sigterm.sh/tags/code/</link>
+      <pubDate>Sun, 08 Mar 2015 18:58:00 -0400</pubDate>
+      
+      <guid>https://sigterm.sh/tags/code/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Debian</title>
+      <link>https://sigterm.sh/tags/debian/</link>
+      <pubDate>Sat, 01 Feb 2014 12:00:00 -0400</pubDate>
+      
+      <guid>https://sigterm.sh/tags/debian/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Django</title>
+      <link>https://sigterm.sh/tags/django/</link>
+      <pubDate>Tue, 06 Dec 2011 12:00:00 -0400</pubDate>
+      
+      <guid>https://sigterm.sh/tags/django/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Freebsd</title>
+      <link>https://sigterm.sh/tags/freebsd/</link>
+      <pubDate>Mon, 12 Oct 2009 16:00:00 -0400</pubDate>
+      
+      <guid>https://sigterm.sh/tags/freebsd/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>General</title>
+      <link>https://sigterm.sh/tags/general/</link>
+      <pubDate>Sun, 26 Oct 2014 04:35:00 -0400</pubDate>
+      
+      <guid>https://sigterm.sh/tags/general/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Git</title>
+      <link>https://sigterm.sh/tags/git/</link>
+      <pubDate>Thu, 15 Apr 2010 12:00:00 -0400</pubDate>
+      
+      <guid>https://sigterm.sh/tags/git/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Golang</title>
+      <link>https://sigterm.sh/tags/golang/</link>
+      <pubDate>Sun, 08 Mar 2015 18:58:00 -0400</pubDate>
+      
+      <guid>https://sigterm.sh/tags/golang/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Ipv6</title>
+      <link>https://sigterm.sh/tags/ipv6/</link>
+      <pubDate>Thu, 03 Feb 2011 12:00:00 -0400</pubDate>
+      
+      <guid>https://sigterm.sh/tags/ipv6/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Java</title>
+      <link>https://sigterm.sh/tags/java/</link>
+      <pubDate>Wed, 07 Oct 2009 12:00:00 -0400</pubDate>
+      
+      <guid>https://sigterm.sh/tags/java/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Linux</title>
+      <link>https://sigterm.sh/tags/linux/</link>
+      <pubDate>Sun, 26 Oct 2014 05:53:00 -0400</pubDate>
+      
+      <guid>https://sigterm.sh/tags/linux/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Mac</title>
+      <link>https://sigterm.sh/tags/mac/</link>
+      <pubDate>Thu, 15 Apr 2010 12:00:00 -0400</pubDate>
+      
+      <guid>https://sigterm.sh/tags/mac/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Networking</title>
+      <link>https://sigterm.sh/tags/networking/</link>
+      <pubDate>Sat, 05 Nov 2016 14:26:00 -0400</pubDate>
+      
+      <guid>https://sigterm.sh/tags/networking/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Openbsd</title>
+      <link>https://sigterm.sh/tags/openbsd/</link>
+      <pubDate>Sat, 05 Nov 2016 14:26:00 -0400</pubDate>
+      
+      <guid>https://sigterm.sh/tags/openbsd/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Opensolaris</title>
+      <link>https://sigterm.sh/tags/opensolaris/</link>
+      <pubDate>Sun, 04 Oct 2009 12:00:00 -0400</pubDate>
+      
+      <guid>https://sigterm.sh/tags/opensolaris/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Postgresql</title>
+      <link>https://sigterm.sh/tags/postgresql/</link>
+      <pubDate>Fri, 09 Jul 2010 12:00:00 -0400</pubDate>
+      
+      <guid>https://sigterm.sh/tags/postgresql/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Puppet</title>
+      <link>https://sigterm.sh/tags/puppet/</link>
+      <pubDate>Sun, 02 Jan 2011 12:00:00 -0400</pubDate>
+      
+      <guid>https://sigterm.sh/tags/puppet/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Python</title>
+      <link>https://sigterm.sh/tags/python/</link>
+      <pubDate>Tue, 06 Jan 2015 18:50:00 -0400</pubDate>
+      
+      <guid>https://sigterm.sh/tags/python/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Random Thoughts</title>
+      <link>https://sigterm.sh/tags/random-thoughts/</link>
+      <pubDate>Sun, 26 Oct 2014 04:35:00 -0400</pubDate>
+      
+      <guid>https://sigterm.sh/tags/random-thoughts/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Security</title>
+      <link>https://sigterm.sh/tags/security/</link>
+      <pubDate>Sun, 26 Oct 2014 05:53:00 -0400</pubDate>
+      
+      <guid>https://sigterm.sh/tags/security/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Software Engineering</title>
+      <link>https://sigterm.sh/tags/software-engineering/</link>
+      <pubDate>Tue, 06 Jan 2015 18:50:00 -0400</pubDate>
+      
+      <guid>https://sigterm.sh/tags/software-engineering/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Unix</title>
+      <link>https://sigterm.sh/tags/unix/</link>
+      <pubDate>Fri, 28 Sep 2012 12:00:00 -0400</pubDate>
+      
+      <guid>https://sigterm.sh/tags/unix/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Zfs</title>
+      <link>https://sigterm.sh/tags/zfs/</link>
+      <pubDate>Sun, 04 Oct 2009 12:00:00 -0400</pubDate>
+      
+      <guid>https://sigterm.sh/tags/zfs/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,274 +1,60 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>./sigterm.sh</title>
-    <link>https://sigterm.sh/tags/python/index.xml</link>
-    <description>Recent content on ./sigterm.sh</description>
+    <title>Python on ./sigterm.sh</title>
+    <link>https://sigterm.sh/tags/python/</link>
+    <description>Recent content in Python on ./sigterm.sh</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>Gregory Armer. All rights reserved.</copyright>
-    <atom:link href="https://sigterm.sh/tags/python/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 06 Jan 2015 18:50:00 -0400</lastBuildDate>
+    
+	<atom:link href="https://sigterm.sh/tags/python/index.xml" rel="self" type="application/rss+xml" />
+    
     
     <item>
       <title>Announcing flake8-diff</title>
-      <link>https://sigterm.sh/2015/01/06/announcing-flake8-diff</link>
+      <link>https://sigterm.sh/2015/01/06/announcing-flake8-diff/</link>
       <pubDate>Tue, 06 Jan 2015 18:50:00 -0400</pubDate>
       
-      <guid>https://sigterm.sh/2015/01/06/announcing-flake8-diff</guid>
+      <guid>https://sigterm.sh/2015/01/06/announcing-flake8-diff/</guid>
       <description>&lt;h3 id=&#34;purpose&#34;&gt;Purpose&lt;/h3&gt;
 
 &lt;p&gt;This utility allows you to run flake8 over a set of changed files and filter out violations that would be introduced by merging those changes.&lt;/p&gt;
 
 &lt;p&gt;We use this as part of our build / CI infrastructure to alert developers opening pull requests to new violations their pull request will introduce, if it were merged.&lt;/p&gt;
 
-&lt;p&gt;&lt;/p&gt;
-
-&lt;h3 id=&#34;using-flake8-diff&#34;&gt;Using flake8-diff&lt;/h3&gt;
-&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;$ pip install flake8-diff
-$ flake8-diff -h
-usage: flake8-diff [-h] [--flake8-options ...] [--vcs {git}]
-                   [--standard-flake8-output] [-v]
-                   [--color {off,colorful,light,nocolor,dark,boring}]
-                   [commit [commit ...]]
-
-This script runs flake8 across a set of changed files and filters out
-violations occurring only on the lines that were changed.
-
-positional arguments:
-  commit                At most two commit hashes or branch names which will
-                        be compared to figure out changed lines between the
-                        two. If only one commit is provided, that commit will
-                        be compared against current files.Default is
-                        &amp;quot;origin/master&amp;quot;.
-
-optional arguments:
-  -h, --help            show this help message and exit
-  --flake8-options ...  Options to be passed to flake8 command. Can be used to
-                        configure flake8 on-the-fly when flake8 configuration
-                        file is not present.
-  --vcs {git}           VCS to use. By default VCS is attempted to determine
-                        automatically. Can be any of &amp;quot;git&amp;quot;
-  --standard-flake8-output
-                        Output standard flake8 output instead of simplified,
-                        more readable summary.
-  -v, --verbose         Be verbose. This will print out every compared file.
-                        Can be supplied multiple times to increase verbosity
-                        level
-  --color {off,colorful,light,nocolor,dark,boring}
-                        Color theme to use. Default is &amp;quot;colorful&amp;quot;. Can be any
-                        of &amp;quot;off, colorful, light, nocolor, dark, boring&amp;quot;
-&lt;/pre&gt;&lt;/div&gt;
-
-&lt;h3 id=&#34;contributing&#34;&gt;Contributing&lt;/h3&gt;
-
-&lt;p&gt;Contributions are welcome, and they are greatly appreciated! Every little bit helps, and credit will always be given.&lt;/p&gt;
-
-&lt;p&gt;You can contribute in many ways:&lt;/p&gt;
-
-&lt;h4 id=&#34;types-of-contributions&#34;&gt;Types of Contributions&lt;/h4&gt;
-
-&lt;h5 id=&#34;report-bugs&#34;&gt;Report Bugs&lt;/h5&gt;
-
-&lt;p&gt;Report bugs at &lt;a href=&#34;https://github.com/dealertrack/flake8-diff/issues&#34;&gt;https://github.com/dealertrack/flake8-diff/issues&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;If you are reporting a bug, please include:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Any details about your local setup that might be helpful in troubleshooting.&lt;/li&gt;
-&lt;li&gt;Detailed steps to reproduce the bug.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h5 id=&#34;fix-bugs&#34;&gt;Fix Bugs&lt;/h5&gt;
-
-&lt;p&gt;Look through the GitHub issues for bugs. Anything tagged with &amp;ldquo;bug&amp;rdquo; is open to whoever wants to fix it.&lt;/p&gt;
-
-&lt;h5 id=&#34;implement-features&#34;&gt;Implement Features&lt;/h5&gt;
-
-&lt;p&gt;Look through the GitHub issues for features. Anything tagged with &amp;ldquo;enhancement&amp;rdquo; is open to whoever wants to implement it.&lt;/p&gt;
-
-&lt;h5 id=&#34;write-documentation&#34;&gt;Write Documentation&lt;/h5&gt;
-
-&lt;p&gt;flake8-diff could always use more documentation, whether as part of the official docs, in docstrings, or even on the web in blog posts, articles, and such.&lt;/p&gt;
-
-&lt;h5 id=&#34;submit-feedback&#34;&gt;Submit Feedback&lt;/h5&gt;
-
-&lt;p&gt;The best way to send feedback is to file an issue at &lt;a href=&#34;https://github.com/dealertrack/flake8-diff/issues&#34;&gt;https://github.com/dealertrack/flake8-diff/issues&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;If you are proposing a feature:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Explain in detail how it would work.&lt;/li&gt;
-&lt;li&gt;Keep the scope as narrow as possible, to make it easier to implement.&lt;/li&gt;
-&lt;li&gt;Remember that this is a volunteer-driven project, and that contributions are welcome :)&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h4 id=&#34;getting-started&#34;&gt;Getting Started!&lt;/h4&gt;
-
-&lt;p&gt;Ready to contribute? Here&amp;rsquo;s how to set up &lt;code&gt;flake8-diff&lt;/code&gt; for local development.&lt;/p&gt;
-
-&lt;ol&gt;
-&lt;li&gt;Fork the &lt;code&gt;flake8-diff&lt;/code&gt; repo on GitHub.&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;Clone your fork locally:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;$ git clone git@github.com:your_name_here/flake8-diff.git
-&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;Install your local copy into a virtualenv. Assuming you have virtualenvwrapper installed, this is how you set up your fork for local development:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;$ mkvirtualenv flake8-diff
-$ &lt;span style=&#34;color: #f8f8f2&#34;&gt;cd&lt;/span&gt; flake8-diff/
-$ python setup.py develop
-&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;Create a branch for local development, then you can make your changes locally:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;$ git checkout -b name-of-your-bugfix-or-feature
-&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;When you&amp;rsquo;re done making changes, check that your changes pass flake8 and the tests, including testing other Python versions with tox:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;$ flake8 flake8-diff tests
-$ python setup.py &lt;span style=&#34;color: #f8f8f2&#34;&gt;test&lt;/span&gt;
-$ tox
-&lt;/pre&gt;&lt;/div&gt;
-
-&lt;p&gt;To get flake8 and tox, just pip install them into your virtualenv.&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;Commit your changes and push your branch to GitHub:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;$ git add .
-$ git commit -m &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;Your detailed description of your changes.&amp;quot;&lt;/span&gt;
-$ git push origin name-of-your-bugfix-or-feature
-&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;Submit a pull request through the GitHub website.&lt;/p&gt;&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h4 id=&#34;pull-request-guidelines&#34;&gt;Pull Request Guidelines&lt;/h4&gt;
-
-&lt;p&gt;Before you submit a pull request, check that it meets these guidelines:&lt;/p&gt;
-
-&lt;ol&gt;
-&lt;li&gt;The pull request should include tests.&lt;/li&gt;
-&lt;li&gt;If the pull request adds functionality, the docs should be updated. Put your new functionality into a function with a docstring, and add the feature to the list in README.md.&lt;/li&gt;
-&lt;li&gt;The pull request should work for Python 2.6, 2.7, and 3.3, and for PyPy. Check &lt;a href=&#34;https://travis-ci.org/dealertrack/flake8-diff/pull_requests&#34;&gt;https://travis-ci.org/dealertrack/flake8-diff/pull_requests&lt;/a&gt; and make sure that the tests pass for all supported Python versions.&lt;/li&gt;
-&lt;/ol&gt;</description>
+&lt;p&gt;&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>Forking background processes in Python</title>
-      <link>https://sigterm.sh/2012/08/22/forking-background-processes-in-python</link>
+      <link>https://sigterm.sh/2012/08/22/forking-background-processes-in-python/</link>
       <pubDate>Wed, 22 Aug 2012 12:00:00 -0400</pubDate>
       
-      <guid>https://sigterm.sh/2012/08/22/forking-background-processes-in-python</guid>
+      <guid>https://sigterm.sh/2012/08/22/forking-background-processes-in-python/</guid>
       <description>&lt;p&gt;This post attempts to explain how to fork child processes in Python, or at least how to use forking on an existing Python script. For some strange reason I&amp;rsquo;ve had to explain this a few times recently, so I decided an easy to reference blog post would probably make life a little easier.&lt;/p&gt;
 
-&lt;p&gt;&lt;/p&gt;
-
-&lt;p&gt;So you have a basic Python script that you&amp;rsquo;d like to run as a background process, for whatever reason; perhaps it&amp;rsquo;s a network service that waits for incoming connections, or you want to watch a log file for something. As an example, let&amp;rsquo;s say it looks something like this:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;time&lt;/span&gt;
-&lt;span style=&#34;color: #f92672&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;sys&lt;/span&gt;
-
-&lt;span style=&#34;color: #66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color: #a6e22e&#34;&gt;do_something&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;():&lt;/span&gt;
-    &lt;span style=&#34;color: #75715e&#34;&gt;# Do something for 10 seconds, then exit nicely.&lt;/span&gt;
-    &lt;span style=&#34;color: #f8f8f2&#34;&gt;time&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;sleep(&lt;/span&gt;&lt;span style=&#34;color: #ae81ff&#34;&gt;10&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;)&lt;/span&gt;
-    &lt;span style=&#34;color: #66d9ef&#34;&gt;print&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;Done.&amp;quot;&lt;/span&gt;
-    &lt;span style=&#34;color: #f8f8f2&#34;&gt;sys&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;exit(&lt;/span&gt;&lt;span style=&#34;color: #ae81ff&#34;&gt;0&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;)&lt;/span&gt;
-
-&lt;span style=&#34;color: #66d9ef&#34;&gt;if&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;__name__&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;__main__&amp;quot;&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;:&lt;/span&gt;
-    &lt;span style=&#34;color: #f8f8f2&#34;&gt;do_something()&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-&lt;p&gt;So one method of running it in the background is to &lt;a href=&#34;http://en.wikipedia.org/wiki/Fork_(operating_system)&#34;&gt;fork&lt;/a&gt; it. The term &lt;em&gt;fork&lt;/em&gt; means that we want to launch a child &lt;a href=&#34;http://en.wikipedia.org/wiki/Process_(computing)&#34;&gt;process&lt;/a&gt; from this process (the parent process) and then disown that child process and exit cleanly. The child process will then continue running in the background until it completes whatever it has to do, or until it is shutdown or killed, in the case of a long
-running process.&lt;/p&gt;
-
-&lt;p&gt;In order to accomplish this we need something that looks like the following:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;time&lt;/span&gt;
-&lt;span style=&#34;color: #f92672&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;sys&lt;/span&gt;
-&lt;span style=&#34;color: #f92672&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;os&lt;/span&gt;
-
-&lt;span style=&#34;color: #66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color: #a6e22e&#34;&gt;do_something&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;():&lt;/span&gt;
-    &lt;span style=&#34;color: #75715e&#34;&gt;# Do something for 10 seconds, then exist cleanly.&lt;/span&gt;
-    &lt;span style=&#34;color: #f8f8f2&#34;&gt;time&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;sleep(&lt;/span&gt;&lt;span style=&#34;color: #ae81ff&#34;&gt;10&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;)&lt;/span&gt;
-    &lt;span style=&#34;color: #66d9ef&#34;&gt;print&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;kbye&amp;quot;&lt;/span&gt;
-    &lt;span style=&#34;color: #f8f8f2&#34;&gt;sys&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;exit(&lt;/span&gt;&lt;span style=&#34;color: #ae81ff&#34;&gt;0&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;)&lt;/span&gt;
-
-&lt;span style=&#34;color: #66d9ef&#34;&gt;if&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;__name__&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;__main__&amp;quot;&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;:&lt;/span&gt;
-    &lt;span style=&#34;color: #66d9ef&#34;&gt;print&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;Hello and welcome to a Python forking example. I&amp;#39;ll now fork a &amp;quot;&lt;/span&gt;
-           &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;backgrounded child process and then exit, leaving it to run all by &amp;quot;&lt;/span&gt;
-           &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;itself. Watch for the &amp;#39;Done&amp;#39; in 10 seconds...&amp;quot;&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;)&lt;/span&gt;
-
-    &lt;span style=&#34;color: #66d9ef&#34;&gt;try&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;:&lt;/span&gt;
-        &lt;span style=&#34;color: #f8f8f2&#34;&gt;pid&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;os&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;fork()&lt;/span&gt;
-        &lt;span style=&#34;color: #66d9ef&#34;&gt;if&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;pid&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span style=&#34;color: #ae81ff&#34;&gt;0&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;:&lt;/span&gt;
-            &lt;span style=&#34;color: #75715e&#34;&gt;# Exit parent process&lt;/span&gt;
-            &lt;span style=&#34;color: #f8f8f2&#34;&gt;sys&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;exit(&lt;/span&gt;&lt;span style=&#34;color: #ae81ff&#34;&gt;0&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;)&lt;/span&gt;
-    &lt;span style=&#34;color: #66d9ef&#34;&gt;except&lt;/span&gt; &lt;span style=&#34;color: #a6e22e&#34;&gt;OSError&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;e:&lt;/span&gt;
-        &lt;span style=&#34;color: #66d9ef&#34;&gt;print&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;sys&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;stderr,&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;fork failed: %d (%s)&amp;quot;&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;%&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;(e&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;errno,&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;e&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;strerror)&lt;/span&gt;
-        &lt;span style=&#34;color: #f8f8f2&#34;&gt;sys&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;exit(&lt;/span&gt;&lt;span style=&#34;color: #ae81ff&#34;&gt;1&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;)&lt;/span&gt;
-
-    &lt;span style=&#34;color: #75715e&#34;&gt;# Configure the child processes environment&lt;/span&gt;
-    &lt;span style=&#34;color: #f8f8f2&#34;&gt;os&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;chdir(&lt;/span&gt;&lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;/&amp;quot;&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;)&lt;/span&gt;
-    &lt;span style=&#34;color: #f8f8f2&#34;&gt;os&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;setsid()&lt;/span&gt;
-    &lt;span style=&#34;color: #f8f8f2&#34;&gt;os&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;umask(&lt;/span&gt;&lt;span style=&#34;color: #ae81ff&#34;&gt;0&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;)&lt;/span&gt;
-
-    &lt;span style=&#34;color: #75715e&#34;&gt;# Execute something in the background&lt;/span&gt;
-    &lt;span style=&#34;color: #f8f8f2&#34;&gt;do_something()&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-&lt;h4 id=&#34;so-what-is-actually-going-on-here&#34;&gt;So what is actually going on here ?&lt;/h4&gt;
-
-&lt;p&gt;Nothing changes in the actual code apart from giving it the ability to fork. This makes it easy to give existing (or 3rd party) code the ability to fork.&lt;/p&gt;
-
-&lt;p&gt;First off, we execute a system fork() call (which is an operating system call), this returns the process ID of the child process. We then have some basic sanity checking and make sure it&amp;rsquo;s a real PID and the forking didn&amp;rsquo;t raise any exceptions.&lt;/p&gt;
-
-&lt;p&gt;After that, we change the child processes environment so that it is no longer a child of our main parent process and so that it can live on its own after we exit.&lt;/p&gt;
-
-&lt;p&gt;Finally, we execute the original code, now inside a detached child process. This can run for as long as it needs, and could potentially log to a log file if you care about any stdout output.&lt;/p&gt;
-
-&lt;p&gt;There are also some better alternatives, something like this for example:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;os&lt;/span&gt;
-&lt;span style=&#34;color: #f8f8f2&#34;&gt;os&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;spawnl(os&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;P_DETACH,&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;#39;some_log_running_command&amp;#39;&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;)&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-&lt;p&gt;&lt;strong&gt;Note:&lt;/strong&gt; &lt;code&gt;os.P_DETACH&lt;/code&gt; is win32 specific. For better portability you could use &lt;code&gt;os.P_NOWAIT&lt;/code&gt;.&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&#34;http://docs.python.org/library/os.html#os.spawnl&#34;&gt;Here is the documentation&lt;/a&gt;.&lt;/p&gt;</description>
+&lt;p&gt;&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>Replacing Django&#39;s Nasty &#39;runserver&#39;</title>
-      <link>https://sigterm.sh/2011/12/06/replacing-djangos-nasty-runserver</link>
+      <link>https://sigterm.sh/2011/12/06/replacing-djangos-nasty-runserver/</link>
       <pubDate>Tue, 06 Dec 2011 12:00:00 -0400</pubDate>
       
-      <guid>https://sigterm.sh/2011/12/06/replacing-djangos-nasty-runserver</guid>
+      <guid>https://sigterm.sh/2011/12/06/replacing-djangos-nasty-runserver/</guid>
       <description>&lt;p&gt;Have you ever tried to have more than one person view a development site using &lt;a title=&#34;Django&#34; href=&#34;http://www.djangoproject.com/&#34; target=&#34;_blank&#34;&gt;Django&amp;rsquo;s&lt;/a&gt; &lt;a title=&#34;Django runserver&#34; href=&#34;https://docs.djangoproject.com/en/1.3/ref/django-admin/#runserver-port-or-address-port&#34; target=&#34;_blank&#34;&gt;built-in development server&lt;/a&gt; ? Yeah, it really sucks. Apparently concurrency wasn&amp;rsquo;t high on the features list and they have stated that it never will be.&lt;/p&gt;
 
-&lt;p&gt;&lt;/p&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;DO NOT USE THIS SERVER IN A PRODUCTION SETTING. It has not gone through security audits or performance tests. (And that&amp;rsquo;s how it&amp;rsquo;s gonna stay. We&amp;rsquo;re in the business of making Web frameworks, not Web servers, so improving this server to be able to handle a production environment is outside the scope of Django.)&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;So how do we go about using something a little nicer without losing any of the auto-reload goodness and without having to setup a full blown production environment ?&lt;/p&gt;
-
-&lt;p&gt;There are a number of alternatives, however I&amp;rsquo;ve selected &lt;a title=&#34;Twisted Web&#34; href=&#34;http://twistedmatrix.com/documents/current/web/howto/web-in-60/index.html&#34; target=&#34;_blank&#34;&gt;Twisted Web&lt;/a&gt; simply because I really like the &lt;a title=&#34;Twisted&#34; href=&#34;http://twistedmatrix.com/trac/&#34; target=&#34;_blank&#34;&gt;twisted framework&lt;/a&gt; and due to the experience I have in using it, I am very comfortable with it. It&amp;rsquo;s a great feature-packed web server that handles concurrency (and a ton of other things) exceptionally well.&lt;/p&gt;
-
-&lt;p&gt;So how do we use it to serve our little Django project in a development friendly way ?&lt;/p&gt;
-
-&lt;p&gt;I&amp;rsquo;ve put together some code (some borrowed from other sources) and constructed a simple replacement command called &amp;ldquo;trunserver&amp;rdquo; (twisted-runserver). You can grab this code from &lt;a title=&#34;GitHub - trunserver&#34; href=&#34;https://github.com/gregarmer/trunserver&#34; target=&#34;_blank&#34;&gt;Github&lt;/a&gt;. Simply install it using the standard methods, and run it with:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;python manage.py trunserver [IP:PORT] [--settings=foo] [--noreload]
-&lt;/pre&gt;&lt;/div&gt;
-
-&lt;p&gt;So this will start up a twisted web instance serving your Django project and just like the build-in runserver, it will automatically reload your code when it notices that your files have been modified unless &amp;ndash;noreload has been passed.&lt;/p&gt;
-
-&lt;p&gt;There are a few things missing at this point, like IPv6 support and static file serving, however these are on the roadmap.&lt;/p&gt;
-
-&lt;p&gt;I&amp;rsquo;ll post again with some more info once it is a little more stable and an official release has been provided.&lt;/p&gt;</description>
+&lt;p&gt;&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>Natural order sorting strings with numbers</title>
-      <link>https://sigterm.sh/2010/09/23/natural-order-sorting-strings-with-numbers</link>
+      <link>https://sigterm.sh/2010/09/23/natural-order-sorting-strings-with-numbers/</link>
       <pubDate>Thu, 23 Sep 2010 12:00:00 -0400</pubDate>
       
-      <guid>https://sigterm.sh/2010/09/23/natural-order-sorting-strings-with-numbers</guid>
+      <guid>https://sigterm.sh/2010/09/23/natural-order-sorting-strings-with-numbers/</guid>
       <description>&lt;p&gt;The following python code makes natural sorting sequences of lexical and numerical values a little easier. It supports any iterable containing strings which have embedded numbers. In short it would give you this:&lt;/p&gt;
 
 &lt;p&gt;foo1 &amp;lt; foo2 &amp;lt; foo10&lt;/p&gt;
@@ -277,238 +63,44 @@ running process.&lt;/p&gt;
 
 &lt;p&gt;foo1 &amp;lt; foo10 &amp;lt; foo2&lt;/p&gt;
 
-&lt;p&gt;&lt;/p&gt;
-
-&lt;p&gt;As an example, if you have this sequence:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;seq&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;[&lt;/span&gt;&lt;span style=&#34;color: #e6db74&#34;&gt;&amp;#39;foo&amp;#39;&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;#39;foo1&amp;#39;&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;#39;foo2&amp;#39;&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;#39;foo10&amp;#39;&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;#39;foobar10&amp;#39;&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;#39;20&amp;#39;&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;#39;100&amp;#39;&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;#39;1&amp;#39;&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;#39;3&amp;#39;&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;#39;bar1&amp;#39;&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;]&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-&lt;p&gt;a regular sort would produce this:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;sorted(seq)&lt;/span&gt;
-&lt;span style=&#34;color: #f8f8f2&#34;&gt;[&lt;/span&gt;&lt;span style=&#34;color: #e6db74&#34;&gt;&amp;#39;1&amp;#39;&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;#39;100&amp;#39;&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;#39;20&amp;#39;&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;#39;3&amp;#39;&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;#39;bar1&amp;#39;&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;#39;foo&amp;#39;&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;#39;foo1&amp;#39;&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;#39;foo10&amp;#39;&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;#39;foo2&amp;#39;&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;#39;foobar10&amp;#39;&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;]&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-&lt;p&gt;whereas a natural sort would produce this:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;natural_sort(seq)&lt;/span&gt;
-&lt;span style=&#34;color: #f8f8f2&#34;&gt;[&lt;/span&gt;&lt;span style=&#34;color: #e6db74&#34;&gt;&amp;#39;1&amp;#39;&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;#39;3&amp;#39;&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;#39;20&amp;#39;&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;#39;100&amp;#39;&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;#39;bar1&amp;#39;&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;#39;foo&amp;#39;&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;#39;foo1&amp;#39;&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;#39;foo2&amp;#39;&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;#39;foo10&amp;#39;&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;#39;foobar10&amp;#39;&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;]&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-&lt;p&gt;Here is the code:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;re&lt;/span&gt;
-
-&lt;span style=&#34;color: #66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color: #a6e22e&#34;&gt;natsort_key&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;(item):&lt;/span&gt;
-    &lt;span style=&#34;color: #f8f8f2&#34;&gt;chunks&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;re&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;split(&lt;/span&gt;&lt;span style=&#34;color: #e6db74&#34;&gt;&amp;#39;(\d+(?:\.\d+)?)&amp;#39;&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;item)&lt;/span&gt;
-    &lt;span style=&#34;color: #66d9ef&#34;&gt;for&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;ii&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;in&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;range(len(chunks)):&lt;/span&gt;
-        &lt;span style=&#34;color: #66d9ef&#34;&gt;if&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;chunks[ii]&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;and&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;chunks[ii][&lt;/span&gt;&lt;span style=&#34;color: #ae81ff&#34;&gt;0&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;]&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;in&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;#39;0123456789&amp;#39;&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;:&lt;/span&gt;
-            &lt;span style=&#34;color: #66d9ef&#34;&gt;if&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;#39;.&amp;#39;&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;in&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;chunks[ii]:&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;numtype&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;float&lt;/span&gt;
-            &lt;span style=&#34;color: #66d9ef&#34;&gt;else&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;numtype&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;int&lt;/span&gt;
-            &lt;span style=&#34;color: #f8f8f2&#34;&gt;chunks[ii]&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color: #ae81ff&#34;&gt;0&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;numtype(chunks[ii]))&lt;/span&gt;
-        &lt;span style=&#34;color: #66d9ef&#34;&gt;else&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;:&lt;/span&gt;
-            &lt;span style=&#34;color: #f8f8f2&#34;&gt;chunks[ii]&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color: #ae81ff&#34;&gt;1&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;chunks[ii])&lt;/span&gt;
-    &lt;span style=&#34;color: #66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;(chunks,&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;item)&lt;/span&gt;
-
-&lt;span style=&#34;color: #66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color: #a6e22e&#34;&gt;natural_sort&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;(seq):&lt;/span&gt;
-    &lt;span style=&#34;color: #f8f8f2&#34;&gt;sortlist&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;[item&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;for&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;item&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;in&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;seq]&lt;/span&gt;
-    &lt;span style=&#34;color: #f8f8f2&#34;&gt;sortlist&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;sort(key&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;natsort_key)&lt;/span&gt;
-    &lt;span style=&#34;color: #66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;sortlist&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;</description>
+&lt;p&gt;&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>Generating a dependency graph for Postgres DB</title>
-      <link>https://sigterm.sh/2010/07/09/generating-a-dependency-graph-for-a-postgresql-database</link>
+      <link>https://sigterm.sh/2010/07/09/generating-a-dependency-graph-for-a-postgresql-database/</link>
       <pubDate>Fri, 09 Jul 2010 12:00:00 -0400</pubDate>
       
-      <guid>https://sigterm.sh/2010/07/09/generating-a-dependency-graph-for-a-postgresql-database</guid>
+      <guid>https://sigterm.sh/2010/07/09/generating-a-dependency-graph-for-a-postgresql-database/</guid>
       <description>&lt;p&gt;This post was mostly inspired by &lt;a href=&#34;http://code.activestate.com/recipes/577298-plot-database-table-dependecies-for-a-mysql-databa/&#34;&gt;this one&lt;/a&gt;, which shows how to generate a dependency graph for a MySQL database. Here we do something similar for PostgreSQL.&lt;/p&gt;
 
 &lt;p&gt;This script will generate the required digraph data to pipe into &lt;a href=&#34;http://www.graphviz.org/&#34; target=&#34;_blank&#34;&gt;graphviz dot&lt;/a&gt; which will generate a visual representation of dependencies in a database schema, based on foreign key constraints.&lt;/p&gt;
 
-&lt;p&gt;&lt;/p&gt;
-
-&lt;p&gt;The script:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;from&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;optparse&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;OptionParser,&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;OptionGroup&lt;/span&gt;
-
-&lt;span style=&#34;color: #f92672&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;psycopg2&lt;/span&gt;
-&lt;span style=&#34;color: #f92672&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;sys&lt;/span&gt;
-
-
-&lt;span style=&#34;color: #66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color: #a6e22e&#34;&gt;writedeps&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;(cursor,&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;tbl):&lt;/span&gt;
-    &lt;span style=&#34;color: #f8f8f2&#34;&gt;sql&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;&amp;quot;&amp;quot;SELECT&lt;/span&gt;
-&lt;span style=&#34;color: #e6db74&#34;&gt;        tc.constraint_name, tc.table_name, kcu.column_name,&lt;/span&gt;
-&lt;span style=&#34;color: #e6db74&#34;&gt;        ccu.table_name AS foreign_table_name,&lt;/span&gt;
-&lt;span style=&#34;color: #e6db74&#34;&gt;        ccu.column_name AS foreign_column_name&lt;/span&gt;
-&lt;span style=&#34;color: #e6db74&#34;&gt;    FROM&lt;/span&gt;
-&lt;span style=&#34;color: #e6db74&#34;&gt;        information_schema.table_constraints AS tc&lt;/span&gt;
-&lt;span style=&#34;color: #e6db74&#34;&gt;    JOIN information_schema.key_column_usage AS kcu ON&lt;/span&gt;
-&lt;span style=&#34;color: #e6db74&#34;&gt;        tc.constraint_name = kcu.constraint_name&lt;/span&gt;
-&lt;span style=&#34;color: #e6db74&#34;&gt;    JOIN information_schema.constraint_column_usage AS ccu ON&lt;/span&gt;
-&lt;span style=&#34;color: #e6db74&#34;&gt;        ccu.constraint_name = tc.constraint_name&lt;/span&gt;
-&lt;span style=&#34;color: #e6db74&#34;&gt;    WHERE constraint_type = &amp;#39;FOREIGN KEY&amp;#39; AND tc.table_name = &amp;#39;%s&amp;#39;&amp;quot;&amp;quot;&amp;quot;&lt;/span&gt;
-    &lt;span style=&#34;color: #f8f8f2&#34;&gt;cursor&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;execute(sql&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;%&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;tbl)&lt;/span&gt;
-    &lt;span style=&#34;color: #66d9ef&#34;&gt;for&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;row&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;in&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;cursor&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;fetchall():&lt;/span&gt;
-        &lt;span style=&#34;color: #f8f8f2&#34;&gt;constraint,&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;table,&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;column,&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;foreign_table,&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;foreign_column&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;row&lt;/span&gt;
-        &lt;span style=&#34;color: #66d9ef&#34;&gt;print&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;#39;&amp;quot;%s&amp;quot; -&amp;gt; &amp;quot;%s&amp;quot; [label=&amp;quot;%s&amp;quot;];&amp;#39;&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;%&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;(tbl,&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;foreign_table,&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;constraint)&lt;/span&gt;
-
-
-&lt;span style=&#34;color: #66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color: #a6e22e&#34;&gt;get_tables&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;(cursor):&lt;/span&gt;
-    &lt;span style=&#34;color: #f8f8f2&#34;&gt;cursor&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;execute(&lt;/span&gt;&lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;SELECT tablename FROM pg_tables WHERE schemaname=&amp;#39;public&amp;#39;&amp;quot;&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;)&lt;/span&gt;
-    &lt;span style=&#34;color: #66d9ef&#34;&gt;for&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;row&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;in&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;cursor&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;fetchall():&lt;/span&gt;
-        &lt;span style=&#34;color: #66d9ef&#34;&gt;yield&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;row[&lt;/span&gt;&lt;span style=&#34;color: #ae81ff&#34;&gt;0&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;]&lt;/span&gt;
-
-
-&lt;span style=&#34;color: #66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color: #a6e22e&#34;&gt;main&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;():&lt;/span&gt;
-    &lt;span style=&#34;color: #f8f8f2&#34;&gt;parser&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;OptionParser()&lt;/span&gt;
-
-    &lt;span style=&#34;color: #f8f8f2&#34;&gt;group&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;OptionGroup(parser,&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;Database Options&amp;quot;&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;)&lt;/span&gt;
-    &lt;span style=&#34;color: #f8f8f2&#34;&gt;group&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;add_option(&lt;/span&gt;&lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;--dbname&amp;quot;&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;action&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;store&amp;quot;&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;dest&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;dbname&amp;quot;&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;,&lt;/span&gt;
-            &lt;span style=&#34;color: #f8f8f2&#34;&gt;help&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;The database name.&amp;quot;&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;)&lt;/span&gt;
-    &lt;span style=&#34;color: #f8f8f2&#34;&gt;group&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;add_option(&lt;/span&gt;&lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;--dbhost&amp;quot;&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;action&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;store&amp;quot;&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;dest&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;dbhost&amp;quot;&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;,&lt;/span&gt;
-            &lt;span style=&#34;color: #f8f8f2&#34;&gt;default&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;localhost&amp;quot;&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;,&lt;/span&gt;  &lt;span style=&#34;color: #f8f8f2&#34;&gt;help&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;The database host.&amp;quot;&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;)&lt;/span&gt;
-    &lt;span style=&#34;color: #f8f8f2&#34;&gt;group&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;add_option(&lt;/span&gt;&lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;--dbuser&amp;quot;&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;action&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;store&amp;quot;&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;dest&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;dbuser&amp;quot;&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;,&lt;/span&gt;
-            &lt;span style=&#34;color: #f8f8f2&#34;&gt;help&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;The database username.&amp;quot;&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;)&lt;/span&gt;
-    &lt;span style=&#34;color: #f8f8f2&#34;&gt;group&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;add_option(&lt;/span&gt;&lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;--dbpass&amp;quot;&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;action&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;store&amp;quot;&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;dest&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;dbpass&amp;quot;&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;,&lt;/span&gt;
-            &lt;span style=&#34;color: #f8f8f2&#34;&gt;help&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;The database password.&amp;quot;&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;)&lt;/span&gt;
-    &lt;span style=&#34;color: #f8f8f2&#34;&gt;parser&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;add_option_group(group)&lt;/span&gt;
-
-    &lt;span style=&#34;color: #f8f8f2&#34;&gt;(options,&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;args)&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;parser&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;parse_args()&lt;/span&gt;
-
-    &lt;span style=&#34;color: #66d9ef&#34;&gt;if&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;not&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;options&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;dbname:&lt;/span&gt;
-        &lt;span style=&#34;color: #66d9ef&#34;&gt;print&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;Please supply a database name, see --help for more info.&amp;quot;&lt;/span&gt;
-        &lt;span style=&#34;color: #f8f8f2&#34;&gt;sys&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;exit(&lt;/span&gt;&lt;span style=&#34;color: #ae81ff&#34;&gt;1&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;)&lt;/span&gt;
-
-    &lt;span style=&#34;color: #66d9ef&#34;&gt;try&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;:&lt;/span&gt;
-        &lt;span style=&#34;color: #f8f8f2&#34;&gt;conn&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;psycopg2&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;connect(&lt;/span&gt;&lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;dbname=&amp;#39;%s&amp;#39; user=&amp;#39;%s&amp;#39; host=&amp;#39;%s&amp;#39; password=&amp;#39;%s&amp;#39;&amp;quot;&lt;/span&gt;
-            &lt;span style=&#34;color: #f92672&#34;&gt;%&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;(options&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;dbname,&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;options&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;dbuser,&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;options&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;dbhost,&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;options&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;dbpass))&lt;/span&gt;
-    &lt;span style=&#34;color: #66d9ef&#34;&gt;except&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;psycopg2&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;OperationalError,&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;e:&lt;/span&gt;
-        &lt;span style=&#34;color: #66d9ef&#34;&gt;print&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;Failed to connect to database,&amp;quot;&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;,&lt;/span&gt;
-        &lt;span style=&#34;color: #66d9ef&#34;&gt;print&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;perhaps you need to supply auth details:&lt;/span&gt;&lt;span style=&#34;color: #ae81ff&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color: #e6db74&#34;&gt; %s&amp;quot;&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;%&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;str(e)&lt;/span&gt;
-        &lt;span style=&#34;color: #66d9ef&#34;&gt;print&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;Use --help for more info.&amp;quot;&lt;/span&gt;
-        &lt;span style=&#34;color: #f8f8f2&#34;&gt;sys&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;exit(&lt;/span&gt;&lt;span style=&#34;color: #ae81ff&#34;&gt;1&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;)&lt;/span&gt;
-
-    &lt;span style=&#34;color: #f8f8f2&#34;&gt;cursor&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;conn&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;cursor()&lt;/span&gt;
-
-    &lt;span style=&#34;color: #66d9ef&#34;&gt;print&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;Digraph F {&lt;/span&gt;&lt;span style=&#34;color: #ae81ff&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;&lt;/span&gt;
-    &lt;span style=&#34;color: #66d9ef&#34;&gt;print&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;#39;ranksep=1.0; size=&amp;quot;18.5, 15.5&amp;quot;; rankdir=LR;&amp;#39;&lt;/span&gt;
-    &lt;span style=&#34;color: #66d9ef&#34;&gt;for&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;i&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;in&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;get_tables(cursor):&lt;/span&gt;
-        &lt;span style=&#34;color: #f8f8f2&#34;&gt;writedeps(cursor,&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;i)&lt;/span&gt;
-    &lt;span style=&#34;color: #66d9ef&#34;&gt;print&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;}&amp;quot;&lt;/span&gt;
-
-    &lt;span style=&#34;color: #f8f8f2&#34;&gt;sys&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;exit(&lt;/span&gt;&lt;span style=&#34;color: #ae81ff&#34;&gt;0&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;)&lt;/span&gt;
-
-
-&lt;span style=&#34;color: #66d9ef&#34;&gt;if&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;__name__&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;__main__&amp;quot;&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;:&lt;/span&gt;
-    &lt;span style=&#34;color: #f8f8f2&#34;&gt;main()&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-&lt;p&gt;You could run it as follows:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;python postgres-deps.py --dbname some_database | dot -Tpng &amp;gt; deps.png
-&lt;/pre&gt;&lt;/div&gt;
-
-&lt;p&gt;&lt;strong&gt;Note&lt;/strong&gt;: for other options use:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;python postgres-deps.py --help
-&lt;/pre&gt;&lt;/div&gt;
-
-&lt;p&gt;That should spit out one of these:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://media.sigterm.sh/2014/d.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;</description>
+&lt;p&gt;&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>Extending Python with modules written in C</title>
-      <link>https://sigterm.sh/2009/12/26/extending-python-with-modules-written-in-c</link>
+      <link>https://sigterm.sh/2009/12/26/extending-python-with-modules-written-in-c/</link>
       <pubDate>Sat, 26 Dec 2009 12:00:00 -0400</pubDate>
       
-      <guid>https://sigterm.sh/2009/12/26/extending-python-with-modules-written-in-c</guid>
+      <guid>https://sigterm.sh/2009/12/26/extending-python-with-modules-written-in-c/</guid>
       <description>&lt;p&gt;Using C (or C++) to create Python modules is really quite simple, providing you know a little C of course. I recently had to do some work around getting a bunch of legacy C code talking to a newer system and thought I&amp;rsquo;d post a nice simple example of how the Python extensions work.&lt;/p&gt;
 
 &lt;p&gt;This code gives you a single method &amp;ldquo;do()&amp;rdquo; that will print the output of a command, passed to it as a string, to stdout and return the exit code as a python int.&lt;/p&gt;
 
-&lt;p&gt;&lt;/p&gt;
-
-&lt;p&gt;Dump this into &lt;code&gt;mycmd.c&lt;/code&gt;&lt;/p&gt;
-&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span style=&#34;color: #75715e&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color: #75715e&#34;&gt;&amp;lt;Python.h&amp;gt;&lt;/span&gt;
-
-&lt;span style=&#34;color: #66d9ef&#34;&gt;static&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;PyObject&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;*&lt;/span&gt; &lt;span style=&#34;color: #a6e22e&#34;&gt;mycmd_do&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;(PyObject&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;*&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;self,&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;PyObject&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;*&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;args)&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;{&lt;/span&gt;
-    &lt;span style=&#34;color: #66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;char&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;*&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;command;&lt;/span&gt;
-    &lt;span style=&#34;color: #66d9ef&#34;&gt;int&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;sts;&lt;/span&gt;
-
-    &lt;span style=&#34;color: #66d9ef&#34;&gt;if&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;!&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;PyArg_ParseTuple(args,&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;s&amp;quot;&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;command))&lt;/span&gt;
-        &lt;span style=&#34;color: #66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;NULL;&lt;/span&gt;
-    &lt;span style=&#34;color: #f8f8f2&#34;&gt;sts&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;system(command);&lt;/span&gt;
-    &lt;span style=&#34;color: #66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;Py_BuildValue(&lt;/span&gt;&lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;i&amp;quot;&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;sts);&lt;/span&gt;
-&lt;span style=&#34;color: #f8f8f2&#34;&gt;}&lt;/span&gt;
-
-&lt;span style=&#34;color: #66d9ef&#34;&gt;static&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;PyMethodDef&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;MyCmdMethods[]&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;{&lt;/span&gt;
-    &lt;span style=&#34;color: #f8f8f2&#34;&gt;{&lt;/span&gt;&lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;do&amp;quot;&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;mycmd_do,&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;METH_VARARGS,&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;Print output of &amp;#39;cmd&amp;#39;, return exit code.&amp;quot;&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;},&lt;/span&gt;
-    &lt;span style=&#34;color: #f8f8f2&#34;&gt;{NULL,&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;NULL,&lt;/span&gt; &lt;span style=&#34;color: #ae81ff&#34;&gt;0&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;NULL}&lt;/span&gt;        &lt;span style=&#34;color: #75715e&#34;&gt;/* Sentinel */&lt;/span&gt;
-&lt;span style=&#34;color: #f8f8f2&#34;&gt;};&lt;/span&gt;
-
-&lt;span style=&#34;color: #f8f8f2&#34;&gt;PyMODINIT_FUNC&lt;/span&gt;
-&lt;span style=&#34;color: #a6e22e&#34;&gt;initmycmd&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color: #66d9ef&#34;&gt;void&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;)&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;{&lt;/span&gt;
-    &lt;span style=&#34;color: #f8f8f2&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color: #66d9ef&#34;&gt;void&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;)&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;Py_InitModule(&lt;/span&gt;&lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;mycmd&amp;quot;&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;MyCmdMethods);&lt;/span&gt;
-&lt;span style=&#34;color: #f8f8f2&#34;&gt;}&lt;/span&gt;
-
-&lt;span style=&#34;color: #66d9ef&#34;&gt;int&lt;/span&gt; &lt;span style=&#34;color: #a6e22e&#34;&gt;main&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color: #66d9ef&#34;&gt;int&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;argc,&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;char&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;*&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;argv[])&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;{&lt;/span&gt;
-    &lt;span style=&#34;color: #f8f8f2&#34;&gt;Py_SetProgramName(argv[&lt;/span&gt;&lt;span style=&#34;color: #ae81ff&#34;&gt;0&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;]);&lt;/span&gt;
-    &lt;span style=&#34;color: #f8f8f2&#34;&gt;Py_Initialize();&lt;/span&gt;
-    &lt;span style=&#34;color: #f8f8f2&#34;&gt;initmycmd();&lt;/span&gt;
-    &lt;span style=&#34;color: #66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color: #ae81ff&#34;&gt;0&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;;&lt;/span&gt;
-&lt;span style=&#34;color: #f8f8f2&#34;&gt;}&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-&lt;p&gt;Great, so we have some example code now, here is how you build an importable module with it:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;greg@codemine:~/code/mycmd %&amp;gt; cc -dynamic -g -Wall -I/System/Library/Frameworks/Python.framework/Versions/2.6/include/python2.6 -c mycmd.c -o mycmd.o
-greg@codemine:~/code/mycmd %&amp;gt; cc -bundle -undefined dynamic_lookup mycmd.o -o mycmd.so
-&lt;/pre&gt;&lt;/div&gt;
-
-&lt;p&gt;&lt;strong&gt;Note:&lt;/strong&gt; Don&amp;rsquo;t forget to replace the include path above with the correct path to Python.h on your machine.&lt;/p&gt;
-
-&lt;p&gt;This should give you a mycmd.so on unix / linux and a mycmd.dll on windows. In the same directory, run a python interpreter and test it out.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;greg@codemine:~/code/mycmd %&amp;gt; python
-Python 2.6.3 (r263:75183, Nov  4 2009, 12:53:19)
-[GCC 4.2.1 (Apple Inc. build 5646)] on darwin
-Type &amp;quot;help&amp;quot;, &amp;quot;copyright&amp;quot;, &amp;quot;credits&amp;quot; or &amp;quot;license&amp;quot; for more information.
-&amp;gt;&amp;gt;&amp;gt; import mycmd
-&amp;gt;&amp;gt;&amp;gt; mycmd.do&lt;span style=&#34;color: #f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color: #e6db74&#34;&gt;&amp;#39;/usr/bin/false&amp;#39;&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;)&lt;/span&gt;
-256
-&amp;gt;&amp;gt;&amp;gt; mycmd.do&lt;span style=&#34;color: #f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color: #e6db74&#34;&gt;&amp;#39;/usr/bin/true&amp;#39;&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;)&lt;/span&gt;
-0
-&amp;gt;&amp;gt;&amp;gt; mycmd.do&lt;span style=&#34;color: #f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color: #e6db74&#34;&gt;&amp;#39;uname -a&amp;#39;&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;)&lt;/span&gt;
-Darwin codemine.codelounge.int 10.2.0 Darwin Kernel Version 10.2.0: Tue Nov  3 10:37:10 PST 2009; root:xnu-1486.2.11~1/RELEASE_I386 i386
-0
-&amp;gt;&amp;gt;&amp;gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-&lt;p&gt;There is much more you can do around this, thankfully the &lt;a href=&#34;http://docs.python.org/extending/&#34;&gt;documentation&lt;/a&gt; is remarkably good.&lt;/p&gt;
-
-&lt;p&gt;There is not much to the actual code. First, we define the C function that will handle our command &amp;ldquo;mycmd_do&amp;rdquo;. Then we set up an array of methods we want to expose to python &amp;ldquo;MyCmdMethods&amp;rdquo;. We then setup an initializer &amp;ldquo;initmycmd&amp;rdquo; to expose the module which is executed from &amp;ldquo;main&amp;rdquo; after the python initializer &amp;ldquo;Py_Initialize&amp;rdquo;.&lt;/p&gt;</description>
+&lt;p&gt;&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>Simple OpenVPN Server Statistics</title>
-      <link>https://sigterm.sh/2009/07/16/simple-openvpn-server-statistics</link>
+      <link>https://sigterm.sh/2009/07/16/simple-openvpn-server-statistics/</link>
       <pubDate>Thu, 16 Jul 2009 12:00:00 -0400</pubDate>
       
-      <guid>https://sigterm.sh/2009/07/16/simple-openvpn-server-statistics</guid>
+      <guid>https://sigterm.sh/2009/07/16/simple-openvpn-server-statistics/</guid>
       <description>&lt;p&gt;Ever wondered what the status of your OpenVPN server is, or wanted some simple stats ?&lt;/p&gt;
 
-&lt;p&gt;&lt;/p&gt;
-
-&lt;p&gt;Here is a really simple script to give you some info. The output looks like this:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;greg@leonis:~$ vpnstatus
-Common Name   Virtual Address    Real Address          Sent      Received             Connected Since
-greg.vpn      10.8.142.6         196.9.23.59        1.11 MB     282.50 KB    Thu Jul 16 09:07:15 2009
-&lt;/pre&gt;&lt;/div&gt;
-
-&lt;p&gt;Firstly, ensure your server is actually saving the stats somewhere (/etc/openvpn/openvpn.status in my example):&lt;/p&gt;
-&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;greg@leonis:~$ grep status /etc/openvpn/server.conf
-status openvpn.status
-&lt;/pre&gt;&lt;/div&gt;
-
-&lt;p&gt;Once that is happening, drop this code into a file and make it executable.&lt;/p&gt;
-
-&lt;script src=&#34;https://gist.github.com/gregarmer/5a6c096be858580da889.js&#34;&gt;&lt;/script&gt;</description>
+&lt;p&gt;&lt;/p&gt;</description>
     </item>
     
   </channel>

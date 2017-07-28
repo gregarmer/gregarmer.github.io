@@ -1,66 +1,37 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>./sigterm.sh</title>
-    <link>https://sigterm.sh/tags/random-thoughts/index.xml</link>
-    <description>Recent content on ./sigterm.sh</description>
+    <title>Random Thoughts on ./sigterm.sh</title>
+    <link>https://sigterm.sh/tags/random-thoughts/</link>
+    <description>Recent content in Random Thoughts on ./sigterm.sh</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>Gregory Armer. All rights reserved.</copyright>
-    <atom:link href="https://sigterm.sh/tags/random-thoughts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 26 Oct 2014 04:35:00 -0400</lastBuildDate>
+    
+	<atom:link href="https://sigterm.sh/tags/random-thoughts/index.xml" rel="self" type="application/rss+xml" />
+    
     
     <item>
       <title>Thoughts on Google Inbox</title>
-      <link>https://sigterm.sh/2014/10/26/google-inbox</link>
+      <link>https://sigterm.sh/2014/10/26/google-inbox/</link>
       <pubDate>Sun, 26 Oct 2014 04:35:00 -0400</pubDate>
       
-      <guid>https://sigterm.sh/2014/10/26/google-inbox</guid>
+      <guid>https://sigterm.sh/2014/10/26/google-inbox/</guid>
       <description>&lt;p&gt;This is an insanely awesome way to work with your e-mail!  Google have essentially turned your e-mail inbox into a massive todo list, which as it turns out, is actually a nice way to treat it.&lt;/p&gt;
 
-&lt;p&gt;&lt;/p&gt;
-
-&lt;p&gt;The bundling is great, and is pretty accurate from what I&amp;rsquo;ve seen.  Also, the extra meta-info they add in to some e-mails seems to be quite useful - things like flight details, or purchases.&lt;/p&gt;
-
-&lt;p&gt;Reminders is also great, especially for people like me who e-mail themselves things to remember.&lt;/p&gt;
-
-&lt;p&gt;I&amp;rsquo;m a big fan and really wish I could use it with my red-taped security controlled corporate Exchange e-mail account too.&lt;/p&gt;</description>
+&lt;p&gt;&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>The impact of being behind schedule</title>
-      <link>https://sigterm.sh/2011/02/11/the-impact-of-being-behind-schedule</link>
+      <link>https://sigterm.sh/2011/02/11/the-impact-of-being-behind-schedule/</link>
       <pubDate>Fri, 11 Feb 2011 12:00:00 -0400</pubDate>
       
-      <guid>https://sigterm.sh/2011/02/11/the-impact-of-being-behind-schedule</guid>
+      <guid>https://sigterm.sh/2011/02/11/the-impact-of-being-behind-schedule/</guid>
       <description>&lt;p&gt;In managing a group of software engineers, this is something that has happened frequently in my team and has been bothering me for a while. It&amp;rsquo;s a lot easier for me to notice, as in my case, I actively write software with my team.&lt;/p&gt;
 
-&lt;p&gt;&lt;/p&gt;
-
-&lt;h3 id=&#34;the-problem&#34;&gt;The problem&lt;/h3&gt;
-
-&lt;p&gt;The entire team tends to perform so much better when we&amp;rsquo;re ahead of schedule, our spirits are high, everyone is motivated, the &lt;a title=&#34;SCRUM&#34; href=&#34;http://en.wikipedia.org/wiki/Scrum_(development)&#34; target=&#34;_blank&#34;&gt;SCRUM&lt;/a&gt; board is bouncing around actively and everything is going great. However, as soon as the pressure starts to increase, a few milestones are missed and things start falling a little behind schedule. The entire team rapidly starts losing hope, everyone appears lethargic, demotivation kicks in and things slowly start grinding to a halt.&lt;/p&gt;
-
-&lt;h3 id=&#34;so-how-do-we-stop-this&#34;&gt;So how do we stop this ?&lt;/h3&gt;
-
-&lt;p&gt;In trying to curb this level of demotivation and fatigue, we first need to understand why this happens. In reality, being a bit behind schedule is really not the end of the world. Estimates are provided on project milestones, but we need to realize that they are called estimates for a reason. No matter how many proven processes your software engineering team has in place and how good you have become at determining your teams velocity, there will always be parts of a project that cannot be put into a little box with a start and end date.&lt;/p&gt;
-
-&lt;p&gt;In addition to that, even though your estimates may be quite realistic, you can never accurately gauge what other problems may come along during a sprint. In our environment, we often have &amp;ldquo;urgent&amp;rdquo; requests to deal with; bugs, emergency maintenance, and other pesky time-wasters. To the management suits upstairs, these may seem inconsequential but in my experience, they have a far greater reaching impact than the suits realize.&lt;/p&gt;
-
-&lt;p&gt;All of this unexpected work contributes to pushing the team behind schedule. Most times we can catch up without impacting the projects final delivery, but there are rare times where we fall further and further behind schedule. It is these times that the team seems to get stuck in this cycle of despair and their relative output is reduced to who shouts at them the loudest.&lt;/p&gt;
-
-&lt;p&gt;So far, I have not found a good way to reverse this mindset after it has happened. The best way to work around this problem, in my humble opinion, is to not get there in the first place. Software engineers, sales teams and clients must realize that deadlines are going to be missed, specs are not always accurate and all kinds of impediments are going to get in the way of delivering quality work on time. The best thing we can do to prevent this is to manage everyones expectations in the best way possible.&lt;/p&gt;
-
-&lt;h3 id=&#34;keeping-everyone-happy&#34;&gt;Keeping everyone happy&lt;/h3&gt;
-
-&lt;p&gt;Communication is key in managing the expectations of everyone involved. It is a lot easier to keep everyone happy when they know upfront that the team is falling behind schedule. The pressure from clients is reduced when they are informed early that an expected date of delivery is unlikely to be hit, which in turn reduces the amount of pressure. This contributes greatly to keeping the workforce in high spirits, amidst the whooshing sound of missed milestones flying by, and lets them stay motivated and productive.&lt;/p&gt;
-
-&lt;p&gt;Increasing the amount of pressure really does nothing to help a project along, although this is often the only solution that the clients and non-developers can think up. In fact, I strongly believe it does just the opposite of what it was intended to do. Adding pressure to an already drowning team only culls whatever motivation there was still remaining. This leads to developers lying about the status of a project in a desperate attempt to alleviate that pressure. That inaccurate status gets communicated back to the stake holders and the cycle just begins over - except with more pressure as the team is now even further behind.&lt;/p&gt;
-
-&lt;h3 id=&#34;in-conclusion&#34;&gt;In conclusion&lt;/h3&gt;
-
-&lt;p&gt;Software engineers, be honest and accurate about your actual status, it may not seem like it, but you&amp;rsquo;re only going to help yourselves in the long run. Suits, be nicer to your workforce, they&amp;rsquo;re doing the best they can. Adding more pressure is helping no-one.&lt;/p&gt;
-
-&lt;p&gt;That is all.&lt;/p&gt;</description>
+&lt;p&gt;&lt;/p&gt;</description>
     </item>
     
   </channel>

@@ -1,112 +1,28 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>./sigterm.sh</title>
-    <link>https://sigterm.sh/tags/postgresql/index.xml</link>
-    <description>Recent content on ./sigterm.sh</description>
+    <title>Postgresql on ./sigterm.sh</title>
+    <link>https://sigterm.sh/tags/postgresql/</link>
+    <description>Recent content in Postgresql on ./sigterm.sh</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>Gregory Armer. All rights reserved.</copyright>
-    <atom:link href="https://sigterm.sh/tags/postgresql/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 09 Jul 2010 12:00:00 -0400</lastBuildDate>
+    
+	<atom:link href="https://sigterm.sh/tags/postgresql/index.xml" rel="self" type="application/rss+xml" />
+    
     
     <item>
       <title>Generating a dependency graph for Postgres DB</title>
-      <link>https://sigterm.sh/2010/07/09/generating-a-dependency-graph-for-a-postgresql-database</link>
+      <link>https://sigterm.sh/2010/07/09/generating-a-dependency-graph-for-a-postgresql-database/</link>
       <pubDate>Fri, 09 Jul 2010 12:00:00 -0400</pubDate>
       
-      <guid>https://sigterm.sh/2010/07/09/generating-a-dependency-graph-for-a-postgresql-database</guid>
+      <guid>https://sigterm.sh/2010/07/09/generating-a-dependency-graph-for-a-postgresql-database/</guid>
       <description>&lt;p&gt;This post was mostly inspired by &lt;a href=&#34;http://code.activestate.com/recipes/577298-plot-database-table-dependecies-for-a-mysql-databa/&#34;&gt;this one&lt;/a&gt;, which shows how to generate a dependency graph for a MySQL database. Here we do something similar for PostgreSQL.&lt;/p&gt;
 
 &lt;p&gt;This script will generate the required digraph data to pipe into &lt;a href=&#34;http://www.graphviz.org/&#34; target=&#34;_blank&#34;&gt;graphviz dot&lt;/a&gt; which will generate a visual representation of dependencies in a database schema, based on foreign key constraints.&lt;/p&gt;
 
-&lt;p&gt;&lt;/p&gt;
-
-&lt;p&gt;The script:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;from&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;optparse&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;OptionParser,&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;OptionGroup&lt;/span&gt;
-
-&lt;span style=&#34;color: #f92672&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;psycopg2&lt;/span&gt;
-&lt;span style=&#34;color: #f92672&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;sys&lt;/span&gt;
-
-
-&lt;span style=&#34;color: #66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color: #a6e22e&#34;&gt;writedeps&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;(cursor,&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;tbl):&lt;/span&gt;
-    &lt;span style=&#34;color: #f8f8f2&#34;&gt;sql&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;&amp;quot;&amp;quot;SELECT&lt;/span&gt;
-&lt;span style=&#34;color: #e6db74&#34;&gt;        tc.constraint_name, tc.table_name, kcu.column_name,&lt;/span&gt;
-&lt;span style=&#34;color: #e6db74&#34;&gt;        ccu.table_name AS foreign_table_name,&lt;/span&gt;
-&lt;span style=&#34;color: #e6db74&#34;&gt;        ccu.column_name AS foreign_column_name&lt;/span&gt;
-&lt;span style=&#34;color: #e6db74&#34;&gt;    FROM&lt;/span&gt;
-&lt;span style=&#34;color: #e6db74&#34;&gt;        information_schema.table_constraints AS tc&lt;/span&gt;
-&lt;span style=&#34;color: #e6db74&#34;&gt;    JOIN information_schema.key_column_usage AS kcu ON&lt;/span&gt;
-&lt;span style=&#34;color: #e6db74&#34;&gt;        tc.constraint_name = kcu.constraint_name&lt;/span&gt;
-&lt;span style=&#34;color: #e6db74&#34;&gt;    JOIN information_schema.constraint_column_usage AS ccu ON&lt;/span&gt;
-&lt;span style=&#34;color: #e6db74&#34;&gt;        ccu.constraint_name = tc.constraint_name&lt;/span&gt;
-&lt;span style=&#34;color: #e6db74&#34;&gt;    WHERE constraint_type = &amp;#39;FOREIGN KEY&amp;#39; AND tc.table_name = &amp;#39;%s&amp;#39;&amp;quot;&amp;quot;&amp;quot;&lt;/span&gt;
-    &lt;span style=&#34;color: #f8f8f2&#34;&gt;cursor&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;execute(sql&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;%&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;tbl)&lt;/span&gt;
-    &lt;span style=&#34;color: #66d9ef&#34;&gt;for&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;row&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;in&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;cursor&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;fetchall():&lt;/span&gt;
-        &lt;span style=&#34;color: #f8f8f2&#34;&gt;constraint,&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;table,&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;column,&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;foreign_table,&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;foreign_column&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;row&lt;/span&gt;
-        &lt;span style=&#34;color: #66d9ef&#34;&gt;print&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;#39;&amp;quot;%s&amp;quot; -&amp;gt; &amp;quot;%s&amp;quot; [label=&amp;quot;%s&amp;quot;];&amp;#39;&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;%&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;(tbl,&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;foreign_table,&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;constraint)&lt;/span&gt;
-
-
-&lt;span style=&#34;color: #66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color: #a6e22e&#34;&gt;get_tables&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;(cursor):&lt;/span&gt;
-    &lt;span style=&#34;color: #f8f8f2&#34;&gt;cursor&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;execute(&lt;/span&gt;&lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;SELECT tablename FROM pg_tables WHERE schemaname=&amp;#39;public&amp;#39;&amp;quot;&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;)&lt;/span&gt;
-    &lt;span style=&#34;color: #66d9ef&#34;&gt;for&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;row&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;in&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;cursor&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;fetchall():&lt;/span&gt;
-        &lt;span style=&#34;color: #66d9ef&#34;&gt;yield&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;row[&lt;/span&gt;&lt;span style=&#34;color: #ae81ff&#34;&gt;0&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;]&lt;/span&gt;
-
-
-&lt;span style=&#34;color: #66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color: #a6e22e&#34;&gt;main&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;():&lt;/span&gt;
-    &lt;span style=&#34;color: #f8f8f2&#34;&gt;parser&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;OptionParser()&lt;/span&gt;
-
-    &lt;span style=&#34;color: #f8f8f2&#34;&gt;group&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;OptionGroup(parser,&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;Database Options&amp;quot;&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;)&lt;/span&gt;
-    &lt;span style=&#34;color: #f8f8f2&#34;&gt;group&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;add_option(&lt;/span&gt;&lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;--dbname&amp;quot;&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;action&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;store&amp;quot;&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;dest&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;dbname&amp;quot;&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;,&lt;/span&gt;
-            &lt;span style=&#34;color: #f8f8f2&#34;&gt;help&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;The database name.&amp;quot;&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;)&lt;/span&gt;
-    &lt;span style=&#34;color: #f8f8f2&#34;&gt;group&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;add_option(&lt;/span&gt;&lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;--dbhost&amp;quot;&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;action&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;store&amp;quot;&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;dest&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;dbhost&amp;quot;&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;,&lt;/span&gt;
-            &lt;span style=&#34;color: #f8f8f2&#34;&gt;default&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;localhost&amp;quot;&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;,&lt;/span&gt;  &lt;span style=&#34;color: #f8f8f2&#34;&gt;help&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;The database host.&amp;quot;&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;)&lt;/span&gt;
-    &lt;span style=&#34;color: #f8f8f2&#34;&gt;group&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;add_option(&lt;/span&gt;&lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;--dbuser&amp;quot;&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;action&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;store&amp;quot;&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;dest&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;dbuser&amp;quot;&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;,&lt;/span&gt;
-            &lt;span style=&#34;color: #f8f8f2&#34;&gt;help&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;The database username.&amp;quot;&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;)&lt;/span&gt;
-    &lt;span style=&#34;color: #f8f8f2&#34;&gt;group&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;add_option(&lt;/span&gt;&lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;--dbpass&amp;quot;&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;action&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;store&amp;quot;&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;dest&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;dbpass&amp;quot;&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;,&lt;/span&gt;
-            &lt;span style=&#34;color: #f8f8f2&#34;&gt;help&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;The database password.&amp;quot;&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;)&lt;/span&gt;
-    &lt;span style=&#34;color: #f8f8f2&#34;&gt;parser&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;add_option_group(group)&lt;/span&gt;
-
-    &lt;span style=&#34;color: #f8f8f2&#34;&gt;(options,&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;args)&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;parser&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;parse_args()&lt;/span&gt;
-
-    &lt;span style=&#34;color: #66d9ef&#34;&gt;if&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;not&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;options&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;dbname:&lt;/span&gt;
-        &lt;span style=&#34;color: #66d9ef&#34;&gt;print&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;Please supply a database name, see --help for more info.&amp;quot;&lt;/span&gt;
-        &lt;span style=&#34;color: #f8f8f2&#34;&gt;sys&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;exit(&lt;/span&gt;&lt;span style=&#34;color: #ae81ff&#34;&gt;1&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;)&lt;/span&gt;
-
-    &lt;span style=&#34;color: #66d9ef&#34;&gt;try&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;:&lt;/span&gt;
-        &lt;span style=&#34;color: #f8f8f2&#34;&gt;conn&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;psycopg2&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;connect(&lt;/span&gt;&lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;dbname=&amp;#39;%s&amp;#39; user=&amp;#39;%s&amp;#39; host=&amp;#39;%s&amp;#39; password=&amp;#39;%s&amp;#39;&amp;quot;&lt;/span&gt;
-            &lt;span style=&#34;color: #f92672&#34;&gt;%&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;(options&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;dbname,&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;options&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;dbuser,&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;options&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;dbhost,&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;options&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;dbpass))&lt;/span&gt;
-    &lt;span style=&#34;color: #66d9ef&#34;&gt;except&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;psycopg2&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;OperationalError,&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;e:&lt;/span&gt;
-        &lt;span style=&#34;color: #66d9ef&#34;&gt;print&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;Failed to connect to database,&amp;quot;&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;,&lt;/span&gt;
-        &lt;span style=&#34;color: #66d9ef&#34;&gt;print&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;perhaps you need to supply auth details:&lt;/span&gt;&lt;span style=&#34;color: #ae81ff&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color: #e6db74&#34;&gt; %s&amp;quot;&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;%&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;str(e)&lt;/span&gt;
-        &lt;span style=&#34;color: #66d9ef&#34;&gt;print&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;Use --help for more info.&amp;quot;&lt;/span&gt;
-        &lt;span style=&#34;color: #f8f8f2&#34;&gt;sys&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;exit(&lt;/span&gt;&lt;span style=&#34;color: #ae81ff&#34;&gt;1&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;)&lt;/span&gt;
-
-    &lt;span style=&#34;color: #f8f8f2&#34;&gt;cursor&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;conn&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;cursor()&lt;/span&gt;
-
-    &lt;span style=&#34;color: #66d9ef&#34;&gt;print&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;Digraph F {&lt;/span&gt;&lt;span style=&#34;color: #ae81ff&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;&lt;/span&gt;
-    &lt;span style=&#34;color: #66d9ef&#34;&gt;print&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;#39;ranksep=1.0; size=&amp;quot;18.5, 15.5&amp;quot;; rankdir=LR;&amp;#39;&lt;/span&gt;
-    &lt;span style=&#34;color: #66d9ef&#34;&gt;for&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;i&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;in&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;get_tables(cursor):&lt;/span&gt;
-        &lt;span style=&#34;color: #f8f8f2&#34;&gt;writedeps(cursor,&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;i)&lt;/span&gt;
-    &lt;span style=&#34;color: #66d9ef&#34;&gt;print&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;}&amp;quot;&lt;/span&gt;
-
-    &lt;span style=&#34;color: #f8f8f2&#34;&gt;sys&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;exit(&lt;/span&gt;&lt;span style=&#34;color: #ae81ff&#34;&gt;0&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;)&lt;/span&gt;
-
-
-&lt;span style=&#34;color: #66d9ef&#34;&gt;if&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;__name__&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;__main__&amp;quot;&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;:&lt;/span&gt;
-    &lt;span style=&#34;color: #f8f8f2&#34;&gt;main()&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-&lt;p&gt;You could run it as follows:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;python postgres-deps.py --dbname some_database | dot -Tpng &amp;gt; deps.png
-&lt;/pre&gt;&lt;/div&gt;
-
-&lt;p&gt;&lt;strong&gt;Note&lt;/strong&gt;: for other options use:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;python postgres-deps.py --help
-&lt;/pre&gt;&lt;/div&gt;
-
-&lt;p&gt;That should spit out one of these:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://media.sigterm.sh/2014/d.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;</description>
+&lt;p&gt;&lt;/p&gt;</description>
     </item>
     
   </channel>

@@ -1,135 +1,41 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>./sigterm.sh</title>
-    <link>https://sigterm.sh/tags/c/index.xml</link>
-    <description>Recent content on ./sigterm.sh</description>
+    <title>C on ./sigterm.sh</title>
+    <link>https://sigterm.sh/tags/c/</link>
+    <description>Recent content in C on ./sigterm.sh</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>Gregory Armer. All rights reserved.</copyright>
-    <atom:link href="https://sigterm.sh/tags/c/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 26 Dec 2009 12:00:00 -0400</lastBuildDate>
+    
+	<atom:link href="https://sigterm.sh/tags/c/index.xml" rel="self" type="application/rss+xml" />
+    
     
     <item>
       <title>Extending Python with modules written in C</title>
-      <link>https://sigterm.sh/2009/12/26/extending-python-with-modules-written-in-c</link>
+      <link>https://sigterm.sh/2009/12/26/extending-python-with-modules-written-in-c/</link>
       <pubDate>Sat, 26 Dec 2009 12:00:00 -0400</pubDate>
       
-      <guid>https://sigterm.sh/2009/12/26/extending-python-with-modules-written-in-c</guid>
+      <guid>https://sigterm.sh/2009/12/26/extending-python-with-modules-written-in-c/</guid>
       <description>&lt;p&gt;Using C (or C++) to create Python modules is really quite simple, providing you know a little C of course. I recently had to do some work around getting a bunch of legacy C code talking to a newer system and thought I&amp;rsquo;d post a nice simple example of how the Python extensions work.&lt;/p&gt;
 
 &lt;p&gt;This code gives you a single method &amp;ldquo;do()&amp;rdquo; that will print the output of a command, passed to it as a string, to stdout and return the exit code as a python int.&lt;/p&gt;
 
-&lt;p&gt;&lt;/p&gt;
-
-&lt;p&gt;Dump this into &lt;code&gt;mycmd.c&lt;/code&gt;&lt;/p&gt;
-&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span style=&#34;color: #75715e&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color: #75715e&#34;&gt;&amp;lt;Python.h&amp;gt;&lt;/span&gt;
-
-&lt;span style=&#34;color: #66d9ef&#34;&gt;static&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;PyObject&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;*&lt;/span&gt; &lt;span style=&#34;color: #a6e22e&#34;&gt;mycmd_do&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;(PyObject&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;*&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;self,&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;PyObject&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;*&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;args)&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;{&lt;/span&gt;
-    &lt;span style=&#34;color: #66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;char&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;*&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;command;&lt;/span&gt;
-    &lt;span style=&#34;color: #66d9ef&#34;&gt;int&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;sts;&lt;/span&gt;
-
-    &lt;span style=&#34;color: #66d9ef&#34;&gt;if&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;!&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;PyArg_ParseTuple(args,&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;s&amp;quot;&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;command))&lt;/span&gt;
-        &lt;span style=&#34;color: #66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;NULL;&lt;/span&gt;
-    &lt;span style=&#34;color: #f8f8f2&#34;&gt;sts&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;system(command);&lt;/span&gt;
-    &lt;span style=&#34;color: #66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;Py_BuildValue(&lt;/span&gt;&lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;i&amp;quot;&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;sts);&lt;/span&gt;
-&lt;span style=&#34;color: #f8f8f2&#34;&gt;}&lt;/span&gt;
-
-&lt;span style=&#34;color: #66d9ef&#34;&gt;static&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;PyMethodDef&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;MyCmdMethods[]&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;{&lt;/span&gt;
-    &lt;span style=&#34;color: #f8f8f2&#34;&gt;{&lt;/span&gt;&lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;do&amp;quot;&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;mycmd_do,&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;METH_VARARGS,&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;Print output of &amp;#39;cmd&amp;#39;, return exit code.&amp;quot;&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;},&lt;/span&gt;
-    &lt;span style=&#34;color: #f8f8f2&#34;&gt;{NULL,&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;NULL,&lt;/span&gt; &lt;span style=&#34;color: #ae81ff&#34;&gt;0&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;NULL}&lt;/span&gt;        &lt;span style=&#34;color: #75715e&#34;&gt;/* Sentinel */&lt;/span&gt;
-&lt;span style=&#34;color: #f8f8f2&#34;&gt;};&lt;/span&gt;
-
-&lt;span style=&#34;color: #f8f8f2&#34;&gt;PyMODINIT_FUNC&lt;/span&gt;
-&lt;span style=&#34;color: #a6e22e&#34;&gt;initmycmd&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color: #66d9ef&#34;&gt;void&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;)&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;{&lt;/span&gt;
-    &lt;span style=&#34;color: #f8f8f2&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color: #66d9ef&#34;&gt;void&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;)&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;Py_InitModule(&lt;/span&gt;&lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;mycmd&amp;quot;&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;MyCmdMethods);&lt;/span&gt;
-&lt;span style=&#34;color: #f8f8f2&#34;&gt;}&lt;/span&gt;
-
-&lt;span style=&#34;color: #66d9ef&#34;&gt;int&lt;/span&gt; &lt;span style=&#34;color: #a6e22e&#34;&gt;main&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color: #66d9ef&#34;&gt;int&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;argc,&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;char&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;*&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;argv[])&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;{&lt;/span&gt;
-    &lt;span style=&#34;color: #f8f8f2&#34;&gt;Py_SetProgramName(argv[&lt;/span&gt;&lt;span style=&#34;color: #ae81ff&#34;&gt;0&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;]);&lt;/span&gt;
-    &lt;span style=&#34;color: #f8f8f2&#34;&gt;Py_Initialize();&lt;/span&gt;
-    &lt;span style=&#34;color: #f8f8f2&#34;&gt;initmycmd();&lt;/span&gt;
-    &lt;span style=&#34;color: #66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color: #ae81ff&#34;&gt;0&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;;&lt;/span&gt;
-&lt;span style=&#34;color: #f8f8f2&#34;&gt;}&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-&lt;p&gt;Great, so we have some example code now, here is how you build an importable module with it:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;greg@codemine:~/code/mycmd %&amp;gt; cc -dynamic -g -Wall -I/System/Library/Frameworks/Python.framework/Versions/2.6/include/python2.6 -c mycmd.c -o mycmd.o
-greg@codemine:~/code/mycmd %&amp;gt; cc -bundle -undefined dynamic_lookup mycmd.o -o mycmd.so
-&lt;/pre&gt;&lt;/div&gt;
-
-&lt;p&gt;&lt;strong&gt;Note:&lt;/strong&gt; Don&amp;rsquo;t forget to replace the include path above with the correct path to Python.h on your machine.&lt;/p&gt;
-
-&lt;p&gt;This should give you a mycmd.so on unix / linux and a mycmd.dll on windows. In the same directory, run a python interpreter and test it out.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;greg@codemine:~/code/mycmd %&amp;gt; python
-Python 2.6.3 (r263:75183, Nov  4 2009, 12:53:19)
-[GCC 4.2.1 (Apple Inc. build 5646)] on darwin
-Type &amp;quot;help&amp;quot;, &amp;quot;copyright&amp;quot;, &amp;quot;credits&amp;quot; or &amp;quot;license&amp;quot; for more information.
-&amp;gt;&amp;gt;&amp;gt; import mycmd
-&amp;gt;&amp;gt;&amp;gt; mycmd.do&lt;span style=&#34;color: #f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color: #e6db74&#34;&gt;&amp;#39;/usr/bin/false&amp;#39;&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;)&lt;/span&gt;
-256
-&amp;gt;&amp;gt;&amp;gt; mycmd.do&lt;span style=&#34;color: #f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color: #e6db74&#34;&gt;&amp;#39;/usr/bin/true&amp;#39;&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;)&lt;/span&gt;
-0
-&amp;gt;&amp;gt;&amp;gt; mycmd.do&lt;span style=&#34;color: #f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color: #e6db74&#34;&gt;&amp;#39;uname -a&amp;#39;&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;)&lt;/span&gt;
-Darwin codemine.codelounge.int 10.2.0 Darwin Kernel Version 10.2.0: Tue Nov  3 10:37:10 PST 2009; root:xnu-1486.2.11~1/RELEASE_I386 i386
-0
-&amp;gt;&amp;gt;&amp;gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-&lt;p&gt;There is much more you can do around this, thankfully the &lt;a href=&#34;http://docs.python.org/extending/&#34;&gt;documentation&lt;/a&gt; is remarkably good.&lt;/p&gt;
-
-&lt;p&gt;There is not much to the actual code. First, we define the C function that will handle our command &amp;ldquo;mycmd_do&amp;rdquo;. Then we set up an array of methods we want to expose to python &amp;ldquo;MyCmdMethods&amp;rdquo;. We then setup an initializer &amp;ldquo;initmycmd&amp;rdquo; to expose the module which is executed from &amp;ldquo;main&amp;rdquo; after the python initializer &amp;ldquo;Py_Initialize&amp;rdquo;.&lt;/p&gt;</description>
+&lt;p&gt;&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>Run something as another user</title>
-      <link>https://sigterm.sh/2009/07/08/run-something-as-another-user</link>
+      <link>https://sigterm.sh/2009/07/08/run-something-as-another-user/</link>
       <pubDate>Wed, 08 Jul 2009 13:00:00 -0400</pubDate>
       
-      <guid>https://sigterm.sh/2009/07/08/run-something-as-another-user</guid>
+      <guid>https://sigterm.sh/2009/07/08/run-something-as-another-user/</guid>
       <description>&lt;p&gt;Here is a simple way to run something on UNIX / Linux as another user, without having to resort to weird sudo incantations. The Makefile is left as an exercise for the reader.&lt;/p&gt;
 
 &lt;p&gt;This has only been tested on FreeBSD, Debian Linux and OpenSolaris so far.&lt;/p&gt;
 
-&lt;p&gt;&lt;/p&gt;
-
-&lt;p&gt;Compile with: &lt;code&gt;cc -o setuid setuid.c&lt;/code&gt;&lt;/p&gt;
-&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span style=&#34;color: #75715e&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color: #75715e&#34;&gt;&amp;lt;stdio.h&amp;gt;&lt;/span&gt;
-&lt;span style=&#34;color: #75715e&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color: #75715e&#34;&gt;&amp;lt;sys/types.h&amp;gt;&lt;/span&gt;
-&lt;span style=&#34;color: #75715e&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color: #75715e&#34;&gt;&amp;lt;pwd.h&amp;gt;&lt;/span&gt;
-&lt;span style=&#34;color: #75715e&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color: #75715e&#34;&gt;&amp;lt;grp.h&amp;gt;&lt;/span&gt;
-
-&lt;span style=&#34;color: #66d9ef&#34;&gt;int&lt;/span&gt; &lt;span style=&#34;color: #a6e22e&#34;&gt;main&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color: #66d9ef&#34;&gt;int&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;argc,&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;char&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;**&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;argv)&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;{&lt;/span&gt;
-    &lt;span style=&#34;color: #75715e&#34;&gt;/* Check command line */&lt;/span&gt;
-    &lt;span style=&#34;color: #66d9ef&#34;&gt;if&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;(argc&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span style=&#34;color: #ae81ff&#34;&gt;3&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;)&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;{&lt;/span&gt;
-        &lt;span style=&#34;color: #f8f8f2&#34;&gt;fprintf(stderr,&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;Usage: %s user cmd&lt;/span&gt;&lt;span style=&#34;color: #ae81ff&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;argv[&lt;/span&gt;&lt;span style=&#34;color: #ae81ff&#34;&gt;0&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;]);&lt;/span&gt;
-        &lt;span style=&#34;color: #66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color: #ae81ff&#34;&gt;1&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;;&lt;/span&gt;
-    &lt;span style=&#34;color: #f8f8f2&#34;&gt;}&lt;/span&gt;
-
-    &lt;span style=&#34;color: #66d9ef&#34;&gt;struct&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;passwd&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;*&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;pw;&lt;/span&gt;
-    &lt;span style=&#34;color: #f8f8f2&#34;&gt;pw&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;getpwnam(argv[&lt;/span&gt;&lt;span style=&#34;color: #ae81ff&#34;&gt;1&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;]);&lt;/span&gt;
-
-    &lt;span style=&#34;color: #66d9ef&#34;&gt;if&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;(pw&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;==&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;NULL)&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;{&lt;/span&gt;
-        &lt;span style=&#34;color: #f8f8f2&#34;&gt;fprintf(stderr,&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;User not found&lt;/span&gt;&lt;span style=&#34;color: #ae81ff&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;);&lt;/span&gt;
-        &lt;span style=&#34;color: #66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color: #ae81ff&#34;&gt;1&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;;&lt;/span&gt;
-    &lt;span style=&#34;color: #f8f8f2&#34;&gt;}&lt;/span&gt;
-
-    &lt;span style=&#34;color: #66d9ef&#34;&gt;if&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;(initgroups(argv[&lt;/span&gt;&lt;span style=&#34;color: #ae81ff&#34;&gt;1&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;],&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;pw&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;-&amp;gt;&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;pw_gid)&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;==-&lt;/span&gt;&lt;span style=&#34;color: #ae81ff&#34;&gt;1&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;)&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;{&lt;/span&gt;
-        &lt;span style=&#34;color: #f8f8f2&#34;&gt;perror(&lt;/span&gt;&lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;initgroups&amp;quot;&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;);&lt;/span&gt;
-        &lt;span style=&#34;color: #66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color: #ae81ff&#34;&gt;1&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;;&lt;/span&gt;
-    &lt;span style=&#34;color: #f8f8f2&#34;&gt;}&lt;/span&gt;
-
-    &lt;span style=&#34;color: #66d9ef&#34;&gt;if&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;(setregid(pw&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;-&amp;gt;&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;pw_gid,&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;pw&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;-&amp;gt;&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;pw_gid)&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;==&lt;/span&gt;&lt;span style=&#34;color: #ae81ff&#34;&gt;0&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt;
-        &lt;span style=&#34;color: #f8f8f2&#34;&gt;setreuid(pw&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;-&amp;gt;&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;pw_uid,&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;pw&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;-&amp;gt;&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;pw_uid)&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;==&lt;/span&gt;&lt;span style=&#34;color: #ae81ff&#34;&gt;0&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;)&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;{&lt;/span&gt;
-        &lt;span style=&#34;color: #f8f8f2&#34;&gt;argv&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;+=&lt;/span&gt; &lt;span style=&#34;color: #ae81ff&#34;&gt;2&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;;&lt;/span&gt;
-        &lt;span style=&#34;color: #f8f8f2&#34;&gt;execvp(argv[&lt;/span&gt;&lt;span style=&#34;color: #ae81ff&#34;&gt;0&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;],&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;argv);&lt;/span&gt;
-        &lt;span style=&#34;color: #f8f8f2&#34;&gt;perror(&lt;/span&gt;&lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;exec&amp;quot;&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;);&lt;/span&gt;
-        &lt;span style=&#34;color: #66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color: #ae81ff&#34;&gt;1&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;;&lt;/span&gt;
-    &lt;span style=&#34;color: #f8f8f2&#34;&gt;}&lt;/span&gt;
-
-    &lt;span style=&#34;color: #f8f8f2&#34;&gt;perror(&lt;/span&gt;&lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;setre[gu]id&amp;quot;&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;);&lt;/span&gt;
-    &lt;span style=&#34;color: #66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color: #ae81ff&#34;&gt;1&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;;&lt;/span&gt;
-&lt;span style=&#34;color: #f8f8f2&#34;&gt;}&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;</description>
+&lt;p&gt;&lt;/p&gt;</description>
     </item>
     
   </channel>

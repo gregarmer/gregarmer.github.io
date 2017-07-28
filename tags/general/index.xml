@@ -1,210 +1,85 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>./sigterm.sh</title>
-    <link>https://sigterm.sh/tags/general/index.xml</link>
-    <description>Recent content on ./sigterm.sh</description>
+    <title>General on ./sigterm.sh</title>
+    <link>https://sigterm.sh/tags/general/</link>
+    <description>Recent content in General on ./sigterm.sh</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>Gregory Armer. All rights reserved.</copyright>
-    <atom:link href="https://sigterm.sh/tags/general/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 26 Oct 2014 04:35:00 -0400</lastBuildDate>
+    
+	<atom:link href="https://sigterm.sh/tags/general/index.xml" rel="self" type="application/rss+xml" />
+    
     
     <item>
       <title>Thoughts on Google Inbox</title>
-      <link>https://sigterm.sh/2014/10/26/google-inbox</link>
+      <link>https://sigterm.sh/2014/10/26/google-inbox/</link>
       <pubDate>Sun, 26 Oct 2014 04:35:00 -0400</pubDate>
       
-      <guid>https://sigterm.sh/2014/10/26/google-inbox</guid>
+      <guid>https://sigterm.sh/2014/10/26/google-inbox/</guid>
       <description>&lt;p&gt;This is an insanely awesome way to work with your e-mail!  Google have essentially turned your e-mail inbox into a massive todo list, which as it turns out, is actually a nice way to treat it.&lt;/p&gt;
 
-&lt;p&gt;&lt;/p&gt;
-
-&lt;p&gt;The bundling is great, and is pretty accurate from what I&amp;rsquo;ve seen.  Also, the extra meta-info they add in to some e-mails seems to be quite useful - things like flight details, or purchases.&lt;/p&gt;
-
-&lt;p&gt;Reminders is also great, especially for people like me who e-mail themselves things to remember.&lt;/p&gt;
-
-&lt;p&gt;I&amp;rsquo;m a big fan and really wish I could use it with my red-taped security controlled corporate Exchange e-mail account too.&lt;/p&gt;</description>
+&lt;p&gt;&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>The impact of being behind schedule</title>
-      <link>https://sigterm.sh/2011/02/11/the-impact-of-being-behind-schedule</link>
+      <link>https://sigterm.sh/2011/02/11/the-impact-of-being-behind-schedule/</link>
       <pubDate>Fri, 11 Feb 2011 12:00:00 -0400</pubDate>
       
-      <guid>https://sigterm.sh/2011/02/11/the-impact-of-being-behind-schedule</guid>
+      <guid>https://sigterm.sh/2011/02/11/the-impact-of-being-behind-schedule/</guid>
       <description>&lt;p&gt;In managing a group of software engineers, this is something that has happened frequently in my team and has been bothering me for a while. It&amp;rsquo;s a lot easier for me to notice, as in my case, I actively write software with my team.&lt;/p&gt;
 
-&lt;p&gt;&lt;/p&gt;
-
-&lt;h3 id=&#34;the-problem&#34;&gt;The problem&lt;/h3&gt;
-
-&lt;p&gt;The entire team tends to perform so much better when we&amp;rsquo;re ahead of schedule, our spirits are high, everyone is motivated, the &lt;a title=&#34;SCRUM&#34; href=&#34;http://en.wikipedia.org/wiki/Scrum_(development)&#34; target=&#34;_blank&#34;&gt;SCRUM&lt;/a&gt; board is bouncing around actively and everything is going great. However, as soon as the pressure starts to increase, a few milestones are missed and things start falling a little behind schedule. The entire team rapidly starts losing hope, everyone appears lethargic, demotivation kicks in and things slowly start grinding to a halt.&lt;/p&gt;
-
-&lt;h3 id=&#34;so-how-do-we-stop-this&#34;&gt;So how do we stop this ?&lt;/h3&gt;
-
-&lt;p&gt;In trying to curb this level of demotivation and fatigue, we first need to understand why this happens. In reality, being a bit behind schedule is really not the end of the world. Estimates are provided on project milestones, but we need to realize that they are called estimates for a reason. No matter how many proven processes your software engineering team has in place and how good you have become at determining your teams velocity, there will always be parts of a project that cannot be put into a little box with a start and end date.&lt;/p&gt;
-
-&lt;p&gt;In addition to that, even though your estimates may be quite realistic, you can never accurately gauge what other problems may come along during a sprint. In our environment, we often have &amp;ldquo;urgent&amp;rdquo; requests to deal with; bugs, emergency maintenance, and other pesky time-wasters. To the management suits upstairs, these may seem inconsequential but in my experience, they have a far greater reaching impact than the suits realize.&lt;/p&gt;
-
-&lt;p&gt;All of this unexpected work contributes to pushing the team behind schedule. Most times we can catch up without impacting the projects final delivery, but there are rare times where we fall further and further behind schedule. It is these times that the team seems to get stuck in this cycle of despair and their relative output is reduced to who shouts at them the loudest.&lt;/p&gt;
-
-&lt;p&gt;So far, I have not found a good way to reverse this mindset after it has happened. The best way to work around this problem, in my humble opinion, is to not get there in the first place. Software engineers, sales teams and clients must realize that deadlines are going to be missed, specs are not always accurate and all kinds of impediments are going to get in the way of delivering quality work on time. The best thing we can do to prevent this is to manage everyones expectations in the best way possible.&lt;/p&gt;
-
-&lt;h3 id=&#34;keeping-everyone-happy&#34;&gt;Keeping everyone happy&lt;/h3&gt;
-
-&lt;p&gt;Communication is key in managing the expectations of everyone involved. It is a lot easier to keep everyone happy when they know upfront that the team is falling behind schedule. The pressure from clients is reduced when they are informed early that an expected date of delivery is unlikely to be hit, which in turn reduces the amount of pressure. This contributes greatly to keeping the workforce in high spirits, amidst the whooshing sound of missed milestones flying by, and lets them stay motivated and productive.&lt;/p&gt;
-
-&lt;p&gt;Increasing the amount of pressure really does nothing to help a project along, although this is often the only solution that the clients and non-developers can think up. In fact, I strongly believe it does just the opposite of what it was intended to do. Adding pressure to an already drowning team only culls whatever motivation there was still remaining. This leads to developers lying about the status of a project in a desperate attempt to alleviate that pressure. That inaccurate status gets communicated back to the stake holders and the cycle just begins over - except with more pressure as the team is now even further behind.&lt;/p&gt;
-
-&lt;h3 id=&#34;in-conclusion&#34;&gt;In conclusion&lt;/h3&gt;
-
-&lt;p&gt;Software engineers, be honest and accurate about your actual status, it may not seem like it, but you&amp;rsquo;re only going to help yourselves in the long run. Suits, be nicer to your workforce, they&amp;rsquo;re doing the best they can. Adding more pressure is helping no-one.&lt;/p&gt;
-
-&lt;p&gt;That is all.&lt;/p&gt;</description>
+&lt;p&gt;&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>The day the routers died...</title>
-      <link>https://sigterm.sh/2011/02/03/the-day-the-routers-died</link>
+      <link>https://sigterm.sh/2011/02/03/the-day-the-routers-died/</link>
       <pubDate>Thu, 03 Feb 2011 12:00:00 -0400</pubDate>
       
-      <guid>https://sigterm.sh/2011/02/03/the-day-the-routers-died</guid>
+      <guid>https://sigterm.sh/2011/02/03/the-day-the-routers-died/</guid>
       <description>&lt;p&gt;On February 3, 1959, Buddy Holly, Richie Valens and JP Richardson (aka The Big Bopper) died in a plane crash. Don McLean immortalized that day as &amp;ldquo;The Day The Music Died&amp;rdquo; in his 1971 hit, &amp;ldquo;American Pie&amp;rdquo;.&lt;/p&gt;
 
 &lt;p&gt;It&amp;rsquo;s somewhat ironic that on February 3, 2010 the last five /8s from the IANA IPv4 pool have been distributed to the RIRs.&lt;/p&gt;
 
-&lt;p&gt;&lt;/p&gt;
-&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;102/8   AfriNIC    2011-02    whois.afrinic.net ALLOCATED
-103/8   APNIC      2011-02    whois.apnic.net   ALLOCATED
-104/8   ARIN       2011-02    whois.arin.net    ALLOCATED
-179/8   LACNIC     2011-02    whois.lacnic.net  ALLOCATED
-185/8   RIPE NCC   2011-02    whois.ripe.net    ALLOCATED
-&lt;/pre&gt;&lt;/div&gt;
-
-&lt;p&gt;During a RIPE55 meeting surrounding IPv4 exhaustion, this rephrased version of that 1971 hit was played:&lt;/p&gt;
-
-&lt;iframe title=&#34;YouTube video player&#34; width=&#34;480&#34; height=&#34;390&#34; src=&#34;http://www.youtube.com/embed/_y36fG2Oba0&#34; frameborder=&#34;0&#34; allowfullscreen&gt;&lt;/iframe&gt;</description>
+&lt;p&gt;&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>Getting Git man pages on OS X</title>
-      <link>https://sigterm.sh/2010/04/15/getting-git-manpages-on-os-x</link>
+      <link>https://sigterm.sh/2010/04/15/getting-git-manpages-on-os-x/</link>
       <pubDate>Thu, 15 Apr 2010 12:00:00 -0400</pubDate>
       
-      <guid>https://sigterm.sh/2010/04/15/getting-git-manpages-on-os-x</guid>
+      <guid>https://sigterm.sh/2010/04/15/getting-git-manpages-on-os-x/</guid>
       <description>&lt;p&gt;For some reason the OS X install of Git doesn&amp;rsquo;t include the manpages. Here is how I installed them.&lt;/p&gt;
 
-&lt;p&gt;&lt;/p&gt;
-
-&lt;p&gt;First off, find the appropriate manpath.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;greg@codemine:~ %&amp;gt; cat /etc/manpaths
-/usr/share/man
-/usr/local/share/man
-&lt;/pre&gt;&lt;/div&gt;
-
-&lt;p&gt;/usr/local/share/man looks good&amp;hellip;&lt;/p&gt;
-&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;greg@codemine:~ %&amp;gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;VER&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color: #e6db74&#34;&gt;`&lt;/span&gt;git --version &lt;span style=&#34;color: #f8f8f2&#34;&gt;|&lt;/span&gt; awk &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;#39;{print $3}&amp;#39;`&lt;/span&gt;
-greg@codemine:~ %&amp;gt; curl -O http://www.kernel.org/pub/software/scm/git/git-manpages-&lt;span style=&#34;color: #f8f8f2&#34;&gt;$VER&lt;/span&gt;.tar.bz2
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-100  242k  100  242k    0     0  92051      0  0:00:02  0:00:02 --:--:--   99k
-greg@codemine:~ %&amp;gt; sudo tar xjv -C /usr/local/share/man -f git-manpages-&lt;span style=&#34;color: #f8f8f2&#34;&gt;$VER&lt;/span&gt;.tar.bz2
-Password:
-x ./
-x ./man1/
-x ./man1/git-add.1
-[snip]
-x ./man7/gitworkflows.7
-greg@codemine:~ %&amp;gt; rm git-manpages-&lt;span style=&#34;color: #f8f8f2&#34;&gt;$VER&lt;/span&gt;.tar.bz2
-greg@codemine:~ %&amp;gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-&lt;p&gt;&amp;ldquo;man git-add&amp;rdquo; should now work fine.&lt;/p&gt;</description>
+&lt;p&gt;&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>Keyboard shortcuts in Google Wave</title>
-      <link>https://sigterm.sh/2009/10/12/keyboard-shortcuts-in-google-wave</link>
+      <link>https://sigterm.sh/2009/10/12/keyboard-shortcuts-in-google-wave/</link>
       <pubDate>Mon, 12 Oct 2009 12:00:00 -0400</pubDate>
       
-      <guid>https://sigterm.sh/2009/10/12/keyboard-shortcuts-in-google-wave</guid>
+      <guid>https://sigterm.sh/2009/10/12/keyboard-shortcuts-in-google-wave/</guid>
       <description>&lt;p&gt;I was messing around a little with figuring out some of the keyboard shortcuts in Wave. Here is what I have so far:&lt;/p&gt;
 
-&lt;p&gt;&lt;/p&gt;
-
-&lt;h3 id=&#34;while-editing&#34;&gt;While editing:&lt;/h3&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Shift + Enter: Shortcut for &amp;ldquo;Done&amp;rdquo;&lt;/li&gt;
-&lt;li&gt;Control + Enter: Add comment&lt;/li&gt;
-&lt;li&gt;Control + b: Bold&lt;/li&gt;
-&lt;li&gt;Control + i: Italics&lt;/li&gt;
-&lt;li&gt;Control + u: Underline&lt;/li&gt;
-&lt;li&gt;Control + g: Poor mans CSS editor (JavaScript text input)&lt;/li&gt;
-&lt;li&gt;Control + a: Beginning of line&lt;/li&gt;
-&lt;li&gt;Control + e: End of line&lt;/li&gt;
-&lt;li&gt;Control + k: Hyperlink&lt;/li&gt;
-&lt;li&gt;Control + 1/2/3/4: Convert to h1 / h2 / h3 / h4&lt;/li&gt;
-&lt;li&gt;Control + 5: Bullets&lt;/li&gt;
-&lt;li&gt;Control + 6: Drops all formatting&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&#34;while-viewing&#34;&gt;While viewing:&lt;/h3&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Control + r: Reply&lt;/li&gt;
-&lt;li&gt;Enter: Same as Control + r&lt;/li&gt;
-&lt;li&gt;Control + e: Edit&lt;/li&gt;
-&lt;li&gt;Shift + Enter: Start replying at the end&lt;/li&gt;
-&lt;li&gt;Control + Space: Mark all as read&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;I&amp;rsquo;ll update this post if I find any more&amp;hellip;&lt;/p&gt;</description>
+&lt;p&gt;&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>New addition to the family</title>
-      <link>https://sigterm.sh/2009/09/05/new-addition-to-the-family</link>
+      <link>https://sigterm.sh/2009/09/05/new-addition-to-the-family/</link>
       <pubDate>Sat, 05 Sep 2009 12:00:00 -0400</pubDate>
       
-      <guid>https://sigterm.sh/2009/09/05/new-addition-to-the-family</guid>
+      <guid>https://sigterm.sh/2009/09/05/new-addition-to-the-family/</guid>
       <description>&lt;p&gt;So after much anticipation, many tireless weeks of spec checking and a whole bunch of money I was really glad to be on the receiving end of a brand spanking new 17&amp;rdquo; MacBook Pro!&lt;/p&gt;
 
 &lt;p&gt;Although it has been less than 72 hours this is (so far) truly the most amazing piece of computer equipment I have ever owned, honestly worth every single cent! The initial setup was completely flawless and only took a few minutes. The graphics, resolution and performance are exceptional, in fact I haven&amp;rsquo;t even had to switch over from the standard &amp;ldquo;on-board&amp;rdquo; video card to the higher end controller yet, despite putting the GPU through a thorough beating, testing out the Quake 4 demo :P&lt;/p&gt;
 
-&lt;p&gt;&lt;/p&gt;
-
-&lt;p&gt;The specs in this machine are as follows:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Intel&amp;reg; Core&amp;trade;2 Duo CPU     T9600  @ 2.80GHz&lt;/li&gt;
-&lt;li&gt;4GB RAM&lt;/li&gt;
-&lt;li&gt;500GB 5400rpm hard disk&lt;/li&gt;
-&lt;li&gt;17&amp;rdquo; - 1920 x 1200 native resolution&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;I plan to upgrade the memory to 8GB and the drive to the 7200rpm model sometime in the future.&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&#34;https://sigterm.sh/wp-content/uploads/2009/09/HPIM1310.JPG&#34; rel=&#34;lightbox[mbp]&#34; title=&#34;The packaging ... please excuse the terrible quality of my 300 year old
-camera.&#34;&gt;&lt;img src=&#34;https://sigterm.sh/wp-content/uploads/2009/09/HPIM1310-300x225.jpg&#34;&gt;&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;Here are a few more (slightly better quality) pics:&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&#34;https://sigterm.sh/wp-content/uploads/2009/09/HPIM1324.JPG&#34; rel=&#34;lightbox[mbp]&#34; title=&#34;The desk.&#34;&gt;&lt;img src=&#34;https://sigterm.sh/wp-content/uploads/2009/09/HPIM1324-300x225.jpg&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&#34;https://sigterm.sh/wp-content/uploads/2009/09/HPIM1318.JPG&#34; rel=&#34;lightbox[mbp]&#34; title=&#34;A little closer.&#34;&gt;&lt;img src=&#34;https://sigterm.sh/wp-content/uploads/2009/09/HPIM1318-300x225.jpg&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&#34;https://sigterm.sh/wp-content/uploads/2009/09/HPIM1314.JPG&#34; rel=&#34;lightbox[mbp]&#34; title=&#34;Yo dawg, we herd yo like laptop pics...&#34;&gt;&lt;img src=&#34;https://sigterm.sh/wp-content/uploads/2009/09/HPIM1314-300x225.jpg&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&#34;https://sigterm.sh/wp-content/uploads/2009/09/HPIM1309.JPG&#34; rel=&#34;lightbox[mbp]&#34; title=&#34;A little closer, this should look familiar...&#34;&gt;&lt;img src=&#34;https://sigterm.sh/wp-content/uploads/2009/09/HPIM1309-300x225.jpg&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&#34;https://sigterm.sh/wp-content/uploads/2009/09/HPIM1308.JPG&#34; rel=&#34;lightbox[mbp]&#34; title=&#34;Another one.&#34;&gt;&lt;img src=&#34;https://sigterm.sh/wp-content/uploads/2009/09/HPIM1308-300x225.jpg&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
-
-&lt;h4 id=&#34;the-rest-of-the-network&#34;&gt;The rest of the network.&lt;/h4&gt;
-
-&lt;p&gt;&lt;a href=&#34;https://sigterm.sh/wp-content/uploads/2009/09/HPIM1343.jpg&#34; rel=&#34;lightbox[mbp]&#34; title=&#34;The rest of the network.&#34;&gt;&lt;img src=&#34;https://sigterm.sh/wp-content/uploads/2009/09/HPIM1343-300x225.jpg&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;From the left, OpenBSD 4.5 gateway, proxy and firewall, ADSL router and OpenWRT wireless router on top of the 3com gigabit switch. The main workhorse (storage, virtual machines and build zones) is underneath that with a quad core processor, 4GB of RAM and just over 2TB of disk space in 2 ZFS pools (3 x 500GB and 3 x 640GB) running OpenSolaris and finally 2 x 2kVA UPSs.&lt;/p&gt;</description>
+&lt;p&gt;&lt;/p&gt;</description>
     </item>
     
   </channel>

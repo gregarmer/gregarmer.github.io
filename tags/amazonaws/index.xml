@@ -1,70 +1,26 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>./sigterm.sh</title>
-    <link>https://sigterm.sh/tags/amazonaws/index.xml</link>
-    <description>Recent content on ./sigterm.sh</description>
+    <title>Amazonaws on ./sigterm.sh</title>
+    <link>https://sigterm.sh/tags/amazonaws/</link>
+    <description>Recent content in Amazonaws on ./sigterm.sh</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>Gregory Armer. All rights reserved.</copyright>
-    <atom:link href="https://sigterm.sh/tags/amazonaws/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 28 Sep 2012 12:00:00 -0400</lastBuildDate>
+    
+	<atom:link href="https://sigterm.sh/tags/amazonaws/index.xml" rel="self" type="application/rss+xml" />
+    
     
     <item>
       <title>Blocking web traffic behind an Elastic Load Balancer (ELB)</title>
-      <link>https://sigterm.sh/2012/09/28/blocking-web-traffic-behind-an-elastic-load-balancer-elb</link>
+      <link>https://sigterm.sh/2012/09/28/blocking-web-traffic-behind-an-elastic-load-balancer-elb/</link>
       <pubDate>Fri, 28 Sep 2012 12:00:00 -0400</pubDate>
       
-      <guid>https://sigterm.sh/2012/09/28/blocking-web-traffic-behind-an-elastic-load-balancer-elb</guid>
+      <guid>https://sigterm.sh/2012/09/28/blocking-web-traffic-behind-an-elastic-load-balancer-elb/</guid>
       <description>&lt;p&gt;Over the past few hours we&amp;rsquo;ve been on the receiving end of a fairly large scale set of web requests (read: attack) to a website we host over on Amazon EC2. Our setup is not really that complicated, however we encountered a problem that wasn&amp;rsquo;t that easy to solve.&lt;/p&gt;
 
-&lt;p&gt;&lt;/p&gt;
-
-&lt;h4 id=&#34;our-setup&#34;&gt;Our Setup&lt;/h4&gt;
-
-&lt;p&gt;So we have an &lt;a href=&#34;http://aws.amazon.com/elasticloadbalancing/&#34; title=&#34;Elastic Load Balancer&#34;&gt;Elastic Load Balancer&lt;/a&gt; out in front, that sends on web requests to a set of web servers. These web servers are in an auto-scaling group and simply run &lt;a href=&#34;http://nginx.org/en/&#34; title=&#34;nginx&#34;&gt;nginx&lt;/a&gt;. They then pass traffic onto a set of load balanced application servers. Nothing really out of the ordinary here.&lt;/p&gt;
-
-&lt;p&gt;The entire setup lives inside a &lt;a href=&#34;http://aws.amazon.com/vpc/&#34; title=&#34;VPC&#34;&gt;VPC&lt;/a&gt; so these server have no direct access to the internet, and specific traffic is NAT&amp;rsquo;d out another gateway.&lt;/p&gt;
-
-&lt;h4 id=&#34;the-problem&#34;&gt;The Problem&lt;/h4&gt;
-
-&lt;p&gt;We narrowed down the attack to a set of IPs all originating from the same netblock. These requests were largely made up of SQL injection attacks, along with some other crazy requests.&lt;/p&gt;
-
-&lt;p&gt;The requests looked like this:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;208.96.18.11 &amp;quot;GET /results/2011%27%20OR%20%271%27%3D%271/11/ HTTP/1.1&amp;quot; &amp;quot;Mozilla/5.0&amp;quot;
-208.96.18.11 &amp;quot;GET /results/2011)%20OR%201%3D(1/11/ HTTP/1.1&amp;quot; &amp;quot;Mozilla/5.0&amp;quot;
-208.96.18.11 &amp;quot;GET /results/2011%27)%20OR%20%271%27%3D(%271/11/ HTTP/1.1&amp;quot; &amp;quot;Mozilla/5.0&amp;quot;
-208.96.18.11 &amp;quot;GET /results/2011%27%20OR%201%3D1%20%23/11/ HTTP/1.1&amp;quot; &amp;quot;Mozilla/5.0&amp;quot;
-208.96.18.11 &amp;quot;GET /results/2011%27)%20AND%20%271%27%20in%20(%270/11/ HTTP/1.1&amp;quot; &amp;quot;Mozilla/5.0&amp;quot;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;and without the URL encoding:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;208.96.18.11 &amp;quot;GET /results/2011&#39; OR &#39;1&#39;=&#39;1/11/ HTTP/1.1&amp;quot; &amp;quot;Mozilla/5.0&amp;quot;
-208.96.18.11 &amp;quot;GET /results/2011) OR 1=(1/11/ HTTP/1.1&amp;quot; &amp;quot;Mozilla/5.0&amp;quot;
-208.96.18.11 &amp;quot;GET /results/2011&#39;) OR &#39;1&#39;=(&#39;1/11/ HTTP/1.1&amp;quot; &amp;quot;Mozilla/5.0&amp;quot;
-208.96.18.11 &amp;quot;GET /results/2011&#39; OR 1=1 #/11/ HTTP/1.1&amp;quot; &amp;quot;Mozilla/5.0&amp;quot;
-208.96.18.11 &amp;quot;GET /results/2011&#39;) AND &#39;1&#39; in (&#39;0/11/ HTTP/1.1&amp;quot; &amp;quot;Mozilla/5.0&amp;quot;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;em&gt;(Yes, that&amp;rsquo;s one of the actual IPs attacking us.)&lt;/em&gt;&lt;/p&gt;
-
-&lt;p&gt;So the obvious move here is to block traffic from the offending IPs, right ?&lt;/p&gt;
-
-&lt;p&gt;Unfortunately that&amp;rsquo;s simply not possible with an ELB, as the only control you have over the traffic is through a &lt;a href=&#34;http://docs.amazonwebservices.com/AWSEC2/latest/UserGuide/using-network-security.html&#34; title=&#34;Security Groups&#34;&gt;security group&lt;/a&gt;. However, the security group only lets you control &lt;em&gt;allow&lt;/em&gt; rules, so to block a specific IP you&amp;rsquo;d need to explicitly allow traffic from all other IPs on the internet. This is simply not feasible.&lt;/p&gt;
-
-&lt;p&gt;You can&amp;rsquo;t block the traffic with a firewall on the web servers either, as the traffic hitting the web servers has the source IP address of the load balancer. The only access you have to the real source IP at the web server level is in the X-Forwarded-For HTTP header inside that actual requests.&lt;/p&gt;
-
-&lt;h4 id=&#34;blocking-the-traffic&#34;&gt;Blocking the Traffic&lt;/h4&gt;
-
-&lt;p&gt;The best you can do in this scenario is to block all requests at the actual web servers. In our case on nginx this was as simple as adding the following directives to the &lt;em&gt;server&lt;/em&gt; block:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;set_real_ip_from 172.16.10.9;         // Our ELB
-real_ip_header X-Forwarded-For;       // The real IP from the ELB
-deny 208.96.18.11;                    // Have some HTTP 403
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;This doesn&amp;rsquo;t stop the traffic at all, it simply returns HTTP 403&amp;rsquo;s to any requests from the IP addresses or netblock listed. This does take the load off the application servers though, and since nginx is quite efficient at returning 403&amp;rsquo;s with little resource usage, we can serve them up nice and quickly. It would still be nice to firewall that traffic entirely, and hopefully, someday, Amazon adds the ability to configure &lt;em&gt;allow&lt;/em&gt; &lt;strong&gt;and&lt;/strong&gt; &lt;em&gt;deny&lt;/em&gt; rules in security groups.&lt;/p&gt;</description>
+&lt;p&gt;&lt;/p&gt;</description>
     </item>
     
   </channel>

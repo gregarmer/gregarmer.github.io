@@ -2,7 +2,7 @@
 <html lang="en-us">
 <head>
     <title>Extending Python with modules written in C &middot; ./sigterm.sh</title>
-    <meta name="generator" content="Hugo 0.17" />
+    <meta name="generator" content="Hugo 0.20.7" />
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <meta name="author" content="Gregory Armer">
@@ -10,7 +10,7 @@
       <meta name="description" content="The raddest of all teh kill signals.">
     
     
-    <link rel="canonical" href="https://sigterm.sh/2009/12/26/extending-python-with-modules-written-in-c"/>
+    <link rel="canonical" href="https://sigterm.sh/2009/12/26/extending-python-with-modules-written-in-c/"/>
     <link rel="icon" href="https://sigterm.sh/favicon.ico">
     <link rel="apple-touch-icon" href="https://sigterm.sh/apple-touch-icon.png"/>
     <link rel="stylesheet" href="https://sigterm.sh/css/style.css">
@@ -27,10 +27,13 @@ This code gives you a single method &ldquo;do()&rdquo; that will print the outpu
 
 " />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://sigterm.sh/2009/12/26/extending-python-with-modules-written-in-c" />
+<meta property="og:url" content="https://sigterm.sh/2009/12/26/extending-python-with-modules-written-in-c/" />
 
 
-<meta property="og:updated_time" content="2009-12-26T12:00:00-04:00"/>
+
+<meta property="article:published_time" content="2009-12-26T12:00:00-04:00"/>
+<meta property="article:modified_time" content="2009-12-26T12:00:00-04:00"/>
+
 
 
 
@@ -64,6 +67,7 @@ This code gives you a single method &ldquo;do()&rdquo; that will print the outpu
 
 
 
+<meta name="twitter:text:title" content="Extending Python with modules written in C"/>
 <meta name="twitter:title" content="Extending Python with modules written in C"/>
 <meta name="twitter:description" content="Using C (or C&#43;&#43;) to create Python modules is really quite simple, providing you know a little C of course. I recently had to do some work around getting a bunch of legacy C code talking to a newer system and thought I&rsquo;d post a nice simple example of how the Python extensions work.
 
@@ -71,7 +75,6 @@ This code gives you a single method &ldquo;do()&rdquo; that will print the outpu
 
 "/>
 <meta name="twitter:site" content="@gregarmer"/>
-
 
     
 
@@ -201,7 +204,7 @@ This code gives you a single method &ldquo;do()&rdquo; that will print the outpu
     </div>
     <div class="article-info profile-block">
       <div class="article-info-block">
-        28
+        29
         <span>Posts</span>
       </div>
       <div class="article-info-block">
@@ -293,7 +296,7 @@ This code gives you a single method &ldquo;do()&rdquo; that will print the outpu
             
 
             <header class="article-header">
-    <a href="https://sigterm.sh/2009/12/26/extending-python-with-modules-written-in-c">
+    <a href="https://sigterm.sh/2009/12/26/extending-python-with-modules-written-in-c/">
     <h1 class="article-title" itemprop="name">
         Extending Python with modules written in C
     </h1>
@@ -403,12 +406,12 @@ Darwin codemine.codelounge.int 10.2.0 Darwin Kernel Version 10.2.0: Tue Nov  3 1
 <p>There is not much to the actual code. First, we define the C function that will handle our command &ldquo;mycmd_do&rdquo;. Then we set up an array of methods we want to expose to python &ldquo;MyCmdMethods&rdquo;. We then setup an initializer &ldquo;initmycmd&rdquo; to expose the module which is executed from &ldquo;main&rdquo; after the python initializer &ldquo;Py_Initialize&rdquo;.</p>
             </div>
             <footer class="article-footer">
-    <a data-url="https://sigterm.sh/2009/12/26/extending-python-with-modules-written-in-c" data-id="dfbe288c601fecdc9516ab12613d2b93" class="article-share-link">
+    <a data-url="https://sigterm.sh/2009/12/26/extending-python-with-modules-written-in-c/" data-id="92cdb290ea4660fb523585018c9b446b" class="article-share-link">
         <i class="fa fa-share"></i>
         Share
     </a>
     
-    <a href="https://sigterm.sh/2009/12/26/extending-python-with-modules-written-in-c/#disqus_thread" class="article-comment-link">
+    <a href="https://sigterm.sh/2009/12/26/extending-python-with-modules-written-in-c//#disqus_thread" class="article-comment-link">
         Comments
     </a>
     
@@ -484,7 +487,7 @@ Darwin codemine.codelounge.int 10.2.0 Darwin Kernel Version 10.2.0: Tue Nov  3 1
         
 <nav id="article-nav">
     
-    <a href="https://sigterm.sh/2009/10/12/using-an-alternative-mirror-for-freebsd-port-retrieval" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="https://sigterm.sh/2009/10/12/using-an-alternative-mirror-for-freebsd-port-retrieval/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">
           Older
       </strong>
@@ -493,7 +496,7 @@ Darwin codemine.codelounge.int 10.2.0 Darwin Kernel Version 10.2.0: Tue Nov  3 1
     
 
     
-    <a href="https://sigterm.sh/2010/04/15/getting-git-manpages-on-os-x" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="https://sigterm.sh/2010/04/15/getting-git-manpages-on-os-x/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">
           Newer
       </strong>
@@ -511,9 +514,9 @@ Darwin codemine.codelounge.int 10.2.0 Darwin Kernel Version 10.2.0: Tue Nov  3 1
             <div id="disqus_thread"></div>
 <script type="text/javascript">
     var disqus_shortname = 'codegeeksh';
-    var disqus_identifier = 'https:\/\/sigterm.sh\/2009\/12\/26\/extending-python-with-modules-written-in-c';
+    var disqus_identifier = 'https:\/\/sigterm.sh\/2009\/12\/26\/extending-python-with-modules-written-in-c\/';
     var disqus_title = 'Extending Python with modules written in C';
-    var disqus_url = 'https:\/\/sigterm.sh\/2009\/12\/26\/extending-python-with-modules-written-in-c';
+    var disqus_url = 'https:\/\/sigterm.sh\/2009\/12\/26\/extending-python-with-modules-written-in-c\/';
 
     (function() {
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
@@ -541,7 +544,7 @@ Darwin codemine.codelounge.int 10.2.0 Darwin Kernel Version 10.2.0: Tue Nov  3 1
             
             <li>
                 <div class="item-thumbnail">
-                    <a href="https://sigterm.sh/2016/11/05/passing-vlans-over-an-lacp-trunk-in-openbsd" class="thumbnail">
+                    <a href="https://sigterm.sh/2016/11/05/passing-vlans-over-an-lacp-trunk-in-openbsd/" class="thumbnail">
                     
                         <span class="thumbnail-image thumbnail-none"></span>
                     
@@ -549,7 +552,7 @@ Darwin codemine.codelounge.int 10.2.0 Darwin Kernel Version 10.2.0: Tue Nov  3 1
                 </div>
                 <div class="item-inner">
                     
-                    <p class="item-title"><a href="https://sigterm.sh/2016/11/05/passing-vlans-over-an-lacp-trunk-in-openbsd" class="title">Passing VLANs over an LACP trunk in OpenBSD</a></p>
+                    <p class="item-title"><a href="https://sigterm.sh/2016/11/05/passing-vlans-over-an-lacp-trunk-in-openbsd/" class="title">Passing VLANs over an LACP trunk in OpenBSD</a></p>
                     <p class="item-date">
                         <time datetime="2016-11-05 14:26:00 -0400 EDT" itemprop="datePublished">Nov 11, 2016</time>
                     </p>
@@ -558,7 +561,7 @@ Darwin codemine.codelounge.int 10.2.0 Darwin Kernel Version 10.2.0: Tue Nov  3 1
             
             <li>
                 <div class="item-thumbnail">
-                    <a href="https://sigterm.sh/2015/03/08/recording-backend-processing-time-in-go" class="thumbnail">
+                    <a href="https://sigterm.sh/2015/03/08/recording-backend-processing-time-in-go/" class="thumbnail">
                     
                         <span class="thumbnail-image thumbnail-none"></span>
                     
@@ -566,7 +569,7 @@ Darwin codemine.codelounge.int 10.2.0 Darwin Kernel Version 10.2.0: Tue Nov  3 1
                 </div>
                 <div class="item-inner">
                     
-                    <p class="item-title"><a href="https://sigterm.sh/2015/03/08/recording-backend-processing-time-in-go" class="title">Recording backend processing time in Golang</a></p>
+                    <p class="item-title"><a href="https://sigterm.sh/2015/03/08/recording-backend-processing-time-in-go/" class="title">Recording backend processing time in Golang</a></p>
                     <p class="item-date">
                         <time datetime="2015-03-08 18:58:00 -0400 EDT" itemprop="datePublished">Mar 03, 2015</time>
                     </p>
@@ -575,7 +578,7 @@ Darwin codemine.codelounge.int 10.2.0 Darwin Kernel Version 10.2.0: Tue Nov  3 1
             
             <li>
                 <div class="item-thumbnail">
-                    <a href="https://sigterm.sh/2015/01/06/announcing-flake8-diff" class="thumbnail">
+                    <a href="https://sigterm.sh/2015/01/06/announcing-flake8-diff/" class="thumbnail">
                     
                         <span class="thumbnail-image thumbnail-none"></span>
                     
@@ -583,7 +586,7 @@ Darwin codemine.codelounge.int 10.2.0 Darwin Kernel Version 10.2.0: Tue Nov  3 1
                 </div>
                 <div class="item-inner">
                     
-                    <p class="item-title"><a href="https://sigterm.sh/2015/01/06/announcing-flake8-diff" class="title">Announcing flake8-diff</a></p>
+                    <p class="item-title"><a href="https://sigterm.sh/2015/01/06/announcing-flake8-diff/" class="title">Announcing flake8-diff</a></p>
                     <p class="item-date">
                         <time datetime="2015-01-06 18:50:00 -0400 -0400" itemprop="datePublished">Jan 01, 2015</time>
                     </p>
@@ -592,7 +595,7 @@ Darwin codemine.codelounge.int 10.2.0 Darwin Kernel Version 10.2.0: Tue Nov  3 1
             
             <li>
                 <div class="item-thumbnail">
-                    <a href="https://sigterm.sh/2014/10/26/ssl-configuration" class="thumbnail">
+                    <a href="https://sigterm.sh/2014/10/26/ssl-configuration/" class="thumbnail">
                     
                         <span style="background-image:url(https://media.sigterm.sh/2015/Screen-Shot-2014-10-26-at-5-34-16-AM.png)" alt="Extending Python with modules written in C" class="thumbnail-image"></span>
                     
@@ -600,7 +603,7 @@ Darwin codemine.codelounge.int 10.2.0 Darwin Kernel Version 10.2.0: Tue Nov  3 1
                 </div>
                 <div class="item-inner">
                     
-                    <p class="item-title"><a href="https://sigterm.sh/2014/10/26/ssl-configuration" class="title">SSL Configuration</a></p>
+                    <p class="item-title"><a href="https://sigterm.sh/2014/10/26/ssl-configuration/" class="title">SSL Configuration</a></p>
                     <p class="item-date">
                         <time datetime="2014-10-26 05:53:00 -0400 EDT" itemprop="datePublished">Oct 10, 2014</time>
                     </p>
@@ -609,7 +612,7 @@ Darwin codemine.codelounge.int 10.2.0 Darwin Kernel Version 10.2.0: Tue Nov  3 1
             
             <li>
                 <div class="item-thumbnail">
-                    <a href="https://sigterm.sh/2014/10/26/google-inbox" class="thumbnail">
+                    <a href="https://sigterm.sh/2014/10/26/google-inbox/" class="thumbnail">
                     
                         <span style="background-image:url(https://media.sigterm.sh/2015/Screen-Shot-2014-10-26-at-4-35-23-AM-1.png)" alt="Extending Python with modules written in C" class="thumbnail-image"></span>
                     
@@ -617,7 +620,7 @@ Darwin codemine.codelounge.int 10.2.0 Darwin Kernel Version 10.2.0: Tue Nov  3 1
                 </div>
                 <div class="item-inner">
                     
-                    <p class="item-title"><a href="https://sigterm.sh/2014/10/26/google-inbox" class="title">Thoughts on Google Inbox</a></p>
+                    <p class="item-title"><a href="https://sigterm.sh/2014/10/26/google-inbox/" class="title">Thoughts on Google Inbox</a></p>
                     <p class="item-date">
                         <time datetime="2014-10-26 04:35:00 -0400 EDT" itemprop="datePublished">Oct 10, 2014</time>
                     </p>
@@ -953,7 +956,7 @@ Darwin codemine.codelounge.int 10.2.0 Darwin Kernel Version 10.2.0: Tue Nov  3 1
 <footer id="footer">
   <div class="outer">
     <div id="footer-info" class="inner">
-      &copy; 2016
+      &copy; 2017
       Gregory Armer. All rights reserved.
     </div>
   </div>
@@ -964,7 +967,7 @@ Darwin codemine.codelounge.int 10.2.0 Darwin Kernel Version 10.2.0: Tue Nov  3 1
 (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
 (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
 m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 
 ga('create', 'UA-11073510-1', 'auto');
 ga('send', 'pageview');

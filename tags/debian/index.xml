@@ -1,355 +1,41 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>./sigterm.sh</title>
-    <link>https://sigterm.sh/tags/debian/index.xml</link>
-    <description>Recent content on ./sigterm.sh</description>
+    <title>Debian on ./sigterm.sh</title>
+    <link>https://sigterm.sh/tags/debian/</link>
+    <description>Recent content in Debian on ./sigterm.sh</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>Gregory Armer. All rights reserved.</copyright>
-    <atom:link href="https://sigterm.sh/tags/debian/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 01 Feb 2014 12:00:00 -0400</lastBuildDate>
+    
+	<atom:link href="https://sigterm.sh/tags/debian/index.xml" rel="self" type="application/rss+xml" />
+    
     
     <item>
       <title>Highly Available NFS Cluster on Debian Wheezy</title>
-      <link>https://sigterm.sh/2014/02/01/highly-available-nfs-cluster-on-debian-wheezy</link>
+      <link>https://sigterm.sh/2014/02/01/highly-available-nfs-cluster-on-debian-wheezy/</link>
       <pubDate>Sat, 01 Feb 2014 12:00:00 -0400</pubDate>
       
-      <guid>https://sigterm.sh/2014/02/01/highly-available-nfs-cluster-on-debian-wheezy</guid>
+      <guid>https://sigterm.sh/2014/02/01/highly-available-nfs-cluster-on-debian-wheezy/</guid>
       <description>&lt;h4 id=&#34;overview&#34;&gt;Overview&lt;/h4&gt;
 
 &lt;p&gt;This guide will help you setup a highly available NFS server on Debian Wheezy. This is a relatively battle-tested configuration, and there is plenty information out there on how it works - I&amp;rsquo;ll include some links at the end of this post.&lt;/p&gt;
 
 &lt;p&gt;I was using GlusterFS up until recently, but I&amp;rsquo;m not happy with file corruption issues I&amp;rsquo;m seeing, and the insane load it puts on 2 rather beefy servers trying to resync data after one fails for just a short time.&lt;/p&gt;
 
-&lt;p&gt;&lt;/p&gt;
-
-&lt;p&gt;This guide will give you a setup as follows:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;One active NFS server with its own public, private and floating IP (VIP)&lt;/li&gt;
-&lt;li&gt;One passive hot standby NFS server with its own public and private IP&lt;/li&gt;
-&lt;li&gt;Automatic failover when one of the nodes becomes unresponsive or unreachable.&lt;/li&gt;
-&lt;li&gt;Unicast cluster syncronization (so it works on Linode and other places where multicast (like corosync) isn&amp;rsquo;t available.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&#34;servers&#34;&gt;Servers&lt;/h3&gt;
-
-&lt;p&gt;While writing this guide, I used 2 virtualbox VMs (alice and bob). Each VM configured as follows:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Default Debian Wheezy install from a netinst iso&lt;/li&gt;
-&lt;li&gt;512MB RAM&lt;/li&gt;
-&lt;li&gt;1 x 8GB OS disk (all partitions - /dev/sda)&lt;/li&gt;
-&lt;li&gt;1 x 10GB data disk (/dev/sdb)&lt;/li&gt;
-&lt;li&gt;Bridged networking (so it&amp;rsquo;s easier to test)
-
-&lt;ul&gt;
-&lt;li&gt;alice has IP 192.168.1.201&lt;/li&gt;
-&lt;li&gt;bob has IP 192.168.1.202&lt;/li&gt;
-&lt;li&gt;Our floating virtual IP will be 192.168.1.200&lt;/li&gt;
-&lt;/ul&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&#34;configurations&#34;&gt;Configurations&lt;/h3&gt;
-
-&lt;p&gt;It&amp;rsquo;s good to get some basics down first.&lt;/p&gt;
-
-&lt;h4 id=&#34;packages&#34;&gt;Packages&lt;/h4&gt;
-
-&lt;p&gt;Let&amp;rsquo;s start with some useful packages (install on alice and bob):&lt;/p&gt;
-&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;alice $ apt-get install ntp vim
-&lt;/pre&gt;&lt;/div&gt;
-
-&lt;h4 id=&#34;networking&#34;&gt;Networking&lt;/h4&gt;
-
-&lt;p&gt;Tweak to suit your environment, of course.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;alice $ cat /etc/network/interfaces
-# This file describes the network interfaces available on your system
-# and how to activate them. For more information, see interfaces&lt;span style=&#34;color: #f92672&#34;&gt;(&lt;/span&gt;5&lt;span style=&#34;color: #f92672&#34;&gt;)&lt;/span&gt;.
-
-# The loopback network interface
-auto lo
-iface lo inet loopback
-
-# The primary network interface
-auto eth0
-iface eth0 inet static
-    address 192.168.1.201
-    netmask 255.255.255.0
-    gateway 192.168.1.1
-&lt;/pre&gt;&lt;/div&gt;
-
-&lt;p&gt;The config will be the same on bob, apart from the IP, which will be 192.168.1.202&lt;/p&gt;
-
-&lt;h4 id=&#34;hostname&#34;&gt;Hostname&lt;/h4&gt;
-
-&lt;p&gt;This is pretty important, since pretty much everything relies on the servers hostnames.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;alice $ hostname alice.local
-alice $ echo alice.local &amp;gt; /etc/hostname
-bob $ hostname bob.local
-bob $ echo bob.local &amp;gt; /etc/hostname
-&lt;/pre&gt;&lt;/div&gt;
-
-&lt;h4 id=&#34;install-and-configure-drbd&#34;&gt;Install and Configure DRBD&lt;/h4&gt;
-
-&lt;p&gt;DRBD will be used to constantly sync all data from the primary to the slave, whichever servers they may be at that point in time.&lt;/p&gt;
-
-&lt;p&gt;Install DRBD8 utils on alice and bob:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;alice $ apt-get install drbd8-utils
-&lt;/pre&gt;&lt;/div&gt;
-
-&lt;p&gt;Drop in the configs on alice and bob. First /etc/drbd.d/global_common.conf&lt;/p&gt;
-&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;global {
-    usage-count yes;
-}
-
-common {
-    protocol C;
-
-    handlers {
-        pri-on-incon-degr &amp;quot;/usr/lib/drbd/notify-pri-on-incon-degr.sh; /usr/lib/drbd/notify-emergency-reboot.sh; echo b &amp;gt; /proc/sysrq-trigger; reboot -f&amp;quot;;
-        pri-lost-after-sb &amp;quot;/usr/lib/drbd/notify-pri-lost-after-sb.sh; /usr/lib/drbd/notify-emergency-reboot.sh; echo b &amp;gt; /proc/sysrq-trigger; reboot -f&amp;quot;;
-        local-io-error &amp;quot;/usr/lib/drbd/notify-io-error.sh; /usr/lib/drbd/notify-emergency-shutdown.sh; echo o &amp;gt; /proc/sysrq-trigger; halt -f&amp;quot;;
-
-        split-brain &amp;quot;/usr/lib/drbd/notify-split-brain.sh root&amp;quot;;
-    }
-
-    startup {
-        wfc-timeout 15;
-        degr-wfc-timeout 60;
-    }
-
-    net {
-        cram-hmac-alg sha1;
-    }
-
-    syncer {
-        rate 10M;
-    }
-}
-&lt;/pre&gt;&lt;/div&gt;
-
-&lt;p&gt;and your DRBD resource config in /etc/drbd.d/r0.res&lt;/p&gt;
-&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;resource r0 {
-    net {
-        shared-secret &amp;quot;s3kr1t&amp;quot;;
-    }
-
-    on alice {
-        device    /dev/drbd0;
-        disk      /dev/sdb;
-        address   192.168.1.201:7788;
-        meta-disk internal;
-    }
-
-    on bob {
-        device    /dev/drbd0;
-        disk      /dev/sdb;
-        address   192.168.1.202:7788;
-        meta-disk internal;
-    }
-}
-&lt;/pre&gt;&lt;/div&gt;
-
-&lt;p&gt;Let&amp;rsquo;s get DRBD started so the initial sync can get going.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;# Create metadata on alice
-alice $ drbdadm create-md r0
-
-# Start DRBD on both nodes
-alice $ /etc/init.d/drbd start
-bob $ /etc/init.d/drbd start
-
-# Setup primary DRBD connection and sync
-alice $ drbdadm -- --overwrite-data-of-peer primary r0
-alice $ drbdadm disconnect r0
-alice $ drbdadm connect r0
-&lt;/pre&gt;&lt;/div&gt;
-
-&lt;p&gt;You can check the sync status with this command:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;alice $ cat /proc/drbd
-version: 8.3.10 (api:88/proto:86-96)
-built-in
- 0: cs:SyncSource ro:Primary/Secondary ds:UpToDate/Inconsistent C r-----
-    ns:3116484 nr:0 dw:0 dr:3593516 al:0 bm:219 lo:0 pe:2 ua:1 ap:0 ep:1 wo:f oos:1649980
-    [============&amp;gt;.......] sync&amp;#39;ed: 65.5% (1608/4652) finish: 0:05:08 speed: 5,328 (5,056) K/sec
-&lt;/pre&gt;&lt;/div&gt;
-
-&lt;p&gt;You can now format the DRBD disk using any filesystem you prefer, here I&amp;rsquo;m using EXT4&lt;/p&gt;
-&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;alice $ mkfs.ext4 /dev/drbd0
-&lt;/pre&gt;&lt;/div&gt;
-
-&lt;p&gt;Add the DRBD disk to /etc/fstab on alice and bob&lt;/p&gt;
-&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;alice $ vi /etc/fstab
-
-# Add a line like this - substitute &lt;span style=&#34;color: #66d9ef&#34;&gt;for&lt;/span&gt; your preferred fs and settings
-/dev/drbd0      /data           ext4    defaults        0 0
-&lt;/pre&gt;&lt;/div&gt;
-
-&lt;h4 id=&#34;install-and-configure-nfs&#34;&gt;Install and Configure NFS&lt;/h4&gt;
-
-&lt;p&gt;NFS will be used to serve our highly available data.&lt;/p&gt;
-
-&lt;p&gt;Let&amp;rsquo;s start with installing some packages on alice and bob&lt;/p&gt;
-&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;alice $ apt-get install nfs-kernel-server
-&lt;/pre&gt;&lt;/div&gt;
-
-&lt;p&gt;Now tell the new dependency based booting not to start NFS automatically.  NFS will be started automatically by heartbeat later on.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;alice $ insserv --remove nfs-common
-alice $ insserv --remove nfs-kernel-server
-&lt;/pre&gt;&lt;/div&gt;
-
-&lt;p&gt;Setup our exports on alice and bob&lt;/p&gt;
-&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;alice $ vi /etc/exports
-
-# Add a line similar to this, change to suit your network and requirements
-/data   192.168.1.0/255.255.255.0(rw,no_root_squash,no_all_squash,sync)
-&lt;/pre&gt;&lt;/div&gt;
-
-&lt;h4 id=&#34;install-and-configure-heartbeat&#34;&gt;Install and Configure heartbeat&lt;/h4&gt;
-
-&lt;p&gt;We&amp;rsquo;ll use heartbeat to syncronize the cluster, handle fencing and to promote the slave to the master.&lt;/p&gt;
-
-&lt;p&gt;Install heartbeat on alice and bob&lt;/p&gt;
-&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;alice $ apt-get install heartbeat
-&lt;/pre&gt;&lt;/div&gt;
-
-&lt;p&gt;Drop in the configs on alice and bob as below.  You&amp;rsquo;ll need 3 files in total.&lt;/p&gt;
-
-&lt;p&gt;/etc/heartbeat/ha.cf&lt;/p&gt;
-&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;logfacility     local0
-keepalive 2
-deadtime 10
-bcast   eth0
-auto_failback off
-node alice bob
-&lt;/pre&gt;&lt;/div&gt;
-
-&lt;p&gt;/etc/heartbeat/haresources&lt;/p&gt;
-&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;alice  IPaddr::192.168.1.200/24/eth0 drbddisk::r0 Filesystem::/dev/drbd0::/data::ext4 nfs-kernel-server
-&lt;/pre&gt;&lt;/div&gt;
-
-&lt;p&gt;&lt;em&gt;Note:&lt;/em&gt; this line starts with &lt;em&gt;alice&lt;/em&gt; on both nodes - this is the &amp;ldquo;preferred primary&amp;rdquo;.&lt;/p&gt;
-
-&lt;p&gt;/etc/heartbeat/authkeys&lt;/p&gt;
-&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;auth 3
-3 md5 s3kr1t
-&lt;/pre&gt;&lt;/div&gt;
-
-&lt;p&gt;&lt;em&gt;Note:&lt;/em&gt; set a good password, especially if you deploy this in a public cloud!&lt;/p&gt;
-
-&lt;p&gt;Finally, start up heartbeat:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;alice $ /etc/init.d/heartbeat start
-&lt;/pre&gt;&lt;/div&gt;
-
-&lt;p&gt;If you run &lt;em&gt;ifconfig&lt;/em&gt; on alice, you should see that it now has the floating IP. You&amp;rsquo;ll also notice the NFS is running, and /data is mounted.&lt;/p&gt;
-
-&lt;h4 id=&#34;testing&#34;&gt;Testing&lt;/h4&gt;
-
-&lt;p&gt;This is the best part.  Let&amp;rsquo;s kill the primary server and make sure the slave takes over seamlessly.&lt;/p&gt;
-
-&lt;p&gt;The simplest way to simulate a failure is to stop heartbeat on whichever server is currently the primary.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;alice $ /etc/init.d/heartbeat stop
-&lt;/pre&gt;&lt;/div&gt;
-
-&lt;p&gt;Within a few seconds, you should see all services move over to bob, including the floating IP, NFS, and the /data mount.  A quick check of &lt;em&gt;cat /proc/drbd&lt;/em&gt; should also show bob set to Primary.&lt;/p&gt;
-
-&lt;h3 id=&#34;references&#34;&gt;References&lt;/h3&gt;
-
-&lt;p&gt;Finally, the links I promised in the beginning of this post.&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Why the servers are named &lt;a href=&#34;http://en.wikipedia.org/wiki/Alice_and_Bob&#34;&gt;Alice and Bob&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;An &lt;a href=&#34;http://www.howtoforge.com/high_availability_nfs_drbd_heartbeat&#34;&gt;older guide&lt;/a&gt; I used while figuring this out&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;http://version2beta.com/articles/high-availability-linode-pairs/&#34;&gt;Linode HA info&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;http://linux-ha.org/wiki/Heartbeat&#34;&gt;Heartbeat&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;http://www.drbd.org/users-guide-8.3/&#34;&gt;DRBD 8.3.x Users Guide&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;</description>
+&lt;p&gt;&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>Puppet Modules - Debsecan</title>
-      <link>https://sigterm.sh/2011/01/02/puppet-modules-debsecan</link>
+      <link>https://sigterm.sh/2011/01/02/puppet-modules-debsecan/</link>
       <pubDate>Sun, 02 Jan 2011 12:00:00 -0400</pubDate>
       
-      <guid>https://sigterm.sh/2011/01/02/puppet-modules-debsecan</guid>
+      <guid>https://sigterm.sh/2011/01/02/puppet-modules-debsecan/</guid>
       <description>&lt;p&gt;This is the first post of (hopefully) many, detailing some of my &lt;a href=&#34;http://www.puppetlabs.com/&#34;&gt;Puppet&lt;/a&gt; module implementations. Being the first, I thought I would start off with something simple.&lt;/p&gt;
 
-&lt;p&gt;&lt;/p&gt;
-
-&lt;h4 id=&#34;debsecan&#34;&gt;Debsecan&lt;/h4&gt;
-
-&lt;p&gt;The &lt;a href=&#34;http://www.enyo.de/fw/software/debsecan/&#34;&gt;debsecan&lt;/a&gt; program evaluates the security status of a host running the &lt;a href=&#34;http://www.debian.org&#34;&gt;Debian&lt;/a&gt; operation system. It reports missing security updates and known vulnerabilities in the programs which are installed on the host.&lt;/p&gt;
-
-&lt;p&gt;This is a great package that I wanted installed on all &lt;a href=&#34;http://www.debian.org&#34;&gt;Debian&lt;/a&gt; machines across my entire infrastructure. Thanks to Puppet, this is a breeze.&lt;/p&gt;
-
-&lt;h4 id=&#34;module-layout&#34;&gt;Module layout&lt;/h4&gt;
-&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;greg@codemine:~/code/puppet %&amp;gt; find modules/debsecan
-modules/debsecan
-modules/debsecan/files
-modules/debsecan/files/debsecan
-modules/debsecan/files/debsecan-cron
-modules/debsecan/manifests
-modules/debsecan/manifests/init.pp
-&lt;/pre&gt;&lt;/div&gt;
-
-&lt;h4 id=&#34;manifest-init-pp&#34;&gt;Manifest - init.pp&lt;/h4&gt;
-&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;greg@codemine:~/code/puppet %&amp;gt; cat modules/debsecan/manifests/init.pp
-class debsecan {
-    package { debsecan: ensure =&amp;gt; latest }
-
-    file {
-        debsecan:
-            path =&amp;gt; &amp;quot;/etc/default/debsecan&amp;quot;,
-            owner =&amp;gt; root,
-            group =&amp;gt; &amp;quot;root&amp;quot;,
-            mode =&amp;gt; 644,
-            source  =&amp;gt; &amp;quot;puppet:///debsecan/debsecan&amp;quot;,
-            require =&amp;gt; Package[&amp;quot;debsecan&amp;quot;];
-        debsecan-cron:
-            path =&amp;gt; &amp;quot;/etc/cron.d/debsecan&amp;quot;,
-            owner =&amp;gt; root,
-            group =&amp;gt; &amp;quot;root&amp;quot;,
-            mode =&amp;gt; 644,
-            source  =&amp;gt; &amp;quot;puppet:///debsecan/debsecan-cron&amp;quot;,
-            require =&amp;gt; Package[&amp;quot;debsecan&amp;quot;];
-    }
-}
-&lt;/pre&gt;&lt;/div&gt;
-
-&lt;p&gt;There is really not much to this manifest. It essentially ensures debsecan is installed at the latest available version, it sets up my /etc/default/debsecan config and it ensures there is a cron entry to run it.&lt;/p&gt;
-
-&lt;h4 id=&#34;debsecan-config&#34;&gt;Debsecan config&lt;/h4&gt;
-&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;greg@codemine:~/code/puppet %&amp;gt; cat modules/debsecan/files/debsecan
-# Configuration file &lt;span style=&#34;color: #66d9ef&#34;&gt;for&lt;/span&gt; debsecan.  Contents of this file should
-# adhere to the &lt;span style=&#34;color: #f8f8f2&#34;&gt;KEY&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;=&lt;/span&gt;VALUE shell syntax.  This file may be edited by
-# debsecan&lt;span style=&#34;color: #960050; background-color: #1e0010&#34;&gt;&amp;#39;&lt;/span&gt;s scripts, but your modifications are preserved.
-
-# If true, &lt;span style=&#34;color: #f8f8f2&#34;&gt;enable&lt;/span&gt; daily reports, sent by email.
-REPORT=true
-
-# For better reporting, specify the correct suite here, using the code
-# name &lt;span style=&#34;color: #f92672&#34;&gt;(&lt;/span&gt;that is, &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;sid&amp;quot;&lt;/span&gt; instead of &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;unstable&amp;quot;&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;)&lt;/span&gt;.
-SUITE=lenny
-
-# Mail address to which reports are sent.
-MAILTO=root
-
-# The URL from which vulnerability data is downloaded.  Empty &lt;span style=&#34;color: #66d9ef&#34;&gt;for&lt;/span&gt; the
-# built-in default.
-SOURCE=
-&lt;/pre&gt;&lt;/div&gt;
-
-&lt;h4 id=&#34;debsecan-cron&#34;&gt;Debsecan cron&lt;/h4&gt;
-&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;greg@codemine:~/code/puppet %&amp;gt; cat modules/debsecan/files/debsecan-cron
-# cron entry &lt;span style=&#34;color: #66d9ef&#34;&gt;for&lt;/span&gt; debsecan
-MAILTO=root
-
-42 * * * * daemon test -x /usr/bin/debsecan &amp;amp;&amp;amp; /usr/bin/debsecan --cron
-# &lt;span style=&#34;color: #f92672&#34;&gt;(&lt;/span&gt;Note: debsecan delays actual processing past 2:00 AM, and runs only
-# once per day.&lt;span style=&#34;color: #f92672&#34;&gt;)&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-&lt;p&gt;You can grab a copy of all the above files (the complete module) here: &lt;a href=&#39;http://code.geek.sh/wp-content/uploads/2010/12/debsecan-puppet.tar.gz&#39;&gt;debsecan-puppet.tar.gz&lt;/a&gt;&lt;/p&gt;</description>
+&lt;p&gt;&lt;/p&gt;</description>
     </item>
     
   </channel>
