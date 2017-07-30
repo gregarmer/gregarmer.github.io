@@ -7,10 +7,22 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>Gregory Armer. All rights reserved.</copyright>
-    <lastBuildDate>Sat, 05 Nov 2016 14:26:00 -0400</lastBuildDate>
+    <lastBuildDate>Sat, 29 Jul 2017 22:22:07 -0400</lastBuildDate>
     
 	<atom:link href="https://sigterm.sh/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>dn42 Peering Information</title>
+      <link>https://sigterm.sh/dn42-peering/</link>
+      <pubDate>Sat, 29 Jul 2017 22:22:07 -0400</pubDate>
+      
+      <guid>https://sigterm.sh/dn42-peering/</guid>
+      <description>If you are interested in peering with me on dn42, find the closest node(s) below and send the following to me in an e-mail to greg[at]sigterm.sh:
+ AS Number: Tunnel IP: Public IP: IPv6 supported? (link-local preferred)  I prefer to use IPsec/GRE where possible, but let me know if you can&amp;rsquo;t do it and we can work something out.
+My ASN: AS4242423602 Network Name: GXANET
+Locations  New York, NY, USA San Francisco, CA, USA  IPsec Parameters keyexchange=ikev2 ike=aes256-sha256-modp2048!</description>
+    </item>
     
     <item>
       <title>Passing VLANs over an LACP trunk in OpenBSD</title>
@@ -109,18 +121,6 @@ What I do I’m a software and systems architect who lives in New York, USA. I w
 flake8-diff flake8-diff allows you to run flake8 over a set of changed files and filter out violations that would be introduced by merging those changes.
 I use this as part of my build / CI infrastructure to alert developers opening pull requests to new violations their pull request will introduce, if it were merged.
 You can find the code here.</description>
-    </item>
-    
-    <item>
-      <title>dn42 Peering Information</title>
-      <link>https://sigterm.sh/dn42-peering/</link>
-      <pubDate>Fri, 21 Jun 2013 11:27:27 -0400</pubDate>
-      
-      <guid>https://sigterm.sh/dn42-peering/</guid>
-      <description>If you are interested in peering with me on dn42, find the closest node(s) below and send the following to me in an e-mail to greg[at]sigterm.sh:
- AS Number: Tunnel IP: Public IP: IPv6 supported? (link-local preferred)  I prefer to use IPsec/GRE where possible, but let me know if you can&amp;rsquo;t do it and we can work something out.
-My ASN: AS4242423602 Network Name: GXANET
-Locations  New York, NY, USA San Francisco, CA, USA  IPsec Parameters keyexchange=ikev2 ike=aes256-sha256-modp2048!</description>
     </item>
     
     <item>
