@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en-us">
 <head>
-    <title>Linux &middot; ./sigterm.sh</title>
+    <title>Building a home lab &middot; ./sigterm.sh</title>
     <meta name="generator" content="Hugo 0.20.7" />
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -10,10 +10,7 @@
       <meta name="description" content="The raddest of all teh kill signals.">
     
     
-      <link href="https://sigterm.sh/tags/linux/index.xml" rel="alternate" type="application/rss+xml" title="./sigterm.sh" />
-      <link href="https://sigterm.sh/tags/linux/index.xml" rel="feed" type="application/rss+xml" title="./sigterm.sh" />
-    
-    <link rel="canonical" href="https://sigterm.sh/tags/linux/"/>
+    <link rel="canonical" href="https://sigterm.sh/2017/07/29/building-a-home-lab/"/>
     <link rel="icon" href="https://sigterm.sh/favicon.ico">
     <link rel="apple-touch-icon" href="https://sigterm.sh/apple-touch-icon.png"/>
     <link rel="stylesheet" href="https://sigterm.sh/css/style.css">
@@ -23,14 +20,21 @@
     
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400italic,400,600' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Source+Code+Pro' rel='stylesheet' type='text/css'>
-    <meta property="og:title" content="Linux" />
-<meta property="og:description" content="" />
-<meta property="og:type" content="website" />
-<meta property="og:url" content="https://sigterm.sh/tags/linux/" />
+    <meta property="og:title" content="Building a home lab" />
+<meta property="og:description" content="I&rsquo;ve been setting up a small home lab for testing various things out and I
+needed a some space for virtual machines. I don&rsquo;t have any requirements for
+insane performance, but I also didn&rsquo;t want a really sluggish setup, so here&rsquo;s
+what I did&hellip;
+
+" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://sigterm.sh/2017/07/29/building-a-home-lab/" />
 
 
 
-<meta property="og:updated_time" content="2017-07-29T22:27:00-04:00"/>
+<meta property="article:published_time" content="2017-07-29T22:27:00-04:00"/>
+<meta property="article:modified_time" content="2017-07-29T22:27:00-04:00"/>
+
 
 
 
@@ -43,11 +47,38 @@
 
     
     
-<meta itemprop="name" content="Linux">
-<meta itemprop="description" content="">
+<meta itemprop="name" content="Building a home lab">
+<meta itemprop="description" content="I&rsquo;ve been setting up a small home lab for testing various things out and I
+needed a some space for virtual machines. I don&rsquo;t have any requirements for
+insane performance, but I also didn&rsquo;t want a really sluggish setup, so here&rsquo;s
+what I did&hellip;
 
+">
+
+
+<meta itemprop="dateModified" content="2017-07-29T22:27:00-04:00" />
+<meta itemprop="wordCount" content="557">
+
+
+
+<meta itemprop="keywords" content="algorithms,amazonaws,c,code,debian,django,freebsd,general,git,golang,ipv6,java,linux,mac,networking,openbsd,opensolaris,postgresql,puppet,python,random-thoughts,security,software-engineering,unix,zfs," />
 
     
+
+  <meta name="twitter:card" content="summary"/>
+
+
+
+<meta name="twitter:text:title" content="Building a home lab"/>
+<meta name="twitter:title" content="Building a home lab"/>
+<meta name="twitter:description" content="I&rsquo;ve been setting up a small home lab for testing various things out and I
+needed a some space for virtual machines. I don&rsquo;t have any requirements for
+insane performance, but I also didn&rsquo;t want a really sluggish setup, so here&rsquo;s
+what I did&hellip;
+
+"/>
+<meta name="twitter:site" content="@gregarmer"/>
+
     
 
     
@@ -60,7 +91,7 @@
 
 
 <div id="container">
-    <header id="header">
+	<header id="header">
   <div id="header-main" class="header-inner">
     <div class="outer">
       <a href="https://sigterm.sh/" id="logo">
@@ -158,8 +189,10 @@
   </div>
 </header>
 
-    <div class="outer">
-        <aside id="profile">
+   	
+   	<div class="outer">
+   		
+	    <aside id="profile">
   <div class="inner profile-inner">
     <div class="base-info profile-block">
       <img id="avatar" src="https://sigterm.sh/avatar.jpeg">
@@ -249,27 +282,23 @@
 <td><a href="//twitter.com/gregarmer" target="_blank" title="Twitter"><i class="fa fa-twitter"></i></a></td>
 
 
-          <td><a href="https://sigterm.sh/tags/linux/index.xml" target="_blank" title="RSS"><i class="fa fa-rss"></i></a></td>
+          <td><a href="" target="_blank" title="RSS"><i class="fa fa-rss"></i></a></td>
         </tr>
       </table>
     </div>
   </div>
 </aside>
 
-        <section id="main">
-            <section class="archives-wrap">
-                <div class="archive-category-wrap">
-                    <span class="archive-category">Linux</span>
-                </div>
-                <div class="archives">
-                    
-                    
-                        <article class="article article-type-post" itemscope="" itemprop="blogPost">
-    <div class="article-inner">
-        
-        </a>
+	    
 
-        <header class="article-header">
+	    
+<section id="main">
+
+    <article id="page-undefined" class="article article-type-page" itemscope="" itemprop="blogPost">
+        <div class="article-inner">
+            
+
+            <header class="article-header">
     <a href="https://sigterm.sh/2017/07/29/building-a-home-lab/">
     <h1 class="article-title" itemprop="name">
         Building a home lab
@@ -314,23 +343,118 @@
     </div>
 </header>
 
-        <div class="article-entry" itemprop="articleBody">
-            <p>
-                I&rsquo;ve been setting up a small home lab for testing various things out and I
+            <div class="article-entry" itemprop="articleBody">
+                <p>I&rsquo;ve been setting up a small home lab for testing various things out and I
 needed a some space for virtual machines. I don&rsquo;t have any requirements for
 insane performance, but I also didn&rsquo;t want a really sluggish setup, so here&rsquo;s
 what I did&hellip;</p>
 
-<p>
-                <br>
-            </p>
-            <p class="article-more-link">
-                <a href="https://sigterm.sh/2017/07/29/building-a-home-lab/">
-                    Read more
-                </a>
-            </p>
-        </div>
-        <footer class="article-footer">
+<p></p>
+
+<p>I have 3 nodes running ProxMox to act as hypervisors. A Synology NAS providing
+shared storage. A Juniper EX2200-24 layer 3 switch handling the LACP / VLANs
+and a Juniper SRX340 as the firewall / router. Racked in <a href="https://www.amazon.com/gp/product/B00P4SVZ4S/">Navepoint 18U</a> fan
+cooled rack and powered by two <a href="https://www.amazon.com/gp/product/B0016P7HJA/">CyberPower 1.5kVa UPS</a> units.</p>
+
+<h5 id="hypervisors">Hypervisors</h5>
+
+<p>The hypervisors are <a href="https://www.amazon.com/gp/product/B00FN1OQVA/">SuperMicro 1U SYS-5018A-TN4</a> boxes each with 8 core Intel
+Atom C2750 CPUs running @ 2.40GHz, along with <a href="https://www.amazon.com/gp/product/B00CUYOGRM/">32GB DDR3-1600 SO-DIMM ECC
+memory</a> and a <a href="https://www.amazon.com/gp/product/B00LMXBOP4/">256GB SSD</a> drive for local storage.</p>
+
+<p><img src="/static/proxmox.png" alt="" /></p>
+
+<h5 id="storage">Storage</h5>
+
+<p>For storage I have the <a href="https://www.amazon.com/gp/product/B00ST05IF0/">Synology RS-815+</a> with the <a href="https://www.amazon.com/gp/product/B00NNQFC56/">RX-415 4 bay expansion</a>
+unit. Six of the bays are filled with a <a href="https://www.amazon.com/gp/product/B008JJLW4M/">3TB WD RED</a> disk and the final two
+bays each have a <a href="https://www.amazon.com/gp/product/B00LF10KTO/">512GB SSD</a> disk which makes up the read/write cache.</p>
+
+<p>All 6 disks are part of a single disk group, which is then split into 2 disk
+volumes - 1 backed by the SSD cache, and 1 without SSD cache which is used for
+backups and infrequently accessed data.  They look like this:</p>
+
+<p><img src="/static/synology-storage.png" alt="" /></p>
+
+<p>The SSD cache is then configured in mirrored RAID 1:</p>
+
+<p><img src="/static/synology-cache.png" alt="" /></p>
+
+<h5 id="network">Network</h5>
+
+<p>The network is handled by a Juniper EX2200 switch with a trunk out to a Juniper
+SRX340 firewall and router.  The switch handles a few VLANs for various parts
+of the network, and does LACP for the storage and firewall trunk.</p>
+
+<p>There are a couple VLAN access ports configured:</p>
+
+<ul>
+<li>SERVERS - public side VM traffic</li>
+<li>PRIVATE - private side VM traffic (ProxMox cluster multicast data)</li>
+<li>STORAGE - NFS / iSCSI LUN traffic</li>
+<li>MANAGEMENT - IPMI and other management traffic</li>
+<li>WIRED - My LAN at home</li>
+<li>WIFI - My WIFI network</li>
+</ul>
+
+<p>The SERVERS, MANAGEMENT, WIRED and WIFI vlan&rsquo;s are members in the firewall
+trunk.  All other traffic doesn&rsquo;t leave the switch.</p>
+
+<p>For storage, each hypervisor and the Synology NAS have 2 x 1GbE NIC ports
+configured as part of an LACP bond with jumbo frames:</p>
+
+<p><em>Switch side</em></p>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span>ae2 {
+    description pve-1;
+    traceoptions {
+        flag all;
+    }
+    mtu 9200;
+    aggregated-ether-options {
+        lacp {
+            active;
+        }
+    }
+    unit 0 {
+        family ethernet-switching {
+            port-mode access;
+            vlan {
+                members STORAGE;
+            }
+        }
+    }
+}
+</pre></div>
+
+<p><em>Hypervisor side</em></p>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span>root@pve-1:~# grep -A5 <span style="color: #e6db74">&#39;iface bond0&#39;</span> /etc/network/interfaces
+iface bond0 inet manual
+        slaves eth2 eth3
+        bond_miimon 100
+        bond_mode 802.3ad
+        bond_xmit_hash_policy layer3+4
+        post-up ifconfig bond0 mtu 9000
+</pre></div>
+
+<h5 id="physical-connectivity">Physical Connectivity</h5>
+
+<p>Each hypervisor has 5 network ports - 1 for IPMI and 4 x 1GbE NIC&rsquo;s.  IPMI is
+plugged into the switch on a MANAGEMENT VLAN access port.  Two ports are part
+of the LACP bond for storage, and the final two are for public and private
+traffic, each connected to an access port for the SERVERS and PRIVATE VLAN
+respectively.</p>
+
+<p>The switch then has 2 ports in another LACP bond for the trunk out to the
+firewall.  The VLANs that are part of that trunk are then split up into firewall
+zones where specific policies are applied.</p>
+
+<h5 id="noise-level-performance-power-consumption-etc">Noise Level, Performance, Power Consumption, etc</h5>
+
+<p>I&rsquo;ll be writing a series of upcoming posts on how I handled these things along
+with some metrics around the performance and impact to my electric bill. Stay
+tuned&hellip;</p>
+            </div>
+            <footer class="article-footer">
     <a data-url="https://sigterm.sh/2017/07/29/building-a-home-lab/" data-id="3493d31106697a7eadd2d402cabf333f" class="article-share-link">
         <i class="fa fa-share"></i>
         Share
@@ -407,598 +531,51 @@ what I did&hellip;</p>
     </script>
 </footer>
 
-    </div>
-</article>
-                    
-                        <article class="article article-type-post" itemscope="" itemprop="blogPost">
-    <div class="article-inner">
-        
-        <a href="https://sigterm.sh/2014/10/26/ssl-configuration/" itemprop="url">
-            <img src="https://media.sigterm.sh/2015/Screen-Shot-2014-10-26-at-5-34-16-AM.png" class="article-banner">
-        
-        </a>
-
-        <header class="article-header">
-    <a href="https://sigterm.sh/2014/10/26/ssl-configuration/">
-    <h1 class="article-title" itemprop="name">
-        SSL Configuration
-    </h1>
-    </a>
-    <div class="article-meta">
-        <div class="article-date">
-            <i class="fa fa-calendar"></i>
-            <time datetime="2014-10-26 05:53:00 -0400 EDT" itemprop="datePublished">Oct 10, 2014</time>
-            &middot;
-            140
-            words
-            &middot;
-            1
-            minute read
         </div>
 
-
         
-
-        
-            
-            
-            <div class="article-category">
-                <i class="fa fa-tags"></i>
-                
-                
-                <a class="article-category-link" href="/tags/linux">linux</a>
-                &middot;
-                
-                
-                <a class="article-category-link" href="/tags/security">security</a>
-                
-                
-            </div>
-            
-        
-    </div>
-</header>
-
-        <div class="article-entry" itemprop="articleBody">
-            <p>
-                As you may have noticed, this site is now served over HTTPS!</p>
-
-<p>IE6 users, you&rsquo;re pretty much SOL since I turned off all your cipher suites. It&rsquo;s 2014 and it&rsquo;s probably a pretty good time to get yourself a slightly newer browser anyway.</p>
-
-<p>
-                <br>
-            </p>
-            <p class="article-more-link">
-                <a href="https://sigterm.sh/2014/10/26/ssl-configuration/">
-                    Read more
-                </a>
-            </p>
-        </div>
-        <footer class="article-footer">
-    <a data-url="https://sigterm.sh/2014/10/26/ssl-configuration/" data-id="d665dd55b98463708bc36bb52e1f2226" class="article-share-link">
-        <i class="fa fa-share"></i>
-        Share
-    </a>
+<nav id="article-nav">
     
-    <a href="https://sigterm.sh/2014/10/26/ssl-configuration//#disqus_thread" class="article-comment-link">
-        Comments
+    <a href="https://sigterm.sh/2016/11/05/passing-vlans-over-an-lacp-trunk-in-openbsd/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">
+          Older
+      </strong>
+      <div class="article-nav-title">Passing VLANs over an LACP trunk in OpenBSD</div>
     </a>
     
 
-    <script>
-    (function ($) {
-        
-        if (typeof(__SHARE_BUTTON_BINDED__) === 'undefined' || !__SHARE_BUTTON_BINDED__) {
-            __SHARE_BUTTON_BINDED__ = true;
-        } else {
-            return;
-        }
-        $('body').on('click', function() {
-            $('.article-share-box.on').removeClass('on');
-        }).on('click', '.article-share-link', function(e) {
-            e.stopPropagation();
-
-            var $this = $(this),
-                url = $this.attr('data-url'),
-                encodedUrl = encodeURIComponent(url),
-                id = 'article-share-box-' + $this.attr('data-id'),
-                offset = $this.offset(),
-                box;
-
-            if ($('#' + id).length) {
-                box = $('#' + id);
-
-                if (box.hasClass('on')){
-                    box.removeClass('on');
-                    return;
-                }
-            } else {
-                var html = [
-                    '<div id="' + id + '" class="article-share-box">',
-                        '<input class="article-share-input" value="' + url + '">',
-                        '<div class="article-share-links">',
-                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="fa fa-twitter article-share-twitter" target="_blank" title="Twitter"></a>',
-                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="fa fa-facebook article-share-facebook" target="_blank" title="Facebook"></a>',
-                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="fa fa-pinterest article-share-pinterest" target="_blank" title="Pinterest"></a>',
-                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="fa fa-google article-share-google" target="_blank" title="Google+"></a>',
-                        '</div>',
-                    '</div>'
-                ].join('');
-
-              box = $(html);
-
-              $('body').append(box);
-            }
-
-            $('.article-share-box.on').hide();
-
-            box.css({
-                top: offset.top + 25,
-                left: offset.left
-            }).addClass('on');
-
-        }).on('click', '.article-share-box', function (e) {
-            e.stopPropagation();
-        }).on('click', '.article-share-box-input', function () {
-            $(this).select();
-        }).on('click', '.article-share-box-link', function (e) {
-            e.preventDefault();
-            e.stopPropagation();
-
-            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
-        });
-    })(jQuery);
-    </script>
-</footer>
-
-    </div>
-</article>
-                    
-                        <article class="article article-type-post" itemscope="" itemprop="blogPost">
-    <div class="article-inner">
-        
-        </a>
-
-        <header class="article-header">
-    <a href="https://sigterm.sh/2014/02/01/highly-available-nfs-cluster-on-debian-wheezy/">
-    <h1 class="article-title" itemprop="name">
-        Highly Available NFS Cluster on Debian Wheezy
-    </h1>
-    </a>
-    <div class="article-meta">
-        <div class="article-date">
-            <i class="fa fa-calendar"></i>
-            <time datetime="2014-02-01 12:00:00 -0400 -0400" itemprop="datePublished">Feb 02, 2014</time>
-            &middot;
-            998
-            words
-            &middot;
-            5
-            minute read
-        </div>
-
-
-        
-
-        
-            
-            
-            <div class="article-category">
-                <i class="fa fa-tags"></i>
-                
-                
-                <a class="article-category-link" href="/tags/debian">debian</a>
-                &middot;
-                
-                
-                <a class="article-category-link" href="/tags/linux">linux</a>
-                
-                
-            </div>
-            
-        
-    </div>
-</header>
-
-        <div class="article-entry" itemprop="articleBody">
-            <p>
-                <h4 id="overview">Overview</h4>
-
-<p>This guide will help you setup a highly available NFS server on Debian Wheezy. This is a relatively battle-tested configuration, and there is plenty information out there on how it works - I&rsquo;ll include some links at the end of this post.</p>
-
-<p>I was using GlusterFS up until recently, but I&rsquo;m not happy with file corruption issues I&rsquo;m seeing, and the insane load it puts on 2 rather beefy servers trying to resync data after one fails for just a short time.</p>
-
-<p>
-                <br>
-            </p>
-            <p class="article-more-link">
-                <a href="https://sigterm.sh/2014/02/01/highly-available-nfs-cluster-on-debian-wheezy/">
-                    Read more
-                </a>
-            </p>
-        </div>
-        <footer class="article-footer">
-    <a data-url="https://sigterm.sh/2014/02/01/highly-available-nfs-cluster-on-debian-wheezy/" data-id="b97df20f46c9add4d084137f6b8c49f3" class="article-share-link">
-        <i class="fa fa-share"></i>
-        Share
-    </a>
     
-    <a href="https://sigterm.sh/2014/02/01/highly-available-nfs-cluster-on-debian-wheezy//#disqus_thread" class="article-comment-link">
-        Comments
-    </a>
-    
-
-    <script>
-    (function ($) {
-        
-        if (typeof(__SHARE_BUTTON_BINDED__) === 'undefined' || !__SHARE_BUTTON_BINDED__) {
-            __SHARE_BUTTON_BINDED__ = true;
-        } else {
-            return;
-        }
-        $('body').on('click', function() {
-            $('.article-share-box.on').removeClass('on');
-        }).on('click', '.article-share-link', function(e) {
-            e.stopPropagation();
-
-            var $this = $(this),
-                url = $this.attr('data-url'),
-                encodedUrl = encodeURIComponent(url),
-                id = 'article-share-box-' + $this.attr('data-id'),
-                offset = $this.offset(),
-                box;
-
-            if ($('#' + id).length) {
-                box = $('#' + id);
-
-                if (box.hasClass('on')){
-                    box.removeClass('on');
-                    return;
-                }
-            } else {
-                var html = [
-                    '<div id="' + id + '" class="article-share-box">',
-                        '<input class="article-share-input" value="' + url + '">',
-                        '<div class="article-share-links">',
-                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="fa fa-twitter article-share-twitter" target="_blank" title="Twitter"></a>',
-                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="fa fa-facebook article-share-facebook" target="_blank" title="Facebook"></a>',
-                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="fa fa-pinterest article-share-pinterest" target="_blank" title="Pinterest"></a>',
-                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="fa fa-google article-share-google" target="_blank" title="Google+"></a>',
-                        '</div>',
-                    '</div>'
-                ].join('');
-
-              box = $(html);
-
-              $('body').append(box);
-            }
-
-            $('.article-share-box.on').hide();
-
-            box.css({
-                top: offset.top + 25,
-                left: offset.left
-            }).addClass('on');
-
-        }).on('click', '.article-share-box', function (e) {
-            e.stopPropagation();
-        }).on('click', '.article-share-box-input', function () {
-            $(this).select();
-        }).on('click', '.article-share-box-link', function (e) {
-            e.preventDefault();
-            e.stopPropagation();
-
-            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
-        });
-    })(jQuery);
-    </script>
-</footer>
-
-    </div>
-</article>
-                    
-                        <article class="article article-type-post" itemscope="" itemprop="blogPost">
-    <div class="article-inner">
-        
-        </a>
-
-        <header class="article-header">
-    <a href="https://sigterm.sh/2012/09/28/blocking-web-traffic-behind-an-elastic-load-balancer-elb/">
-    <h1 class="article-title" itemprop="name">
-        Blocking web traffic behind an Elastic Load Balancer (ELB)
-    </h1>
-    </a>
-    <div class="article-meta">
-        <div class="article-date">
-            <i class="fa fa-calendar"></i>
-            <time datetime="2012-09-28 12:00:00 -0400 EDT" itemprop="datePublished">Sep 09, 2012</time>
-            &middot;
-            508
-            words
-            &middot;
-            3
-            minute read
-        </div>
-
-
-        
-
-        
-            
-            
-            <div class="article-category">
-                <i class="fa fa-tags"></i>
-                
-                
-                <a class="article-category-link" href="/tags/linux">linux</a>
-                &middot;
-                
-                
-                <a class="article-category-link" href="/tags/amazonaws">amazonaws</a>
-                &middot;
-                
-                
-                <a class="article-category-link" href="/tags/unix">unix</a>
-                &middot;
-                
-                
-                <a class="article-category-link" href="/tags/security">security</a>
-                
-                
-            </div>
-            
-        
-    </div>
-</header>
-
-        <div class="article-entry" itemprop="articleBody">
-            <p>
-                Over the past few hours we&rsquo;ve been on the receiving end of a fairly large scale set of web requests (read: attack) to a website we host over on Amazon EC2. Our setup is not really that complicated, however we encountered a problem that wasn&rsquo;t that easy to solve.</p>
-
-<p>
-                <br>
-            </p>
-            <p class="article-more-link">
-                <a href="https://sigterm.sh/2012/09/28/blocking-web-traffic-behind-an-elastic-load-balancer-elb/">
-                    Read more
-                </a>
-            </p>
-        </div>
-        <footer class="article-footer">
-    <a data-url="https://sigterm.sh/2012/09/28/blocking-web-traffic-behind-an-elastic-load-balancer-elb/" data-id="2ab73043ade5ef2d3e1a088b0cb305fe" class="article-share-link">
-        <i class="fa fa-share"></i>
-        Share
-    </a>
-    
-    <a href="https://sigterm.sh/2012/09/28/blocking-web-traffic-behind-an-elastic-load-balancer-elb//#disqus_thread" class="article-comment-link">
-        Comments
-    </a>
-    
-
-    <script>
-    (function ($) {
-        
-        if (typeof(__SHARE_BUTTON_BINDED__) === 'undefined' || !__SHARE_BUTTON_BINDED__) {
-            __SHARE_BUTTON_BINDED__ = true;
-        } else {
-            return;
-        }
-        $('body').on('click', function() {
-            $('.article-share-box.on').removeClass('on');
-        }).on('click', '.article-share-link', function(e) {
-            e.stopPropagation();
-
-            var $this = $(this),
-                url = $this.attr('data-url'),
-                encodedUrl = encodeURIComponent(url),
-                id = 'article-share-box-' + $this.attr('data-id'),
-                offset = $this.offset(),
-                box;
-
-            if ($('#' + id).length) {
-                box = $('#' + id);
-
-                if (box.hasClass('on')){
-                    box.removeClass('on');
-                    return;
-                }
-            } else {
-                var html = [
-                    '<div id="' + id + '" class="article-share-box">',
-                        '<input class="article-share-input" value="' + url + '">',
-                        '<div class="article-share-links">',
-                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="fa fa-twitter article-share-twitter" target="_blank" title="Twitter"></a>',
-                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="fa fa-facebook article-share-facebook" target="_blank" title="Facebook"></a>',
-                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="fa fa-pinterest article-share-pinterest" target="_blank" title="Pinterest"></a>',
-                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="fa fa-google article-share-google" target="_blank" title="Google+"></a>',
-                        '</div>',
-                    '</div>'
-                ].join('');
-
-              box = $(html);
-
-              $('body').append(box);
-            }
-
-            $('.article-share-box.on').hide();
-
-            box.css({
-                top: offset.top + 25,
-                left: offset.left
-            }).addClass('on');
-
-        }).on('click', '.article-share-box', function (e) {
-            e.stopPropagation();
-        }).on('click', '.article-share-box-input', function () {
-            $(this).select();
-        }).on('click', '.article-share-box-link', function (e) {
-            e.preventDefault();
-            e.stopPropagation();
-
-            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
-        });
-    })(jQuery);
-    </script>
-</footer>
-
-    </div>
-</article>
-                    
-                        <article class="article article-type-post" itemscope="" itemprop="blogPost">
-    <div class="article-inner">
-        
-        </a>
-
-        <header class="article-header">
-    <a href="https://sigterm.sh/2011/01/02/puppet-modules-debsecan/">
-    <h1 class="article-title" itemprop="name">
-        Puppet Modules - Debsecan
-    </h1>
-    </a>
-    <div class="article-meta">
-        <div class="article-date">
-            <i class="fa fa-calendar"></i>
-            <time datetime="2011-01-02 12:00:00 -0400 -0400" itemprop="datePublished">Jan 01, 2011</time>
-            &middot;
-            339
-            words
-            &middot;
-            2
-            minute read
-        </div>
-
-
-        
-
-        
-            
-            
-            <div class="article-category">
-                <i class="fa fa-tags"></i>
-                
-                
-                <a class="article-category-link" href="/tags/debian">debian</a>
-                &middot;
-                
-                
-                <a class="article-category-link" href="/tags/puppet">puppet</a>
-                &middot;
-                
-                
-                <a class="article-category-link" href="/tags/linux">linux</a>
-                &middot;
-                
-                
-                <a class="article-category-link" href="/tags/security">security</a>
-                
-                
-            </div>
-            
-        
-    </div>
-</header>
-
-        <div class="article-entry" itemprop="articleBody">
-            <p>
-                This is the first post of (hopefully) many, detailing some of my <a href="http://www.puppetlabs.com/">Puppet</a> module implementations. Being the first, I thought I would start off with something simple.</p>
-
-<p>
-                <br>
-            </p>
-            <p class="article-more-link">
-                <a href="https://sigterm.sh/2011/01/02/puppet-modules-debsecan/">
-                    Read more
-                </a>
-            </p>
-        </div>
-        <footer class="article-footer">
-    <a data-url="https://sigterm.sh/2011/01/02/puppet-modules-debsecan/" data-id="9442a3670007702f717f92ca5f81302e" class="article-share-link">
-        <i class="fa fa-share"></i>
-        Share
-    </a>
-    
-    <a href="https://sigterm.sh/2011/01/02/puppet-modules-debsecan//#disqus_thread" class="article-comment-link">
-        Comments
-    </a>
-    
-
-    <script>
-    (function ($) {
-        
-        if (typeof(__SHARE_BUTTON_BINDED__) === 'undefined' || !__SHARE_BUTTON_BINDED__) {
-            __SHARE_BUTTON_BINDED__ = true;
-        } else {
-            return;
-        }
-        $('body').on('click', function() {
-            $('.article-share-box.on').removeClass('on');
-        }).on('click', '.article-share-link', function(e) {
-            e.stopPropagation();
-
-            var $this = $(this),
-                url = $this.attr('data-url'),
-                encodedUrl = encodeURIComponent(url),
-                id = 'article-share-box-' + $this.attr('data-id'),
-                offset = $this.offset(),
-                box;
-
-            if ($('#' + id).length) {
-                box = $('#' + id);
-
-                if (box.hasClass('on')){
-                    box.removeClass('on');
-                    return;
-                }
-            } else {
-                var html = [
-                    '<div id="' + id + '" class="article-share-box">',
-                        '<input class="article-share-input" value="' + url + '">',
-                        '<div class="article-share-links">',
-                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="fa fa-twitter article-share-twitter" target="_blank" title="Twitter"></a>',
-                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="fa fa-facebook article-share-facebook" target="_blank" title="Facebook"></a>',
-                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="fa fa-pinterest article-share-pinterest" target="_blank" title="Pinterest"></a>',
-                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="fa fa-google article-share-google" target="_blank" title="Google+"></a>',
-                        '</div>',
-                    '</div>'
-                ].join('');
-
-              box = $(html);
-
-              $('body').append(box);
-            }
-
-            $('.article-share-box.on').hide();
-
-            box.css({
-                top: offset.top + 25,
-                left: offset.left
-            }).addClass('on');
-
-        }).on('click', '.article-share-box', function (e) {
-            e.stopPropagation();
-        }).on('click', '.article-share-box-input', function () {
-            $(this).select();
-        }).on('click', '.article-share-box-link', function (e) {
-            e.preventDefault();
-            e.stopPropagation();
-
-            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
-        });
-    })(jQuery);
-    </script>
-</footer>
-
-    </div>
-</article>
-                    
-                </div>
-            </section>
-            <nav id="page-nav">
-
 </nav>
 
-        </section>
-        <aside id="sidebar">
+
+    </article>
+
+    
+    <section id="comments">
+        <div id="disqus_thread">
+            <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'codegeeksh';
+    var disqus_identifier = 'https:\/\/sigterm.sh\/2017\/07\/29\/building-a-home-lab\/';
+    var disqus_title = 'Building a home lab';
+    var disqus_url = 'https:\/\/sigterm.sh\/2017\/07\/29\/building-a-home-lab\/';
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+        </div>
+    </section>
+    
+</section>
+
+
+	    
+	    <aside id="sidebar">
     
 <div class="widget-wrap">
     <h3 class="widget-title">
@@ -1079,7 +656,7 @@ what I did&hellip;</p>
                 <div class="item-thumbnail">
                     <a href="https://sigterm.sh/2014/10/26/ssl-configuration/" class="thumbnail">
                     
-                        <span style="background-image:url(https://media.sigterm.sh/2015/Screen-Shot-2014-10-26-at-5-34-16-AM.png)" alt="Linux" class="thumbnail-image"></span>
+                        <span style="background-image:url(https://media.sigterm.sh/2015/Screen-Shot-2014-10-26-at-5-34-16-AM.png)" alt="Building a home lab" class="thumbnail-image"></span>
                     
                     </a>
                 </div>
@@ -1414,7 +991,8 @@ what I did&hellip;</p>
     <div id="toTop" class="fa fa-angle-up"></div>
 </aside>
 
-    </div>
+	    
+	</div>
 </div>
 
 <footer id="footer">

@@ -30,7 +30,7 @@
 
 
 
-<meta property="og:updated_time" content="2009-10-07T12:00:00-04:00"/>
+<meta property="og:updated_time" content="2009-10-12T12:00:00-04:00"/>
 
 
 
@@ -174,7 +174,7 @@
     </div>
     <div class="article-info profile-block">
       <div class="article-info-block">
-        29
+        30
         <span>Posts</span>
       </div>
       <div class="article-info-block">
@@ -263,6 +263,141 @@
                 </div>
                 <div class="archives">
                     
+                    
+                        <article class="article article-type-post" itemscope="" itemprop="blogPost">
+    <div class="article-inner">
+        
+        </a>
+
+        <header class="article-header">
+    <a href="https://sigterm.sh/2009/10/12/keyboard-shortcuts-in-google-wave/">
+    <h1 class="article-title" itemprop="name">
+        Keyboard shortcuts in Google Wave
+    </h1>
+    </a>
+    <div class="article-meta">
+        <div class="article-date">
+            <i class="fa fa-calendar"></i>
+            <time datetime="2009-10-12 12:00:00 -0400 EDT" itemprop="datePublished">Oct 10, 2009</time>
+            &middot;
+            136
+            words
+            &middot;
+            1
+            minute read
+        </div>
+
+
+        
+
+        
+            
+            
+            <div class="article-category">
+                <i class="fa fa-tags"></i>
+                
+                
+                <a class="article-category-link" href="/tags/general">general</a>
+                
+                
+            </div>
+            
+        
+    </div>
+</header>
+
+        <div class="article-entry" itemprop="articleBody">
+            <p>
+                I was messing around a little with figuring out some of the keyboard shortcuts in Wave. Here is what I have so far:</p>
+
+<p>
+                <br>
+            </p>
+            <p class="article-more-link">
+                <a href="https://sigterm.sh/2009/10/12/keyboard-shortcuts-in-google-wave/">
+                    Read more
+                </a>
+            </p>
+        </div>
+        <footer class="article-footer">
+    <a data-url="https://sigterm.sh/2009/10/12/keyboard-shortcuts-in-google-wave/" data-id="b24b9c86c9f269b5e90177e7f4c2801c" class="article-share-link">
+        <i class="fa fa-share"></i>
+        Share
+    </a>
+    
+    <a href="https://sigterm.sh/2009/10/12/keyboard-shortcuts-in-google-wave//#disqus_thread" class="article-comment-link">
+        Comments
+    </a>
+    
+
+    <script>
+    (function ($) {
+        
+        if (typeof(__SHARE_BUTTON_BINDED__) === 'undefined' || !__SHARE_BUTTON_BINDED__) {
+            __SHARE_BUTTON_BINDED__ = true;
+        } else {
+            return;
+        }
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="fa fa-twitter article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="fa fa-facebook article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="fa fa-pinterest article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="fa fa-google article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+    </script>
+</footer>
+
+    </div>
+</article>
                     
                         <article class="article article-type-post" itemscope="" itemprop="blogPost">
     <div class="article-inner">
@@ -1411,6 +1546,23 @@ root@tank:~# zonestat ZONEID NPROC SWAP RSS MEMORY TIME CPU ZONE 0 58 1198M 1206
             
             <li>
                 <div class="item-thumbnail">
+                    <a href="https://sigterm.sh/2017/07/29/building-a-home-lab/" class="thumbnail">
+                    
+                        <span class="thumbnail-image thumbnail-none"></span>
+                    
+                    </a>
+                </div>
+                <div class="item-inner">
+                    
+                    <p class="item-title"><a href="https://sigterm.sh/2017/07/29/building-a-home-lab/" class="title">Building a home lab</a></p>
+                    <p class="item-date">
+                        <time datetime="2017-07-29 22:27:00 -0400 EDT" itemprop="datePublished">Jul 07, 2017</time>
+                    </p>
+                </div>
+            </li>
+            
+            <li>
+                <div class="item-thumbnail">
                     <a href="https://sigterm.sh/2016/11/05/passing-vlans-over-an-lacp-trunk-in-openbsd/" class="thumbnail">
                     
                         <span class="thumbnail-image thumbnail-none"></span>
@@ -1473,23 +1625,6 @@ root@tank:~# zonestat ZONEID NPROC SWAP RSS MEMORY TIME CPU ZONE 0 58 1198M 1206
                     <p class="item-title"><a href="https://sigterm.sh/2014/10/26/ssl-configuration/" class="title">SSL Configuration</a></p>
                     <p class="item-date">
                         <time datetime="2014-10-26 05:53:00 -0400 EDT" itemprop="datePublished">Oct 10, 2014</time>
-                    </p>
-                </div>
-            </li>
-            
-            <li>
-                <div class="item-thumbnail">
-                    <a href="https://sigterm.sh/2014/10/26/google-inbox/" class="thumbnail">
-                    
-                        <span style="background-image:url(https://media.sigterm.sh/2015/Screen-Shot-2014-10-26-at-4-35-23-AM-1.png)" alt="Posts" class="thumbnail-image"></span>
-                    
-                    </a>
-                </div>
-                <div class="item-inner">
-                    
-                    <p class="item-title"><a href="https://sigterm.sh/2014/10/26/google-inbox/" class="title">Thoughts on Google Inbox</a></p>
-                    <p class="item-date">
-                        <time datetime="2014-10-26 04:35:00 -0400 EDT" itemprop="datePublished">Oct 10, 2014</time>
                     </p>
                 </div>
             </li>
@@ -1616,7 +1751,7 @@ root@tank:~# zonestat ZONEID NPROC SWAP RSS MEMORY TIME CPU ZONE 0 58 1198M 1206
                 <a class="category-list-link" href="https://sigterm.sh/tags/linux">
                     linux
                 </a>
-                <span class="category-list-count">4</span>
+                <span class="category-list-count">5</span>
             </li>
             
             <li class="category-list-item">
@@ -1632,7 +1767,7 @@ root@tank:~# zonestat ZONEID NPROC SWAP RSS MEMORY TIME CPU ZONE 0 58 1198M 1206
                 <a class="category-list-link" href="https://sigterm.sh/tags/networking">
                     networking
                 </a>
-                <span class="category-list-count">1</span>
+                <span class="category-list-count">2</span>
             </li>
             
             <li class="category-list-item">
@@ -1704,7 +1839,7 @@ root@tank:~# zonestat ZONEID NPROC SWAP RSS MEMORY TIME CPU ZONE 0 58 1198M 1206
                 <a class="category-list-link" href="https://sigterm.sh/tags/unix">
                     unix
                 </a>
-                <span class="category-list-count">8</span>
+                <span class="category-list-count">9</span>
             </li>
             
             <li class="category-list-item">

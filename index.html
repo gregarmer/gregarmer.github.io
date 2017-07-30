@@ -30,7 +30,7 @@
 
 
 
-<meta property="og:updated_time" content="2017-07-29T22:22:07-04:00"/>
+<meta property="og:updated_time" content="2017-07-29T22:27:00-04:00"/>
 
 
 
@@ -175,7 +175,7 @@
     </div>
     <div class="article-info profile-block">
       <div class="article-info-block">
-        29
+        30
         <span>Posts</span>
       </div>
       <div class="article-info-block">
@@ -259,6 +259,152 @@
 
     <section id="main">
     
+    
+    <article class="article article-type-post" itemscope="" itemprop="blogPost">
+        <div class="article-inner">
+            
+            </a>
+
+            <header class="article-header">
+    <a href="https://sigterm.sh/2017/07/29/building-a-home-lab/">
+    <h1 class="article-title" itemprop="name">
+        Building a home lab
+    </h1>
+    </a>
+    <div class="article-meta">
+        <div class="article-date">
+            <i class="fa fa-calendar"></i>
+            <time datetime="2017-07-29 22:27:00 -0400 EDT" itemprop="datePublished">Jul 07, 2017</time>
+            &middot;
+            557
+            words
+            &middot;
+            3
+            minute read
+        </div>
+
+
+        
+
+        
+            
+            
+            <div class="article-category">
+                <i class="fa fa-tags"></i>
+                
+                
+                <a class="article-category-link" href="/tags/unix">unix</a>
+                &middot;
+                
+                
+                <a class="article-category-link" href="/tags/linux">linux</a>
+                &middot;
+                
+                
+                <a class="article-category-link" href="/tags/networking">networking</a>
+                
+                
+            </div>
+            
+        
+    </div>
+</header>
+
+            <div class="article-entry" itemprop="articleBody">
+                <p>
+                    I&rsquo;ve been setting up a small home lab for testing various things out and I
+needed a some space for virtual machines. I don&rsquo;t have any requirements for
+insane performance, but I also didn&rsquo;t want a really sluggish setup, so here&rsquo;s
+what I did&hellip;</p>
+
+<p>
+                    <br>
+                </p>
+                <p class="article-more-link">
+                    <a href="https://sigterm.sh/2017/07/29/building-a-home-lab/">
+                        Read more
+                    </a>
+                </p>
+            </div>
+            <footer class="article-footer">
+    <a data-url="https://sigterm.sh/2017/07/29/building-a-home-lab/" data-id="3493d31106697a7eadd2d402cabf333f" class="article-share-link">
+        <i class="fa fa-share"></i>
+        Share
+    </a>
+    
+    <a href="https://sigterm.sh/2017/07/29/building-a-home-lab//#disqus_thread" class="article-comment-link">
+        Comments
+    </a>
+    
+
+    <script>
+    (function ($) {
+        
+        if (typeof(__SHARE_BUTTON_BINDED__) === 'undefined' || !__SHARE_BUTTON_BINDED__) {
+            __SHARE_BUTTON_BINDED__ = true;
+        } else {
+            return;
+        }
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="fa fa-twitter article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="fa fa-facebook article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="fa fa-pinterest article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="fa fa-google article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+    </script>
+</footer>
+
+        </div>
+    </article>
     
     <article class="article article-type-post" itemscope="" itemprop="blogPost">
         <div class="article-inner">
@@ -1541,153 +1687,6 @@
         </div>
     </article>
     
-    <article class="article article-type-post" itemscope="" itemprop="blogPost">
-        <div class="article-inner">
-            
-            </a>
-
-            <header class="article-header">
-    <a href="https://sigterm.sh/2011/12/06/replacing-djangos-nasty-runserver/">
-    <h1 class="article-title" itemprop="name">
-        Replacing Django&#39;s Nasty &#39;runserver&#39;
-    </h1>
-    </a>
-    <div class="article-meta">
-        <div class="article-date">
-            <i class="fa fa-calendar"></i>
-            <time datetime="2011-12-06 12:00:00 -0400 -0400" itemprop="datePublished">Dec 12, 2011</time>
-            &middot;
-            319
-            words
-            &middot;
-            2
-            minute read
-        </div>
-
-
-        
-
-        
-            
-            
-            <div class="article-category">
-                <i class="fa fa-tags"></i>
-                
-                
-                <a class="article-category-link" href="/tags/software-engineering">software engineering</a>
-                &middot;
-                
-                
-                <a class="article-category-link" href="/tags/django">django</a>
-                &middot;
-                
-                
-                <a class="article-category-link" href="/tags/code">code</a>
-                &middot;
-                
-                
-                <a class="article-category-link" href="/tags/python">python</a>
-                
-                
-            </div>
-            
-        
-    </div>
-</header>
-
-            <div class="article-entry" itemprop="articleBody">
-                <p>
-                    Have you ever tried to have more than one person view a development site using <a title="Django" href="http://www.djangoproject.com/" target="_blank">Django&rsquo;s</a> <a title="Django runserver" href="https://docs.djangoproject.com/en/1.3/ref/django-admin/#runserver-port-or-address-port" target="_blank">built-in development server</a> ? Yeah, it really sucks. Apparently concurrency wasn&rsquo;t high on the features list and they have stated that it never will be.</p>
-
-<p>
-                    <br>
-                </p>
-                <p class="article-more-link">
-                    <a href="https://sigterm.sh/2011/12/06/replacing-djangos-nasty-runserver/">
-                        Read more
-                    </a>
-                </p>
-            </div>
-            <footer class="article-footer">
-    <a data-url="https://sigterm.sh/2011/12/06/replacing-djangos-nasty-runserver/" data-id="0c8c53166f7035800fdb511e0cb3e4d2" class="article-share-link">
-        <i class="fa fa-share"></i>
-        Share
-    </a>
-    
-    <a href="https://sigterm.sh/2011/12/06/replacing-djangos-nasty-runserver//#disqus_thread" class="article-comment-link">
-        Comments
-    </a>
-    
-
-    <script>
-    (function ($) {
-        
-        if (typeof(__SHARE_BUTTON_BINDED__) === 'undefined' || !__SHARE_BUTTON_BINDED__) {
-            __SHARE_BUTTON_BINDED__ = true;
-        } else {
-            return;
-        }
-        $('body').on('click', function() {
-            $('.article-share-box.on').removeClass('on');
-        }).on('click', '.article-share-link', function(e) {
-            e.stopPropagation();
-
-            var $this = $(this),
-                url = $this.attr('data-url'),
-                encodedUrl = encodeURIComponent(url),
-                id = 'article-share-box-' + $this.attr('data-id'),
-                offset = $this.offset(),
-                box;
-
-            if ($('#' + id).length) {
-                box = $('#' + id);
-
-                if (box.hasClass('on')){
-                    box.removeClass('on');
-                    return;
-                }
-            } else {
-                var html = [
-                    '<div id="' + id + '" class="article-share-box">',
-                        '<input class="article-share-input" value="' + url + '">',
-                        '<div class="article-share-links">',
-                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="fa fa-twitter article-share-twitter" target="_blank" title="Twitter"></a>',
-                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="fa fa-facebook article-share-facebook" target="_blank" title="Facebook"></a>',
-                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="fa fa-pinterest article-share-pinterest" target="_blank" title="Pinterest"></a>',
-                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="fa fa-google article-share-google" target="_blank" title="Google+"></a>',
-                        '</div>',
-                    '</div>'
-                ].join('');
-
-              box = $(html);
-
-              $('body').append(box);
-            }
-
-            $('.article-share-box.on').hide();
-
-            box.css({
-                top: offset.top + 25,
-                left: offset.left
-            }).addClass('on');
-
-        }).on('click', '.article-share-box', function (e) {
-            e.stopPropagation();
-        }).on('click', '.article-share-box-input', function () {
-            $(this).select();
-        }).on('click', '.article-share-box-link', function (e) {
-            e.preventDefault();
-            e.stopPropagation();
-
-            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
-        });
-    })(jQuery);
-    </script>
-</footer>
-
-        </div>
-    </article>
-    
 
     <nav id="page-nav">
 
@@ -1711,6 +1710,23 @@
     </h3>
     <div class="widget">
         <ul id="recent-post">
+            
+            <li>
+                <div class="item-thumbnail">
+                    <a href="https://sigterm.sh/2017/07/29/building-a-home-lab/" class="thumbnail">
+                    
+                        <span class="thumbnail-image thumbnail-none"></span>
+                    
+                    </a>
+                </div>
+                <div class="item-inner">
+                    
+                    <p class="item-title"><a href="https://sigterm.sh/2017/07/29/building-a-home-lab/" class="title">Building a home lab</a></p>
+                    <p class="item-date">
+                        <time datetime="2017-07-29 22:27:00 -0400 EDT" itemprop="datePublished">Jul 07, 2017</time>
+                    </p>
+                </div>
+            </li>
             
             <li>
                 <div class="item-thumbnail">
@@ -1776,23 +1792,6 @@
                     <p class="item-title"><a href="https://sigterm.sh/2014/10/26/ssl-configuration/" class="title">SSL Configuration</a></p>
                     <p class="item-date">
                         <time datetime="2014-10-26 05:53:00 -0400 EDT" itemprop="datePublished">Oct 10, 2014</time>
-                    </p>
-                </div>
-            </li>
-            
-            <li>
-                <div class="item-thumbnail">
-                    <a href="https://sigterm.sh/2014/10/26/google-inbox/" class="thumbnail">
-                    
-                        <span style="background-image:url(https://media.sigterm.sh/2015/Screen-Shot-2014-10-26-at-4-35-23-AM-1.png)" alt="./sigterm.sh" class="thumbnail-image"></span>
-                    
-                    </a>
-                </div>
-                <div class="item-inner">
-                    
-                    <p class="item-title"><a href="https://sigterm.sh/2014/10/26/google-inbox/" class="title">Thoughts on Google Inbox</a></p>
-                    <p class="item-date">
-                        <time datetime="2014-10-26 04:35:00 -0400 EDT" itemprop="datePublished">Oct 10, 2014</time>
                     </p>
                 </div>
             </li>
@@ -1919,7 +1918,7 @@
                 <a class="category-list-link" href="https://sigterm.sh/tags/linux">
                     linux
                 </a>
-                <span class="category-list-count">4</span>
+                <span class="category-list-count">5</span>
             </li>
             
             <li class="category-list-item">
@@ -1935,7 +1934,7 @@
                 <a class="category-list-link" href="https://sigterm.sh/tags/networking">
                     networking
                 </a>
-                <span class="category-list-count">1</span>
+                <span class="category-list-count">2</span>
             </li>
             
             <li class="category-list-item">
@@ -2007,7 +2006,7 @@
                 <a class="category-list-link" href="https://sigterm.sh/tags/unix">
                     unix
                 </a>
-                <span class="category-list-count">8</span>
+                <span class="category-list-count">9</span>
             </li>
             
             <li class="category-list-item">
