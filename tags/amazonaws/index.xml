@@ -2,22 +2,22 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Amazonaws on ./sigterm.sh</title>
-    <link>https://sigterm.sh/tags/amazonaws/</link>
+    <link>/tags/amazonaws/</link>
     <description>Recent content in Amazonaws on ./sigterm.sh</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>Gregory Armer. All rights reserved.</copyright>
     <lastBuildDate>Fri, 28 Sep 2012 12:00:00 -0400</lastBuildDate>
     
-	<atom:link href="https://sigterm.sh/tags/amazonaws/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="/tags/amazonaws/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Blocking web traffic behind an Elastic Load Balancer (ELB)</title>
-      <link>https://sigterm.sh/2012/09/28/blocking-web-traffic-behind-an-elastic-load-balancer-elb/</link>
+      <link>/2012/09/28/blocking-web-traffic-behind-an-elastic-load-balancer-elb/</link>
       <pubDate>Fri, 28 Sep 2012 12:00:00 -0400</pubDate>
       
-      <guid>https://sigterm.sh/2012/09/28/blocking-web-traffic-behind-an-elastic-load-balancer-elb/</guid>
+      <guid>/2012/09/28/blocking-web-traffic-behind-an-elastic-load-balancer-elb/</guid>
       <description>&lt;p&gt;Over the past few hours we&amp;rsquo;ve been on the receiving end of a fairly large scale set of web requests (read: attack) to a website we host over on Amazon EC2. Our setup is not really that complicated, however we encountered a problem that wasn&amp;rsquo;t that easy to solve.&lt;/p&gt;
 
 &lt;p&gt;&lt;/p&gt;</description>

@@ -2,22 +2,22 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Python on ./sigterm.sh</title>
-    <link>https://sigterm.sh/tags/python/</link>
+    <link>/tags/python/</link>
     <description>Recent content in Python on ./sigterm.sh</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>Gregory Armer. All rights reserved.</copyright>
     <lastBuildDate>Tue, 06 Jan 2015 18:50:00 -0400</lastBuildDate>
     
-	<atom:link href="https://sigterm.sh/tags/python/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="/tags/python/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Announcing flake8-diff</title>
-      <link>https://sigterm.sh/2015/01/06/announcing-flake8-diff/</link>
+      <link>/2015/01/06/announcing-flake8-diff/</link>
       <pubDate>Tue, 06 Jan 2015 18:50:00 -0400</pubDate>
       
-      <guid>https://sigterm.sh/2015/01/06/announcing-flake8-diff/</guid>
+      <guid>/2015/01/06/announcing-flake8-diff/</guid>
       <description>&lt;h3 id=&#34;purpose&#34;&gt;Purpose&lt;/h3&gt;
 
 &lt;p&gt;This utility allows you to run flake8 over a set of changed files and filter out violations that would be introduced by merging those changes.&lt;/p&gt;
@@ -29,10 +29,10 @@
     
     <item>
       <title>Forking background processes in Python</title>
-      <link>https://sigterm.sh/2012/08/22/forking-background-processes-in-python/</link>
+      <link>/2012/08/22/forking-background-processes-in-python/</link>
       <pubDate>Wed, 22 Aug 2012 12:00:00 -0400</pubDate>
       
-      <guid>https://sigterm.sh/2012/08/22/forking-background-processes-in-python/</guid>
+      <guid>/2012/08/22/forking-background-processes-in-python/</guid>
       <description>&lt;p&gt;This post attempts to explain how to fork child processes in Python, or at least how to use forking on an existing Python script. For some strange reason I&amp;rsquo;ve had to explain this a few times recently, so I decided an easy to reference blog post would probably make life a little easier.&lt;/p&gt;
 
 &lt;p&gt;&lt;/p&gt;</description>
@@ -40,10 +40,10 @@
     
     <item>
       <title>Replacing Django&#39;s Nasty &#39;runserver&#39;</title>
-      <link>https://sigterm.sh/2011/12/06/replacing-djangos-nasty-runserver/</link>
+      <link>/2011/12/06/replacing-djangos-nasty-runserver/</link>
       <pubDate>Tue, 06 Dec 2011 12:00:00 -0400</pubDate>
       
-      <guid>https://sigterm.sh/2011/12/06/replacing-djangos-nasty-runserver/</guid>
+      <guid>/2011/12/06/replacing-djangos-nasty-runserver/</guid>
       <description>&lt;p&gt;Have you ever tried to have more than one person view a development site using &lt;a title=&#34;Django&#34; href=&#34;http://www.djangoproject.com/&#34; target=&#34;_blank&#34;&gt;Django&amp;rsquo;s&lt;/a&gt; &lt;a title=&#34;Django runserver&#34; href=&#34;https://docs.djangoproject.com/en/1.3/ref/django-admin/#runserver-port-or-address-port&#34; target=&#34;_blank&#34;&gt;built-in development server&lt;/a&gt; ? Yeah, it really sucks. Apparently concurrency wasn&amp;rsquo;t high on the features list and they have stated that it never will be.&lt;/p&gt;
 
 &lt;p&gt;&lt;/p&gt;</description>
@@ -51,10 +51,10 @@
     
     <item>
       <title>Natural order sorting strings with numbers</title>
-      <link>https://sigterm.sh/2010/09/23/natural-order-sorting-strings-with-numbers/</link>
+      <link>/2010/09/23/natural-order-sorting-strings-with-numbers/</link>
       <pubDate>Thu, 23 Sep 2010 12:00:00 -0400</pubDate>
       
-      <guid>https://sigterm.sh/2010/09/23/natural-order-sorting-strings-with-numbers/</guid>
+      <guid>/2010/09/23/natural-order-sorting-strings-with-numbers/</guid>
       <description>&lt;p&gt;The following python code makes natural sorting sequences of lexical and numerical values a little easier. It supports any iterable containing strings which have embedded numbers. In short it would give you this:&lt;/p&gt;
 
 &lt;p&gt;foo1 &amp;lt; foo2 &amp;lt; foo10&lt;/p&gt;
@@ -68,10 +68,10 @@
     
     <item>
       <title>Generating a dependency graph for Postgres DB</title>
-      <link>https://sigterm.sh/2010/07/09/generating-a-dependency-graph-for-a-postgresql-database/</link>
+      <link>/2010/07/09/generating-a-dependency-graph-for-a-postgresql-database/</link>
       <pubDate>Fri, 09 Jul 2010 12:00:00 -0400</pubDate>
       
-      <guid>https://sigterm.sh/2010/07/09/generating-a-dependency-graph-for-a-postgresql-database/</guid>
+      <guid>/2010/07/09/generating-a-dependency-graph-for-a-postgresql-database/</guid>
       <description>&lt;p&gt;This post was mostly inspired by &lt;a href=&#34;http://code.activestate.com/recipes/577298-plot-database-table-dependecies-for-a-mysql-databa/&#34;&gt;this one&lt;/a&gt;, which shows how to generate a dependency graph for a MySQL database. Here we do something similar for PostgreSQL.&lt;/p&gt;
 
 &lt;p&gt;This script will generate the required digraph data to pipe into &lt;a href=&#34;http://www.graphviz.org/&#34; target=&#34;_blank&#34;&gt;graphviz dot&lt;/a&gt; which will generate a visual representation of dependencies in a database schema, based on foreign key constraints.&lt;/p&gt;
@@ -81,10 +81,10 @@
     
     <item>
       <title>Extending Python with modules written in C</title>
-      <link>https://sigterm.sh/2009/12/26/extending-python-with-modules-written-in-c/</link>
+      <link>/2009/12/26/extending-python-with-modules-written-in-c/</link>
       <pubDate>Sat, 26 Dec 2009 12:00:00 -0400</pubDate>
       
-      <guid>https://sigterm.sh/2009/12/26/extending-python-with-modules-written-in-c/</guid>
+      <guid>/2009/12/26/extending-python-with-modules-written-in-c/</guid>
       <description>&lt;p&gt;Using C (or C++) to create Python modules is really quite simple, providing you know a little C of course. I recently had to do some work around getting a bunch of legacy C code talking to a newer system and thought I&amp;rsquo;d post a nice simple example of how the Python extensions work.&lt;/p&gt;
 
 &lt;p&gt;This code gives you a single method &amp;ldquo;do()&amp;rdquo; that will print the output of a command, passed to it as a string, to stdout and return the exit code as a python int.&lt;/p&gt;
@@ -94,10 +94,10 @@
     
     <item>
       <title>Simple OpenVPN Server Statistics</title>
-      <link>https://sigterm.sh/2009/07/16/simple-openvpn-server-statistics/</link>
+      <link>/2009/07/16/simple-openvpn-server-statistics/</link>
       <pubDate>Thu, 16 Jul 2009 12:00:00 -0400</pubDate>
       
-      <guid>https://sigterm.sh/2009/07/16/simple-openvpn-server-statistics/</guid>
+      <guid>/2009/07/16/simple-openvpn-server-statistics/</guid>
       <description>&lt;p&gt;Ever wondered what the status of your OpenVPN server is, or wanted some simple stats ?&lt;/p&gt;
 
 &lt;p&gt;&lt;/p&gt;</description>

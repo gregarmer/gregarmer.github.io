@@ -2,24 +2,24 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Networking on ./sigterm.sh</title>
-    <link>https://sigterm.sh/tags/networking/</link>
+    <link>/tags/networking/</link>
     <description>Recent content in Networking on ./sigterm.sh</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>Gregory Armer. All rights reserved.</copyright>
     <lastBuildDate>Sat, 29 Jul 2017 22:27:00 -0400</lastBuildDate>
     
-	<atom:link href="https://sigterm.sh/tags/networking/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="/tags/networking/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Building a home lab</title>
-      <link>https://sigterm.sh/2017/07/29/building-a-home-lab/</link>
+      <link>/2017/07/29/building-a-home-lab/</link>
       <pubDate>Sat, 29 Jul 2017 22:27:00 -0400</pubDate>
       
-      <guid>https://sigterm.sh/2017/07/29/building-a-home-lab/</guid>
+      <guid>/2017/07/29/building-a-home-lab/</guid>
       <description>&lt;p&gt;I&amp;rsquo;ve been setting up a small home lab for testing various things out and I
-needed a some space for virtual machines. I don&amp;rsquo;t have any requirements for
+needed some space for virtual machines. I don&amp;rsquo;t have any requirements for
 insane performance, but I also didn&amp;rsquo;t want a really sluggish setup, so here&amp;rsquo;s
 what I did&amp;hellip;&lt;/p&gt;
 
@@ -28,10 +28,10 @@ what I did&amp;hellip;&lt;/p&gt;
     
     <item>
       <title>Passing VLANs over an LACP trunk in OpenBSD</title>
-      <link>https://sigterm.sh/2016/11/05/passing-vlans-over-an-lacp-trunk-in-openbsd/</link>
+      <link>/2016/11/05/passing-vlans-over-an-lacp-trunk-in-openbsd/</link>
       <pubDate>Sat, 05 Nov 2016 14:26:00 -0400</pubDate>
       
-      <guid>https://sigterm.sh/2016/11/05/passing-vlans-over-an-lacp-trunk-in-openbsd/</guid>
+      <guid>/2016/11/05/passing-vlans-over-an-lacp-trunk-in-openbsd/</guid>
       <description>&lt;p&gt;It took me a little while to figure this out, so for anyone stuck on this, here&amp;rsquo;s what I did.&lt;/p&gt;
 
 &lt;p&gt;&lt;/p&gt;</description>

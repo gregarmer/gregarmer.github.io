@@ -2,22 +2,22 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>General on ./sigterm.sh</title>
-    <link>https://sigterm.sh/tags/general/</link>
+    <link>/tags/general/</link>
     <description>Recent content in General on ./sigterm.sh</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>Gregory Armer. All rights reserved.</copyright>
     <lastBuildDate>Sun, 26 Oct 2014 04:35:00 -0400</lastBuildDate>
     
-	<atom:link href="https://sigterm.sh/tags/general/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="/tags/general/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Thoughts on Google Inbox</title>
-      <link>https://sigterm.sh/2014/10/26/google-inbox/</link>
+      <link>/2014/10/26/google-inbox/</link>
       <pubDate>Sun, 26 Oct 2014 04:35:00 -0400</pubDate>
       
-      <guid>https://sigterm.sh/2014/10/26/google-inbox/</guid>
+      <guid>/2014/10/26/google-inbox/</guid>
       <description>&lt;p&gt;This is an insanely awesome way to work with your e-mail!  Google have essentially turned your e-mail inbox into a massive todo list, which as it turns out, is actually a nice way to treat it.&lt;/p&gt;
 
 &lt;p&gt;&lt;/p&gt;</description>
@@ -25,10 +25,10 @@
     
     <item>
       <title>The impact of being behind schedule</title>
-      <link>https://sigterm.sh/2011/02/11/the-impact-of-being-behind-schedule/</link>
+      <link>/2011/02/11/the-impact-of-being-behind-schedule/</link>
       <pubDate>Fri, 11 Feb 2011 12:00:00 -0400</pubDate>
       
-      <guid>https://sigterm.sh/2011/02/11/the-impact-of-being-behind-schedule/</guid>
+      <guid>/2011/02/11/the-impact-of-being-behind-schedule/</guid>
       <description>&lt;p&gt;In managing a group of software engineers, this is something that has happened frequently in my team and has been bothering me for a while. It&amp;rsquo;s a lot easier for me to notice, as in my case, I actively write software with my team.&lt;/p&gt;
 
 &lt;p&gt;&lt;/p&gt;</description>
@@ -36,10 +36,10 @@
     
     <item>
       <title>The day the routers died...</title>
-      <link>https://sigterm.sh/2011/02/03/the-day-the-routers-died/</link>
+      <link>/2011/02/03/the-day-the-routers-died/</link>
       <pubDate>Thu, 03 Feb 2011 12:00:00 -0400</pubDate>
       
-      <guid>https://sigterm.sh/2011/02/03/the-day-the-routers-died/</guid>
+      <guid>/2011/02/03/the-day-the-routers-died/</guid>
       <description>&lt;p&gt;On February 3, 1959, Buddy Holly, Richie Valens and JP Richardson (aka The Big Bopper) died in a plane crash. Don McLean immortalized that day as &amp;ldquo;The Day The Music Died&amp;rdquo; in his 1971 hit, &amp;ldquo;American Pie&amp;rdquo;.&lt;/p&gt;
 
 &lt;p&gt;It&amp;rsquo;s somewhat ironic that on February 3, 2010 the last five /8s from the IANA IPv4 pool have been distributed to the RIRs.&lt;/p&gt;
@@ -49,10 +49,10 @@
     
     <item>
       <title>Getting Git man pages on OS X</title>
-      <link>https://sigterm.sh/2010/04/15/getting-git-manpages-on-os-x/</link>
+      <link>/2010/04/15/getting-git-manpages-on-os-x/</link>
       <pubDate>Thu, 15 Apr 2010 12:00:00 -0400</pubDate>
       
-      <guid>https://sigterm.sh/2010/04/15/getting-git-manpages-on-os-x/</guid>
+      <guid>/2010/04/15/getting-git-manpages-on-os-x/</guid>
       <description>&lt;p&gt;For some reason the OS X install of Git doesn&amp;rsquo;t include the manpages. Here is how I installed them.&lt;/p&gt;
 
 &lt;p&gt;&lt;/p&gt;</description>
@@ -60,10 +60,10 @@
     
     <item>
       <title>Keyboard shortcuts in Google Wave</title>
-      <link>https://sigterm.sh/2009/10/12/keyboard-shortcuts-in-google-wave/</link>
+      <link>/2009/10/12/keyboard-shortcuts-in-google-wave/</link>
       <pubDate>Mon, 12 Oct 2009 12:00:00 -0400</pubDate>
       
-      <guid>https://sigterm.sh/2009/10/12/keyboard-shortcuts-in-google-wave/</guid>
+      <guid>/2009/10/12/keyboard-shortcuts-in-google-wave/</guid>
       <description>&lt;p&gt;I was messing around a little with figuring out some of the keyboard shortcuts in Wave. Here is what I have so far:&lt;/p&gt;
 
 &lt;p&gt;&lt;/p&gt;</description>
@@ -71,10 +71,10 @@
     
     <item>
       <title>New addition to the family</title>
-      <link>https://sigterm.sh/2009/09/05/new-addition-to-the-family/</link>
+      <link>/2009/09/05/new-addition-to-the-family/</link>
       <pubDate>Sat, 05 Sep 2009 12:00:00 -0400</pubDate>
       
-      <guid>https://sigterm.sh/2009/09/05/new-addition-to-the-family/</guid>
+      <guid>/2009/09/05/new-addition-to-the-family/</guid>
       <description>&lt;p&gt;So after much anticipation, many tireless weeks of spec checking and a whole bunch of money I was really glad to be on the receiving end of a brand spanking new 17&amp;rdquo; MacBook Pro!&lt;/p&gt;
 
 &lt;p&gt;Although it has been less than 72 hours this is (so far) truly the most amazing piece of computer equipment I have ever owned, honestly worth every single cent! The initial setup was completely flawless and only took a few minutes. The graphics, resolution and performance are exceptional, in fact I haven&amp;rsquo;t even had to switch over from the standard &amp;ldquo;on-board&amp;rdquo; video card to the higher end controller yet, despite putting the GPU through a thorough beating, testing out the Quake 4 demo :P&lt;/p&gt;

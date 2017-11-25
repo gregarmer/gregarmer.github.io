@@ -2,22 +2,22 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Random Thoughts on ./sigterm.sh</title>
-    <link>https://sigterm.sh/tags/random-thoughts/</link>
+    <link>/tags/random-thoughts/</link>
     <description>Recent content in Random Thoughts on ./sigterm.sh</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>Gregory Armer. All rights reserved.</copyright>
     <lastBuildDate>Sun, 26 Oct 2014 04:35:00 -0400</lastBuildDate>
     
-	<atom:link href="https://sigterm.sh/tags/random-thoughts/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="/tags/random-thoughts/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Thoughts on Google Inbox</title>
-      <link>https://sigterm.sh/2014/10/26/google-inbox/</link>
+      <link>/2014/10/26/google-inbox/</link>
       <pubDate>Sun, 26 Oct 2014 04:35:00 -0400</pubDate>
       
-      <guid>https://sigterm.sh/2014/10/26/google-inbox/</guid>
+      <guid>/2014/10/26/google-inbox/</guid>
       <description>&lt;p&gt;This is an insanely awesome way to work with your e-mail!  Google have essentially turned your e-mail inbox into a massive todo list, which as it turns out, is actually a nice way to treat it.&lt;/p&gt;
 
 &lt;p&gt;&lt;/p&gt;</description>
@@ -25,10 +25,10 @@
     
     <item>
       <title>The impact of being behind schedule</title>
-      <link>https://sigterm.sh/2011/02/11/the-impact-of-being-behind-schedule/</link>
+      <link>/2011/02/11/the-impact-of-being-behind-schedule/</link>
       <pubDate>Fri, 11 Feb 2011 12:00:00 -0400</pubDate>
       
-      <guid>https://sigterm.sh/2011/02/11/the-impact-of-being-behind-schedule/</guid>
+      <guid>/2011/02/11/the-impact-of-being-behind-schedule/</guid>
       <description>&lt;p&gt;In managing a group of software engineers, this is something that has happened frequently in my team and has been bothering me for a while. It&amp;rsquo;s a lot easier for me to notice, as in my case, I actively write software with my team.&lt;/p&gt;
 
 &lt;p&gt;&lt;/p&gt;</description>

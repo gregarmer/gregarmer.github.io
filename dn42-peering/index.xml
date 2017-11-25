@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>dn42 Peering Information on ./sigterm.sh</title>
+    <link>/dn42-peering/</link>
+    <description>Recent content in dn42 Peering Information on ./sigterm.sh</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>Gregory Armer. All rights reserved.</copyright>
+    <lastBuildDate>Sat, 29 Jul 2017 22:22:07 -0400</lastBuildDate>
+    
+	<atom:link href="/dn42-peering/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+  </channel>
+</rss>

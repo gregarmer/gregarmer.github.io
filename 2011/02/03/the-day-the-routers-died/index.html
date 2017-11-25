@@ -1,37 +1,24 @@
 <!DOCTYPE html>
 <html lang="en-us">
 <head>
-    <title>The day the routers died... &middot; ./sigterm.sh</title>
-    <meta name="generator" content="Hugo 0.20.7" />
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <meta name="author" content="Gregory Armer">
-    
-      <meta name="description" content="The raddest of all teh kill signals.">
-    
-    
-    <link rel="canonical" href="https://sigterm.sh/2011/02/03/the-day-the-routers-died/"/>
-    <link rel="icon" href="https://sigterm.sh/favicon.ico">
-    <link rel="apple-touch-icon" href="https://sigterm.sh/apple-touch-icon.png"/>
-    <link rel="stylesheet" href="https://sigterm.sh/css/style.css">
-    <link rel="stylesheet" href="https://sigterm.sh/css/font-awesome.min.css">
-    <link rel="stylesheet" href="https://sigterm.sh/css/monokai.css">
-    <link rel="stylesheet" href="https://sigterm.sh/fancybox/jquery.fancybox.css">
-    
-    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400italic,400,600' rel='stylesheet' type='text/css'>
-    <link href='https://fonts.googleapis.com/css?family=Source+Code+Pro' rel='stylesheet' type='text/css'>
-    <meta property="og:title" content="The day the routers died..." />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The day the routers died...</title>
+
+<meta name="generator" content="Hugo 0.31" />
+<meta property="og:title" content="The day the routers died..." />
 <meta property="og:description" content="On February 3, 1959, Buddy Holly, Richie Valens and JP Richardson (aka The Big Bopper) died in a plane crash. Don McLean immortalized that day as &ldquo;The Day The Music Died&rdquo; in his 1971 hit, &ldquo;American Pie&rdquo;.
 
 It&rsquo;s somewhat ironic that on February 3, 2010 the last five /8s from the IANA IPv4 pool have been distributed to the RIRs.
 
 " />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://sigterm.sh/2011/02/03/the-day-the-routers-died/" />
+<meta property="og:url" content="/2011/02/03/the-day-the-routers-died/" />
 
 
 
 <meta property="article:published_time" content="2011-02-03T12:00:00-04:00"/>
+
 <meta property="article:modified_time" content="2011-02-03T12:00:00-04:00"/>
 
 
@@ -44,899 +31,224 @@ It&rsquo;s somewhat ironic that on February 3, 2010 the last five /8s from the I
 
 
 
-    
-    
-<meta itemprop="name" content="The day the routers died...">
-<meta itemprop="description" content="On February 3, 1959, Buddy Holly, Richie Valens and JP Richardson (aka The Big Bopper) died in a plane crash. Don McLean immortalized that day as &ldquo;The Day The Music Died&rdquo; in his 1971 hit, &ldquo;American Pie&rdquo;.
+<link rel="dns-prefetch" href="//fonts.googleapis.com" />
+<link rel="dns-prefetch" href="//fonts.gstatic.com" />
 
-It&rsquo;s somewhat ironic that on February 3, 2010 the last five /8s from the IANA IPv4 pool have been distributed to the RIRs.
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,700" type="text/css" media="all" />
+<link rel="stylesheet" href="/css/style.css" type="text/css" media="all" />
 
-">
+<link rel="stylesheet" href="/custom.css">
 
+<script type="text/javascript" src="/js/scripts.js"></script>
+<link rel="shortcut icon" href="/favicon.ico">
 
-<meta itemprop="dateModified" content="2011-02-03T12:00:00-04:00" />
-<meta itemprop="wordCount" content="102">
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-11073510-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src='//www.google-analytics.com/analytics.js'></script>
 
-
-
-<meta itemprop="keywords" content="algorithms,amazonaws,c,code,debian,django,freebsd,general,git,golang,ipv6,java,linux,mac,networking,openbsd,opensolaris,postgresql,puppet,python,random-thoughts,security,software-engineering,unix,zfs," />
-
-    
-
-  <meta name="twitter:card" content="summary"/>
-
-
-
-<meta name="twitter:text:title" content="The day the routers died..."/>
-<meta name="twitter:title" content="The day the routers died..."/>
-<meta name="twitter:description" content="On February 3, 1959, Buddy Holly, Richie Valens and JP Richardson (aka The Big Bopper) died in a plane crash. Don McLean immortalized that day as &ldquo;The Day The Music Died&rdquo; in his 1971 hit, &ldquo;American Pie&rdquo;.
-
-It&rsquo;s somewhat ironic that on February 3, 2010 the last five /8s from the IANA IPv4 pool have been distributed to the RIRs.
-
-"/>
-<meta name="twitter:site" content="@gregarmer"/>
-
-    
-
-    
-
-    
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 </head>
-<body>
-<div class="container">
-
-
-<div id="container">
-	<header id="header">
-  <div id="header-main" class="header-inner">
-    <div class="outer">
-      <a href="https://sigterm.sh/" id="logo">
-          
-          <span class="site-title">./sigterm.sh</span>
-      </a>
-      <nav id="main-nav">
-          
-          
-          <a class="main-nav-link" href="https://sigterm.sh/">Home</a>
-          
-          
-          
-          
-          
-          
-          
-          
-
-          
-
-          
-          
-          
-          
-          <a class="main-nav-link" href="https://sigterm.sh/code/">Code</a>
-          
-          
-          
-          <a class="main-nav-link" href="https://sigterm.sh/dn42-peering/">dn42</a>
-          
-          
-          
-          <a class="main-nav-link" href="https://sigterm.sh/about/">About</a>
-          
-          
-      </nav>
-        <nav id="sub-nav">
-          <div class="profile" id="profile-nav">
-            <a id="profile-anchor" href="javascript:;"><img class="avatar" src="https://sigterm.sh/avatar.jpeg"><i class="fa fa-caret-down"></i></a>
-          </div>
-        </nav>
-        <div id="search-form-wrap">
-          <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form">
-              <input type="search" name="q" class="search-form-input" placeholder="Search">
-              <button type="submit" class="search-form-submit">
-              </button>
-              <input type="hidden" name="q" value="site:https://sigterm.sh/">
-         </form>
-        </div>
-    </div>
-  </div>
-  <div id="main-nav-mobile" class="header-sub header-inner">
-    <table class="menu outer">
-      <tbody>
-          <tr>
-          
-          
-          <td><a class="main-nav-link" href="https://sigterm.sh/">Home</a></td>
-          
-          
-          
-          
-          
-          
-          
-          
-
-          
-
-          
-          
-          
-          
-          <td><a class="main-nav-link" href="https://sigterm.sh/code/">Code</a></td>
-          
-          
-          
-          <td><a class="main-nav-link" href="https://sigterm.sh/dn42-peering/">dn42</a></td>
-          
-          
-          
-          <td><a class="main-nav-link" href="https://sigterm.sh/about/">About</a></td>
-          
-          
-          <td>
-          <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form">
-          <input type="search" name="q" class="search-form-input" placeholder="Search">
-          <input type="hidden" name="q" value="site:https://sigterm.sh/">
-          </form>
-        </td>
-      </tr>
-      </tbody>
-    </table>
-  </div>
-</header>
-
-   	
-   	<div class="outer">
-   		
-	    <aside id="profile">
-  <div class="inner profile-inner">
-    <div class="base-info profile-block">
-      <img id="avatar" src="https://sigterm.sh/avatar.jpeg">
-      <h2 id="name">Gregory Armer</h2>
-      <h3 id="title">Sometimes I just want to give it all up and become a handsome billionaire.</h3>
-      <span id="location"><i class="fa fa-map-marker"></i>New York, NY</span>
-      
-          <a id="follow" href="https://github.com/gregarmer">
-              Follow Me
-          </a>
-      
-    </div>
-    <div class="article-info profile-block">
-      <div class="article-info-block">
-        30
-        <span>Posts</span>
-      </div>
-      <div class="article-info-block">
-        
-          25
-        
-        <span>
-            Tags
-        </span>
-      </div>
-    </div>
-    <div class="profile-block social-links">
-      <table>
-        <tr>
-          
-<td><a href="//github.com/gregarmer" target="_blank" title="GitHub"><i class="fa fa-github"></i></a></td>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<td><a href="//instagram.com/greg.armer" target="_blank" title="Instagram"><i class="fa fa-instagram"></i></a></td>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<td><a href="//plus.google.com/+gregoryarmer" target="_blank" title="Google+"><i class="fa fa-google-plus"></i></a></td>
-
-
-
-
-
-<td><a href="//twitter.com/gregarmer" target="_blank" title="Twitter"><i class="fa fa-twitter"></i></a></td>
-
-
-          <td><a href="" target="_blank" title="RSS"><i class="fa fa-rss"></i></a></td>
-        </tr>
-      </table>
-    </div>
-  </div>
-</aside>
-
-	    
-
-	    
-<section id="main">
-
-    <article id="page-undefined" class="article article-type-page" itemscope="" itemprop="blogPost">
-        <div class="article-inner">
-            
-
-            <header class="article-header">
-    <a href="https://sigterm.sh/2011/02/03/the-day-the-routers-died/">
-    <h1 class="article-title" itemprop="name">
-        The day the routers died...
-    </h1>
-    </a>
-    <div class="article-meta">
-        <div class="article-date">
-            <i class="fa fa-calendar"></i>
-            <time datetime="2011-02-03 12:00:00 -0400 -0400" itemprop="datePublished">Feb 03, 2011</time>
-            &middot;
-            102
-            words
-            &middot;
-            1
-            minute read
-        </div>
-
-
-        
-
-        
-            
-            
-            <div class="article-category">
-                <i class="fa fa-tags"></i>
-                
-                
-                <a class="article-category-link" href="/tags/general">general</a>
-                &middot;
-                
-                
-                <a class="article-category-link" href="/tags/ipv6">ipv6</a>
-                
-                
-            </div>
-            
-        
-    </div>
-</header>
-
-            <div class="article-entry" itemprop="articleBody">
-                <p>On February 3, 1959, Buddy Holly, Richie Valens and JP Richardson (aka The Big Bopper) died in a plane crash. Don McLean immortalized that day as &ldquo;The Day The Music Died&rdquo; in his 1971 hit, &ldquo;American Pie&rdquo;.</p>
+<body class="body body-right-sidebar mobile" itemscope="itemscope" itemtype="http://schema.org/WebPage">
+	<div class="container container-outer">
+		<header class="header" itemscope="itemscope" itemtype="http://schema.org/WPHeader">
+			<div class="container container-inner clearfix">
+				<div class="logo" role="banner" itemscope="itemscope" itemtype="http://schema.org/Brand">
+					<a class="logo__link" href="/" title="./sigterm.sh" rel="home">
+						<h1 class="logo__title">./sigterm.sh</h1>
+						<h2 class="logo__tagline">The raddest of all the kill signals.</h2>
+					</a>
+				</div>
+			</div>
+			
+<nav class="menu" itemscope="itemscope" itemtype="http://schema.org/SiteNavigationElement">
+	<ul class="menu__list">
+		<li class="menu__item"><a class="menu__link" href="/">BLOG</a></li>
+		<li class="menu__item"><a class="menu__link" href="/code/">CODE</a></li>
+		<li class="menu__item"><a class="menu__link" href="/dn42-peering/">DN42 PEERING</a></li>
+		<li class="menu__item"><a class="menu__link" href="/about/">ABOUT</a></li>
+	</ul>
+</nav>
+
+		</header>
+		<div class="wrapper clearfix">
+
+<main class="main-content content" role="main" itemprop="mainContentOfPage">
+	<article class="post">
+		<header class="post__header clearfix">
+			<h1 class="post__title">The day the routers died...</h1>
+			<p class="post__meta meta">
+				<svg class="icon icon-time" height="14" viewBox="0 0 16 16" width="14" xmlns="http://www.w3.org/2000/svg"><path d="m8-.0000003c-4.4 0-8 3.6-8 8 0 4.4000003 3.6 8.0000003 8 8.0000003 4.4 0 8-3.6 8-8.0000003 0-4.4-3.6-8-8-8zm0 14.4000003c-3.52 0-6.4-2.88-6.4-6.4000003 0-3.52 2.88-6.4 6.4-6.4 3.52 0 6.4 2.88 6.4 6.4 0 3.5200003-2.88 6.4000003-6.4 6.4000003zm.4-10.4000003h-1.2v4.8l4.16 2.5600003.64-1.04-3.6-2.1600003z"/></svg>
+				<time class="post__meta-date" datetime="2011-02-03T12:00:00">February 03, 2011</time>
+			</p>
+		</header>
+		<div class="post__content clearfix">
+			<p>On February 3, 1959, Buddy Holly, Richie Valens and JP Richardson (aka The Big Bopper) died in a plane crash. Don McLean immortalized that day as &ldquo;The Day The Music Died&rdquo; in his 1971 hit, &ldquo;American Pie&rdquo;.</p>
 
 <p>It&rsquo;s somewhat ironic that on February 3, 2010 the last five /8s from the IANA IPv4 pool have been distributed to the RIRs.</p>
 
 <p></p>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span>102/8   AfriNIC    2011-02    whois.afrinic.net ALLOCATED
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-console" data-lang="console">102/8   AfriNIC    2011-02    whois.afrinic.net ALLOCATED
 103/8   APNIC      2011-02    whois.apnic.net   ALLOCATED
 104/8   ARIN       2011-02    whois.arin.net    ALLOCATED
 179/8   LACNIC     2011-02    whois.lacnic.net  ALLOCATED
-185/8   RIPE NCC   2011-02    whois.ripe.net    ALLOCATED
-</pre></div>
-
+185/8   RIPE NCC   2011-02    whois.ripe.net    ALLOCATED</code></pre></div>
 <p>During a RIPE55 meeting surrounding IPv4 exhaustion, this rephrased version of that 1971 hit was played:</p>
 
 <iframe title="YouTube video player" width="480" height="390" src="http://www.youtube.com/embed/_y36fG2Oba0" frameborder="0" allowfullscreen></iframe>
-            </div>
-            <footer class="article-footer">
-    <a data-url="https://sigterm.sh/2011/02/03/the-day-the-routers-died/" data-id="ad940447bc5c94ab2e2fceef1be4d5ee" class="article-share-link">
-        <i class="fa fa-share"></i>
-        Share
-    </a>
-    
-    <a href="https://sigterm.sh/2011/02/03/the-day-the-routers-died//#disqus_thread" class="article-comment-link">
-        Comments
-    </a>
-    
+		</div>
+		
+<div class="post__tags tags clearfix">
+	<svg class="icon icon-tag" width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path d="m4.73135 3.3795002q0-.5597-.39604-.9557-.39604-.3961-.95577-.3961-.55974 0-.95578.3961-.39604.396-.39604.9557 0 .5598.39604.9558.39604.3961.95578.3961.55973 0 .95577-.3961.39604-.396.39604-.9558zm11.26865 6.0832q0 .5596998-.39076.9504998l-5.18548 5.196q-.41188.3908-.9610504.3908-.55974 0-.9505-.3908l-7.5511496-7.5616998q-.40132-.3907-.68119-1.0666-.27987-.6759-.27987-1.2357v-4.3934q0-.54920004.40132-.95050004.40132-.4013.9505-.4013h4.39339q.55974 0 1.23565.2799.67591.2798 1.07723.6812l7.55115 7.54060004q.39076.4118.39076.961z"/></svg>
+	<ul class="tags__list">
+		<li class="tags__item"><a class="tags__link" href="/tags/general/" rel="tag">general</a></li>
+		<li class="tags__item"><a class="tags__link" href="/tags/ipv6/" rel="tag">ipv6</a></li>
+	</ul>
+</div>
 
-    <script>
-    (function ($) {
-        
-        if (typeof(__SHARE_BUTTON_BINDED__) === 'undefined' || !__SHARE_BUTTON_BINDED__) {
-            __SHARE_BUTTON_BINDED__ = true;
-        } else {
-            return;
-        }
-        $('body').on('click', function() {
-            $('.article-share-box.on').removeClass('on');
-        }).on('click', '.article-share-link', function(e) {
-            e.stopPropagation();
-
-            var $this = $(this),
-                url = $this.attr('data-url'),
-                encodedUrl = encodeURIComponent(url),
-                id = 'article-share-box-' + $this.attr('data-id'),
-                offset = $this.offset(),
-                box;
-
-            if ($('#' + id).length) {
-                box = $('#' + id);
-
-                if (box.hasClass('on')){
-                    box.removeClass('on');
-                    return;
-                }
-            } else {
-                var html = [
-                    '<div id="' + id + '" class="article-share-box">',
-                        '<input class="article-share-input" value="' + url + '">',
-                        '<div class="article-share-links">',
-                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="fa fa-twitter article-share-twitter" target="_blank" title="Twitter"></a>',
-                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="fa fa-facebook article-share-facebook" target="_blank" title="Facebook"></a>',
-                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="fa fa-pinterest article-share-pinterest" target="_blank" title="Pinterest"></a>',
-                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="fa fa-google article-share-google" target="_blank" title="Google+"></a>',
-                        '</div>',
-                    '</div>'
-                ].join('');
-
-              box = $(html);
-
-              $('body').append(box);
-            }
-
-            $('.article-share-box.on').hide();
-
-            box.css({
-                top: offset.top + 25,
-                left: offset.left
-            }).addClass('on');
-
-        }).on('click', '.article-share-box', function (e) {
-            e.stopPropagation();
-        }).on('click', '.article-share-box-input', function () {
-            $(this).select();
-        }).on('click', '.article-share-box-link', function (e) {
-            e.preventDefault();
-            e.stopPropagation();
-
-            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
-        });
-    })(jQuery);
-    </script>
-</footer>
-
-        </div>
-
-        
-<nav id="article-nav">
-    
-    <a href="https://sigterm.sh/2011/01/02/puppet-modules-debsecan/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">
-          Older
-      </strong>
-      <div class="article-nav-title">Puppet Modules - Debsecan</div>
-    </a>
-    
-
-    
-    <a href="https://sigterm.sh/2011/02/11/the-impact-of-being-behind-schedule/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">
-          Newer
-      </strong>
-      <div class="article-nav-title">The impact of being behind schedule</div>
-    </a>
-    
+	</article>
+	
+<div class="authorbox clearfix">
+	<figure class="authorbox__avatar">
+		<img alt="Gregory Armer avatar" src="/avatar.jpeg" class="avatar" height="90" width="90">
+	</figure>
+	<div class="authorbox__header">
+		<span class="authorbox__name">About Gregory Armer</span>
+	</div>
+	<div class="authorbox__description">
+		Sometimes I just want to give it all up and become a handsome billionaire.
+	</div>
+</div>
+	
+<nav class="post-nav row clearfix" itemscope="itemscope" itemtype="http://schema.org/SiteNavigationElement">
+	<div class="post-nav__item post-nav__item--prev col-1-2">
+		<a class="post-nav__link" href="/2011/01/02/puppet-modules-debsecan/" rel="prev"><span class="post-nav__caption">«Previous</span><p class="post-nav__post-title">Puppet Modules - Debsecan</p></a>
+	</div>
+	<div class="post-nav__item post-nav__item--next col-1-2">
+		<a class="post-nav__link" href="/2011/02/11/the-impact-of-being-behind-schedule/" rel="next"><span class="post-nav__caption">Next»</span><p class="post-nav__post-title">The impact of being behind schedule</p></a>
+	</div>
 </nav>
 
-
-    </article>
-
+	
+<div class="comments">
+	<div id="disqus_thread"></div>
+<script>
+    var disqus_config = function () {
     
-    <section id="comments">
-        <div id="disqus_thread">
-            <div id="disqus_thread"></div>
-<script type="text/javascript">
-    var disqus_shortname = 'codegeeksh';
-    var disqus_identifier = 'https:\/\/sigterm.sh\/2011\/02\/03\/the-day-the-routers-died\/';
-    var disqus_title = 'The day the routers died...';
-    var disqus_url = 'https:\/\/sigterm.sh\/2011\/02\/03\/the-day-the-routers-died\/';
-
+    
+    
+    };
     (function() {
-        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "codegeeksh" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
     })();
 </script>
-<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
-        </div>
-    </section>
-    
-</section>
-
-
-	    
-	    <aside id="sidebar">
-    
-<div class="widget-wrap">
-    <h3 class="widget-title">
-        Recents
-    </h3>
-    <div class="widget">
-        <ul id="recent-post">
-            
-            <li>
-                <div class="item-thumbnail">
-                    <a href="https://sigterm.sh/2017/07/29/building-a-home-lab/" class="thumbnail">
-                    
-                        <span style="background-image:url(https://sigterm.sh/static/home-lab-servers.jpg)" alt="The day the routers died..." class="thumbnail-image"></span>
-                    
-                    </a>
-                </div>
-                <div class="item-inner">
-                    
-                    <p class="item-title"><a href="https://sigterm.sh/2017/07/29/building-a-home-lab/" class="title">Building a home lab</a></p>
-                    <p class="item-date">
-                        <time datetime="2017-07-29 22:27:00 -0400 EDT" itemprop="datePublished">Jul 29, 2017</time>
-                    </p>
-                </div>
-            </li>
-            
-            <li>
-                <div class="item-thumbnail">
-                    <a href="https://sigterm.sh/2016/11/05/passing-vlans-over-an-lacp-trunk-in-openbsd/" class="thumbnail">
-                    
-                        <span class="thumbnail-image thumbnail-none"></span>
-                    
-                    </a>
-                </div>
-                <div class="item-inner">
-                    
-                    <p class="item-title"><a href="https://sigterm.sh/2016/11/05/passing-vlans-over-an-lacp-trunk-in-openbsd/" class="title">Passing VLANs over an LACP trunk in OpenBSD</a></p>
-                    <p class="item-date">
-                        <time datetime="2016-11-05 14:26:00 -0400 EDT" itemprop="datePublished">Nov 05, 2016</time>
-                    </p>
-                </div>
-            </li>
-            
-            <li>
-                <div class="item-thumbnail">
-                    <a href="https://sigterm.sh/2015/03/08/recording-backend-processing-time-in-go/" class="thumbnail">
-                    
-                        <span class="thumbnail-image thumbnail-none"></span>
-                    
-                    </a>
-                </div>
-                <div class="item-inner">
-                    
-                    <p class="item-title"><a href="https://sigterm.sh/2015/03/08/recording-backend-processing-time-in-go/" class="title">Recording backend processing time in Golang</a></p>
-                    <p class="item-date">
-                        <time datetime="2015-03-08 18:58:00 -0400 EDT" itemprop="datePublished">Mar 08, 2015</time>
-                    </p>
-                </div>
-            </li>
-            
-            <li>
-                <div class="item-thumbnail">
-                    <a href="https://sigterm.sh/2015/01/06/announcing-flake8-diff/" class="thumbnail">
-                    
-                        <span class="thumbnail-image thumbnail-none"></span>
-                    
-                    </a>
-                </div>
-                <div class="item-inner">
-                    
-                    <p class="item-title"><a href="https://sigterm.sh/2015/01/06/announcing-flake8-diff/" class="title">Announcing flake8-diff</a></p>
-                    <p class="item-date">
-                        <time datetime="2015-01-06 18:50:00 -0400 -0400" itemprop="datePublished">Jan 06, 2015</time>
-                    </p>
-                </div>
-            </li>
-            
-            <li>
-                <div class="item-thumbnail">
-                    <a href="https://sigterm.sh/2014/10/26/ssl-configuration/" class="thumbnail">
-                    
-                        <span style="background-image:url(https://media.sigterm.sh/2015/Screen-Shot-2014-10-26-at-5-34-16-AM.png)" alt="The day the routers died..." class="thumbnail-image"></span>
-                    
-                    </a>
-                </div>
-                <div class="item-inner">
-                    
-                    <p class="item-title"><a href="https://sigterm.sh/2014/10/26/ssl-configuration/" class="title">SSL Configuration</a></p>
-                    <p class="item-date">
-                        <time datetime="2014-10-26 05:53:00 -0400 EDT" itemprop="datePublished">Oct 26, 2014</time>
-                    </p>
-                </div>
-            </li>
-            
-        </ul>
-    </div>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
 </div>
 
+</main>
 
-    
-
-
-
-
-
-    
-
-
-<div class="widget-wrap">
-    <h3 class="widget-title">
-        Tags
-    </h3>
-    <div class="widget">
-        <ul class="category-list">
-            
-            <li class="category-list-item">
-                
-                <a class="category-list-link" href="https://sigterm.sh/tags/algorithms">
-                    algorithms
-                </a>
-                <span class="category-list-count">1</span>
-            </li>
-            
-            <li class="category-list-item">
-                
-                <a class="category-list-link" href="https://sigterm.sh/tags/amazonaws">
-                    amazonaws
-                </a>
-                <span class="category-list-count">1</span>
-            </li>
-            
-            <li class="category-list-item">
-                
-                <a class="category-list-link" href="https://sigterm.sh/tags/c">
-                    c
-                </a>
-                <span class="category-list-count">2</span>
-            </li>
-            
-            <li class="category-list-item">
-                
-                <a class="category-list-link" href="https://sigterm.sh/tags/code">
-                    code
-                </a>
-                <span class="category-list-count">10</span>
-            </li>
-            
-            <li class="category-list-item">
-                
-                <a class="category-list-link" href="https://sigterm.sh/tags/debian">
-                    debian
-                </a>
-                <span class="category-list-count">2</span>
-            </li>
-            
-            <li class="category-list-item">
-                
-                <a class="category-list-link" href="https://sigterm.sh/tags/django">
-                    django
-                </a>
-                <span class="category-list-count">1</span>
-            </li>
-            
-            <li class="category-list-item">
-                
-                <a class="category-list-link" href="https://sigterm.sh/tags/freebsd">
-                    freebsd
-                </a>
-                <span class="category-list-count">1</span>
-            </li>
-            
-            <li class="category-list-item">
-                
-                <a class="category-list-link" href="https://sigterm.sh/tags/general">
-                    general
-                </a>
-                <span class="category-list-count">6</span>
-            </li>
-            
-            <li class="category-list-item">
-                
-                <a class="category-list-link" href="https://sigterm.sh/tags/git">
-                    git
-                </a>
-                <span class="category-list-count">1</span>
-            </li>
-            
-            <li class="category-list-item">
-                
-                <a class="category-list-link" href="https://sigterm.sh/tags/golang">
-                    golang
-                </a>
-                <span class="category-list-count">1</span>
-            </li>
-            
-            <li class="category-list-item">
-                
-                <a class="category-list-link" href="https://sigterm.sh/tags/ipv6">
-                    ipv6
-                </a>
-                <span class="category-list-count">1</span>
-            </li>
-            
-            <li class="category-list-item">
-                
-                <a class="category-list-link" href="https://sigterm.sh/tags/java">
-                    java
-                </a>
-                <span class="category-list-count">1</span>
-            </li>
-            
-            <li class="category-list-item">
-                
-                <a class="category-list-link" href="https://sigterm.sh/tags/linux">
-                    linux
-                </a>
-                <span class="category-list-count">5</span>
-            </li>
-            
-            <li class="category-list-item">
-                
-                <a class="category-list-link" href="https://sigterm.sh/tags/mac">
-                    mac
-                </a>
-                <span class="category-list-count">3</span>
-            </li>
-            
-            <li class="category-list-item">
-                
-                <a class="category-list-link" href="https://sigterm.sh/tags/networking">
-                    networking
-                </a>
-                <span class="category-list-count">2</span>
-            </li>
-            
-            <li class="category-list-item">
-                
-                <a class="category-list-link" href="https://sigterm.sh/tags/openbsd">
-                    openbsd
-                </a>
-                <span class="category-list-count">1</span>
-            </li>
-            
-            <li class="category-list-item">
-                
-                <a class="category-list-link" href="https://sigterm.sh/tags/opensolaris">
-                    opensolaris
-                </a>
-                <span class="category-list-count">3</span>
-            </li>
-            
-            <li class="category-list-item">
-                
-                <a class="category-list-link" href="https://sigterm.sh/tags/postgresql">
-                    postgresql
-                </a>
-                <span class="category-list-count">1</span>
-            </li>
-            
-            <li class="category-list-item">
-                
-                <a class="category-list-link" href="https://sigterm.sh/tags/puppet">
-                    puppet
-                </a>
-                <span class="category-list-count">1</span>
-            </li>
-            
-            <li class="category-list-item">
-                
-                <a class="category-list-link" href="https://sigterm.sh/tags/python">
-                    python
-                </a>
-                <span class="category-list-count">7</span>
-            </li>
-            
-            <li class="category-list-item">
-                
-                <a class="category-list-link" href="https://sigterm.sh/tags/random-thoughts">
-                    random-thoughts
-                </a>
-                <span class="category-list-count">2</span>
-            </li>
-            
-            <li class="category-list-item">
-                
-                <a class="category-list-link" href="https://sigterm.sh/tags/security">
-                    security
-                </a>
-                <span class="category-list-count">4</span>
-            </li>
-            
-            <li class="category-list-item">
-                
-                <a class="category-list-link" href="https://sigterm.sh/tags/software-engineering">
-                    software-engineering
-                </a>
-                <span class="category-list-count">5</span>
-            </li>
-            
-            <li class="category-list-item">
-                
-                <a class="category-list-link" href="https://sigterm.sh/tags/unix">
-                    unix
-                </a>
-                <span class="category-list-count">9</span>
-            </li>
-            
-            <li class="category-list-item">
-                
-                <a class="category-list-link" href="https://sigterm.sh/tags/zfs">
-                    zfs
-                </a>
-                <span class="category-list-count">2</span>
-            </li>
-            
-        </ul>
-    </div>
+<aside class="sidebar" itemscope="itemscope" itemtype="http://schema.org/WPSideBar">
+	
+<div class="widget-search widget">
+	<form class="widget-search__form" role="search" method="get" action="//google.com/search">
+		<label>
+			<span class="screen-reader-text">Search for:</span>
+			<input class="widget-search__field" type="search" placeholder="SEARCH..." value="" name="q">
+		</label>
+		<input class="widget-search__submit" type="submit" value="Search">
+		<input type="hidden" name="sitesearch" value="/" />
+	</form>
 </div>
-
-
-
-
-    
-
-
-<div class="widget-wrap">
-    <h3 class="widget-title">
-        Tag cloud
-    </h3>
-    <div class="widget tagcloud">
-        
-        
-        <a href="https://sigterm.sh/tags/algorithms" style="font-size: 12px;">algorithms</a>
-        
-        
-        <a href="https://sigterm.sh/tags/amazonaws" style="font-size: 12px;">amazonaws</a>
-        
-        
-        <a href="https://sigterm.sh/tags/c" style="font-size: 12px;">c</a>
-        
-        
-        <a href="https://sigterm.sh/tags/code" style="font-size: 12px;">code</a>
-        
-        
-        <a href="https://sigterm.sh/tags/debian" style="font-size: 12px;">debian</a>
-        
-        
-        <a href="https://sigterm.sh/tags/django" style="font-size: 12px;">django</a>
-        
-        
-        <a href="https://sigterm.sh/tags/freebsd" style="font-size: 12px;">freebsd</a>
-        
-        
-        <a href="https://sigterm.sh/tags/general" style="font-size: 12px;">general</a>
-        
-        
-        <a href="https://sigterm.sh/tags/git" style="font-size: 12px;">git</a>
-        
-        
-        <a href="https://sigterm.sh/tags/golang" style="font-size: 12px;">golang</a>
-        
-        
-        <a href="https://sigterm.sh/tags/ipv6" style="font-size: 12px;">ipv6</a>
-        
-        
-        <a href="https://sigterm.sh/tags/java" style="font-size: 12px;">java</a>
-        
-        
-        <a href="https://sigterm.sh/tags/linux" style="font-size: 12px;">linux</a>
-        
-        
-        <a href="https://sigterm.sh/tags/mac" style="font-size: 12px;">mac</a>
-        
-        
-        <a href="https://sigterm.sh/tags/networking" style="font-size: 12px;">networking</a>
-        
-        
-        <a href="https://sigterm.sh/tags/openbsd" style="font-size: 12px;">openbsd</a>
-        
-        
-        <a href="https://sigterm.sh/tags/opensolaris" style="font-size: 12px;">opensolaris</a>
-        
-        
-        <a href="https://sigterm.sh/tags/postgresql" style="font-size: 12px;">postgresql</a>
-        
-        
-        <a href="https://sigterm.sh/tags/puppet" style="font-size: 12px;">puppet</a>
-        
-        
-        <a href="https://sigterm.sh/tags/python" style="font-size: 12px;">python</a>
-        
-        
-        <a href="https://sigterm.sh/tags/random-thoughts" style="font-size: 12px;">random-thoughts</a>
-        
-        
-        <a href="https://sigterm.sh/tags/security" style="font-size: 12px;">security</a>
-        
-        
-        <a href="https://sigterm.sh/tags/software-engineering" style="font-size: 12px;">software-engineering</a>
-        
-        
-        <a href="https://sigterm.sh/tags/unix" style="font-size: 12px;">unix</a>
-        
-        
-        <a href="https://sigterm.sh/tags/zfs" style="font-size: 12px;">zfs</a>
-        
-    </div>
-</div>
-
-
-
-
-
-    <div id="toTop" class="fa fa-angle-up"></div>
-</aside>
-
-	    
+	
+<div class="widget-recent widget">
+	<h4 class="widget__title">Recent Posts</h4>
+	<div class="widget__content">
+		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/2017/07/29/building-a-home-lab/">Building a home lab</a></li>
+			<li class="widget__item"><a class="widget__link" href="/2016/11/05/passing-vlans-over-an-lacp-trunk-in-openbsd/">Passing VLANs over an LACP trunk in OpenBSD</a></li>
+			<li class="widget__item"><a class="widget__link" href="/2015/03/08/recording-backend-processing-time-in-go/">Recording backend processing time in Golang</a></li>
+			<li class="widget__item"><a class="widget__link" href="/2015/01/06/announcing-flake8-diff/">Announcing flake8-diff</a></li>
+			<li class="widget__item"><a class="widget__link" href="/2014/10/26/ssl-configuration/">SSL Configuration</a></li>
+			<li class="widget__item"><a class="widget__link" href="/2014/10/26/google-inbox/">Thoughts on Google Inbox</a></li>
+			<li class="widget__item"><a class="widget__link" href="/2014/02/01/highly-available-nfs-cluster-on-debian-wheezy/">Highly Available NFS Cluster on Debian Wheezy</a></li>
+		</ul>
 	</div>
 </div>
 
-<footer id="footer">
-  <div class="outer">
-    <div id="footer-info" class="inner">
-      &copy; 2017
-      Gregory Armer. All rights reserved.
-    </div>
-  </div>
-</footer>
+	
+	
+<div class="widget-social widget">
+	<h4 class="widget-social__title widget__title">Social</h4>
+	<div class="widget-social__content widget__content">
+		<div class="widget-social__item widget__item">
+			<a class="widget-social__link widget__link btn" title="Twitter" rel="noopener noreferrer" href="https://twitter.com/gregarmer" target="_blank">
+				<svg class="widget-social__link-icon icon-twitter" viewBox="0 0 384 312" width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill="#fff"><path d="m384 36.9c-14.1 6.3-29.3 10.5-45.2 12.4 16.3-9.7 28.8-25.2 34.6-43.6-15.2 9-32.1 15.6-50 19.1-14.4-15.2-34.9-24.8-57.5-24.8-43.5 0-78.8 35.3-78.8 78.8 0 6.2.7 12.2 2 17.9-65.5-3.3-123.5-34.6-162.4-82.3-6.7 11.6-10.6 25.2-10.6 39.6 0 27.3 13.9 51.4 35 65.6-12.9-.4-25.1-4-35.7-9.9v1c0 38.2 27.2 70 63.2 77.2-6.6 1.8-13.6 2.8-20.8 2.8-5.1 0-10-.5-14.8-1.4 10 31.3 39.1 54.1 73.6 54.7-27 21.1-60.9 33.7-97.8 33.7-6.4 0-12.6-.4-18.8-1.1 34.9 22.4 76.3 35.4 120.8 35.4 144.9 0 224.1-120 224.1-224.1 0-3.4-.1-6.8-.2-10.2 15.4-11.1 28.7-25 39.3-40.8z"/></svg>
+				<span>Twitter</span>
+			</a>
+		</div>
+		<div class="widget-social__item widget__item">
+			<a class="widget-social__link widget__link btn" title="GitHub" rel="noopener noreferrer" href="https://github.com/gregarmer" target="_blank">
+				<svg class="widget-social__link-icon icon-github" viewBox="0 0 384 374" width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill="#fff"><path d="m192 0c-106.1 0-192 85.8-192 191.7 0 84.7 55 156.6 131.3 181.9 9.6 1.8 13.1-4.2 13.1-9.2 0-4.6-.2-16.6-.3-32.6-53.4 11.6-64.7-25.7-64.7-25.7-8.7-22.1-21.3-28-21.3-28-17.4-11.9 1.3-11.6 1.3-11.6 19.3 1.4 29.4 19.8 29.4 19.8 17.1 29.3 44.9 20.8 55.9 15.9 1.7-12.4 6.7-20.8 12.2-25.6-42.6-4.8-87.5-21.3-87.5-94.8 0-20.9 7.5-38 19.8-51.4-2-4.9-8.6-24.3 1.9-50.7 0 0 16.1-5.2 52.8 19.7 15.3-4.2 31.7-6.4 48.1-6.5 16.3.1 32.7 2.2 48.1 6.5 36.7-24.8 52.8-19.7 52.8-19.7 10.5 26.4 3.9 45.9 1.9 50.7 12.3 13.4 19.7 30.5 19.7 51.4 0 73.7-44.9 89.9-87.7 94.6 6.9 5.9 13 17.6 13 35.5 0 25.6-.2 46.3-.2 52.6 0 5.1 3.5 11.1 13.2 9.2 76.2-25.5 131.2-97.3 131.2-182 0-105.9-86-191.7-192-191.7z"/></svg>
+				<span>GitHub</span>
+			</a>
+		</div>
+	</div>
+</div>
 
+	
+<div class="widget-taglist widget">
+	<h4 class="widget__title">Tags</h4>
+	<div class="widget__content">
+		<a class="widget__link widget__link--taglist" href="/tags/algorithms" title="algorithms">algorithms (1)</a>
+		<a class="widget__link widget__link--taglist" href="/tags/amazonaws" title="amazonaws">amazonaws (1)</a>
+		<a class="widget__link widget__link--taglist" href="/tags/c" title="c">c (2)</a>
+		<a class="widget__link widget__link--taglist" href="/tags/code" title="code">code (10)</a>
+		<a class="widget__link widget__link--taglist" href="/tags/debian" title="debian">debian (2)</a>
+		<a class="widget__link widget__link--taglist" href="/tags/django" title="django">django (1)</a>
+		<a class="widget__link widget__link--taglist" href="/tags/freebsd" title="freebsd">freebsd (1)</a>
+		<a class="widget__link widget__link--taglist" href="/tags/general" title="general">general (6)</a>
+		<a class="widget__link widget__link--taglist" href="/tags/git" title="git">git (1)</a>
+		<a class="widget__link widget__link--taglist" href="/tags/golang" title="golang">golang (1)</a>
+		<a class="widget__link widget__link--taglist" href="/tags/ipv6" title="ipv6">ipv6 (1)</a>
+		<a class="widget__link widget__link--taglist" href="/tags/java" title="java">java (1)</a>
+		<a class="widget__link widget__link--taglist" href="/tags/linux" title="linux">linux (5)</a>
+		<a class="widget__link widget__link--taglist" href="/tags/mac" title="mac">mac (3)</a>
+		<a class="widget__link widget__link--taglist" href="/tags/networking" title="networking">networking (2)</a>
+		<a class="widget__link widget__link--taglist" href="/tags/openbsd" title="openbsd">openbsd (1)</a>
+		<a class="widget__link widget__link--taglist" href="/tags/opensolaris" title="opensolaris">opensolaris (3)</a>
+		<a class="widget__link widget__link--taglist" href="/tags/postgresql" title="postgresql">postgresql (1)</a>
+		<a class="widget__link widget__link--taglist" href="/tags/puppet" title="puppet">puppet (1)</a>
+		<a class="widget__link widget__link--taglist" href="/tags/python" title="python">python (7)</a>
+		<a class="widget__link widget__link--taglist" href="/tags/random-thoughts" title="random-thoughts">random-thoughts (2)</a>
+		<a class="widget__link widget__link--taglist" href="/tags/security" title="security">security (4)</a>
+		<a class="widget__link widget__link--taglist" href="/tags/software-engineering" title="software-engineering">software-engineering (5)</a>
+		<a class="widget__link widget__link--taglist" href="/tags/unix" title="unix">unix (9)</a>
+		<a class="widget__link widget__link--taglist" href="/tags/zfs" title="zfs">zfs (2)</a>
+	</div>
+</div>
+</aside>
+
+	</div>
+		<footer class="footer" itemscope="itemscope" itemtype="http://schema.org/WPFooter">
+			<div class="container container-inner">
+				<p class="footer__copyright">&copy; 2017 Gregory Armer. All rights reserved.</p>
+			</div>
+		</footer>
+	</div>
 
 <script>
-(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-ga('create', 'UA-11073510-1', 'auto');
-ga('send', 'pageview');
+	var navigation = responsiveNav(".menu", {
+		navClass: "menu--collapse",
+	});
 </script>
-
-<script src="https://sigterm.sh/fancybox/jquery.fancybox.pack.js"></script>
-<script src="https://sigterm.sh/js/script.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.8.0/highlight.min.js"></script>
-<script>hljs.initHighlightingOnLoad();</script>
-
-
-<!-- MathJax -->
-<script type="text/x-mathjax-config">
-MathJax.Hub.Config({
-  tex2jax: {
-    inlineMath: [['$','$'], ['\\(','\\)']]}
-  });
-</script>
-<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-
-
-
 </body>
 </html>

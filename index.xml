@@ -2,24 +2,24 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>./sigterm.sh</title>
-    <link>https://sigterm.sh/</link>
+    <link>/</link>
     <description>Recent content on ./sigterm.sh</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>Gregory Armer. All rights reserved.</copyright>
     <lastBuildDate>Sat, 29 Jul 2017 22:27:00 -0400</lastBuildDate>
     
-	<atom:link href="https://sigterm.sh/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Building a home lab</title>
-      <link>https://sigterm.sh/2017/07/29/building-a-home-lab/</link>
+      <link>/2017/07/29/building-a-home-lab/</link>
       <pubDate>Sat, 29 Jul 2017 22:27:00 -0400</pubDate>
       
-      <guid>https://sigterm.sh/2017/07/29/building-a-home-lab/</guid>
+      <guid>/2017/07/29/building-a-home-lab/</guid>
       <description>&lt;p&gt;I&amp;rsquo;ve been setting up a small home lab for testing various things out and I
-needed a some space for virtual machines. I don&amp;rsquo;t have any requirements for
+needed some space for virtual machines. I don&amp;rsquo;t have any requirements for
 insane performance, but I also didn&amp;rsquo;t want a really sluggish setup, so here&amp;rsquo;s
 what I did&amp;hellip;&lt;/p&gt;
 
@@ -27,23 +27,11 @@ what I did&amp;hellip;&lt;/p&gt;
     </item>
     
     <item>
-      <title>dn42 Peering Information</title>
-      <link>https://sigterm.sh/dn42-peering/</link>
-      <pubDate>Sat, 29 Jul 2017 22:22:07 -0400</pubDate>
-      
-      <guid>https://sigterm.sh/dn42-peering/</guid>
-      <description>If you are interested in peering with me on dn42, find the closest node(s) below and send the following to me in an e-mail to greg[at]sigterm.sh:
- AS Number: Tunnel IP: Public IP: IPv6 supported? (link-local preferred)  I prefer to use IPsec/GRE where possible, but let me know if you can&amp;rsquo;t do it and we can work something out.
-My ASN: AS4242423602 Network Name: GXANET
-Locations  New York, NY, USA San Francisco, CA, USA  IPsec Parameters keyexchange=ikev2 ike=aes256-sha256-modp2048!</description>
-    </item>
-    
-    <item>
       <title>Passing VLANs over an LACP trunk in OpenBSD</title>
-      <link>https://sigterm.sh/2016/11/05/passing-vlans-over-an-lacp-trunk-in-openbsd/</link>
+      <link>/2016/11/05/passing-vlans-over-an-lacp-trunk-in-openbsd/</link>
       <pubDate>Sat, 05 Nov 2016 14:26:00 -0400</pubDate>
       
-      <guid>https://sigterm.sh/2016/11/05/passing-vlans-over-an-lacp-trunk-in-openbsd/</guid>
+      <guid>/2016/11/05/passing-vlans-over-an-lacp-trunk-in-openbsd/</guid>
       <description>&lt;p&gt;It took me a little while to figure this out, so for anyone stuck on this, here&amp;rsquo;s what I did.&lt;/p&gt;
 
 &lt;p&gt;&lt;/p&gt;</description>
@@ -51,10 +39,10 @@ Locations  New York, NY, USA San Francisco, CA, USA  IPsec Parameters keyexchang
     
     <item>
       <title>Recording backend processing time in Golang</title>
-      <link>https://sigterm.sh/2015/03/08/recording-backend-processing-time-in-go/</link>
+      <link>/2015/03/08/recording-backend-processing-time-in-go/</link>
       <pubDate>Sun, 08 Mar 2015 18:58:00 -0400</pubDate>
       
-      <guid>https://sigterm.sh/2015/03/08/recording-backend-processing-time-in-go/</guid>
+      <guid>/2015/03/08/recording-backend-processing-time-in-go/</guid>
       <description>&lt;p&gt;I recently wrote a RESTful web service in Golang, and wanted to pull out some stats on how my handlers were doing in terms of performance.&lt;/p&gt;
 
 &lt;p&gt;&lt;/p&gt;</description>
@@ -62,10 +50,10 @@ Locations  New York, NY, USA San Francisco, CA, USA  IPsec Parameters keyexchang
     
     <item>
       <title>Announcing flake8-diff</title>
-      <link>https://sigterm.sh/2015/01/06/announcing-flake8-diff/</link>
+      <link>/2015/01/06/announcing-flake8-diff/</link>
       <pubDate>Tue, 06 Jan 2015 18:50:00 -0400</pubDate>
       
-      <guid>https://sigterm.sh/2015/01/06/announcing-flake8-diff/</guid>
+      <guid>/2015/01/06/announcing-flake8-diff/</guid>
       <description>&lt;h3 id=&#34;purpose&#34;&gt;Purpose&lt;/h3&gt;
 
 &lt;p&gt;This utility allows you to run flake8 over a set of changed files and filter out violations that would be introduced by merging those changes.&lt;/p&gt;
@@ -77,10 +65,10 @@ Locations  New York, NY, USA San Francisco, CA, USA  IPsec Parameters keyexchang
     
     <item>
       <title>SSL Configuration</title>
-      <link>https://sigterm.sh/2014/10/26/ssl-configuration/</link>
+      <link>/2014/10/26/ssl-configuration/</link>
       <pubDate>Sun, 26 Oct 2014 05:53:00 -0400</pubDate>
       
-      <guid>https://sigterm.sh/2014/10/26/ssl-configuration/</guid>
+      <guid>/2014/10/26/ssl-configuration/</guid>
       <description>&lt;p&gt;As you may have noticed, this site is now served over HTTPS!&lt;/p&gt;
 
 &lt;p&gt;IE6 users, you&amp;rsquo;re pretty much SOL since I turned off all your cipher suites. It&amp;rsquo;s 2014 and it&amp;rsquo;s probably a pretty good time to get yourself a slightly newer browser anyway.&lt;/p&gt;
@@ -90,10 +78,10 @@ Locations  New York, NY, USA San Francisco, CA, USA  IPsec Parameters keyexchang
     
     <item>
       <title>Thoughts on Google Inbox</title>
-      <link>https://sigterm.sh/2014/10/26/google-inbox/</link>
+      <link>/2014/10/26/google-inbox/</link>
       <pubDate>Sun, 26 Oct 2014 04:35:00 -0400</pubDate>
       
-      <guid>https://sigterm.sh/2014/10/26/google-inbox/</guid>
+      <guid>/2014/10/26/google-inbox/</guid>
       <description>&lt;p&gt;This is an insanely awesome way to work with your e-mail!  Google have essentially turned your e-mail inbox into a massive todo list, which as it turns out, is actually a nice way to treat it.&lt;/p&gt;
 
 &lt;p&gt;&lt;/p&gt;</description>
@@ -101,10 +89,10 @@ Locations  New York, NY, USA San Francisco, CA, USA  IPsec Parameters keyexchang
     
     <item>
       <title>Highly Available NFS Cluster on Debian Wheezy</title>
-      <link>https://sigterm.sh/2014/02/01/highly-available-nfs-cluster-on-debian-wheezy/</link>
+      <link>/2014/02/01/highly-available-nfs-cluster-on-debian-wheezy/</link>
       <pubDate>Sat, 01 Feb 2014 12:00:00 -0400</pubDate>
       
-      <guid>https://sigterm.sh/2014/02/01/highly-available-nfs-cluster-on-debian-wheezy/</guid>
+      <guid>/2014/02/01/highly-available-nfs-cluster-on-debian-wheezy/</guid>
       <description>&lt;h4 id=&#34;overview&#34;&gt;Overview&lt;/h4&gt;
 
 &lt;p&gt;This guide will help you setup a highly available NFS server on Debian Wheezy. This is a relatively battle-tested configuration, and there is plenty information out there on how it works - I&amp;rsquo;ll include some links at the end of this post.&lt;/p&gt;
@@ -115,34 +103,11 @@ Locations  New York, NY, USA San Francisco, CA, USA  IPsec Parameters keyexchang
     </item>
     
     <item>
-      <title>About This Blog</title>
-      <link>https://sigterm.sh/about/</link>
-      <pubDate>Fri, 21 Jun 2013 11:27:27 -0400</pubDate>
-      
-      <guid>https://sigterm.sh/about/</guid>
-      <description>Hi, I&amp;rsquo;m Greg and this is my personal blog. You&amp;rsquo;ll find a lot of tech / programming related posts here, along with posts around some of my hobbies like photography.
-I have a passion for open source software, Linux, UNIX, the quest for perfect code and doing everything the best way possible.
-What I do I’m a software and systems architect who lives in New York, USA. I work mostly on systems and network code involving high availability, clustering and scalable architecture.</description>
-    </item>
-    
-    <item>
-      <title>Code</title>
-      <link>https://sigterm.sh/code/</link>
-      <pubDate>Fri, 21 Jun 2013 11:27:27 -0400</pubDate>
-      
-      <guid>https://sigterm.sh/code/</guid>
-      <description>These are some of the open source projects that I am currently working on.
-flake8-diff flake8-diff allows you to run flake8 over a set of changed files and filter out violations that would be introduced by merging those changes.
-I use this as part of my build / CI infrastructure to alert developers opening pull requests to new violations their pull request will introduce, if it were merged.
-You can find the code here.</description>
-    </item>
-    
-    <item>
       <title>nginx, Apache 2 and subversion - 502 Bad Gateway error</title>
-      <link>https://sigterm.sh/2012/10/09/nginx-apache-2-and-subversion-502-bad-gateway-error/</link>
+      <link>/2012/10/09/nginx-apache-2-and-subversion-502-bad-gateway-error/</link>
       <pubDate>Tue, 09 Oct 2012 12:00:00 -0400</pubDate>
       
-      <guid>https://sigterm.sh/2012/10/09/nginx-apache-2-and-subversion-502-bad-gateway-error/</guid>
+      <guid>/2012/10/09/nginx-apache-2-and-subversion-502-bad-gateway-error/</guid>
       <description>&lt;h4 id=&#34;the-problem&#34;&gt;The Problem&lt;/h4&gt;
 
 &lt;p&gt;I recently ran into this problem and couldn&amp;rsquo;t find any useful information on the net around fixing it. All subversion checkouts, commits and other basic operations work just fine, but when attempting to copy, move or tag (copy) I would get the below (502 Bad Gateway) error.&lt;/p&gt;
@@ -152,10 +117,10 @@ You can find the code here.</description>
     
     <item>
       <title>Blocking web traffic behind an Elastic Load Balancer (ELB)</title>
-      <link>https://sigterm.sh/2012/09/28/blocking-web-traffic-behind-an-elastic-load-balancer-elb/</link>
+      <link>/2012/09/28/blocking-web-traffic-behind-an-elastic-load-balancer-elb/</link>
       <pubDate>Fri, 28 Sep 2012 12:00:00 -0400</pubDate>
       
-      <guid>https://sigterm.sh/2012/09/28/blocking-web-traffic-behind-an-elastic-load-balancer-elb/</guid>
+      <guid>/2012/09/28/blocking-web-traffic-behind-an-elastic-load-balancer-elb/</guid>
       <description>&lt;p&gt;Over the past few hours we&amp;rsquo;ve been on the receiving end of a fairly large scale set of web requests (read: attack) to a website we host over on Amazon EC2. Our setup is not really that complicated, however we encountered a problem that wasn&amp;rsquo;t that easy to solve.&lt;/p&gt;
 
 &lt;p&gt;&lt;/p&gt;</description>
@@ -163,10 +128,10 @@ You can find the code here.</description>
     
     <item>
       <title>Forking background processes in Python</title>
-      <link>https://sigterm.sh/2012/08/22/forking-background-processes-in-python/</link>
+      <link>/2012/08/22/forking-background-processes-in-python/</link>
       <pubDate>Wed, 22 Aug 2012 12:00:00 -0400</pubDate>
       
-      <guid>https://sigterm.sh/2012/08/22/forking-background-processes-in-python/</guid>
+      <guid>/2012/08/22/forking-background-processes-in-python/</guid>
       <description>&lt;p&gt;This post attempts to explain how to fork child processes in Python, or at least how to use forking on an existing Python script. For some strange reason I&amp;rsquo;ve had to explain this a few times recently, so I decided an easy to reference blog post would probably make life a little easier.&lt;/p&gt;
 
 &lt;p&gt;&lt;/p&gt;</description>
@@ -174,10 +139,10 @@ You can find the code here.</description>
     
     <item>
       <title>Replacing Django&#39;s Nasty &#39;runserver&#39;</title>
-      <link>https://sigterm.sh/2011/12/06/replacing-djangos-nasty-runserver/</link>
+      <link>/2011/12/06/replacing-djangos-nasty-runserver/</link>
       <pubDate>Tue, 06 Dec 2011 12:00:00 -0400</pubDate>
       
-      <guid>https://sigterm.sh/2011/12/06/replacing-djangos-nasty-runserver/</guid>
+      <guid>/2011/12/06/replacing-djangos-nasty-runserver/</guid>
       <description>&lt;p&gt;Have you ever tried to have more than one person view a development site using &lt;a title=&#34;Django&#34; href=&#34;http://www.djangoproject.com/&#34; target=&#34;_blank&#34;&gt;Django&amp;rsquo;s&lt;/a&gt; &lt;a title=&#34;Django runserver&#34; href=&#34;https://docs.djangoproject.com/en/1.3/ref/django-admin/#runserver-port-or-address-port&#34; target=&#34;_blank&#34;&gt;built-in development server&lt;/a&gt; ? Yeah, it really sucks. Apparently concurrency wasn&amp;rsquo;t high on the features list and they have stated that it never will be.&lt;/p&gt;
 
 &lt;p&gt;&lt;/p&gt;</description>
@@ -185,10 +150,10 @@ You can find the code here.</description>
     
     <item>
       <title>The impact of being behind schedule</title>
-      <link>https://sigterm.sh/2011/02/11/the-impact-of-being-behind-schedule/</link>
+      <link>/2011/02/11/the-impact-of-being-behind-schedule/</link>
       <pubDate>Fri, 11 Feb 2011 12:00:00 -0400</pubDate>
       
-      <guid>https://sigterm.sh/2011/02/11/the-impact-of-being-behind-schedule/</guid>
+      <guid>/2011/02/11/the-impact-of-being-behind-schedule/</guid>
       <description>&lt;p&gt;In managing a group of software engineers, this is something that has happened frequently in my team and has been bothering me for a while. It&amp;rsquo;s a lot easier for me to notice, as in my case, I actively write software with my team.&lt;/p&gt;
 
 &lt;p&gt;&lt;/p&gt;</description>
@@ -196,10 +161,10 @@ You can find the code here.</description>
     
     <item>
       <title>The day the routers died...</title>
-      <link>https://sigterm.sh/2011/02/03/the-day-the-routers-died/</link>
+      <link>/2011/02/03/the-day-the-routers-died/</link>
       <pubDate>Thu, 03 Feb 2011 12:00:00 -0400</pubDate>
       
-      <guid>https://sigterm.sh/2011/02/03/the-day-the-routers-died/</guid>
+      <guid>/2011/02/03/the-day-the-routers-died/</guid>
       <description>&lt;p&gt;On February 3, 1959, Buddy Holly, Richie Valens and JP Richardson (aka The Big Bopper) died in a plane crash. Don McLean immortalized that day as &amp;ldquo;The Day The Music Died&amp;rdquo; in his 1971 hit, &amp;ldquo;American Pie&amp;rdquo;.&lt;/p&gt;
 
 &lt;p&gt;It&amp;rsquo;s somewhat ironic that on February 3, 2010 the last five /8s from the IANA IPv4 pool have been distributed to the RIRs.&lt;/p&gt;
@@ -209,10 +174,10 @@ You can find the code here.</description>
     
     <item>
       <title>Puppet Modules - Debsecan</title>
-      <link>https://sigterm.sh/2011/01/02/puppet-modules-debsecan/</link>
+      <link>/2011/01/02/puppet-modules-debsecan/</link>
       <pubDate>Sun, 02 Jan 2011 12:00:00 -0400</pubDate>
       
-      <guid>https://sigterm.sh/2011/01/02/puppet-modules-debsecan/</guid>
+      <guid>/2011/01/02/puppet-modules-debsecan/</guid>
       <description>&lt;p&gt;This is the first post of (hopefully) many, detailing some of my &lt;a href=&#34;http://www.puppetlabs.com/&#34;&gt;Puppet&lt;/a&gt; module implementations. Being the first, I thought I would start off with something simple.&lt;/p&gt;
 
 &lt;p&gt;&lt;/p&gt;</description>
@@ -220,10 +185,10 @@ You can find the code here.</description>
     
     <item>
       <title>Using ferm to build firewall rulesets</title>
-      <link>https://sigterm.sh/2010/12/31/using-ferm-to-build-firewall-rulesets/</link>
+      <link>/2010/12/31/using-ferm-to-build-firewall-rulesets/</link>
       <pubDate>Fri, 31 Dec 2010 12:00:00 -0400</pubDate>
       
-      <guid>https://sigterm.sh/2010/12/31/using-ferm-to-build-firewall-rulesets/</guid>
+      <guid>/2010/12/31/using-ferm-to-build-firewall-rulesets/</guid>
       <description>&lt;p&gt;This post is thanks to a suggestion from &lt;a href=&#34;http://twitter.com/froztbyte&#34;&gt;JP Viljoen&lt;/a&gt; to check out &lt;a href=&#34;http://ferm.foo-projects.org/&#34;&gt;ferm&lt;/a&gt;. Well, I did, and it&amp;rsquo;s fairly neat. You get to express your firewall configuration in structures resembling simple C code along with using things like arrays, functions and if / else constructs which makes building complex rulesets quite a simple task.&lt;/p&gt;
 
 &lt;p&gt;I&amp;rsquo;ve included an example configuration below of one of my machines. The network configuration is not extremely complex, but there is a mix of IPv4, IPv6 and - as this is an IRC server - some DNAT to make the IRC service available on a number of other privileged ports without having the service actually listen on those ports. This particular server is running Debian however ferm is basically just a front to ip(6)tables so it&amp;rsquo;ll run pretty much anywhere that runs.&lt;/p&gt;
@@ -233,10 +198,10 @@ You can find the code here.</description>
     
     <item>
       <title>Natural order sorting strings with numbers</title>
-      <link>https://sigterm.sh/2010/09/23/natural-order-sorting-strings-with-numbers/</link>
+      <link>/2010/09/23/natural-order-sorting-strings-with-numbers/</link>
       <pubDate>Thu, 23 Sep 2010 12:00:00 -0400</pubDate>
       
-      <guid>https://sigterm.sh/2010/09/23/natural-order-sorting-strings-with-numbers/</guid>
+      <guid>/2010/09/23/natural-order-sorting-strings-with-numbers/</guid>
       <description>&lt;p&gt;The following python code makes natural sorting sequences of lexical and numerical values a little easier. It supports any iterable containing strings which have embedded numbers. In short it would give you this:&lt;/p&gt;
 
 &lt;p&gt;foo1 &amp;lt; foo2 &amp;lt; foo10&lt;/p&gt;
@@ -250,10 +215,10 @@ You can find the code here.</description>
     
     <item>
       <title>Generating a dependency graph for Postgres DB</title>
-      <link>https://sigterm.sh/2010/07/09/generating-a-dependency-graph-for-a-postgresql-database/</link>
+      <link>/2010/07/09/generating-a-dependency-graph-for-a-postgresql-database/</link>
       <pubDate>Fri, 09 Jul 2010 12:00:00 -0400</pubDate>
       
-      <guid>https://sigterm.sh/2010/07/09/generating-a-dependency-graph-for-a-postgresql-database/</guid>
+      <guid>/2010/07/09/generating-a-dependency-graph-for-a-postgresql-database/</guid>
       <description>&lt;p&gt;This post was mostly inspired by &lt;a href=&#34;http://code.activestate.com/recipes/577298-plot-database-table-dependecies-for-a-mysql-databa/&#34;&gt;this one&lt;/a&gt;, which shows how to generate a dependency graph for a MySQL database. Here we do something similar for PostgreSQL.&lt;/p&gt;
 
 &lt;p&gt;This script will generate the required digraph data to pipe into &lt;a href=&#34;http://www.graphviz.org/&#34; target=&#34;_blank&#34;&gt;graphviz dot&lt;/a&gt; which will generate a visual representation of dependencies in a database schema, based on foreign key constraints.&lt;/p&gt;
@@ -263,10 +228,10 @@ You can find the code here.</description>
     
     <item>
       <title>Getting Git man pages on OS X</title>
-      <link>https://sigterm.sh/2010/04/15/getting-git-manpages-on-os-x/</link>
+      <link>/2010/04/15/getting-git-manpages-on-os-x/</link>
       <pubDate>Thu, 15 Apr 2010 12:00:00 -0400</pubDate>
       
-      <guid>https://sigterm.sh/2010/04/15/getting-git-manpages-on-os-x/</guid>
+      <guid>/2010/04/15/getting-git-manpages-on-os-x/</guid>
       <description>&lt;p&gt;For some reason the OS X install of Git doesn&amp;rsquo;t include the manpages. Here is how I installed them.&lt;/p&gt;
 
 &lt;p&gt;&lt;/p&gt;</description>
@@ -274,10 +239,10 @@ You can find the code here.</description>
     
     <item>
       <title>Extending Python with modules written in C</title>
-      <link>https://sigterm.sh/2009/12/26/extending-python-with-modules-written-in-c/</link>
+      <link>/2009/12/26/extending-python-with-modules-written-in-c/</link>
       <pubDate>Sat, 26 Dec 2009 12:00:00 -0400</pubDate>
       
-      <guid>https://sigterm.sh/2009/12/26/extending-python-with-modules-written-in-c/</guid>
+      <guid>/2009/12/26/extending-python-with-modules-written-in-c/</guid>
       <description>&lt;p&gt;Using C (or C++) to create Python modules is really quite simple, providing you know a little C of course. I recently had to do some work around getting a bunch of legacy C code talking to a newer system and thought I&amp;rsquo;d post a nice simple example of how the Python extensions work.&lt;/p&gt;
 
 &lt;p&gt;This code gives you a single method &amp;ldquo;do()&amp;rdquo; that will print the output of a command, passed to it as a string, to stdout and return the exit code as a python int.&lt;/p&gt;
@@ -287,10 +252,10 @@ You can find the code here.</description>
     
     <item>
       <title>Using an alternative mirror for FreeBSD port retrieval</title>
-      <link>https://sigterm.sh/2009/10/12/using-an-alternative-mirror-for-freebsd-port-retrieval/</link>
+      <link>/2009/10/12/using-an-alternative-mirror-for-freebsd-port-retrieval/</link>
       <pubDate>Mon, 12 Oct 2009 16:00:00 -0400</pubDate>
       
-      <guid>https://sigterm.sh/2009/10/12/using-an-alternative-mirror-for-freebsd-port-retrieval/</guid>
+      <guid>/2009/10/12/using-an-alternative-mirror-for-freebsd-port-retrieval/</guid>
       <description>&lt;p&gt;This is something I always search for which doesn&amp;rsquo;t seem to be very clear from the initial results. The mirrors included below are South Africa specific, so if you are not in South Africa then replace the hostname with something more appropriate for your location.&lt;/p&gt;
 
 &lt;p&gt;&lt;/p&gt;</description>
@@ -298,10 +263,10 @@ You can find the code here.</description>
     
     <item>
       <title>Keyboard shortcuts in Google Wave</title>
-      <link>https://sigterm.sh/2009/10/12/keyboard-shortcuts-in-google-wave/</link>
+      <link>/2009/10/12/keyboard-shortcuts-in-google-wave/</link>
       <pubDate>Mon, 12 Oct 2009 12:00:00 -0400</pubDate>
       
-      <guid>https://sigterm.sh/2009/10/12/keyboard-shortcuts-in-google-wave/</guid>
+      <guid>/2009/10/12/keyboard-shortcuts-in-google-wave/</guid>
       <description>&lt;p&gt;I was messing around a little with figuring out some of the keyboard shortcuts in Wave. Here is what I have so far:&lt;/p&gt;
 
 &lt;p&gt;&lt;/p&gt;</description>
@@ -309,10 +274,10 @@ You can find the code here.</description>
     
     <item>
       <title>Simple HTTP POST in Java</title>
-      <link>https://sigterm.sh/2009/10/07/simple-http-post-in-java/</link>
+      <link>/2009/10/07/simple-http-post-in-java/</link>
       <pubDate>Wed, 07 Oct 2009 12:00:00 -0400</pubDate>
       
-      <guid>https://sigterm.sh/2009/10/07/simple-http-post-in-java/</guid>
+      <guid>/2009/10/07/simple-http-post-in-java/</guid>
       <description>&lt;p&gt;Today I was helping a friend debug a web service they had implemented. Their side was working correctly but the developer who was trying to interface with it seemed to be running into many problems. Since they were integrating an application written in Java, I whipped up a simple test for them. All we really needed to do was to send a few variables using HTTP POST to this resource and make sure it returned exactly what we were expecting.&lt;/p&gt;
 
 &lt;p&gt;This uses standard libraries only, and doesn&amp;rsquo;t require anything third party. It does nothing fancy at all, just simply posts data to a URL. Hopefully you find this useful at some point.&lt;/p&gt;
@@ -322,10 +287,10 @@ You can find the code here.</description>
     
     <item>
       <title>Using a ZFS filesystem with Time Machine</title>
-      <link>https://sigterm.sh/2009/10/04/using-a-zfs-filesystem-with-time-machine/</link>
+      <link>/2009/10/04/using-a-zfs-filesystem-with-time-machine/</link>
       <pubDate>Sun, 04 Oct 2009 12:00:00 -0400</pubDate>
       
-      <guid>https://sigterm.sh/2009/10/04/using-a-zfs-filesystem-with-time-machine/</guid>
+      <guid>/2009/10/04/using-a-zfs-filesystem-with-time-machine/</guid>
       <description>&lt;p&gt;This simple how-to explains how to get your Time Machine backups working with a ZFS filesystem. This allows you to use the features of ZFS filesystems for your Time Machine backups.&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;Please note this is for Mac OS X - Snow Leopard.&lt;/strong&gt;&lt;/p&gt;
@@ -335,10 +300,10 @@ You can find the code here.</description>
     
     <item>
       <title>New addition to the family</title>
-      <link>https://sigterm.sh/2009/09/05/new-addition-to-the-family/</link>
+      <link>/2009/09/05/new-addition-to-the-family/</link>
       <pubDate>Sat, 05 Sep 2009 12:00:00 -0400</pubDate>
       
-      <guid>https://sigterm.sh/2009/09/05/new-addition-to-the-family/</guid>
+      <guid>/2009/09/05/new-addition-to-the-family/</guid>
       <description>&lt;p&gt;So after much anticipation, many tireless weeks of spec checking and a whole bunch of money I was really glad to be on the receiving end of a brand spanking new 17&amp;rdquo; MacBook Pro!&lt;/p&gt;
 
 &lt;p&gt;Although it has been less than 72 hours this is (so far) truly the most amazing piece of computer equipment I have ever owned, honestly worth every single cent! The initial setup was completely flawless and only took a few minutes. The graphics, resolution and performance are exceptional, in fact I haven&amp;rsquo;t even had to switch over from the standard &amp;ldquo;on-board&amp;rdquo; video card to the higher end controller yet, despite putting the GPU through a thorough beating, testing out the Quake 4 demo :P&lt;/p&gt;
@@ -348,22 +313,22 @@ You can find the code here.</description>
     
     <item>
       <title>Quick Solaris zone stats</title>
-      <link>https://sigterm.sh/2009/08/13/quick-solaris-zone-stats/</link>
+      <link>/2009/08/13/quick-solaris-zone-stats/</link>
       <pubDate>Thu, 13 Aug 2009 12:00:00 -0400</pubDate>
       
-      <guid>https://sigterm.sh/2009/08/13/quick-solaris-zone-stats/</guid>
+      <guid>/2009/08/13/quick-solaris-zone-stats/</guid>
       <description>Add this:
 alias zonestat=&amp;quot;prstat -vZ 1 1 | grep -A50 &#39;^ZONEID&#39;&amp;quot;
 to your ~/.profile and you should see something like this when running it:
-root@tank:~# zonestat ZONEID NPROC SWAP RSS MEMORY TIME CPU ZONE 0 58 1198M 1206M 30% 16:15:40 1.7% global 6 25 172M 175M 4.4% 0:03:14 0.0% cl-build 2 27 48M 31M 0.8% 0:00:47 0.0% mirror Total: 110 processes, 534 lwps, load averages: 0.09, 0.08, 0.07  </description>
+root@tank:~# zonestat ZONEID NPROC SWAP RSS MEMORY TIME CPU ZONE 0 58 1198M 1206M 30% 16:15:40 1.7% global 6 25 172M 175M 4.4% 0:03:14 0.0% cl-build 2 27 48M 31M 0.8% 0:00:47 0.0% mirror Total: 110 processes, 534 lwps, load averages: 0.09, 0.08, 0.</description>
     </item>
     
     <item>
       <title>The basics of ZFS ACLs</title>
-      <link>https://sigterm.sh/2009/07/31/the-basics-of-zfs-acls/</link>
+      <link>/2009/07/31/the-basics-of-zfs-acls/</link>
       <pubDate>Fri, 31 Jul 2009 12:00:00 -0400</pubDate>
       
-      <guid>https://sigterm.sh/2009/07/31/the-basics-of-zfs-acls/</guid>
+      <guid>/2009/07/31/the-basics-of-zfs-acls/</guid>
       <description>&lt;p&gt;This post was mostly inspired by reading &lt;a href=&#34;http://www.1stbyte.com/2009/07/24/zfs-cifs-and-acl-inheritance/&#34;&gt;this post&lt;/a&gt; in trying to get my head around the ZFS ACL and permission system.&lt;/p&gt;
 
 &lt;p&gt;&lt;/p&gt;</description>
@@ -371,10 +336,10 @@ root@tank:~# zonestat ZONEID NPROC SWAP RSS MEMORY TIME CPU ZONE 0 58 1198M 1206
     
     <item>
       <title>Simple OpenVPN Server Statistics</title>
-      <link>https://sigterm.sh/2009/07/16/simple-openvpn-server-statistics/</link>
+      <link>/2009/07/16/simple-openvpn-server-statistics/</link>
       <pubDate>Thu, 16 Jul 2009 12:00:00 -0400</pubDate>
       
-      <guid>https://sigterm.sh/2009/07/16/simple-openvpn-server-statistics/</guid>
+      <guid>/2009/07/16/simple-openvpn-server-statistics/</guid>
       <description>&lt;p&gt;Ever wondered what the status of your OpenVPN server is, or wanted some simple stats ?&lt;/p&gt;
 
 &lt;p&gt;&lt;/p&gt;</description>
@@ -382,10 +347,10 @@ root@tank:~# zonestat ZONEID NPROC SWAP RSS MEMORY TIME CPU ZONE 0 58 1198M 1206
     
     <item>
       <title>Run something as another user</title>
-      <link>https://sigterm.sh/2009/07/08/run-something-as-another-user/</link>
+      <link>/2009/07/08/run-something-as-another-user/</link>
       <pubDate>Wed, 08 Jul 2009 13:00:00 -0400</pubDate>
       
-      <guid>https://sigterm.sh/2009/07/08/run-something-as-another-user/</guid>
+      <guid>/2009/07/08/run-something-as-another-user/</guid>
       <description>&lt;p&gt;Here is a simple way to run something on UNIX / Linux as another user, without having to resort to weird sudo incantations. The Makefile is left as an exercise for the reader.&lt;/p&gt;
 
 &lt;p&gt;This has only been tested on FreeBSD, Debian Linux and OpenSolaris so far.&lt;/p&gt;
@@ -395,10 +360,10 @@ root@tank:~# zonestat ZONEID NPROC SWAP RSS MEMORY TIME CPU ZONE 0 58 1198M 1206
     
     <item>
       <title>Hello World</title>
-      <link>https://sigterm.sh/2009/07/08/hello-world/</link>
+      <link>/2009/07/08/hello-world/</link>
       <pubDate>Wed, 08 Jul 2009 12:00:00 -0400</pubDate>
       
-      <guid>https://sigterm.sh/2009/07/08/hello-world/</guid>
+      <guid>/2009/07/08/hello-world/</guid>
       <description>So I finally decided to join the world of blogging. Let&amp;rsquo;s hope I have something interesting to say&amp;hellip;</description>
     </item>
     
