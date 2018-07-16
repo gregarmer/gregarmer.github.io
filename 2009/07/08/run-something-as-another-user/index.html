@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Run something as another user</title>
 
-<meta name="generator" content="Hugo 0.31" />
+<meta name="generator" content="Hugo 0.42.1" />
 <meta property="og:title" content="Run something as another user" />
 <meta property="og:description" content="Here is a simple way to run something on UNIX / Linux as another user, without having to resort to weird sudo incantations. The Makefile is left as an exercise for the reader.
 
@@ -43,11 +43,15 @@ This has only been tested on FreeBSD, Debian Linux and OpenSolaris so far.
 <link rel="shortcut icon" href="/favicon.ico">
 
 <script>
-window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-ga('create', 'UA-11073510-1', 'auto');
-ga('send', 'pageview');
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-11073510-1', 'auto');
+	
+	ga('send', 'pageview');
+}
 </script>
-<script async src='//www.google-analytics.com/analytics.js'></script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
 
 </head>
 <body class="body body-right-sidebar mobile" itemscope="itemscope" itemtype="http://schema.org/WebPage">
@@ -99,7 +103,7 @@ ga('send', 'pageview');
 <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(<span style="color:#66d9ef">int</span> argc, <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">char</span> <span style="color:#f92672">**</span>argv) {
     <span style="color:#75715e">/* Check command line */</span>
     <span style="color:#66d9ef">if</span> (argc <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">3</span>) {
-        fprintf(stderr, <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;Usage: %s user cmd</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, argv[<span style="color:#ae81ff">0</span>]);
+        fprintf(stderr, <span style="color:#e6db74">&#34;Usage: %s user cmd</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, argv[<span style="color:#ae81ff">0</span>]);
         <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">1</span>;
     }
 
@@ -107,12 +111,12 @@ ga('send', 'pageview');
     pw <span style="color:#f92672">=</span> getpwnam(argv[<span style="color:#ae81ff">1</span>]);
 
     <span style="color:#66d9ef">if</span> (pw<span style="color:#f92672">==</span>NULL) {
-        fprintf(stderr, <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;User not found</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
+        fprintf(stderr, <span style="color:#e6db74">&#34;User not found</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
         <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">1</span>;
     }
 
     <span style="color:#66d9ef">if</span> (initgroups(argv[<span style="color:#ae81ff">1</span>], pw<span style="color:#f92672">-&gt;</span>pw_gid)<span style="color:#f92672">==-</span><span style="color:#ae81ff">1</span>) {
-        perror(<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;initgroups&#34;</span>);
+        perror(<span style="color:#e6db74">&#34;initgroups&#34;</span>);
         <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">1</span>;
     }
 
@@ -120,11 +124,11 @@ ga('send', 'pageview');
         setreuid(pw<span style="color:#f92672">-&gt;</span>pw_uid, pw<span style="color:#f92672">-&gt;</span>pw_uid)<span style="color:#f92672">==</span><span style="color:#ae81ff">0</span>) {
         argv <span style="color:#f92672">+=</span> <span style="color:#ae81ff">2</span>;
         execvp(argv[<span style="color:#ae81ff">0</span>], argv);
-        perror(<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;exec&#34;</span>);
+        perror(<span style="color:#e6db74">&#34;exec&#34;</span>);
         <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">1</span>;
     }
 
-    perror(<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;setre[gu]id&#34;</span>);
+    perror(<span style="color:#e6db74">&#34;setre[gu]id&#34;</span>);
     <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">1</span>;
 }</code></pre></div>
 		</div>
@@ -271,7 +275,7 @@ ga('send', 'pageview');
 	</div>
 		<footer class="footer" itemscope="itemscope" itemtype="http://schema.org/WPFooter">
 			<div class="container container-inner">
-				<p class="footer__copyright">&copy; 2017 Gregory Armer. All rights reserved.</p>
+				<p class="footer__copyright">&copy; 2018 Gregory Armer. All rights reserved.</p>
 			</div>
 		</footer>
 	</div>

@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Forking background processes in Python</title>
 
-<meta name="generator" content="Hugo 0.31" />
+<meta name="generator" content="Hugo 0.42.1" />
 <meta property="og:title" content="Forking background processes in Python" />
 <meta property="og:description" content="This post attempts to explain how to fork child processes in Python, or at least how to use forking on an existing Python script. For some strange reason I&rsquo;ve had to explain this a few times recently, so I decided an easy to reference blog post would probably make life a little easier.
 
@@ -41,11 +41,15 @@
 <link rel="shortcut icon" href="/favicon.ico">
 
 <script>
-window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-ga('create', 'UA-11073510-1', 'auto');
-ga('send', 'pageview');
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-11073510-1', 'auto');
+	
+	ga('send', 'pageview');
+}
 </script>
-<script async src='//www.google-analytics.com/analytics.js'></script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
 
 </head>
 <body class="body body-right-sidebar mobile" itemscope="itemscope" itemtype="http://schema.org/WebPage">
@@ -93,10 +97,10 @@ ga('send', 'pageview');
 <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">do_something</span>():
     <span style="color:#75715e"># Do something for 10 seconds, then exit nicely.</span>
     time<span style="color:#f92672">.</span>sleep(<span style="color:#ae81ff">10</span>)
-    <span style="color:#66d9ef">print</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;Done.&#34;</span>
+    <span style="color:#66d9ef">print</span> <span style="color:#e6db74">&#34;Done.&#34;</span>
     sys<span style="color:#f92672">.</span>exit(<span style="color:#ae81ff">0</span>)
 
-<span style="color:#66d9ef">if</span> __name__ <span style="color:#f92672">==</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;__main__&#34;</span>:
+<span style="color:#66d9ef">if</span> __name__ <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;__main__&#34;</span>:
     do_something()</code></pre></div>
 <p>So one method of running it in the background is to <a href="http://en.wikipedia.org/wiki/Fork_(operating_system)">fork</a> it. The term <em>fork</em> means that we want to launch a child <a href="http://en.wikipedia.org/wiki/Process_(computing)">process</a> from this process (the parent process) and then disown that child process and exit cleanly. The child process will then continue running in the background until it completes whatever it has to do, or until it is shutdown or killed, in the case of a long
 running process.</p>
@@ -109,13 +113,13 @@ running process.</p>
 <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">do_something</span>():
     <span style="color:#75715e"># Do something for 10 seconds, then exist cleanly.</span>
     time<span style="color:#f92672">.</span>sleep(<span style="color:#ae81ff">10</span>)
-    <span style="color:#66d9ef">print</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;kbye&#34;</span>
+    <span style="color:#66d9ef">print</span> <span style="color:#e6db74">&#34;kbye&#34;</span>
     sys<span style="color:#f92672">.</span>exit(<span style="color:#ae81ff">0</span>)
 
-<span style="color:#66d9ef">if</span> __name__ <span style="color:#f92672">==</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;__main__&#34;</span>:
-    <span style="color:#66d9ef">print</span> (<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;Hello and welcome to a Python forking example. I&#39;ll now fork a &#34;</span>
-           <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;backgrounded child process and then exit, leaving it to run all by &#34;</span>
-           <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;itself. Watch for the &#39;Done&#39; in 10 seconds...&#34;</span>)
+<span style="color:#66d9ef">if</span> __name__ <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;__main__&#34;</span>:
+    <span style="color:#66d9ef">print</span> (<span style="color:#e6db74">&#34;Hello and welcome to a Python forking example. I&#39;ll now fork a &#34;</span>
+           <span style="color:#e6db74">&#34;backgrounded child process and then exit, leaving it to run all by &#34;</span>
+           <span style="color:#e6db74">&#34;itself. Watch for the &#39;Done&#39; in 10 seconds...&#34;</span>)
 
     <span style="color:#66d9ef">try</span>:
         pid <span style="color:#f92672">=</span> os<span style="color:#f92672">.</span>fork()
@@ -123,11 +127,11 @@ running process.</p>
             <span style="color:#75715e"># Exit parent process</span>
             sys<span style="color:#f92672">.</span>exit(<span style="color:#ae81ff">0</span>)
     <span style="color:#66d9ef">except</span> <span style="color:#a6e22e">OSError</span>, e:
-        <span style="color:#66d9ef">print</span> <span style="color:#f92672">&gt;&gt;</span> sys<span style="color:#f92672">.</span>stderr, <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;fork failed: </span><span style="color:#e6db74">%d</span><span style="color:#e6db74"> (</span><span style="color:#e6db74">%s</span><span style="color:#e6db74">)&#34;</span> <span style="color:#f92672">%</span> (e<span style="color:#f92672">.</span>errno, e<span style="color:#f92672">.</span>strerror)
+        <span style="color:#66d9ef">print</span> <span style="color:#f92672">&gt;&gt;</span> sys<span style="color:#f92672">.</span>stderr, <span style="color:#e6db74">&#34;fork failed: </span><span style="color:#e6db74">%d</span><span style="color:#e6db74"> (</span><span style="color:#e6db74">%s</span><span style="color:#e6db74">)&#34;</span> <span style="color:#f92672">%</span> (e<span style="color:#f92672">.</span>errno, e<span style="color:#f92672">.</span>strerror)
         sys<span style="color:#f92672">.</span>exit(<span style="color:#ae81ff">1</span>)
 
     <span style="color:#75715e"># Configure the child processes environment</span>
-    os<span style="color:#f92672">.</span>chdir(<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;/&#34;</span>)
+    os<span style="color:#f92672">.</span>chdir(<span style="color:#e6db74">&#34;/&#34;</span>)
     os<span style="color:#f92672">.</span>setsid()
     os<span style="color:#f92672">.</span>umask(<span style="color:#ae81ff">0</span>)
 
@@ -145,7 +149,7 @@ running process.</p>
 
 <p>There are also some better alternatives, something like this for example:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> os
-os<span style="color:#f92672">.</span>spawnl(os<span style="color:#f92672">.</span>P_DETACH, <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;some_log_running_command&#39;</span>)</code></pre></div>
+os<span style="color:#f92672">.</span>spawnl(os<span style="color:#f92672">.</span>P_DETACH, <span style="color:#e6db74">&#39;some_log_running_command&#39;</span>)</code></pre></div>
 <p><strong>Note:</strong> <code>os.P_DETACH</code> is win32 specific. For better portability you could use <code>os.P_NOWAIT</code>.</p>
 
 <p><a href="http://docs.python.org/library/os.html#os.spawnl">Here is the documentation</a>.</p>
@@ -292,7 +296,7 @@ os<span style="color:#f92672">.</span>spawnl(os<span style="color:#f92672">.</sp
 	</div>
 		<footer class="footer" itemscope="itemscope" itemtype="http://schema.org/WPFooter">
 			<div class="container container-inner">
-				<p class="footer__copyright">&copy; 2017 Gregory Armer. All rights reserved.</p>
+				<p class="footer__copyright">&copy; 2018 Gregory Armer. All rights reserved.</p>
 			</div>
 		</footer>
 	</div>

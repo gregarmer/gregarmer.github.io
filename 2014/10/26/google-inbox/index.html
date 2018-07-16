@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Thoughts on Google Inbox</title>
 
-<meta name="generator" content="Hugo 0.31" />
+<meta name="generator" content="Hugo 0.42.1" />
 <meta property="og:title" content="Thoughts on Google Inbox" />
 <meta property="og:description" content="This is an insanely awesome way to work with your e-mail!  Google have essentially turned your e-mail inbox into a massive todo list, which as it turns out, is actually a nice way to treat it.
 
@@ -41,11 +41,15 @@
 <link rel="shortcut icon" href="/favicon.ico">
 
 <script>
-window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-ga('create', 'UA-11073510-1', 'auto');
-ga('send', 'pageview');
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-11073510-1', 'auto');
+	
+	ga('send', 'pageview');
+}
 </script>
-<script async src='//www.google-analytics.com/analytics.js'></script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
 
 </head>
 <body class="body body-right-sidebar mobile" itemscope="itemscope" itemtype="http://schema.org/WebPage">
@@ -237,7 +241,7 @@ ga('send', 'pageview');
 	</div>
 		<footer class="footer" itemscope="itemscope" itemtype="http://schema.org/WPFooter">
 			<div class="container container-inner">
-				<p class="footer__copyright">&copy; 2017 Gregory Armer. All rights reserved.</p>
+				<p class="footer__copyright">&copy; 2018 Gregory Armer. All rights reserved.</p>
 			</div>
 		</footer>
 	</div>

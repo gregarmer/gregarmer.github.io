@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>nginx, Apache 2 and subversion - 502 Bad Gateway error</title>
 
-<meta name="generator" content="Hugo 0.31" />
+<meta name="generator" content="Hugo 0.42.1" />
 <meta property="og:title" content="nginx, Apache 2 and subversion - 502 Bad Gateway error" />
 <meta property="og:description" content="The Problem
 
@@ -43,11 +43,15 @@ I recently ran into this problem and couldn&rsquo;t find any useful information 
 <link rel="shortcut icon" href="/favicon.ico">
 
 <script>
-window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-ga('create', 'UA-11073510-1', 'auto');
-ga('send', 'pageview');
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-11073510-1', 'auto');
+	
+	ga('send', 'pageview');
+}
 </script>
-<script async src='//www.google-analytics.com/analytics.js'></script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
 
 </head>
 <body class="body body-right-sidebar mobile" itemscope="itemscope" itemtype="http://schema.org/WebPage">
@@ -178,8 +182,8 @@ Destination: https://svn.example.org/svn/repos/newname.txt</code></pre></div>
         AuthUserFile <span style="color:#e6db74">/home/svn/.htpasswd</span>
         AuthzSVNAccessFile <span style="color:#e6db74">/home/svn/conf/authz</span>
         Require valid-user
-    <span style="color:#f92672">&lt;/Location</span><span style="color:#e6db74"></span><span style="color:#f92672">&gt;</span>
-<span style="color:#f92672">&lt;/VirtualHost</span><span style="color:#e6db74"></span><span style="color:#f92672">&gt;</span></code></pre></div>
+    <span style="color:#f92672">&lt;/Location&gt;</span>
+<span style="color:#f92672">&lt;/VirtualHost&gt;</span></code></pre></div>
 		</div>
 		
 <div class="post__tags tags clearfix">
@@ -323,7 +327,7 @@ Destination: https://svn.example.org/svn/repos/newname.txt</code></pre></div>
 	</div>
 		<footer class="footer" itemscope="itemscope" itemtype="http://schema.org/WPFooter">
 			<div class="container container-inner">
-				<p class="footer__copyright">&copy; 2017 Gregory Armer. All rights reserved.</p>
+				<p class="footer__copyright">&copy; 2018 Gregory Armer. All rights reserved.</p>
 			</div>
 		</footer>
 	</div>

@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>The day the routers died...</title>
 
-<meta name="generator" content="Hugo 0.31" />
+<meta name="generator" content="Hugo 0.42.1" />
 <meta property="og:title" content="The day the routers died..." />
 <meta property="og:description" content="On February 3, 1959, Buddy Holly, Richie Valens and JP Richardson (aka The Big Bopper) died in a plane crash. Don McLean immortalized that day as &ldquo;The Day The Music Died&rdquo; in his 1971 hit, &ldquo;American Pie&rdquo;.
 
@@ -43,11 +43,15 @@ It&rsquo;s somewhat ironic that on February 3, 2010 the last five /8s from the I
 <link rel="shortcut icon" href="/favicon.ico">
 
 <script>
-window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-ga('create', 'UA-11073510-1', 'auto');
-ga('send', 'pageview');
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-11073510-1', 'auto');
+	
+	ga('send', 'pageview');
+}
 </script>
-<script async src='//www.google-analytics.com/analytics.js'></script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
 
 </head>
 <body class="body body-right-sidebar mobile" itemscope="itemscope" itemtype="http://schema.org/WebPage">
@@ -240,7 +244,7 @@ ga('send', 'pageview');
 	</div>
 		<footer class="footer" itemscope="itemscope" itemtype="http://schema.org/WPFooter">
 			<div class="container container-inner">
-				<p class="footer__copyright">&copy; 2017 Gregory Armer. All rights reserved.</p>
+				<p class="footer__copyright">&copy; 2018 Gregory Armer. All rights reserved.</p>
 			</div>
 		</footer>
 	</div>

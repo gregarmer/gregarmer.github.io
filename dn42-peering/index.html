@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>dn42 Peering Information</title>
 
-<meta name="generator" content="Hugo 0.31" />
+<meta name="generator" content="Hugo 0.42.1" />
 <meta property="og:title" content="dn42 Peering Information" />
 <meta property="og:description" content="" />
 <meta property="og:type" content="website" />
@@ -36,11 +36,15 @@
 <link rel="shortcut icon" href="/favicon.ico">
 
 <script>
-window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-ga('create', 'UA-11073510-1', 'auto');
-ga('send', 'pageview');
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-11073510-1', 'auto');
+	
+	ga('send', 'pageview');
+}
 </script>
-<script async src='//www.google-analytics.com/analytics.js'></script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
 
 </head>
 <body class="body body-right-sidebar mobile" itemscope="itemscope" itemtype="http://schema.org/WebPage">
@@ -99,6 +103,13 @@ Network Name: <strong>GXANET</strong></p>
 <li>New York, NY, USA</li>
 <li>San Francisco, CA, USA</li>
 <li>Frankfurt, DE</li>
+</ul>
+
+<h3 id="tools">Tools</h3>
+
+<ul>
+<li><a href="https://lg.gxa.dn42.io/">Looking Glass - Internet</a></li>
+<li><a href="https://lg.sigterm.dn42/">Looking Glass - DN42</a></li>
 </ul>
 
 <h3 id="ipsec-parameters">IPsec Parameters</h3>
@@ -272,7 +283,7 @@ FE4pSusk9FDNZAJu36XoO5sCAwEAAQ==
 	</div>
 		<footer class="footer" itemscope="itemscope" itemtype="http://schema.org/WPFooter">
 			<div class="container container-inner">
-				<p class="footer__copyright">&copy; 2017 Gregory Armer. All rights reserved.</p>
+				<p class="footer__copyright">&copy; 2018 Gregory Armer. All rights reserved.</p>
 			</div>
 		</footer>
 	</div>

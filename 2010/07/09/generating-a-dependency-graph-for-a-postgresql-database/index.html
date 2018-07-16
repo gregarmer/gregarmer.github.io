@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Generating a dependency graph for Postgres DB</title>
 
-<meta name="generator" content="Hugo 0.31" />
+<meta name="generator" content="Hugo 0.42.1" />
 <meta property="og:title" content="Generating a dependency graph for Postgres DB" />
 <meta property="og:description" content="This post was mostly inspired by this one, which shows how to generate a dependency graph for a MySQL database. Here we do something similar for PostgreSQL.
 
@@ -43,11 +43,15 @@ This script will generate the required digraph data to pipe into graphviz dot wh
 <link rel="shortcut icon" href="/favicon.ico">
 
 <script>
-window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-ga('create', 'UA-11073510-1', 'auto');
-ga('send', 'pageview');
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-11073510-1', 'auto');
+	
+	ga('send', 'pageview');
+}
 </script>
-<script async src='//www.google-analytics.com/analytics.js'></script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
 
 </head>
 <body class="body body-right-sidebar mobile" itemscope="itemscope" itemtype="http://schema.org/WebPage">
@@ -98,7 +102,7 @@ ga('send', 'pageview');
 
 
 <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">writedeps</span>(cursor, tbl):
-    sql <span style="color:#f92672">=</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;&#34;&#34;SELECT
+    sql <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;&#34;SELECT
 </span><span style="color:#e6db74">        tc.constraint_name, tc.table_name, kcu.column_name,
 </span><span style="color:#e6db74">        ccu.table_name AS foreign_table_name,
 </span><span style="color:#e6db74">        ccu.column_name AS foreign_column_name
@@ -112,11 +116,11 @@ ga('send', 'pageview');
     cursor<span style="color:#f92672">.</span>execute(sql <span style="color:#f92672">%</span> tbl)
     <span style="color:#66d9ef">for</span> row <span style="color:#f92672">in</span> cursor<span style="color:#f92672">.</span>fetchall():
         constraint, table, column, foreign_table, foreign_column <span style="color:#f92672">=</span> row
-        <span style="color:#66d9ef">print</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;&#34;</span><span style="color:#e6db74">%s</span><span style="color:#e6db74">&#34; -&gt; &#34;</span><span style="color:#e6db74">%s</span><span style="color:#e6db74">&#34; [label=&#34;</span><span style="color:#e6db74">%s</span><span style="color:#e6db74">&#34;];&#39;</span> <span style="color:#f92672">%</span> (tbl, foreign_table, constraint)
+        <span style="color:#66d9ef">print</span> <span style="color:#e6db74">&#39;&#34;</span><span style="color:#e6db74">%s</span><span style="color:#e6db74">&#34; -&gt; &#34;</span><span style="color:#e6db74">%s</span><span style="color:#e6db74">&#34; [label=&#34;</span><span style="color:#e6db74">%s</span><span style="color:#e6db74">&#34;];&#39;</span> <span style="color:#f92672">%</span> (tbl, foreign_table, constraint)
 
 
 <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">get_tables</span>(cursor):
-    cursor<span style="color:#f92672">.</span>execute(<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;SELECT tablename FROM pg_tables WHERE schemaname=&#39;public&#39;&#34;</span>)
+    cursor<span style="color:#f92672">.</span>execute(<span style="color:#e6db74">&#34;SELECT tablename FROM pg_tables WHERE schemaname=&#39;public&#39;&#34;</span>)
     <span style="color:#66d9ef">for</span> row <span style="color:#f92672">in</span> cursor<span style="color:#f92672">.</span>fetchall():
         <span style="color:#66d9ef">yield</span> row[<span style="color:#ae81ff">0</span>]
 
@@ -124,44 +128,44 @@ ga('send', 'pageview');
 <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">main</span>():
     parser <span style="color:#f92672">=</span> OptionParser()
 
-    group <span style="color:#f92672">=</span> OptionGroup(parser, <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;Database Options&#34;</span>)
-    group<span style="color:#f92672">.</span>add_option(<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;--dbname&#34;</span>, action<span style="color:#f92672">=</span><span style="color:#e6db74"></span><span style="color:#e6db74">&#34;store&#34;</span>, dest<span style="color:#f92672">=</span><span style="color:#e6db74"></span><span style="color:#e6db74">&#34;dbname&#34;</span>,
-            help<span style="color:#f92672">=</span><span style="color:#e6db74"></span><span style="color:#e6db74">&#34;The database name.&#34;</span>)
-    group<span style="color:#f92672">.</span>add_option(<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;--dbhost&#34;</span>, action<span style="color:#f92672">=</span><span style="color:#e6db74"></span><span style="color:#e6db74">&#34;store&#34;</span>, dest<span style="color:#f92672">=</span><span style="color:#e6db74"></span><span style="color:#e6db74">&#34;dbhost&#34;</span>,
-            default<span style="color:#f92672">=</span><span style="color:#e6db74"></span><span style="color:#e6db74">&#34;localhost&#34;</span>,  help<span style="color:#f92672">=</span><span style="color:#e6db74"></span><span style="color:#e6db74">&#34;The database host.&#34;</span>)
-    group<span style="color:#f92672">.</span>add_option(<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;--dbuser&#34;</span>, action<span style="color:#f92672">=</span><span style="color:#e6db74"></span><span style="color:#e6db74">&#34;store&#34;</span>, dest<span style="color:#f92672">=</span><span style="color:#e6db74"></span><span style="color:#e6db74">&#34;dbuser&#34;</span>,
-            help<span style="color:#f92672">=</span><span style="color:#e6db74"></span><span style="color:#e6db74">&#34;The database username.&#34;</span>)
-    group<span style="color:#f92672">.</span>add_option(<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;--dbpass&#34;</span>, action<span style="color:#f92672">=</span><span style="color:#e6db74"></span><span style="color:#e6db74">&#34;store&#34;</span>, dest<span style="color:#f92672">=</span><span style="color:#e6db74"></span><span style="color:#e6db74">&#34;dbpass&#34;</span>,
-            help<span style="color:#f92672">=</span><span style="color:#e6db74"></span><span style="color:#e6db74">&#34;The database password.&#34;</span>)
+    group <span style="color:#f92672">=</span> OptionGroup(parser, <span style="color:#e6db74">&#34;Database Options&#34;</span>)
+    group<span style="color:#f92672">.</span>add_option(<span style="color:#e6db74">&#34;--dbname&#34;</span>, action<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;store&#34;</span>, dest<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;dbname&#34;</span>,
+            help<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;The database name.&#34;</span>)
+    group<span style="color:#f92672">.</span>add_option(<span style="color:#e6db74">&#34;--dbhost&#34;</span>, action<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;store&#34;</span>, dest<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;dbhost&#34;</span>,
+            default<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;localhost&#34;</span>,  help<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;The database host.&#34;</span>)
+    group<span style="color:#f92672">.</span>add_option(<span style="color:#e6db74">&#34;--dbuser&#34;</span>, action<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;store&#34;</span>, dest<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;dbuser&#34;</span>,
+            help<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;The database username.&#34;</span>)
+    group<span style="color:#f92672">.</span>add_option(<span style="color:#e6db74">&#34;--dbpass&#34;</span>, action<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;store&#34;</span>, dest<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;dbpass&#34;</span>,
+            help<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;The database password.&#34;</span>)
     parser<span style="color:#f92672">.</span>add_option_group(group)
 
     (options, args) <span style="color:#f92672">=</span> parser<span style="color:#f92672">.</span>parse_args()
 
     <span style="color:#66d9ef">if</span> <span style="color:#f92672">not</span> options<span style="color:#f92672">.</span>dbname:
-        <span style="color:#66d9ef">print</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;Please supply a database name, see --help for more info.&#34;</span>
+        <span style="color:#66d9ef">print</span> <span style="color:#e6db74">&#34;Please supply a database name, see --help for more info.&#34;</span>
         sys<span style="color:#f92672">.</span>exit(<span style="color:#ae81ff">1</span>)
 
     <span style="color:#66d9ef">try</span>:
-        conn <span style="color:#f92672">=</span> psycopg2<span style="color:#f92672">.</span>connect(<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;dbname=&#39;</span><span style="color:#e6db74">%s</span><span style="color:#e6db74">&#39; user=&#39;</span><span style="color:#e6db74">%s</span><span style="color:#e6db74">&#39; host=&#39;</span><span style="color:#e6db74">%s</span><span style="color:#e6db74">&#39; password=&#39;</span><span style="color:#e6db74">%s</span><span style="color:#e6db74">&#39;&#34;</span>
+        conn <span style="color:#f92672">=</span> psycopg2<span style="color:#f92672">.</span>connect(<span style="color:#e6db74">&#34;dbname=&#39;</span><span style="color:#e6db74">%s</span><span style="color:#e6db74">&#39; user=&#39;</span><span style="color:#e6db74">%s</span><span style="color:#e6db74">&#39; host=&#39;</span><span style="color:#e6db74">%s</span><span style="color:#e6db74">&#39; password=&#39;</span><span style="color:#e6db74">%s</span><span style="color:#e6db74">&#39;&#34;</span>
             <span style="color:#f92672">%</span> (options<span style="color:#f92672">.</span>dbname, options<span style="color:#f92672">.</span>dbuser, options<span style="color:#f92672">.</span>dbhost, options<span style="color:#f92672">.</span>dbpass))
     <span style="color:#66d9ef">except</span> psycopg2<span style="color:#f92672">.</span>OperationalError, e:
-        <span style="color:#66d9ef">print</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;Failed to connect to database,&#34;</span>,
-        <span style="color:#66d9ef">print</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;perhaps you need to supply auth details:</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74"> </span><span style="color:#e6db74">%s</span><span style="color:#e6db74">&#34;</span> <span style="color:#f92672">%</span> str(e)
-        <span style="color:#66d9ef">print</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;Use --help for more info.&#34;</span>
+        <span style="color:#66d9ef">print</span> <span style="color:#e6db74">&#34;Failed to connect to database,&#34;</span>,
+        <span style="color:#66d9ef">print</span> <span style="color:#e6db74">&#34;perhaps you need to supply auth details:</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74"> </span><span style="color:#e6db74">%s</span><span style="color:#e6db74">&#34;</span> <span style="color:#f92672">%</span> str(e)
+        <span style="color:#66d9ef">print</span> <span style="color:#e6db74">&#34;Use --help for more info.&#34;</span>
         sys<span style="color:#f92672">.</span>exit(<span style="color:#ae81ff">1</span>)
 
     cursor <span style="color:#f92672">=</span> conn<span style="color:#f92672">.</span>cursor()
 
-    <span style="color:#66d9ef">print</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;Digraph F {</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>
-    <span style="color:#66d9ef">print</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;ranksep=1.0; size=&#34;18.5, 15.5&#34;; rankdir=LR;&#39;</span>
+    <span style="color:#66d9ef">print</span> <span style="color:#e6db74">&#34;Digraph F {</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>
+    <span style="color:#66d9ef">print</span> <span style="color:#e6db74">&#39;ranksep=1.0; size=&#34;18.5, 15.5&#34;; rankdir=LR;&#39;</span>
     <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> get_tables(cursor):
         writedeps(cursor, i)
-    <span style="color:#66d9ef">print</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;}&#34;</span>
+    <span style="color:#66d9ef">print</span> <span style="color:#e6db74">&#34;}&#34;</span>
 
     sys<span style="color:#f92672">.</span>exit(<span style="color:#ae81ff">0</span>)
 
 
-<span style="color:#66d9ef">if</span> __name__ <span style="color:#f92672">==</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;__main__&#34;</span>:
+<span style="color:#66d9ef">if</span> __name__ <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;__main__&#34;</span>:
     main()</code></pre></div>
 <p>You could run it as follows:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-console" data-lang="console">python postgres-deps.py --dbname some_database | dot -Tpng &gt; deps.png</code></pre></div>
@@ -314,7 +318,7 @@ ga('send', 'pageview');
 	</div>
 		<footer class="footer" itemscope="itemscope" itemtype="http://schema.org/WPFooter">
 			<div class="container container-inner">
-				<p class="footer__copyright">&copy; 2017 Gregory Armer. All rights reserved.</p>
+				<p class="footer__copyright">&copy; 2018 Gregory Armer. All rights reserved.</p>
 			</div>
 		</footer>
 	</div>

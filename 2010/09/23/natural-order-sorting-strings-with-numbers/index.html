@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Natural order sorting strings with numbers</title>
 
-<meta name="generator" content="Hugo 0.31" />
+<meta name="generator" content="Hugo 0.42.1" />
 <meta property="og:title" content="Natural order sorting strings with numbers" />
 <meta property="og:description" content="The following python code makes natural sorting sequences of lexical and numerical values a little easier. It supports any iterable containing strings which have embedded numbers. In short it would give you this:
 
@@ -47,11 +47,15 @@ foo1 &lt; foo10 &lt; foo2
 <link rel="shortcut icon" href="/favicon.ico">
 
 <script>
-window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-ga('create', 'UA-11073510-1', 'auto');
-ga('send', 'pageview');
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-11073510-1', 'auto');
+	
+	ga('send', 'pageview');
+}
 </script>
-<script async src='//www.google-analytics.com/analytics.js'></script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
 
 </head>
 <body class="body body-right-sidebar mobile" itemscope="itemscope" itemtype="http://schema.org/WebPage">
@@ -99,21 +103,21 @@ ga('send', 'pageview');
 <p></p>
 
 <p>As an example, if you have this sequence:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">&gt;&gt;&gt;</span> seq <span style="color:#f92672">=</span> [<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;foo&#39;</span>, <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;foo1&#39;</span>, <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;foo2&#39;</span>, <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;foo10&#39;</span>, <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;foobar10&#39;</span>, <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;20&#39;</span>, <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;100&#39;</span>, <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;1&#39;</span>, <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;3&#39;</span>, <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;bar1&#39;</span>]</code></pre></div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">&gt;&gt;&gt;</span> seq <span style="color:#f92672">=</span> [<span style="color:#e6db74">&#39;foo&#39;</span>, <span style="color:#e6db74">&#39;foo1&#39;</span>, <span style="color:#e6db74">&#39;foo2&#39;</span>, <span style="color:#e6db74">&#39;foo10&#39;</span>, <span style="color:#e6db74">&#39;foobar10&#39;</span>, <span style="color:#e6db74">&#39;20&#39;</span>, <span style="color:#e6db74">&#39;100&#39;</span>, <span style="color:#e6db74">&#39;1&#39;</span>, <span style="color:#e6db74">&#39;3&#39;</span>, <span style="color:#e6db74">&#39;bar1&#39;</span>]</code></pre></div>
 <p>a regular sort would produce this:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">&gt;&gt;&gt;</span> sorted(seq)
-[<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;1&#39;</span>, <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;100&#39;</span>, <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;20&#39;</span>, <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;3&#39;</span>, <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;bar1&#39;</span>, <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;foo&#39;</span>, <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;foo1&#39;</span>, <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;foo10&#39;</span>, <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;foo2&#39;</span>, <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;foobar10&#39;</span>]</code></pre></div>
+[<span style="color:#e6db74">&#39;1&#39;</span>, <span style="color:#e6db74">&#39;100&#39;</span>, <span style="color:#e6db74">&#39;20&#39;</span>, <span style="color:#e6db74">&#39;3&#39;</span>, <span style="color:#e6db74">&#39;bar1&#39;</span>, <span style="color:#e6db74">&#39;foo&#39;</span>, <span style="color:#e6db74">&#39;foo1&#39;</span>, <span style="color:#e6db74">&#39;foo10&#39;</span>, <span style="color:#e6db74">&#39;foo2&#39;</span>, <span style="color:#e6db74">&#39;foobar10&#39;</span>]</code></pre></div>
 <p>whereas a natural sort would produce this:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">&gt;&gt;&gt;</span> natural_sort(seq)
-[<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;1&#39;</span>, <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;3&#39;</span>, <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;20&#39;</span>, <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;100&#39;</span>, <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;bar1&#39;</span>, <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;foo&#39;</span>, <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;foo1&#39;</span>, <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;foo2&#39;</span>, <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;foo10&#39;</span>, <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;foobar10&#39;</span>]</code></pre></div>
+[<span style="color:#e6db74">&#39;1&#39;</span>, <span style="color:#e6db74">&#39;3&#39;</span>, <span style="color:#e6db74">&#39;20&#39;</span>, <span style="color:#e6db74">&#39;100&#39;</span>, <span style="color:#e6db74">&#39;bar1&#39;</span>, <span style="color:#e6db74">&#39;foo&#39;</span>, <span style="color:#e6db74">&#39;foo1&#39;</span>, <span style="color:#e6db74">&#39;foo2&#39;</span>, <span style="color:#e6db74">&#39;foo10&#39;</span>, <span style="color:#e6db74">&#39;foobar10&#39;</span>]</code></pre></div>
 <p>Here is the code:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> re
 
 <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">natsort_key</span>(item):
-    chunks <span style="color:#f92672">=</span> re<span style="color:#f92672">.</span>split(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;(\d+(?:\.\d+)?)&#39;</span>, item)
+    chunks <span style="color:#f92672">=</span> re<span style="color:#f92672">.</span>split(<span style="color:#e6db74">&#39;(\d+(?:\.\d+)?)&#39;</span>, item)
     <span style="color:#66d9ef">for</span> ii <span style="color:#f92672">in</span> range(len(chunks)):
-        <span style="color:#66d9ef">if</span> chunks[ii] <span style="color:#f92672">and</span> chunks[ii][<span style="color:#ae81ff">0</span>] <span style="color:#f92672">in</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;0123456789&#39;</span>:
-            <span style="color:#66d9ef">if</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;.&#39;</span> <span style="color:#f92672">in</span> chunks[ii]: numtype <span style="color:#f92672">=</span> float
+        <span style="color:#66d9ef">if</span> chunks[ii] <span style="color:#f92672">and</span> chunks[ii][<span style="color:#ae81ff">0</span>] <span style="color:#f92672">in</span> <span style="color:#e6db74">&#39;0123456789&#39;</span>:
+            <span style="color:#66d9ef">if</span> <span style="color:#e6db74">&#39;.&#39;</span> <span style="color:#f92672">in</span> chunks[ii]: numtype <span style="color:#f92672">=</span> float
             <span style="color:#66d9ef">else</span>: numtype <span style="color:#f92672">=</span> int
             chunks[ii] <span style="color:#f92672">=</span> (<span style="color:#ae81ff">0</span>, numtype(chunks[ii]))
         <span style="color:#66d9ef">else</span>:
@@ -268,7 +272,7 @@ ga('send', 'pageview');
 	</div>
 		<footer class="footer" itemscope="itemscope" itemtype="http://schema.org/WPFooter">
 			<div class="container container-inner">
-				<p class="footer__copyright">&copy; 2017 Gregory Armer. All rights reserved.</p>
+				<p class="footer__copyright">&copy; 2018 Gregory Armer. All rights reserved.</p>
 			</div>
 		</footer>
 	</div>
