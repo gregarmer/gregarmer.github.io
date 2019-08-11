@@ -5,31 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Generating a dependency graph for Postgres DB</title>
 
-<meta name="generator" content="Hugo 0.42.1" />
+<meta name="generator" content="Hugo 0.52" />
 <meta property="og:title" content="Generating a dependency graph for Postgres DB" />
 <meta property="og:description" content="This post was mostly inspired by this one, which shows how to generate a dependency graph for a MySQL database. Here we do something similar for PostgreSQL.
 
-This script will generate the required digraph data to pipe into graphviz dot which will generate a visual representation of dependencies in a database schema, based on foreign key constraints.
-
-" />
+This script will generate the required digraph data to pipe into graphviz dot which will generate a visual representation of dependencies in a database schema, based on foreign key constraints." />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="/2010/07/09/generating-a-dependency-graph-for-a-postgresql-database/" />
-
-
-
-<meta property="article:published_time" content="2010-07-09T12:00:00-04:00"/>
-
+<meta property="og:url" content="/2010/07/09/generating-a-dependency-graph-for-a-postgresql-database/" /><meta property="article:published_time" content="2010-07-09T12:00:00-04:00"/>
 <meta property="article:modified_time" content="2010-07-09T12:00:00-04:00"/>
-
-
-
-
-
-
-
-
-
-
 
 <link rel="dns-prefetch" href="//fonts.googleapis.com" />
 <link rel="dns-prefetch" href="//fonts.gstatic.com" />
@@ -42,7 +25,7 @@ This script will generate the required digraph data to pipe into graphviz dot wh
 <script type="text/javascript" src="/js/scripts.js"></script>
 <link rel="shortcut icon" href="/favicon.ico">
 
-<script>
+<script type="application/javascript">
 var doNotTrack = false;
 if (!doNotTrack) {
 	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
@@ -91,8 +74,6 @@ if (!doNotTrack) {
 			<p>This post was mostly inspired by <a href="http://code.activestate.com/recipes/577298-plot-database-table-dependecies-for-a-mysql-databa/">this one</a>, which shows how to generate a dependency graph for a MySQL database. Here we do something similar for PostgreSQL.</p>
 
 <p>This script will generate the required digraph data to pipe into <a href="http://www.graphviz.org/" target="_blank">graphviz dot</a> which will generate a visual representation of dependencies in a database schema, based on foreign key constraints.</p>
-
-<p></p>
 
 <p>The script:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> optparse <span style="color:#f92672">import</span> OptionParser, OptionGroup
@@ -189,7 +170,7 @@ if (!doNotTrack) {
 	
 <div class="authorbox clearfix">
 	<figure class="authorbox__avatar">
-		<img alt="Gregory Armer avatar" src="/avatar.jpeg" class="avatar" height="90" width="90">
+		<img alt="Gregory Armer avatar" src="/greg.png" class="avatar" height="90" width="90">
 	</figure>
 	<div class="authorbox__header">
 		<span class="authorbox__name">About Gregory Armer</span>
@@ -211,7 +192,7 @@ if (!doNotTrack) {
 	
 <div class="comments">
 	<div id="disqus_thread"></div>
-<script>
+<script type="application/javascript">
     var disqus_config = function () {
     
     
@@ -318,7 +299,7 @@ if (!doNotTrack) {
 	</div>
 		<footer class="footer" itemscope="itemscope" itemtype="http://schema.org/WPFooter">
 			<div class="container container-inner">
-				<p class="footer__copyright">&copy; 2018 Gregory Armer. All rights reserved.</p>
+				<p class="footer__copyright">&copy; 2019 Gregory Armer. All rights reserved.</p>
 			</div>
 		</footer>
 	</div>

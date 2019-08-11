@@ -20,9 +20,7 @@
       <description>&lt;p&gt;I&amp;rsquo;ve been setting up a small home lab for testing various things out and I
 needed some space for virtual machines. I don&amp;rsquo;t have any requirements for
 insane performance, but I also didn&amp;rsquo;t want a really sluggish setup, so here&amp;rsquo;s
-what I did&amp;hellip;&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+what I did&amp;hellip;&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -33,9 +31,7 @@ what I did&amp;hellip;&lt;/p&gt;
       <guid>/2014/10/26/ssl-configuration/</guid>
       <description>&lt;p&gt;As you may have noticed, this site is now served over HTTPS!&lt;/p&gt;
 
-&lt;p&gt;IE6 users, you&amp;rsquo;re pretty much SOL since I turned off all your cipher suites. It&amp;rsquo;s 2014 and it&amp;rsquo;s probably a pretty good time to get yourself a slightly newer browser anyway.&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;IE6 users, you&amp;rsquo;re pretty much SOL since I turned off all your cipher suites. It&amp;rsquo;s 2014 and it&amp;rsquo;s probably a pretty good time to get yourself a slightly newer browser anyway.&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -48,9 +44,7 @@ what I did&amp;hellip;&lt;/p&gt;
 
 &lt;p&gt;This guide will help you setup a highly available NFS server on Debian Wheezy. This is a relatively battle-tested configuration, and there is plenty information out there on how it works - I&amp;rsquo;ll include some links at the end of this post.&lt;/p&gt;
 
-&lt;p&gt;I was using GlusterFS up until recently, but I&amp;rsquo;m not happy with file corruption issues I&amp;rsquo;m seeing, and the insane load it puts on 2 rather beefy servers trying to resync data after one fails for just a short time.&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;I was using GlusterFS up until recently, but I&amp;rsquo;m not happy with file corruption issues I&amp;rsquo;m seeing, and the insane load it puts on 2 rather beefy servers trying to resync data after one fails for just a short time.&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -59,9 +53,7 @@ what I did&amp;hellip;&lt;/p&gt;
       <pubDate>Fri, 28 Sep 2012 12:00:00 -0400</pubDate>
       
       <guid>/2012/09/28/blocking-web-traffic-behind-an-elastic-load-balancer-elb/</guid>
-      <description>&lt;p&gt;Over the past few hours we&amp;rsquo;ve been on the receiving end of a fairly large scale set of web requests (read: attack) to a website we host over on Amazon EC2. Our setup is not really that complicated, however we encountered a problem that wasn&amp;rsquo;t that easy to solve.&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+      <description>&lt;p&gt;Over the past few hours we&amp;rsquo;ve been on the receiving end of a fairly large scale set of web requests (read: attack) to a website we host over on Amazon EC2. Our setup is not really that complicated, however we encountered a problem that wasn&amp;rsquo;t that easy to solve.&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -70,9 +62,7 @@ what I did&amp;hellip;&lt;/p&gt;
       <pubDate>Sun, 02 Jan 2011 12:00:00 -0400</pubDate>
       
       <guid>/2011/01/02/puppet-modules-debsecan/</guid>
-      <description>&lt;p&gt;This is the first post of (hopefully) many, detailing some of my &lt;a href=&#34;http://www.puppetlabs.com/&#34;&gt;Puppet&lt;/a&gt; module implementations. Being the first, I thought I would start off with something simple.&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+      <description>&lt;p&gt;This is the first post of (hopefully) many, detailing some of my &lt;a href=&#34;http://www.puppetlabs.com/&#34;&gt;Puppet&lt;/a&gt; module implementations. Being the first, I thought I would start off with something simple.&lt;/p&gt;</description>
     </item>
     
   </channel>

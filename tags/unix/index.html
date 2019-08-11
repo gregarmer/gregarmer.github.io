@@ -5,24 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Unix</title>
 
-<meta name="generator" content="Hugo 0.42.1" />
+<meta name="generator" content="Hugo 0.52" />
 <meta property="og:title" content="Unix" />
 <meta property="og:description" content="" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="/tags/unix/" />
-
-
-
 <meta property="og:updated_time" content="2017-07-29T22:27:00-04:00"/>
-
-
-
-
-
-
-
-
-
 
 <link rel="dns-prefetch" href="//fonts.googleapis.com" />
 <link rel="dns-prefetch" href="//fonts.gstatic.com" />
@@ -35,7 +23,7 @@
 <script type="text/javascript" src="/js/scripts.js"></script>
 <link rel="shortcut icon" href="/favicon.ico">
 
-<script>
+<script type="application/javascript">
 var doNotTrack = false;
 if (!doNotTrack) {
 	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
@@ -95,8 +83,6 @@ if (!doNotTrack) {
 needed some space for virtual machines. I don&rsquo;t have any requirements for
 insane performance, but I also didn&rsquo;t want a really sluggish setup, so here&rsquo;s
 what I did&hellip;</p>
-
-<p></p>
 		</div>
 	</div>
 </article>
@@ -113,8 +99,6 @@ what I did&hellip;</p>
 		</header>
 		<div class="list__excerpt">
 			<p>Over the past few hours we&rsquo;ve been on the receiving end of a fairly large scale set of web requests (read: attack) to a website we host over on Amazon EC2. Our setup is not really that complicated, however we encountered a problem that wasn&rsquo;t that easy to solve.</p>
-
-<p></p>
 		</div>
 	</div>
 </article>
@@ -133,8 +117,6 @@ what I did&hellip;</p>
 			<p>This post is thanks to a suggestion from <a href="http://twitter.com/froztbyte">JP Viljoen</a> to check out <a href="http://ferm.foo-projects.org/">ferm</a>. Well, I did, and it&rsquo;s fairly neat. You get to express your firewall configuration in structures resembling simple C code along with using things like arrays, functions and if / else constructs which makes building complex rulesets quite a simple task.</p>
 
 <p>I&rsquo;ve included an example configuration below of one of my machines. The network configuration is not extremely complex, but there is a mix of IPv4, IPv6 and - as this is an IRC server - some DNAT to make the IRC service available on a number of other privileged ports without having the service actually listen on those ports. This particular server is running Debian however ferm is basically just a front to ip(6)tables so it&rsquo;ll run pretty much anywhere that runs.</p>
-
-<p></p>
 		</div>
 	</div>
 </article>
@@ -151,8 +133,6 @@ what I did&hellip;</p>
 		</header>
 		<div class="list__excerpt">
 			<p>For some reason the OS X install of Git doesn&rsquo;t include the manpages. Here is how I installed them.</p>
-
-<p></p>
 		</div>
 	</div>
 </article>
@@ -169,8 +149,6 @@ what I did&hellip;</p>
 		</header>
 		<div class="list__excerpt">
 			<p>This is something I always search for which doesn&rsquo;t seem to be very clear from the initial results. The mirrors included below are South Africa specific, so if you are not in South Africa then replace the hostname with something more appropriate for your location.</p>
-
-<p></p>
 		</div>
 	</div>
 </article>
@@ -189,8 +167,6 @@ what I did&hellip;</p>
 			<p>This simple how-to explains how to get your Time Machine backups working with a ZFS filesystem. This allows you to use the features of ZFS filesystems for your Time Machine backups.</p>
 
 <p><strong>Please note this is for Mac OS X - Snow Leopard.</strong></p>
-
-<p></p>
 		</div>
 	</div>
 </article>
@@ -226,8 +202,6 @@ root@tank:~# zonestat ZONEID NPROC SWAP RSS MEMORY TIME CPU ZONE 0 58 1198M 1206
 		</header>
 		<div class="list__excerpt">
 			<p>This post was mostly inspired by reading <a href="http://www.1stbyte.com/2009/07/24/zfs-cifs-and-acl-inheritance/">this post</a> in trying to get my head around the ZFS ACL and permission system.</p>
-
-<p></p>
 		</div>
 	</div>
 </article>
@@ -246,8 +220,6 @@ root@tank:~# zonestat ZONEID NPROC SWAP RSS MEMORY TIME CPU ZONE 0 58 1198M 1206
 			<p>Here is a simple way to run something on UNIX / Linux as another user, without having to resort to weird sudo incantations. The Makefile is left as an exercise for the reader.</p>
 
 <p>This has only been tested on FreeBSD, Debian Linux and OpenSolaris so far.</p>
-
-<p></p>
 		</div>
 	</div>
 </article>
@@ -340,7 +312,7 @@ root@tank:~# zonestat ZONEID NPROC SWAP RSS MEMORY TIME CPU ZONE 0 58 1198M 1206
 	</div>
 		<footer class="footer" itemscope="itemscope" itemtype="http://schema.org/WPFooter">
 			<div class="container container-inner">
-				<p class="footer__copyright">&copy; 2018 Gregory Armer. All rights reserved.</p>
+				<p class="footer__copyright">&copy; 2019 Gregory Armer. All rights reserved.</p>
 			</div>
 		</footer>
 	</div>

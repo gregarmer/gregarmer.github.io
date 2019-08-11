@@ -21,9 +21,7 @@
 
 &lt;p&gt;This guide will help you setup a highly available NFS server on Debian Wheezy. This is a relatively battle-tested configuration, and there is plenty information out there on how it works - I&amp;rsquo;ll include some links at the end of this post.&lt;/p&gt;
 
-&lt;p&gt;I was using GlusterFS up until recently, but I&amp;rsquo;m not happy with file corruption issues I&amp;rsquo;m seeing, and the insane load it puts on 2 rather beefy servers trying to resync data after one fails for just a short time.&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;I was using GlusterFS up until recently, but I&amp;rsquo;m not happy with file corruption issues I&amp;rsquo;m seeing, and the insane load it puts on 2 rather beefy servers trying to resync data after one fails for just a short time.&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -32,9 +30,7 @@
       <pubDate>Sun, 02 Jan 2011 12:00:00 -0400</pubDate>
       
       <guid>/2011/01/02/puppet-modules-debsecan/</guid>
-      <description>&lt;p&gt;This is the first post of (hopefully) many, detailing some of my &lt;a href=&#34;http://www.puppetlabs.com/&#34;&gt;Puppet&lt;/a&gt; module implementations. Being the first, I thought I would start off with something simple.&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+      <description>&lt;p&gt;This is the first post of (hopefully) many, detailing some of my &lt;a href=&#34;http://www.puppetlabs.com/&#34;&gt;Puppet&lt;/a&gt; module implementations. Being the first, I thought I would start off with something simple.&lt;/p&gt;</description>
     </item>
     
   </channel>

@@ -20,9 +20,7 @@
       <description>&lt;p&gt;I&amp;rsquo;ve been setting up a small home lab for testing various things out and I
 needed some space for virtual machines. I don&amp;rsquo;t have any requirements for
 insane performance, but I also didn&amp;rsquo;t want a really sluggish setup, so here&amp;rsquo;s
-what I did&amp;hellip;&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+what I did&amp;hellip;&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -31,9 +29,7 @@ what I did&amp;hellip;&lt;/p&gt;
       <pubDate>Fri, 28 Sep 2012 12:00:00 -0400</pubDate>
       
       <guid>/2012/09/28/blocking-web-traffic-behind-an-elastic-load-balancer-elb/</guid>
-      <description>&lt;p&gt;Over the past few hours we&amp;rsquo;ve been on the receiving end of a fairly large scale set of web requests (read: attack) to a website we host over on Amazon EC2. Our setup is not really that complicated, however we encountered a problem that wasn&amp;rsquo;t that easy to solve.&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+      <description>&lt;p&gt;Over the past few hours we&amp;rsquo;ve been on the receiving end of a fairly large scale set of web requests (read: attack) to a website we host over on Amazon EC2. Our setup is not really that complicated, however we encountered a problem that wasn&amp;rsquo;t that easy to solve.&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -44,9 +40,7 @@ what I did&amp;hellip;&lt;/p&gt;
       <guid>/2010/12/31/using-ferm-to-build-firewall-rulesets/</guid>
       <description>&lt;p&gt;This post is thanks to a suggestion from &lt;a href=&#34;http://twitter.com/froztbyte&#34;&gt;JP Viljoen&lt;/a&gt; to check out &lt;a href=&#34;http://ferm.foo-projects.org/&#34;&gt;ferm&lt;/a&gt;. Well, I did, and it&amp;rsquo;s fairly neat. You get to express your firewall configuration in structures resembling simple C code along with using things like arrays, functions and if / else constructs which makes building complex rulesets quite a simple task.&lt;/p&gt;
 
-&lt;p&gt;I&amp;rsquo;ve included an example configuration below of one of my machines. The network configuration is not extremely complex, but there is a mix of IPv4, IPv6 and - as this is an IRC server - some DNAT to make the IRC service available on a number of other privileged ports without having the service actually listen on those ports. This particular server is running Debian however ferm is basically just a front to ip(6)tables so it&amp;rsquo;ll run pretty much anywhere that runs.&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;I&amp;rsquo;ve included an example configuration below of one of my machines. The network configuration is not extremely complex, but there is a mix of IPv4, IPv6 and - as this is an IRC server - some DNAT to make the IRC service available on a number of other privileged ports without having the service actually listen on those ports. This particular server is running Debian however ferm is basically just a front to ip(6)tables so it&amp;rsquo;ll run pretty much anywhere that runs.&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -55,9 +49,7 @@ what I did&amp;hellip;&lt;/p&gt;
       <pubDate>Thu, 15 Apr 2010 12:00:00 -0400</pubDate>
       
       <guid>/2010/04/15/getting-git-manpages-on-os-x/</guid>
-      <description>&lt;p&gt;For some reason the OS X install of Git doesn&amp;rsquo;t include the manpages. Here is how I installed them.&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+      <description>&lt;p&gt;For some reason the OS X install of Git doesn&amp;rsquo;t include the manpages. Here is how I installed them.&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -66,9 +58,7 @@ what I did&amp;hellip;&lt;/p&gt;
       <pubDate>Mon, 12 Oct 2009 16:00:00 -0400</pubDate>
       
       <guid>/2009/10/12/using-an-alternative-mirror-for-freebsd-port-retrieval/</guid>
-      <description>&lt;p&gt;This is something I always search for which doesn&amp;rsquo;t seem to be very clear from the initial results. The mirrors included below are South Africa specific, so if you are not in South Africa then replace the hostname with something more appropriate for your location.&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+      <description>&lt;p&gt;This is something I always search for which doesn&amp;rsquo;t seem to be very clear from the initial results. The mirrors included below are South Africa specific, so if you are not in South Africa then replace the hostname with something more appropriate for your location.&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -79,9 +69,7 @@ what I did&amp;hellip;&lt;/p&gt;
       <guid>/2009/10/04/using-a-zfs-filesystem-with-time-machine/</guid>
       <description>&lt;p&gt;This simple how-to explains how to get your Time Machine backups working with a ZFS filesystem. This allows you to use the features of ZFS filesystems for your Time Machine backups.&lt;/p&gt;
 
-&lt;p&gt;&lt;strong&gt;Please note this is for Mac OS X - Snow Leopard.&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;&lt;strong&gt;Please note this is for Mac OS X - Snow Leopard.&lt;/strong&gt;&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -102,9 +90,7 @@ root@tank:~# zonestat ZONEID NPROC SWAP RSS MEMORY TIME CPU ZONE 0 58 1198M 1206
       <pubDate>Fri, 31 Jul 2009 12:00:00 -0400</pubDate>
       
       <guid>/2009/07/31/the-basics-of-zfs-acls/</guid>
-      <description>&lt;p&gt;This post was mostly inspired by reading &lt;a href=&#34;http://www.1stbyte.com/2009/07/24/zfs-cifs-and-acl-inheritance/&#34;&gt;this post&lt;/a&gt; in trying to get my head around the ZFS ACL and permission system.&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+      <description>&lt;p&gt;This post was mostly inspired by reading &lt;a href=&#34;http://www.1stbyte.com/2009/07/24/zfs-cifs-and-acl-inheritance/&#34;&gt;this post&lt;/a&gt; in trying to get my head around the ZFS ACL and permission system.&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -115,9 +101,7 @@ root@tank:~# zonestat ZONEID NPROC SWAP RSS MEMORY TIME CPU ZONE 0 58 1198M 1206
       <guid>/2009/07/08/run-something-as-another-user/</guid>
       <description>&lt;p&gt;Here is a simple way to run something on UNIX / Linux as another user, without having to resort to weird sudo incantations. The Makefile is left as an exercise for the reader.&lt;/p&gt;
 
-&lt;p&gt;This has only been tested on FreeBSD, Debian Linux and OpenSolaris so far.&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;This has only been tested on FreeBSD, Debian Linux and OpenSolaris so far.&lt;/p&gt;</description>
     </item>
     
   </channel>

@@ -5,31 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>nginx, Apache 2 and subversion - 502 Bad Gateway error</title>
 
-<meta name="generator" content="Hugo 0.42.1" />
+<meta name="generator" content="Hugo 0.52" />
 <meta property="og:title" content="nginx, Apache 2 and subversion - 502 Bad Gateway error" />
 <meta property="og:description" content="The Problem
 
-I recently ran into this problem and couldn&rsquo;t find any useful information on the net around fixing it. All subversion checkouts, commits and other basic operations work just fine, but when attempting to copy, move or tag (copy) I would get the below (502 Bad Gateway) error.
-
-" />
+I recently ran into this problem and couldn&rsquo;t find any useful information on the net around fixing it. All subversion checkouts, commits and other basic operations work just fine, but when attempting to copy, move or tag (copy) I would get the below (502 Bad Gateway) error." />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="/2012/10/09/nginx-apache-2-and-subversion-502-bad-gateway-error/" />
-
-
-
-<meta property="article:published_time" content="2012-10-09T12:00:00-04:00"/>
-
+<meta property="og:url" content="/2012/10/09/nginx-apache-2-and-subversion-502-bad-gateway-error/" /><meta property="article:published_time" content="2012-10-09T12:00:00-04:00"/>
 <meta property="article:modified_time" content="2012-10-09T12:00:00-04:00"/>
-
-
-
-
-
-
-
-
-
-
 
 <link rel="dns-prefetch" href="//fonts.googleapis.com" />
 <link rel="dns-prefetch" href="//fonts.gstatic.com" />
@@ -42,7 +25,7 @@ I recently ran into this problem and couldn&rsquo;t find any useful information 
 <script type="text/javascript" src="/js/scripts.js"></script>
 <link rel="shortcut icon" href="/favicon.ico">
 
-<script>
+<script type="application/javascript">
 var doNotTrack = false;
 if (!doNotTrack) {
 	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
@@ -92,7 +75,6 @@ if (!doNotTrack) {
 
 <p>I recently ran into this problem and couldn&rsquo;t find any useful information on the net around fixing it. All subversion checkouts, commits and other basic operations work just fine, but when attempting to copy, move or tag (copy) I would get the below (502 Bad Gateway) error.</p>
 
-<p></p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-console" data-lang="console">greg@codemine:~/code/Foo (git-svn)-[trunk] %&gt; git svn tag foo-2.1.1
 Copying https://svn/projects/Foo/trunk at r18311 to https://svn/projects/Foo/tags/foo-2.1.1...
 RA layer request failed: Server sent unexpected return value (502 Bad Gateway) in response to COPY request for &#39;/projects/!svn/bc/18311/Foo/trunk&#39; at /usr/libexec/git-core/git-svn line 1123</code></pre></div>
@@ -198,7 +180,7 @@ Destination: https://svn.example.org/svn/repos/newname.txt</code></pre></div>
 	
 <div class="authorbox clearfix">
 	<figure class="authorbox__avatar">
-		<img alt="Gregory Armer avatar" src="/avatar.jpeg" class="avatar" height="90" width="90">
+		<img alt="Gregory Armer avatar" src="/greg.png" class="avatar" height="90" width="90">
 	</figure>
 	<div class="authorbox__header">
 		<span class="authorbox__name">About Gregory Armer</span>
@@ -220,7 +202,7 @@ Destination: https://svn.example.org/svn/repos/newname.txt</code></pre></div>
 	
 <div class="comments">
 	<div id="disqus_thread"></div>
-<script>
+<script type="application/javascript">
     var disqus_config = function () {
     
     
@@ -327,7 +309,7 @@ Destination: https://svn.example.org/svn/repos/newname.txt</code></pre></div>
 	</div>
 		<footer class="footer" itemscope="itemscope" itemtype="http://schema.org/WPFooter">
 			<div class="container container-inner">
-				<p class="footer__copyright">&copy; 2018 Gregory Armer. All rights reserved.</p>
+				<p class="footer__copyright">&copy; 2019 Gregory Armer. All rights reserved.</p>
 			</div>
 		</footer>
 	</div>

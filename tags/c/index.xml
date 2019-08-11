@@ -19,9 +19,7 @@
       <guid>/2009/12/26/extending-python-with-modules-written-in-c/</guid>
       <description>&lt;p&gt;Using C (or C++) to create Python modules is really quite simple, providing you know a little C of course. I recently had to do some work around getting a bunch of legacy C code talking to a newer system and thought I&amp;rsquo;d post a nice simple example of how the Python extensions work.&lt;/p&gt;
 
-&lt;p&gt;This code gives you a single method &amp;ldquo;do()&amp;rdquo; that will print the output of a command, passed to it as a string, to stdout and return the exit code as a python int.&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;This code gives you a single method &amp;ldquo;do()&amp;rdquo; that will print the output of a command, passed to it as a string, to stdout and return the exit code as a python int.&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -32,9 +30,7 @@
       <guid>/2009/07/08/run-something-as-another-user/</guid>
       <description>&lt;p&gt;Here is a simple way to run something on UNIX / Linux as another user, without having to resort to weird sudo incantations. The Makefile is left as an exercise for the reader.&lt;/p&gt;
 
-&lt;p&gt;This has only been tested on FreeBSD, Debian Linux and OpenSolaris so far.&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;This has only been tested on FreeBSD, Debian Linux and OpenSolaris so far.&lt;/p&gt;</description>
     </item>
     
   </channel>

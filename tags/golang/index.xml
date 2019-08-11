@@ -17,9 +17,7 @@
       <pubDate>Sun, 08 Mar 2015 18:58:00 -0400</pubDate>
       
       <guid>/2015/03/08/recording-backend-processing-time-in-go/</guid>
-      <description>&lt;p&gt;I recently wrote a RESTful web service in Golang, and wanted to pull out some stats on how my handlers were doing in terms of performance.&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+      <description>&lt;p&gt;I recently wrote a RESTful web service in Golang, and wanted to pull out some stats on how my handlers were doing in terms of performance.&lt;/p&gt;</description>
     </item>
     
   </channel>

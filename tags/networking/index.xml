@@ -20,9 +20,7 @@
       <description>&lt;p&gt;I&amp;rsquo;ve been setting up a small home lab for testing various things out and I
 needed some space for virtual machines. I don&amp;rsquo;t have any requirements for
 insane performance, but I also didn&amp;rsquo;t want a really sluggish setup, so here&amp;rsquo;s
-what I did&amp;hellip;&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+what I did&amp;hellip;&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -31,9 +29,7 @@ what I did&amp;hellip;&lt;/p&gt;
       <pubDate>Sat, 05 Nov 2016 14:26:00 -0400</pubDate>
       
       <guid>/2016/11/05/passing-vlans-over-an-lacp-trunk-in-openbsd/</guid>
-      <description>&lt;p&gt;It took me a little while to figure this out, so for anyone stuck on this, here&amp;rsquo;s what I did.&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+      <description>&lt;p&gt;It took me a little while to figure this out, so for anyone stuck on this, here&amp;rsquo;s what I did.&lt;/p&gt;</description>
     </item>
     
   </channel>

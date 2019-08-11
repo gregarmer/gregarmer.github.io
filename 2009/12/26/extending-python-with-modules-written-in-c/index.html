@@ -5,31 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Extending Python with modules written in C</title>
 
-<meta name="generator" content="Hugo 0.42.1" />
+<meta name="generator" content="Hugo 0.52" />
 <meta property="og:title" content="Extending Python with modules written in C" />
 <meta property="og:description" content="Using C (or C&#43;&#43;) to create Python modules is really quite simple, providing you know a little C of course. I recently had to do some work around getting a bunch of legacy C code talking to a newer system and thought I&rsquo;d post a nice simple example of how the Python extensions work.
 
-This code gives you a single method &ldquo;do()&rdquo; that will print the output of a command, passed to it as a string, to stdout and return the exit code as a python int.
-
-" />
+This code gives you a single method &ldquo;do()&rdquo; that will print the output of a command, passed to it as a string, to stdout and return the exit code as a python int." />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="/2009/12/26/extending-python-with-modules-written-in-c/" />
-
-
-
-<meta property="article:published_time" content="2009-12-26T12:00:00-04:00"/>
-
+<meta property="og:url" content="/2009/12/26/extending-python-with-modules-written-in-c/" /><meta property="article:published_time" content="2009-12-26T12:00:00-04:00"/>
 <meta property="article:modified_time" content="2009-12-26T12:00:00-04:00"/>
-
-
-
-
-
-
-
-
-
-
 
 <link rel="dns-prefetch" href="//fonts.googleapis.com" />
 <link rel="dns-prefetch" href="//fonts.gstatic.com" />
@@ -42,7 +25,7 @@ This code gives you a single method &ldquo;do()&rdquo; that will print the outpu
 <script type="text/javascript" src="/js/scripts.js"></script>
 <link rel="shortcut icon" href="/favicon.ico">
 
-<script>
+<script type="application/javascript">
 var doNotTrack = false;
 if (!doNotTrack) {
 	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
@@ -91,8 +74,6 @@ if (!doNotTrack) {
 			<p>Using C (or C++) to create Python modules is really quite simple, providing you know a little C of course. I recently had to do some work around getting a bunch of legacy C code talking to a newer system and thought I&rsquo;d post a nice simple example of how the Python extensions work.</p>
 
 <p>This code gives you a single method &ldquo;do()&rdquo; that will print the output of a command, passed to it as a string, to stdout and return the exit code as a python int.</p>
-
-<p></p>
 
 <p>Dump this into <code>mycmd.c</code></p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;Python.h&gt;</span><span style="color:#75715e">
@@ -160,7 +141,7 @@ Darwin codemine.codelounge.int 10.2.0 Darwin Kernel Version 10.2.0: Tue Nov  3 1
 	
 <div class="authorbox clearfix">
 	<figure class="authorbox__avatar">
-		<img alt="Gregory Armer avatar" src="/avatar.jpeg" class="avatar" height="90" width="90">
+		<img alt="Gregory Armer avatar" src="/greg.png" class="avatar" height="90" width="90">
 	</figure>
 	<div class="authorbox__header">
 		<span class="authorbox__name">About Gregory Armer</span>
@@ -182,7 +163,7 @@ Darwin codemine.codelounge.int 10.2.0 Darwin Kernel Version 10.2.0: Tue Nov  3 1
 	
 <div class="comments">
 	<div id="disqus_thread"></div>
-<script>
+<script type="application/javascript">
     var disqus_config = function () {
     
     
@@ -289,7 +270,7 @@ Darwin codemine.codelounge.int 10.2.0 Darwin Kernel Version 10.2.0: Tue Nov  3 1
 	</div>
 		<footer class="footer" itemscope="itemscope" itemtype="http://schema.org/WPFooter">
 			<div class="container container-inner">
-				<p class="footer__copyright">&copy; 2018 Gregory Armer. All rights reserved.</p>
+				<p class="footer__copyright">&copy; 2019 Gregory Armer. All rights reserved.</p>
 			</div>
 		</footer>
 	</div>

@@ -19,9 +19,7 @@
       <guid>/2009/10/07/simple-http-post-in-java/</guid>
       <description>&lt;p&gt;Today I was helping a friend debug a web service they had implemented. Their side was working correctly but the developer who was trying to interface with it seemed to be running into many problems. Since they were integrating an application written in Java, I whipped up a simple test for them. All we really needed to do was to send a few variables using HTTP POST to this resource and make sure it returned exactly what we were expecting.&lt;/p&gt;
 
-&lt;p&gt;This uses standard libraries only, and doesn&amp;rsquo;t require anything third party. It does nothing fancy at all, just simply posts data to a URL. Hopefully you find this useful at some point.&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;This uses standard libraries only, and doesn&amp;rsquo;t require anything third party. It does nothing fancy at all, just simply posts data to a URL. Hopefully you find this useful at some point.&lt;/p&gt;</description>
     </item>
     
   </channel>

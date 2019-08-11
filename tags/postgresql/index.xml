@@ -19,9 +19,7 @@
       <guid>/2010/07/09/generating-a-dependency-graph-for-a-postgresql-database/</guid>
       <description>&lt;p&gt;This post was mostly inspired by &lt;a href=&#34;http://code.activestate.com/recipes/577298-plot-database-table-dependecies-for-a-mysql-databa/&#34;&gt;this one&lt;/a&gt;, which shows how to generate a dependency graph for a MySQL database. Here we do something similar for PostgreSQL.&lt;/p&gt;
 
-&lt;p&gt;This script will generate the required digraph data to pipe into &lt;a href=&#34;http://www.graphviz.org/&#34; target=&#34;_blank&#34;&gt;graphviz dot&lt;/a&gt; which will generate a visual representation of dependencies in a database schema, based on foreign key constraints.&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;This script will generate the required digraph data to pipe into &lt;a href=&#34;http://www.graphviz.org/&#34; target=&#34;_blank&#34;&gt;graphviz dot&lt;/a&gt; which will generate a visual representation of dependencies in a database schema, based on foreign key constraints.&lt;/p&gt;</description>
     </item>
     
   </channel>

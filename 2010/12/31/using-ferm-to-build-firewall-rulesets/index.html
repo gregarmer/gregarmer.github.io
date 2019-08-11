@@ -5,31 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Using ferm to build firewall rulesets</title>
 
-<meta name="generator" content="Hugo 0.42.1" />
+<meta name="generator" content="Hugo 0.52" />
 <meta property="og:title" content="Using ferm to build firewall rulesets" />
 <meta property="og:description" content="This post is thanks to a suggestion from JP Viljoen to check out ferm. Well, I did, and it&rsquo;s fairly neat. You get to express your firewall configuration in structures resembling simple C code along with using things like arrays, functions and if / else constructs which makes building complex rulesets quite a simple task.
 
-I&rsquo;ve included an example configuration below of one of my machines. The network configuration is not extremely complex, but there is a mix of IPv4, IPv6 and - as this is an IRC server - some DNAT to make the IRC service available on a number of other privileged ports without having the service actually listen on those ports. This particular server is running Debian however ferm is basically just a front to ip(6)tables so it&rsquo;ll run pretty much anywhere that runs.
-
-" />
+I&rsquo;ve included an example configuration below of one of my machines. The network configuration is not extremely complex, but there is a mix of IPv4, IPv6 and - as this is an IRC server - some DNAT to make the IRC service available on a number of other privileged ports without having the service actually listen on those ports. This particular server is running Debian however ferm is basically just a front to ip(6)tables so it&rsquo;ll run pretty much anywhere that runs." />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="/2010/12/31/using-ferm-to-build-firewall-rulesets/" />
-
-
-
-<meta property="article:published_time" content="2010-12-31T12:00:00-04:00"/>
-
+<meta property="og:url" content="/2010/12/31/using-ferm-to-build-firewall-rulesets/" /><meta property="article:published_time" content="2010-12-31T12:00:00-04:00"/>
 <meta property="article:modified_time" content="2010-12-31T12:00:00-04:00"/>
-
-
-
-
-
-
-
-
-
-
 
 <link rel="dns-prefetch" href="//fonts.googleapis.com" />
 <link rel="dns-prefetch" href="//fonts.gstatic.com" />
@@ -42,7 +25,7 @@ I&rsquo;ve included an example configuration below of one of my machines. The ne
 <script type="text/javascript" src="/js/scripts.js"></script>
 <link rel="shortcut icon" href="/favicon.ico">
 
-<script>
+<script type="application/javascript">
 var doNotTrack = false;
 if (!doNotTrack) {
 	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
@@ -91,8 +74,6 @@ if (!doNotTrack) {
 			<p>This post is thanks to a suggestion from <a href="http://twitter.com/froztbyte">JP Viljoen</a> to check out <a href="http://ferm.foo-projects.org/">ferm</a>. Well, I did, and it&rsquo;s fairly neat. You get to express your firewall configuration in structures resembling simple C code along with using things like arrays, functions and if / else constructs which makes building complex rulesets quite a simple task.</p>
 
 <p>I&rsquo;ve included an example configuration below of one of my machines. The network configuration is not extremely complex, but there is a mix of IPv4, IPv6 and - as this is an IRC server - some DNAT to make the IRC service available on a number of other privileged ports without having the service actually listen on those ports. This particular server is running Debian however ferm is basically just a front to ip(6)tables so it&rsquo;ll run pretty much anywhere that runs.</p>
-
-<p></p>
 
 <p>First off, here is my network interface configuration to give you an idea of what is where:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-console" data-lang="console">kore:~# cat /etc/network/interfaces
@@ -250,7 +231,7 @@ domain ip6 table filter {
 	
 <div class="authorbox clearfix">
 	<figure class="authorbox__avatar">
-		<img alt="Gregory Armer avatar" src="/avatar.jpeg" class="avatar" height="90" width="90">
+		<img alt="Gregory Armer avatar" src="/greg.png" class="avatar" height="90" width="90">
 	</figure>
 	<div class="authorbox__header">
 		<span class="authorbox__name">About Gregory Armer</span>
@@ -272,7 +253,7 @@ domain ip6 table filter {
 	
 <div class="comments">
 	<div id="disqus_thread"></div>
-<script>
+<script type="application/javascript">
     var disqus_config = function () {
     
     
@@ -379,7 +360,7 @@ domain ip6 table filter {
 	</div>
 		<footer class="footer" itemscope="itemscope" itemtype="http://schema.org/WPFooter">
 			<div class="container container-inner">
-				<p class="footer__copyright">&copy; 2018 Gregory Armer. All rights reserved.</p>
+				<p class="footer__copyright">&copy; 2019 Gregory Armer. All rights reserved.</p>
 			</div>
 		</footer>
 	</div>

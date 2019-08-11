@@ -5,29 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Blocking web traffic behind an Elastic Load Balancer (ELB)</title>
 
-<meta name="generator" content="Hugo 0.42.1" />
+<meta name="generator" content="Hugo 0.52" />
 <meta property="og:title" content="Blocking web traffic behind an Elastic Load Balancer (ELB)" />
-<meta property="og:description" content="Over the past few hours we&rsquo;ve been on the receiving end of a fairly large scale set of web requests (read: attack) to a website we host over on Amazon EC2. Our setup is not really that complicated, however we encountered a problem that wasn&rsquo;t that easy to solve.
-
-" />
+<meta property="og:description" content="Over the past few hours we&rsquo;ve been on the receiving end of a fairly large scale set of web requests (read: attack) to a website we host over on Amazon EC2. Our setup is not really that complicated, however we encountered a problem that wasn&rsquo;t that easy to solve." />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="/2012/09/28/blocking-web-traffic-behind-an-elastic-load-balancer-elb/" />
-
-
-
-<meta property="article:published_time" content="2012-09-28T12:00:00-04:00"/>
-
+<meta property="og:url" content="/2012/09/28/blocking-web-traffic-behind-an-elastic-load-balancer-elb/" /><meta property="article:published_time" content="2012-09-28T12:00:00-04:00"/>
 <meta property="article:modified_time" content="2012-09-28T12:00:00-04:00"/>
-
-
-
-
-
-
-
-
-
-
 
 <link rel="dns-prefetch" href="//fonts.googleapis.com" />
 <link rel="dns-prefetch" href="//fonts.gstatic.com" />
@@ -40,7 +23,7 @@
 <script type="text/javascript" src="/js/scripts.js"></script>
 <link rel="shortcut icon" href="/favicon.ico">
 
-<script>
+<script type="application/javascript">
 var doNotTrack = false;
 if (!doNotTrack) {
 	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
@@ -87,8 +70,6 @@ if (!doNotTrack) {
 		</header>
 		<div class="post__content clearfix">
 			<p>Over the past few hours we&rsquo;ve been on the receiving end of a fairly large scale set of web requests (read: attack) to a website we host over on Amazon EC2. Our setup is not really that complicated, however we encountered a problem that wasn&rsquo;t that easy to solve.</p>
-
-<p></p>
 
 <h4 id="our-setup">Our Setup</h4>
 
@@ -152,7 +133,7 @@ deny 208.96.18.11;                    // Have some HTTP 403
 	
 <div class="authorbox clearfix">
 	<figure class="authorbox__avatar">
-		<img alt="Gregory Armer avatar" src="/avatar.jpeg" class="avatar" height="90" width="90">
+		<img alt="Gregory Armer avatar" src="/greg.png" class="avatar" height="90" width="90">
 	</figure>
 	<div class="authorbox__header">
 		<span class="authorbox__name">About Gregory Armer</span>
@@ -174,7 +155,7 @@ deny 208.96.18.11;                    // Have some HTTP 403
 	
 <div class="comments">
 	<div id="disqus_thread"></div>
-<script>
+<script type="application/javascript">
     var disqus_config = function () {
     
     
@@ -281,7 +262,7 @@ deny 208.96.18.11;                    // Have some HTTP 403
 	</div>
 		<footer class="footer" itemscope="itemscope" itemtype="http://schema.org/WPFooter">
 			<div class="container container-inner">
-				<p class="footer__copyright">&copy; 2018 Gregory Armer. All rights reserved.</p>
+				<p class="footer__copyright">&copy; 2019 Gregory Armer. All rights reserved.</p>
 			</div>
 		</footer>
 	</div>
