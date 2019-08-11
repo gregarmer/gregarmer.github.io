@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>/2019/08/11/some-fun-with-monitoring/</loc>
+    <lastmod>2019-08-11T12:37:00-04:00</lastmod>
+  </url>
+  
+  <url>
     <loc>/2017/07/29/building-a-home-lab/</loc>
     <lastmod>2017-07-29T22:27:00-04:00</lastmod>
   </url>
@@ -164,7 +169,7 @@
   
   <url>
     <loc>/</loc>
-    <lastmod>2017-07-29T22:27:00-04:00</lastmod>
+    <lastmod>2019-08-11T12:37:00-04:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -247,7 +252,7 @@
   
   <url>
     <loc>/tags/linux/</loc>
-    <lastmod>2017-07-29T22:27:00-04:00</lastmod>
+    <lastmod>2019-08-11T12:37:00-04:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -258,8 +263,20 @@
   </url>
   
   <url>
+    <loc>/tags/monitoring/</loc>
+    <lastmod>2019-08-11T12:37:00-04:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>/tags/networking/</loc>
-    <lastmod>2017-07-29T22:27:00-04:00</lastmod>
+    <lastmod>2019-08-11T12:37:00-04:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/nomad/</loc>
+    <lastmod>2019-08-11T12:37:00-04:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -283,7 +300,7 @@
   
   <url>
     <loc>/post/</loc>
-    <lastmod>2017-07-29T22:27:00-04:00</lastmod>
+    <lastmod>2019-08-11T12:37:00-04:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -325,7 +342,7 @@
   
   <url>
     <loc>/tags/unix/</loc>
-    <lastmod>2017-07-29T22:27:00-04:00</lastmod>
+    <lastmod>2019-08-11T12:37:00-04:00</lastmod>
     <priority>0</priority>
   </url>
   

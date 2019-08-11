@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Some fun with monitoring</title>
+
+<meta name="generator" content="Hugo 0.52" />
+<meta property="og:title" content="Some fun with monitoring" />
+<meta property="og:description" content="I recently switched my home lab from ProxMox VMs to HashiCorp Nomad,
+Consul, Vault and containers running on bare metal servers, and I needed
+a way to monitor this stack, my applications as well as external systems that
+I care about." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/2019/08/11/some-fun-with-monitoring/" /><meta property="article:published_time" content="2019-08-11T12:37:00-04:00"/>
+<meta property="article:modified_time" content="2019-08-11T12:37:00-04:00"/>
+
+<link rel="dns-prefetch" href="//fonts.googleapis.com" />
+<link rel="dns-prefetch" href="//fonts.gstatic.com" />
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,700" type="text/css" media="all" />
+<link rel="stylesheet" href="/css/style.css" type="text/css" media="all" />
+
+<link rel="stylesheet" href="/custom.css">
+
+<script type="text/javascript" src="/js/scripts.js"></script>
+<link rel="shortcut icon" href="/favicon.ico">
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-11073510-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+</head>
+<body class="body body-right-sidebar mobile" itemscope="itemscope" itemtype="http://schema.org/WebPage">
+	<div class="container container-outer">
+		<header class="header" itemscope="itemscope" itemtype="http://schema.org/WPHeader">
+			<div class="container container-inner clearfix">
+				<div class="logo" role="banner" itemscope="itemscope" itemtype="http://schema.org/Brand">
+					<a class="logo__link" href="/" title="./sigterm.sh" rel="home">
+						<h1 class="logo__title">./sigterm.sh</h1>
+						<h2 class="logo__tagline">The raddest of all the kill signals.</h2>
+					</a>
+				</div>
+			</div>
+			
+<nav class="menu" itemscope="itemscope" itemtype="http://schema.org/SiteNavigationElement">
+	<ul class="menu__list">
+		<li class="menu__item"><a class="menu__link" href="/">BLOG</a></li>
+		<li class="menu__item"><a class="menu__link" href="/code/">CODE</a></li>
+		<li class="menu__item"><a class="menu__link" href="/dn42-peering/">DN42 PEERING</a></li>
+		<li class="menu__item"><a class="menu__link" href="/about/">ABOUT</a></li>
+	</ul>
+</nav>
+
+		</header>
+		<div class="wrapper clearfix">
+
+<main class="main-content content" role="main" itemprop="mainContentOfPage">
+	<article class="post">
+		<header class="post__header clearfix">
+			<h1 class="post__title">Some fun with monitoring</h1>
+			<p class="post__meta meta">
+				<svg class="icon icon-time" height="14" viewBox="0 0 16 16" width="14" xmlns="http://www.w3.org/2000/svg"><path d="m8-.0000003c-4.4 0-8 3.6-8 8 0 4.4000003 3.6 8.0000003 8 8.0000003 4.4 0 8-3.6 8-8.0000003 0-4.4-3.6-8-8-8zm0 14.4000003c-3.52 0-6.4-2.88-6.4-6.4000003 0-3.52 2.88-6.4 6.4-6.4 3.52 0 6.4 2.88 6.4 6.4 0 3.5200003-2.88 6.4000003-6.4 6.4000003zm.4-10.4000003h-1.2v4.8l4.16 2.5600003.64-1.04-3.6-2.1600003z"/></svg>
+				<time class="post__meta-date" datetime="2019-08-11T12:37:00">August 11, 2019</time>
+			</p>
+		</header>
+		<div class="post__content clearfix">
+			<figure class="post__thumbnail">
+				<img src="/static/sigterm-site-monitor.png" alt="Some fun with monitoring">
+			</figure>
+			<p>I recently switched my home lab from ProxMox VMs to HashiCorp <a href="https://www.nomadproject.io/">Nomad</a>,
+<a href="https://www.consul.io/">Consul</a>, <a href="https://www.vaultproject.io/">Vault</a> and containers running on bare metal servers, and I needed
+a way to monitor this stack, my applications as well as external systems that
+I care about.</p>
+
+<h5 id="the-monitoring-stack">The Monitoring Stack</h5>
+
+<p>I looked at a bunch of options and finally settled on <a href="https://prometheus.io/docs/introduction/overview/">Prometheus</a>, <a href="https://grafana.com/">Grafana</a>
+and some other smaller exporters that could scrape the data I needed and
+present it in a simple way.</p>
+
+<h6 id="exporters">Exporters</h6>
+
+<p>If you&rsquo;re not familiar with how <a href="https://prometheus.io/docs/introduction/overview/">Prometheus</a> works, the basic essential you
+need to know is that <a href="https://prometheus.io/docs/introduction/overview/">Prometheus</a> servers will scrape targets periodically to
+collect metrics. This is a problem if you need to scrape data from a network
+device that only supports SNMP, or you need connection metrics for a website
+where you can&rsquo;t install more detailed web server metrics exporters. I can&rsquo;t
+install a Prometheus exporter on my Juniper firewall for example, well I
+probably could since it&rsquo;s a BSD OS underneath but that would most likely mean
+a lot of pain during software upgrades. However, there are two exporters that
+can help out here:</p>
+
+<ul>
+<li><a href="https://github.com/prometheus/snmp_exporter">snmp-exporter</a> - Act as a proxy and scrape SNMP data from a device</li>
+<li><a href="https://github.com/prometheus/blackbox_exporter">blackbox-exporter</a> - Act as a proxy and scrape HTTP (and other) metrics from
+a url</li>
+</ul>
+
+<h5 id="the-configuration">The configuration</h5>
+
+<p>I&rsquo;m running <a href="https://prometheus.io/docs/introduction/overview/">Prometheus</a>, Alertmanager, <a href="https://github.com/prometheus/snmp_exporter">snmp-exporter</a> and <a href="https://github.com/prometheus/blackbox_exporter">blackbox-exporter</a>
+in <a href="https://www.nomadproject.io/">Nomad</a> with <a href="https://www.consul.io/">Consul</a> service discovery.  My Prometheus config for the
+<a href="https://github.com/prometheus/blackbox_exporter">blackbox-exporter</a> and <a href="https://github.com/prometheus/snmp_exporter">snmp-exporter</a> are below:</p>
+
+<h6 id="blackbox-exporter-config">Blackbox Exporter Config</h6>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">scrape_configs:
+  - job_name: <span style="color:#e6db74">&#39;blackbox&#39;</span>
+    metrics_path: /probe
+    params:
+      module: [http_2xx]  <span style="color:#75715e"># Look for a HTTP 200 response.</span>
+    static_configs:
+      - targets:
+        - https://sigterm.sh
+        - https://lg.gxa.dn42.io
+        - https://mx.gxa.io/ping/
+        - https://nyc-<span style="color:#ae81ff">1.</span>us.gxa.dn42.io/api/bgp
+        - https://sfo-<span style="color:#ae81ff">1.</span>us.gxa.dn42.io/api/bgp
+        - https://fra-<span style="color:#ae81ff">1.</span>de.gxa.dn42.io/api/bgp
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: __param_target
+      - source_labels: [__param_target]
+        target_label: instance
+      - target_label: __address__
+        replacement: blackbox-exporter.service.consul:<span style="color:#ae81ff">9115</span>
+        <span style="color:#75715e"># ^ The blackbox exporter&#39;s real hostname:port.</span>
+
+  - job_name: <span style="color:#e6db74">&#39;blackbox-imap&#39;</span>
+    metrics_path: /probe
+    params:
+      module: [imap_starttls]
+    static_configs:
+      - targets:
+        - mx.gxa.io:<span style="color:#ae81ff">143</span>
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: __param_target
+      - source_labels: [__param_target]
+        target_label: instance
+      - target_label: __address__
+        replacement: blackbox-exporter.service.consul:<span style="color:#ae81ff">9115</span>
+        <span style="color:#75715e"># ^ The blackbox exporter&#39;s real hostname:port.</span>
+
+  - job_name: <span style="color:#e6db74">&#39;blackbox-smtp&#39;</span>
+    metrics_path: /probe
+    params:
+      module: [smtp_starttls]
+    static_configs:
+      - targets:
+        - mx.gxa.io:<span style="color:#ae81ff">587</span>
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: __param_target
+      - source_labels: [__param_target]
+        target_label: instance
+      - target_label: __address__
+        replacement: blackbox-exporter.service.consul:<span style="color:#ae81ff">9115</span>
+        <span style="color:#75715e"># ^ The blackbox exporter&#39;s real hostname:port.</span></code></pre></div>
+<h6 id="snmp-exporter-config">SNMP Exporter Config</h6>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">scrape_configs:
+  - job_name: <span style="color:#e6db74">&#39;snmp&#39;</span>
+    scrape_interval: 60s
+    scrape_timeout: 55s
+    static_configs:
+      - targets:
+        - <span style="color:#ae81ff">172.29</span>.<span style="color:#ae81ff">255.6</span>
+        - <span style="color:#ae81ff">172.29</span>.<span style="color:#ae81ff">255.7</span>
+        - <span style="color:#ae81ff">172.29</span>.<span style="color:#ae81ff">60.254</span>
+        - <span style="color:#ae81ff">172.29</span>.<span style="color:#ae81ff">58.1</span>
+    metrics_path: /snmp
+    params:
+      module: [if_mib]
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: __param_target
+      - source_labels: [__param_target]
+        target_label: instance
+      - target_label: __address__
+        replacement: snmp-exporter.service.consul:<span style="color:#ae81ff">9116</span>
+        <span style="color:#75715e"># ^ The SNMP exporter&#39;s real hostname:port.</span></code></pre></div>
+<h3 id="the-final-result">The Final Result</h3>
+
+<p>Here are a few graphs I threw together demonstrating some SNMP data from my core
+firewalls and switches, along with some temperature and relative humidity
+graphs from my <a href="https://github.com/gregarmer/pine64-temp-humidity">pine64 project</a>, a monitor for SMTP and IMAP connection latency
+and finally some SSL certificate expiration monitoring.</p>
+
+<p><img src="/static/grafana-graphs.png" alt="" /></p>
+		</div>
+		
+<div class="post__tags tags clearfix">
+	<svg class="icon icon-tag" width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path d="m4.73135 3.3795002q0-.5597-.39604-.9557-.39604-.3961-.95577-.3961-.55974 0-.95578.3961-.39604.396-.39604.9557 0 .5598.39604.9558.39604.3961.95578.3961.55973 0 .95577-.3961.39604-.396.39604-.9558zm11.26865 6.0832q0 .5596998-.39076.9504998l-5.18548 5.196q-.41188.3908-.9610504.3908-.55974 0-.9505-.3908l-7.5511496-7.5616998q-.40132-.3907-.68119-1.0666-.27987-.6759-.27987-1.2357v-4.3934q0-.54920004.40132-.95050004.40132-.4013.9505-.4013h4.39339q.55974 0 1.23565.2799.67591.2798 1.07723.6812l7.55115 7.54060004q.39076.4118.39076.961z"/></svg>
+	<ul class="tags__list">
+		<li class="tags__item"><a class="tags__link" href="/tags/unix/" rel="tag">unix</a></li>
+		<li class="tags__item"><a class="tags__link" href="/tags/linux/" rel="tag">linux</a></li>
+		<li class="tags__item"><a class="tags__link" href="/tags/networking/" rel="tag">networking</a></li>
+		<li class="tags__item"><a class="tags__link" href="/tags/nomad/" rel="tag">nomad</a></li>
+		<li class="tags__item"><a class="tags__link" href="/tags/monitoring/" rel="tag">monitoring</a></li>
+	</ul>
+</div>
+
+	</article>
+	
+<div class="authorbox clearfix">
+	<figure class="authorbox__avatar">
+		<img alt="Gregory Armer avatar" src="/greg.png" class="avatar" height="90" width="90">
+	</figure>
+	<div class="authorbox__header">
+		<span class="authorbox__name">About Gregory Armer</span>
+	</div>
+	<div class="authorbox__description">
+		Sometimes I just want to give it all up and become a handsome billionaire.
+	</div>
+</div>
+	
+<nav class="post-nav row clearfix" itemscope="itemscope" itemtype="http://schema.org/SiteNavigationElement">
+	<div class="post-nav__item post-nav__item--prev col-1-2">
+		<a class="post-nav__link" href="/2017/07/29/building-a-home-lab/" rel="prev"><span class="post-nav__caption">«Previous</span><p class="post-nav__post-title">Building a home lab</p></a>
+	</div>
+</nav>
+
+	
+<div class="comments">
+	<div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "codegeeksh" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+</main>
+
+<aside class="sidebar" itemscope="itemscope" itemtype="http://schema.org/WPSideBar">
+	
+<div class="widget-search widget">
+	<form class="widget-search__form" role="search" method="get" action="//google.com/search">
+		<label>
+			<span class="screen-reader-text">Search for:</span>
+			<input class="widget-search__field" type="search" placeholder="SEARCH..." value="" name="q">
+		</label>
+		<input class="widget-search__submit" type="submit" value="Search">
+		<input type="hidden" name="sitesearch" value="/" />
+	</form>
+</div>
+	
+<div class="widget-recent widget">
+	<h4 class="widget__title">Recent Posts</h4>
+	<div class="widget__content">
+		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/2019/08/11/some-fun-with-monitoring/">Some fun with monitoring</a></li>
+			<li class="widget__item"><a class="widget__link" href="/2017/07/29/building-a-home-lab/">Building a home lab</a></li>
+			<li class="widget__item"><a class="widget__link" href="/2016/11/05/passing-vlans-over-an-lacp-trunk-in-openbsd/">Passing VLANs over an LACP trunk in OpenBSD</a></li>
+			<li class="widget__item"><a class="widget__link" href="/2015/03/08/recording-backend-processing-time-in-go/">Recording backend processing time in Golang</a></li>
+			<li class="widget__item"><a class="widget__link" href="/2015/01/06/announcing-flake8-diff/">Announcing flake8-diff</a></li>
+			<li class="widget__item"><a class="widget__link" href="/2014/10/26/ssl-configuration/">SSL Configuration</a></li>
+			<li class="widget__item"><a class="widget__link" href="/2014/10/26/google-inbox/">Thoughts on Google Inbox</a></li>
+		</ul>
+	</div>
+</div>
+
+	
+	
+<div class="widget-social widget">
+	<h4 class="widget-social__title widget__title">Social</h4>
+	<div class="widget-social__content widget__content">
+		<div class="widget-social__item widget__item">
+			<a class="widget-social__link widget__link btn" title="Twitter" rel="noopener noreferrer" href="https://twitter.com/gregarmer" target="_blank">
+				<svg class="widget-social__link-icon icon-twitter" viewBox="0 0 384 312" width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill="#fff"><path d="m384 36.9c-14.1 6.3-29.3 10.5-45.2 12.4 16.3-9.7 28.8-25.2 34.6-43.6-15.2 9-32.1 15.6-50 19.1-14.4-15.2-34.9-24.8-57.5-24.8-43.5 0-78.8 35.3-78.8 78.8 0 6.2.7 12.2 2 17.9-65.5-3.3-123.5-34.6-162.4-82.3-6.7 11.6-10.6 25.2-10.6 39.6 0 27.3 13.9 51.4 35 65.6-12.9-.4-25.1-4-35.7-9.9v1c0 38.2 27.2 70 63.2 77.2-6.6 1.8-13.6 2.8-20.8 2.8-5.1 0-10-.5-14.8-1.4 10 31.3 39.1 54.1 73.6 54.7-27 21.1-60.9 33.7-97.8 33.7-6.4 0-12.6-.4-18.8-1.1 34.9 22.4 76.3 35.4 120.8 35.4 144.9 0 224.1-120 224.1-224.1 0-3.4-.1-6.8-.2-10.2 15.4-11.1 28.7-25 39.3-40.8z"/></svg>
+				<span>Twitter</span>
+			</a>
+		</div>
+		<div class="widget-social__item widget__item">
+			<a class="widget-social__link widget__link btn" title="GitHub" rel="noopener noreferrer" href="https://github.com/gregarmer" target="_blank">
+				<svg class="widget-social__link-icon icon-github" viewBox="0 0 384 374" width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill="#fff"><path d="m192 0c-106.1 0-192 85.8-192 191.7 0 84.7 55 156.6 131.3 181.9 9.6 1.8 13.1-4.2 13.1-9.2 0-4.6-.2-16.6-.3-32.6-53.4 11.6-64.7-25.7-64.7-25.7-8.7-22.1-21.3-28-21.3-28-17.4-11.9 1.3-11.6 1.3-11.6 19.3 1.4 29.4 19.8 29.4 19.8 17.1 29.3 44.9 20.8 55.9 15.9 1.7-12.4 6.7-20.8 12.2-25.6-42.6-4.8-87.5-21.3-87.5-94.8 0-20.9 7.5-38 19.8-51.4-2-4.9-8.6-24.3 1.9-50.7 0 0 16.1-5.2 52.8 19.7 15.3-4.2 31.7-6.4 48.1-6.5 16.3.1 32.7 2.2 48.1 6.5 36.7-24.8 52.8-19.7 52.8-19.7 10.5 26.4 3.9 45.9 1.9 50.7 12.3 13.4 19.7 30.5 19.7 51.4 0 73.7-44.9 89.9-87.7 94.6 6.9 5.9 13 17.6 13 35.5 0 25.6-.2 46.3-.2 52.6 0 5.1 3.5 11.1 13.2 9.2 76.2-25.5 131.2-97.3 131.2-182 0-105.9-86-191.7-192-191.7z"/></svg>
+				<span>GitHub</span>
+			</a>
+		</div>
+	</div>
+</div>
+
+	
+<div class="widget-taglist widget">
+	<h4 class="widget__title">Tags</h4>
+	<div class="widget__content">
+		<a class="widget__link widget__link--taglist" href="/tags/algorithms" title="algorithms">algorithms (1)</a>
+		<a class="widget__link widget__link--taglist" href="/tags/amazonaws" title="amazonaws">amazonaws (1)</a>
+		<a class="widget__link widget__link--taglist" href="/tags/c" title="c">c (2)</a>
+		<a class="widget__link widget__link--taglist" href="/tags/code" title="code">code (10)</a>
+		<a class="widget__link widget__link--taglist" href="/tags/debian" title="debian">debian (2)</a>
+		<a class="widget__link widget__link--taglist" href="/tags/django" title="django">django (1)</a>
+		<a class="widget__link widget__link--taglist" href="/tags/freebsd" title="freebsd">freebsd (1)</a>
+		<a class="widget__link widget__link--taglist" href="/tags/general" title="general">general (6)</a>
+		<a class="widget__link widget__link--taglist" href="/tags/git" title="git">git (1)</a>
+		<a class="widget__link widget__link--taglist" href="/tags/golang" title="golang">golang (1)</a>
+		<a class="widget__link widget__link--taglist" href="/tags/ipv6" title="ipv6">ipv6 (1)</a>
+		<a class="widget__link widget__link--taglist" href="/tags/java" title="java">java (1)</a>
+		<a class="widget__link widget__link--taglist" href="/tags/linux" title="linux">linux (6)</a>
+		<a class="widget__link widget__link--taglist" href="/tags/mac" title="mac">mac (3)</a>
+		<a class="widget__link widget__link--taglist" href="/tags/monitoring" title="monitoring">monitoring (1)</a>
+		<a class="widget__link widget__link--taglist" href="/tags/networking" title="networking">networking (3)</a>
+		<a class="widget__link widget__link--taglist" href="/tags/nomad" title="nomad">nomad (1)</a>
+		<a class="widget__link widget__link--taglist" href="/tags/openbsd" title="openbsd">openbsd (1)</a>
+		<a class="widget__link widget__link--taglist" href="/tags/opensolaris" title="opensolaris">opensolaris (3)</a>
+		<a class="widget__link widget__link--taglist" href="/tags/postgresql" title="postgresql">postgresql (1)</a>
+		<a class="widget__link widget__link--taglist" href="/tags/puppet" title="puppet">puppet (1)</a>
+		<a class="widget__link widget__link--taglist" href="/tags/python" title="python">python (7)</a>
+		<a class="widget__link widget__link--taglist" href="/tags/random-thoughts" title="random-thoughts">random-thoughts (2)</a>
+		<a class="widget__link widget__link--taglist" href="/tags/security" title="security">security (4)</a>
+		<a class="widget__link widget__link--taglist" href="/tags/software-engineering" title="software-engineering">software-engineering (5)</a>
+		<a class="widget__link widget__link--taglist" href="/tags/unix" title="unix">unix (10)</a>
+		<a class="widget__link widget__link--taglist" href="/tags/zfs" title="zfs">zfs (2)</a>
+	</div>
+</div>
+</aside>
+
+	</div>
+		<footer class="footer" itemscope="itemscope" itemtype="http://schema.org/WPFooter">
+			<div class="container container-inner">
+				<p class="footer__copyright">&copy; 2019 Gregory Armer. All rights reserved.</p>
+			</div>
+		</footer>
+	</div>
+
+<script>
+	var navigation = responsiveNav(".menu", {
+		navClass: "menu--collapse",
+	});
+</script>
+</body>
+</html>

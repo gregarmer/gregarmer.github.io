@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Nomad on ./sigterm.sh</title>
+    <link>/tags/nomad/</link>
+    <description>Recent content in Nomad on ./sigterm.sh</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 11 Aug 2019 12:37:00 -0400</lastBuildDate>
+    
+	<atom:link href="/tags/nomad/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Some fun with monitoring</title>
+      <link>/2019/08/11/some-fun-with-monitoring/</link>
+      <pubDate>Sun, 11 Aug 2019 12:37:00 -0400</pubDate>
+      
+      <guid>/2019/08/11/some-fun-with-monitoring/</guid>
+      <description>&lt;p&gt;I recently switched my home lab from ProxMox VMs to HashiCorp &lt;a href=&#34;https://www.nomadproject.io/&#34;&gt;Nomad&lt;/a&gt;,
+&lt;a href=&#34;https://www.consul.io/&#34;&gt;Consul&lt;/a&gt;, &lt;a href=&#34;https://www.vaultproject.io/&#34;&gt;Vault&lt;/a&gt; and containers running on bare metal servers, and I needed
+a way to monitor this stack, my applications as well as external systems that
+I care about.&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>
